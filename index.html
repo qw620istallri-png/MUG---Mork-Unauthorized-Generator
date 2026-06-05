@@ -214,7 +214,8 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.05;b
 .home-legal p{margin:0 0 8px;}
 /* ===== compact A4 play-sheet ===== */
 .cmp-bar{max-width:820px;margin:14px auto 0;padding:0 24px;display:flex;justify-content:space-between;align-items:center;gap:14px;}
-.a4{width:794px;height:1123px;box-sizing:border-box;margin:18px auto 60px;background:#fff;color:#111;border:1px solid #ccc;border-radius:6px;padding:40px 44px;overflow:hidden;position:relative;}
+.cmp-baractions{display:flex;gap:10px;align-items:center;}
+.a4{width:794px;min-height:1123px;box-sizing:border-box;margin:18px auto 60px;background:#fff;color:#111;border:1px solid #ccc;border-radius:6px;padding:40px 44px;position:relative;}
 .cmp-inner{transform-origin:top center;}
 .cmp-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;border-bottom:2px solid #000;padding-bottom:12px;margin-bottom:14px;}
 .cmp-name{font:400 40px/1 Impact,'Arial Narrow',sans-serif;text-transform:uppercase;color:#000;}
@@ -239,6 +240,8 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.05;b
 .cmp-stack{margin:9px 0;break-inside:avoid;}
 .cmp-sk-l{color:#555;text-transform:uppercase;font-size:14px;letter-spacing:.03em;font-weight:700;}
 .cmp-sk-v{color:#111;font-size:14px;line-height:1.45;margin-top:2px;}
+.cmp-stat-hp .cmp-sv{color:#c1121f;}
+.score.scorehp{color:var(--red);}
 .a4 .term{color:#000;}
 .a4 .dice-term{color:#a40000;}
 
@@ -253,6 +256,10 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.05;b
 .pick-actions{margin-top:22px;}
 .pick-rnd{display:inline-flex;align-items:center;gap:9px;background:none;border:2px solid var(--yellow);color:var(--yellow);font:400 16px/1 Impact,'Arial Narrow',sans-serif;letter-spacing:.05em;text-transform:uppercase;padding:9px 18px;cursor:pointer;transform:rotate(-.6deg);}
 .pick-rnd:hover{background:var(--yellow);color:#0a0a0a;}
+.tabbar{display:flex;gap:8px;margin-top:20px;flex-wrap:wrap;}
+.tab{background:none;border:1px solid var(--line);color:var(--muted);font:700 12px/1 'Inter',sans-serif;letter-spacing:.1em;text-transform:uppercase;padding:9px 20px;cursor:pointer;border-radius:4px;}
+.tab:hover{color:var(--yellow);border-color:var(--yellow2);}
+.tab.on{background:var(--yellow);border-color:var(--yellow);color:#0a0a0a;}
 .classgrid{max-width:1280px;margin:24px auto 64px;padding:0 24px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;}
 @media(max-width:1040px){.classgrid{grid-template-columns:repeat(2,minmax(0,1fr));}}
 @media(max-width:560px){.classgrid{grid-template-columns:1fr;}}
@@ -280,10 +287,26 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.05;b
 #sheettools{background:#0d0d0d;border-bottom:1px solid var(--line);padding:12px 16px;}
 
 /* ===== optional-tables (oracle) view ===== */
-.tablesgrid{max-width:1280px;margin:18px auto 64px;padding:0 24px;column-width:330px;column-gap:16px;}
-.tablesgrid .card{break-inside:avoid;-webkit-column-break-inside:avoid;}
+.tablesgrid{max-width:1280px;margin:18px auto 64px;padding:0 24px;display:flex;gap:16px;align-items:flex-start;}
+.tablescol{flex:1 1 0;min-width:0;display:flex;flex-direction:column;gap:16px;}
 .oraclecat h2{cursor:default;}
 .oraclecat h2:hover{color:var(--yellow);}
+.spsfold{cursor:pointer;user-select:none;}
+.spsfold:hover{color:var(--yellow);}
+.reflist{font-size:13px;line-height:1.7;color:#c9c9bd;padding:6px 2px 2px;}
+.cvltcard h2{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.cvltrollall{font:700 10px/1 inherit;padding:6px 11px;}
+.cvltpart{padding:9px 0;border-bottom:1px solid var(--line);}
+.cvltpart:last-child{border-bottom:0;}
+.cvlthead{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.cvltlabel{font:700 11px/1.3 'Inter',sans-serif;letter-spacing:.05em;text-transform:uppercase;color:var(--yellow);}
+.cvltnote{font-size:10px;color:var(--muted);font-style:italic;}
+.cvltdice{margin-left:auto;display:flex;gap:4px;}
+.cvltdie{background:var(--yellow);color:#0a0a0a;border:0;border-radius:4px;font:800 13px/1 'Inter',sans-serif;min-width:26px;height:26px;cursor:pointer;}
+.cvltdie:hover{background:#fff200;}
+.cvltres{margin-top:5px;color:var(--ink);font-size:14px;line-height:1.45;}
+.cvltpara{color:var(--ink);font-size:15px;line-height:1.75;}
+.cvltpara b{color:var(--yellow);}
 .spssub{font:700 10px/1 inherit;letter-spacing:.12em;text-transform:uppercase;color:var(--yellow2);margin:14px 0 4px;padding-top:8px;border-top:1px solid var(--line);}
 .spssub:first-child{border-top:0;padding-top:0;margin-top:2px;}
 .spsrow{border-bottom:1px dashed var(--line);}
@@ -297,6 +320,9 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.05;b
 .scvmcard:hover{border-color:var(--accent,#caa24a);transform:translateY(-3px);}
 .sc-del{position:absolute;top:6px;right:10px;color:var(--muted);font:700 18px/1 inherit;cursor:pointer;padding:2px 7px;border-radius:4px;}
 .sc-del:hover{color:#fff;background:var(--red);}
+.sc-export{position:absolute;top:9px;right:36px;color:var(--muted);cursor:pointer;padding:2px 5px;border-radius:4px;}
+.sc-export:hover{color:var(--yellow);background:rgba(255,228,0,.12);}
+.sc-export svg{width:15px;height:15px;display:block;}
 .sc-name{font:400 22px/1.05 Impact,'Arial Narrow',sans-serif;text-transform:uppercase;color:#fff;padding-right:20px;}
 .sc-class{display:flex;align-items:center;gap:7px;color:var(--accent,#caa24a);font:700 11px/1 inherit;text-transform:uppercase;letter-spacing:.08em;margin-top:9px;}
 .sc-emblem{width:18px;height:18px;color:var(--accent,#caa24a);flex:none;}
@@ -307,13 +333,15 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.05;b
 
 /* ── Print / PDF ── */
 @media print{
-  @page{size:A4 portrait;margin:0;}
+  @page{size:A4 portrait;margin:14mm;}
   html,body{background:#fff!important;margin:0;padding:0;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
   body::before{display:none!important;}
   #topnav,#sheettools,.cmp-bar,.die-in,.boostbtn,.hint,.ref,.refblock,.toast{display:none!important;}
   .view{display:none!important;}
   #view-compact{display:block!important;}
-  .a4{width:210mm!important;height:296mm!important;margin:0!important;border:0!important;border-radius:0!important;overflow:hidden;}
+  .a4{width:auto!important;min-height:0!important;height:auto!important;margin:0!important;padding:0!important;border:0!important;border-radius:0!important;overflow:visible!important;}
+  .cmp-body{column-fill:auto;}
+  .cmp-block,.cmp-stack,.cmp-head,.cmp-stats,.cmp-row{break-inside:avoid;page-break-inside:avoid;}
 }
 </style>
 </head>
@@ -382,8 +410,9 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.05;b
 <section id="view-tables" class="view">
   <div class="pick-head">
     <h1 class="pick-h"><span class="l1" data-i18n="tablesL1">Roll the</span> <span class="l2 slant" data-i18n="tablesL2">Tables</span></h1>
+    <div class="pick-quote" data-i18n="tablesHint">Roll any table on its own — for play or inspiration. Click a table name to reveal and roll it.</div>
+    <div class="tabbar" id="tablestabs"></div>
   </div>
-  <div class="pick-quote" data-i18n="tablesHint">Roll any table on its own — for play or inspiration. Click a table name to reveal and roll it.</div>
   <div id="tablesgrid" class="tablesgrid"></div>
 </section>
 
@@ -397,7 +426,10 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.05;b
 <section id="view-compact" class="view">
   <div class="cmp-bar">
     <button class="navlink" data-nav="sheet" data-i18n="backSheet">← Back to sheet</button>
-    <button class="btn primary" data-app="print"><svg class="bi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V3h12v6M6 18H4v-6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v6h-2M6 14h12v7H6z"/></svg><span data-i18n="print">Print / PDF</span></button>
+    <div class="cmp-baractions">
+      <button class="btn" data-app="export" title="Export JSON"><svg class="bi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg><span data-i18n="export">Export</span></button>
+      <button class="btn primary" data-app="print"><svg class="bi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V3h12v6M6 18H4v-6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v6h-2M6 14h12v7H6z"/></svg><span data-i18n="print">Print / PDF</span></button>
+    </div>
   </div>
   <div id="compact"></div>
 </section>
@@ -1380,6 +1412,361 @@ People follow you unto death.`],
     [5,5,`Restoring the Blood-Countess Anthelia to her prime glory.`],
     [6,6,`**The hunt never ends,** you will make the world grey and cold and end it all.`],
   ]},
+
+  /* ---- The Wall ---- */
+  wallWhy:{rows:[
+    [1,1,`Because you are the last member of Dana's Tribe.`],
+    [2,2,`Because if you ever stop, demons will spill out of your soul.`],
+    [3,3,`Because you hold a promise to a demented loved one.`],
+    [4,4,`Because when all hope is lost, still you remain.`],
+    [5,5,`Because you are long dead and your armor can't rest.`],
+    [6,6,`Because you can't get this piece of shit armor off *fuck* it's *fucking heavy* I **can't get fucking rid of it.**`],
+  ]},
+
+  /* ---- The Hunter ---- */
+  hunterCaught:{rows:[
+    [1,1,`They took an eye for an eye. +1DR for close combat and -1DR at a distance. *Fuckers.*`],
+    [2,2,`They broke your jaw. You can only eat soup and have disavantage when speaking. *Cunts.*`],
+    [3,3,`They took everything you had. Start without any equipment or silver. *Bastards.*`],
+    [4,4,`They cut your index and middle finger. You're not a skilled bowman anymore. *Pillocks.*`],
+    [5,5,`They let you go. An assassin is trailing your group. *Twats.*`],
+    [6,6,`They broke your confidence. You cry at night and have a 1-in-6 chance of not receiving any omen the next day. *Cocks.*`],
+  ]},
+
+  /* ---- LOOT: Books to Find (d86 — d8 tens, d6 units) ---- */
+  lootBooks:{rows:[
+    [11,11,`The Art of Love and Torture, *Osmond von Schleswig*`],
+    [12,12,`About the Mystery of Cursed Letters, *Grey Mage Üro*`],
+    [13,13,`The Many Grottos of Grift, *Unknown*`],
+    [14,14,`The Unclean Hymnal, *Court Bard Moshmer the Unclean*`],
+    [15,15,`The Passion of Josilfa: Impure Adventures of the Clergy, *Unknown*`],
+    [16,16,`Capitulation of Reason, *Unknown*`],
+    [21,21,`A Record of Religious Practices from the West, *Hilda Bergg*`],
+    [22,22,`The Book of Holy Barrows, *Archbishop Vauquelin*`],
+    [23,23,`Formulary of Purple Alchemy, *Scholar Hierocles*`],
+    [24,24,`De Administrando Inferis, *Ravel the Wise*`],
+    [25,25,`Etymologiae Basilískos, *Isidore of Grift*`],
+    [26,26,`Vita Fratris Anuk Schleger, *Deacon Paul Sabas*`],
+    [31,31,`Heretic Converts of Galgenbeck, *Unknown*`],
+    [32,32,`Ater Chronicron: A History of Unjust Holy Wars, *Otter the Blasphemer*`],
+    [33,33,`History of the Prophets, *Magister Harribert Sünderkind*`],
+    [34,34,`Illuminating Teachings of the God of Murder, *Queen Anthelia*`],
+    [35,35,`Converse Theosophy of Tosk, *Bishop Berolt*`],
+    [36,36,`Codex Abrogans: Rethinking Forbidden Thoughts, *Duchess Anachorita*`],
+    [41,41,`Inpurus Descriptio Corporis Humani, *Unknown*`],
+    [42,42,`The Improper Taktikon, *Grand Field Marshal Tubertus Korn*`],
+    [43,43,`Cryptic Book of Nunnaminster, *Saint Mary the Bewitched*`],
+    [44,44,`The Collected Epistles of Archheretic Lobokran, *Unknown*`],
+    [45,45,`The Renaissance of the Profane Sciences, *Marianne von Lohengrin*`],
+    [46,46,`Royal Annals of Sarkash; Delluminated, *Ungur the Skinfiend*`],
+    [51,51,`Antiphonary of Glorious Sins, *Unknown*`],
+    [52,52,`Liber Mortis et Post Vitam, *Unknown Monk of the Abbey of Gallum*`],
+    [53,53,`The Defiled Psalter, *Dark Bishop Ekatrien*`],
+    [54,54,`Magna Glossatura, *Tabus the Heretic*`],
+    [55,55,`Vox Clamantis, *Unknown*`],
+    [56,56,`Pratica Della Augurium, *Ebbot Millesant*`],
+    [61,61,`The Decameron: Ten Days of Burning Flesh, *Prencipe Galeotto*`],
+    [62,62,`Embracing the Heresy, *Unknown*`],
+    [63,63,`The Broken Cross, *Lady Anny Ecgwynn*`],
+    [64,64,`In Pursuit of Deceptive Enlightenment, *Unknown*`],
+    [65,65,`A Treatise on Cults and How to Join Them, *Zultan the Heretic*`],
+    [66,66,`The Dark Fort, *Pelle Nilsson*`],
+    [71,71,`Libellus Maledictionum, *Most Prudent Magenta Mage Tizer*`],
+    [72,72,`The Ladder of Unclean Ascent, *Unknown*`],
+    [73,73,`The Fell Deeds of Hogin the Desecrator, *Magister Katarina*`],
+    [74,74,`Contra Ecclesiae Nomenclaturam, *Unknown*`],
+    [75,75,`Spiritual Meadow, *Unknown*`],
+    [76,76,`Synaxarion of Fallen Saints, *Dark Bishop Ekatrien*`],
+    [81,81,`How to Herd Goats; A Palimpsest of the Nameless Scriptures, *Unknown*`],
+    [82,82,`Klētorologion Sanctus et Profanus, *Reeve Bable of Wegerich*`],
+    [83,83,`Enchiriadis Studium Daemones, *Archmage Ächzer*`],
+    [84,84,`Lex Basilikum, A Diatribe Against Lusi and Arkh, *Court Jester Fix*`],
+    [85,85,`Topography of the Shimmering Fields, *Unknown*`],
+    [86,86,`The Nameless Scriptures: Apocrypha, *Anuk Schleger*`],
+  ]},
+  vaultItems:{rows:[
+    [1,1,`**Skull Clamp** — 400s\n*When attached to a skull, the clamp extracts thoughts and distills them into a vial. Drinking the milky liquid conveys the collected information to the drinker.*\nRoll a d20 when you ask a question of the clamped person. The extraction succeeds unless you fumble. On a 1, the person dies and you harness no thoughts.`],
+    [2,2,`**Acid Sack** — 100s\n*The perfect investment to get rid of evidence and trash.*\nA pouch made from a human stomach. It contains a caustic substance that destroys everything but the hardest matter in minutes.`],
+    [3,3,`**Berserker Horn** — 50s\nDrinking from the horn sends you into a furious rage, killing everyone and smashing everything in sight. Test DR9 Toughness when you take damage. On a success, you take no damage.\n*A drinking horn possessed by the fierce spirit of berserker king, Olof the Mastodon.*`],
+    [4,4,`**Hexed Straw Doll** — 200s\n*Reminds you of a person you used to know.*\nA doll you can link with a creature by adding some part of their body, like blood or hair. The target's mind and soul leave their body behind and become trapped in the now living doll. The original body becomes limp and appears dead. After d4 days, the creature returns to normal.`],
+    [5,5,`**Prison Sphere** — 100s\n*A spiked sphere of arcane might and the prison of the mightiest warrior in history. The Dominator Gar'thu Drex.*\nBy opening the prison sphere, you free Gar'thu Drex. The warrior starts killing. Successfully test DR16 Strength to prevent Gar'thu Drex from attacking you.\nGar'thu Drex — HP 39 | MORALE 9 | CURSED PLATE -d6 | BURNING ZWEIHÄNDER 2d8`],
+    [6,6,`**Demonflesh Quiver**\n*The quiver gurgles and fumes as it presses another arrow from its guts. The freshly birthed projectile glistens, covered in pouch juice.*\nThis quiver can hold up to six parasitic flesh arrows and produces d4 arrows per day. Attacks with these arrows ignore the target's armor as they latch on and burrow into the tender parts.\n*For one day, you know where an injured target hides.*`],
+    [7,7,`**Thief's Lantern** — 250s\n*The famous sneak thief Apple Fox used this lantern until her plague-caused death. Forever unseen, forever uncaught. Forgotten in death.*\nThis lantern has two modes of operation:\n- **LIGHT**: only the person who lit this lantern's candle can see its light.\n- **SMOKE**: instead of light, the lantern produces smoke, which quickly obscures an area.`],
+    [8,8,`**Cat Canopic Jar** — 150s\n*Seven lives weren't enough. An ancient queen's cat lives on in this jar.*\nBy rubbing this jar, you can summon the undead cat that lives inside. For a treat of fish or mice, it fulfills a mission. If the cat is destroyed in the line of duty, its ashes creep back into the jar in d4 days to regain its functionality.`],
+    [9,9,`**Antler Helmet** — 50s\n*Fashioned by the smiths of Kur from cursed soul ingots. The people trapped in the helmet vociferously lament their deaths.*\nCursed helmet -1 damage. Creatures who attack you in close combat take d4 damage.\n*Forget about sneaking while wearing this abomination. The screams give you away.*`],
+    [10,10,`**Blood Wine** — 25s\n*A wine pressed from human grapes in rusty iron maidens.*\nRoll d6 when you drink this wine.\n- 5–6: your maximum HP increases by 2d6.\n- 2–4: you vomit.\n- 1: you get a **dire infection** (an infection that can't be cured).`],
+    [11,11,`**Alien Death Knell** — 1,000s\n*The death-hungry apostles of an unnamable god used this bell to depopulate the land and unleash a riptide of zombies. Their world is now dead, preserved for eons in a state of torpidity.*\nWhen you ring this bell, every creature within earshot, including you, must successfully test DR10 Presence or die and turn into a zombie.`],
+    [12,12,`**Herbmaster Mask** — 25s\n*Occult herbmasters fashion their masks to reflect their souls. If a mask lands in the hands of strangers, the herbmasters find and poison the wearer to destroy the soiled mask.*\nWhile wearing this mask, you speak in a hollow voice that sends shivers down people's spines. Once per day, you can cast **Bestial Speech** without fail.`],
+  ]},
+  vaultRumors:{rows:[
+    [1,1,`The location of a person infected with **THE BLOATING.**`],
+    [2,2,`A local noblewoman birthed a baby with the head of a locust. The husband wants to get rid of it.`],
+    [3,3,`All employees of the **Guild of Tenacious Gravediggers** vanished without a trace.`],
+    [4,4,`The alchemist Tix searches for test subjects.`],
+    [5,5,`One of the local wells only produces thick blood.`],
+    [6,6,`By night, bells ring in an old ruin to the west.`],
+    [7,7,`A golden cat wanders the streets. Those who see it die or vanish after 7 days.`],
+    [8,8,`A priceless relic, kept in a church, was stolen, and replaced with a speaking skull.`],
+  ]},
+
+  /* ---- LOOT: Occult Treasures (d10) ---- */
+  occultTreasures:{rows:[
+    [1,1,`**Ash-grey ring** a finger-width wide. All that passes through is obliterated.`],
+    [2,2,`The keening music of this small, **vile flute** animates a fetus-sized meat golem in a nearby corpse.\nHP 5 · Morale — · No armor · Bite d4, immune to Powers.`],
+    [3,3,`A note explains: one taste from this **Famine Spoon** means death from slow starvation.`],
+    [4,4,`The image of a being in this malevolently-accurate **mirror** shows only the shameful truth of their soul.`],
+    [5,5,`**Vampiric phurba.** Heals you as it harms your target (d3), but beware: after stealing a total of 6 HP, test Presence DR14 or become addicted—you must then test Presence DR12 daily. Fail and you must stab someone with the knife before next sunrise. Or wither to ash and die as the sun rises.`],
+    [6,6,`A black **pearl.** If dropped in darkness it rolls towards the nearest exit to day.`],
+    [7,7,`This **torch** burns for an immortal hour. Hold it and live. You can lose limbs and enter negative HP but won't die unless you drop the torch or it burns out.`],
+    [8,8,`Silver **bird cage** slays whatever is placed behind its bars, slowly, over one long night. That which is killed reanimates twice as strong, as a raging uncontrollable undead.`],
+    [9,9,`**Black Crown of the Crippled King.** Wearing this crooks your body as you become aware that you and every creature within 100 yards gain +10 to attack rolls but -10 to defence rolls. Rolls that go above 20 count as crits, and below 1 as fumbles. The worn crown can only be removed in the pale light of a full moon.`],
+    [10,10,`Anyone wearing this ancient **blindfold** becomes invisible to those who breathe — though the undead attack them obsessively and nearby corpses awaken in moaning, unholy wrath.`],
+  ]},
+  /* ---- LOOT: Corpse Plundering (d66 — d6 tens, d6 units) ---- */
+  corpsePlunder:{rows:[
+    [11,16,`The remains of something worthless crumbles in your hands.`],
+    [21,21,`Pot filled with extremely potent itching ointment.`],
+    [22,22,`Necklace of human teeth.`],
+    [23,23,`Bag of angry, venomous moths. Test Toughness DR6 or die.`],
+    [24,24,`Pocket full of broken glass, PC takes d2 damage.`],
+    [25,25,`Mad manifesto. If read, test Presence DR12 or lose 1 Presence permanently from confusion.`],
+    [26,26,`Key to nearby locked door. Stolen.`],
+    [31,31,`Map to a weak but wealthy family's house.`],
+    [32,32,`A hopeless amount of spiders.`],
+    [33,33,`Metal cylinder with gunpowder and fuse. Roll a d6. 1–2 you lose a hand. 3–6 3d10 damage wherever it lands.`],
+    [34,34,`Known and liked/despised witch-hunter's face. Flayed.`],
+    [35,35,`Note with PC's names. One is crossed out.`],
+    [36,36,`Tortured pixie with torn-off wings and gouged out eyes.`],
+    [41,41,`Map to a place that cannot possibly exist.`],
+    [42,42,`Unmarked bottle with a liquid that shifts between red and green.`],
+    [43,43,`Bond. A local potentate owes the holder a sizable amount.`],
+    [44,44,`Death mask of one of the PCs.`],
+    [45,45,`The 'Water of Life.' Heals d8. Test Toughness DR10 or go blind. Highly alcoholic.`],
+    [46,46,`There was something very wrong with this one. Hands covered with something lukewarm, brown and acidic. Take d2+1 damage and smell terrible for d4 days.`],
+    [51,51,`Black Kergüs dagger. 2d4 damage.`],
+    [52,52,`Labelled poison bottle. Test Toughness DR12 or lower random ability by d4. The ability can be increased when your character is improved.`],
+    [53,53,`Scalp with long black hair.`],
+    [54,54,`Golden ball with an invisible seam, twists open.`],
+    [55,55,`Bloodstained knuckle-duster.`],
+    [56,56,`Two weighted dice.`],
+    [61,66,`The result in silver.`],
+  ]},
+
+  /* ---- CVLT generator ---- */
+  cvltName:{cols:[
+    [`Eternal`,`Children of`,`Reach for`,`Pipes of`,`Holders of`,`Unholy`,`Ruins of`,`Embrace`,`Night of`,`Førlørn`,`Hateful`,`Temple of`],
+    [`Dawn`,`Knife Blood`,`Deathcrush`,`Devastation`,`Burned Bones`,`Unsacred Signs`,`Nechrubel`,`Rusty Razors`,`Sarkantha`,`Black Gates`,`Lost Chants`,`Dark Thrones`],
+  ]},
+  cvltStatus:{rows:[
+    [1,2,`almost annihilated, desperate for aid.`],
+    [3,4,`thriving, or would be if only…`],
+    [5,5,`enormous, official, legitimate, protected.`],
+    [6,7,`secret and unknown. Legend. Lies. Myth.`],
+    [8,8,`scattered in cells. Should they find a way to work together, all will tremble.`],
+    [9,10,`in absolute turmoil. Warring and destroying itself from within.`],
+  ]},
+  cvltMember:{cols:[
+    [`Demented`,`Narcissistic`,`Charming`,`Unseen`,`Stone-faced`,`Lip-sewn`,`Cannibal`,`Black Disk's`,`Mocking`,`'No one', cult-hating`],
+    [`Elder`,`Pastor`,`Poet`,`Shadow creeper`,`Executor`,`Thought-whisperer`,`Caretaker`,`Child`,`Prisoner`,`Carpenter`],
+    [`full of keys`,`covered in rings`,`masked and stoic`,`followed by black cats`,`broken and wasting`,`loved by all`,`back from the grave`,`who water cannot touch`,`afraid of daylight`,`arm- and legless`],
+  ]},
+  cvltHQ:{rows:[
+    [1,1,`dim Schleswig sewers.`],
+    [2,2,`the oldest, most obscure Grift temples.`],
+    [3,3,`the Meadows of Strange Mist in Sarkash.`],
+    [4,4,`Beneath the Beneath in Galgenbeck.`],
+    [5,5,`bonfire camps in the coldest Kergüs crevices.`],
+    [6,6,`a granite Bergen Chrypt peak piercing the dying skies.`],
+    [7,7,`a Graven-Tosk murder-maze mausoleum.`],
+    [8,8,`the murky bog where Lake Onda merges with Targ-Dungel.`],
+    [9,9,`the spell-dead center of the Valley of the Unfortunate Undead.`],
+    [10,10,`the blackest of Alliáns cathedrals.`],
+  ]},
+  cvltRitual:{rows:[
+    [1,1,`bake Blutday bread with a bipedal's blood.`],
+    [2,2,`hang living corpses upside down in strong trees.`],
+    [3,3,`lock strangers in torture catacombs where no one dies.`],
+    [4,4,`wear nothing but the hair of strangers.`],
+    [5,5,`completely numb all senses to know the Truth.`],
+    [6,6,`build portals with the bones of 77 humans.`],
+    [7,7,`have servants erect the Tallest Tower. (many cults claim to have built the tallest one.)`],
+    [8,8,`kill the youngest one in an unknown party.`],
+    [9,9,`set all clothes ablaze. The gods of the stars must see you in the flesh.`],
+    [10,10,`never speak aloud the name of a living soul.`],
+    [11,11,`give all silver to the deep well of underworlds.`],
+    [12,12,`talk only in riddles. Come night, you can speak clearly again.`],
+    [13,13,`declare all Omens to the Nech-a-bebul Oracle. Hate those who refuse.`],
+    [14,14,`never hurt monkeys and always ride with donkeys, for they are holy.`],
+    [15,15,`every week, sacrifice the oldest member and recruit two new ones.`],
+    [16,16,`dig deep pits and keep undead (and a few living) prisoners.`],
+    [17,17,`keep a diet of herbs, meat and drugs.`],
+    [18,18,`walk barefoot and feel the mesmerizing strings from below. Some accept sandals.`],
+    [19,19,`never do honest work during the time of day.`],
+    [20,20,`tie the legs with itching ropes and always walk slowly.`],
+  ]},
+  cvltHate:{rows:[
+    [1,1,`an outsider's wise, condescending words.`],
+    [2,2,`the Two-Headed Basilisks, brutes and false prophets all.`],
+    [3,3,`scrolls. Living Words of Power imprisoned in pathetic parchment.`],
+    [4,4,`Verhu claiming to be the head of Truth. All hubris and pride.`],
+    [5,5,`bright light and loud voices. *SHUT UP!*`],
+    [6,6,`a nearby life cult constantly threatening to occupy this area.`],
+    [7,7,`intruders hesitant to embrace the one trve cvlt.`],
+    [8,8,`all kinds of birds; wings give the cult an inferiority complex.`],
+    [9,9,`anyone of noble or, worse yet, royal lineage — blasphemous blue bloods.`],
+    [10,10,`those not obsessed with tribulation. You waste such good suffering.`],
+    [11,11,`anyone carrying pitiful signs or sigils. (Only the cult's are worthy.)`],
+    [12,12,`bragging, boastful words. We, on the other hand, never boast.`],
+    [13,13,`listening to stories from the world outside this true one.`],
+    [14,14,`a face uninged, too good for the flames.`],
+    [15,15,`those who care for children.`],
+    [16,16,`alcohol, smoke and prepared meat.`],
+    [17,17,`intruders hesitant to embrace the one trve cvlt. (yeah, same as 7.)`],
+    [18,18,`spineless deserters and filthy gutterscum.`],
+    [19,19,`pale ones, earthbound and weird wickheads unpierced by spikes.`],
+    [20,20,`nothing, really… or maybe funeral fog and a freezing moon. This is a place of harmony, love and kindness. Come, join the Circle of Euphoria. And rejoice! Your nails all got chewed off.`],
+  ]},
+
+  /* ---- Unheroic Feats (d66 — d6 tens, d6 units) ---- */
+  unheroicFeats:{rows:[
+    [11,11,`**Assassin's Deathblow.** A firm grip. A sharp knife. That's all it takes for someone to disappear into the alleys of Galgenbeck. You've become adept at it over the years.\n*Test Strength DR12 to grapple an unaware foe and automatically crit with a one-handed bladed weapon.*`],
+    [12,12,`**Battle-Hardened Deathspeaker.** You were called to battle not for your prowess with blade and shield, but because the words you speak bring death to your enemies.\n*You may wield Powers while wearing medium armor. Take this Feat a second time to also include heavy armor.*`],
+    [13,13,`**Beastly Scholar.** You study the beasts of the land, gutting them and spilling viscera to uncover the world's secrets.\n*You may scry an animal's innards to see the future: gain an Omen for every 10 HP the beast had (never above your maximum), once per animal type. The innards may also provide enlightening information.*`],
+    [14,14,`**Bloodied Knuckles.** Years of bare-knuckle fighting transformed your hands into deadly bludgeons.\n*Your unarmed attacks deal d6 damage and ignore light armor. Take it again for d8 + medium armor, a third time for d10 + all armor. Fumbling an unarmed attack breaks a hand (deal the damage to yourself); seek a specialist to set the bones.*`],
+    [15,15,`**Blood Pact.** It's a cruel world to be all alone in, but you've found a way to avoid this fate.\n*Form a blood pact with a willing participant. You communicate by thought at any distance — forever. Whatever one experiences, so does the other, including injury and death.*`],
+    [16,16,`**Bloodthirsty Rage.** The rush of combat is addictive. It's kill or be killed; you can't stop to ask questions.\n*When an attack kills a creature, you must move and attack another (allies included), adding d6 damage per creature slain. Your onslaught stops when you fail to kill, and you collapse exhausted, losing your next turn.*`],
+    [21,21,`**Bone Crafter.** You don't believe in letting things go to waste, including the fallen.\n*Craft strangely fine equipment from humanoid corpses:*\n- a d6 weapon for 1 corpse's worth of bones.\n- a shield for 5 corpses' worth.\n- light armor for 10 corpses' worth.`],
+    [22,22,`**Butcher.** You've hacked livestock to pieces before. Humans aren't that different.\n*When an ally dies near you, test Agility DR12 to perform rapid surgery, rendering them broken instead. Should they still die, you may make d4 rations from the corpse.*`],
+    [23,23,`**Calm Killer.** The most careful knife or arrow is deadliest. You have a sharp eye for gaps in armor.\n*Once per turn when making a ranged or melee attack, you may reroll the damage and keep the higher result.*`],
+    [24,24,`**Cat's Eyes.** One day you saw your fate in the eyes of a cat lurking in the shadows.\n*Perfect vision in darkness, but the clouded sun burns your eyes: DR-2 Presence in darkness, DR+2 in daylight, however dim. Staring into a wild beast's eyes lets you feel what it feels.*`],
+    [25,25,`**Dual Wielder.** You think two weapons should help you kill twice as fast. It hasn't failed you yet.\n*No penalty when attacking with two weapons: roll both damage dice and combine the results.*`],
+    [26,26,`**Fateful Visions.** The fates steer your journey across the dying world.\n*Consume an Omen and meditate to ask the GM a question about the current situation. You receive a bizarre, enlightening vision. The GM rolls a secret d4; on a 1, the vision is deceptive.*`],
+    [31,31,`**Iron Stomach.** When crops fail, one learns not to be picky about food.\n*You may consume rotting, putrid flesh with a DR6 Toughness test. Witnesses may find it disgusting; outcasts roll morale.*`],
+    [32,32,`**First Strike.** The Shimmering Fields are for those first to reap glory.\n*Whether your side passes or fails initiative, you may always act first if your action involves inflicting harm.*`],
+    [33,33,`**Gutsy Strike.** You once saw a man decapitate a horse with a giant slab of iron.\n*When wielding zweihand weapons, swing at DR+2; on a hit, add d6 damage. Missing lets your opponent strike, which you defend against at DR+2.*`],
+    [34,34,`**Harbinger of Misery.** You've dedicated yourself to the black disk that will block out the sun.\n*Gain 4 maximum Omens instead of 2. As long as you live, the GM rolls two Misery dice every day.*`],
+    [35,35,`**Herbalist Healer.** You spent an eternity apprenticed to a master herbalist.\n*Once per day, scrounge herbs to create an infection-curing elixir that also heals d4 HP. Test Presence DR12; failing instead creates a toxin dealing d4 damage.*`],
+    [36,36,`**Horrific Growth.** Whatever it is, you can't get rid of it.\n*You violently grow an extra arm and hand. It works just like your others and grips fine. Others see it as a sign of evil.*`],
+    [41,41,`**Hyper-Awareness.** You are paranoid, seeing danger in every shadow, jittery with bird-like movements.\n*You can never be the victim of a surprise attack. Additionally, your side takes the initiative on 3+.*`],
+    [42,42,`**Immortal Memory.** You are haunted by the memories of those who have fallen.\n*At a place of great suffering, you may relive the tragedy through a lingering memory. There's a 1/20 chance it becomes all too real — you suffer the same fate, and creatures/Powers may reappear.*`],
+    [43,43,`**Inspired Storyteller.** Your tales bring joy even in the bleakest of times. All lies, of course.\n*Test Presence DR9 when resting to weave a tale (DR+1 per extra audience member). Success lets everyone gain an Omen, none above their maximum.*`],
+    [44,44,`**Leech.** An acquired taste. Or a disease. Maybe a curse. An eternal thirst.\n*Blood heals and sustains you — a pint heals d4 HP. You may still eat food, but suffer starvation after one day.*`],
+    [45,45,`**Likeable.** There's something about your smile. You're best described as approachable. It's weird.\n*Whenever a reaction roll is made, roll 3d6 and keep the highest two dice.*`],
+    [46,46,`**Living Armor.** Cold steel scarred so you may live; it's become a part of you.\n*Remove the Agility penalty for the armor you currently wear (does not affect defence rolls). You may not remove it without painfully dying — likewise if it breaks. Repair is possible but very painful.*`],
+    [51,51,`**Lucky.** You prefer luck to Fate. Good things always seem to happen to you.\n*You have no Omens and cannot spend them; instead you always roll 2d20 for tests and pick the highest. But you still fumble if either die is a 1. Your luck must run out eventually.*`],
+    [52,52,`**Mortal Draw.** Your blade hungers, sated only with blood. Once drawn, it demands it.\n*Your first attack always deals max damage if it hits. If you miss, your opponent may attack you (defend at DR+2).*`],
+    [53,53,`**Negotiator.** A pacifist by nature, sometimes it's best to de-escalate. Some call you a coward.\n*Test Presence, DR6 + opponents' highest morale. Success means the fighting stops. For now.*`],
+    [54,54,`**Outback Survivalist.** Time in the harsh wilderness taught you to thrive.\n*Test Presence DR9 to make a comfortable campsite (DR+1 per extra person sheltered). Resting there, everyone recovers 2d6 HP instead of d6.*`],
+    [55,55,`**Party Chef.** You've mastered cooking slop into something somewhat palatable.\n*Test Presence DR9 to cook when resting (DR+1 per extra serving). Success stretches one ration to feed the whole party; failure spoils it.*`],
+    [56,56,`**Piper.** You speak with rats: whistling attracts d4 of them. They lack reliable information but are always happy to converse.`],
+    [61,61,`**Power Word.** The powers-that-be whisper dark secrets wherever you walk.\n*You innately know one random sacred or unclean Power. Once you've read a scroll, you may carve its glyphs into your flesh and wield it without the scroll. Every night, 1/20 chance you cast a Power in your sleep — 1-in-6 to fumble.*`],
+    [62,62,`**Predatory Sense.** Somewhere in your bloodline, wickedness was introduced.\n*Keen sense of smell for humans: sniff individuals from a room away, identify someone, and track them with a DR12 Presence test.*`],
+    [63,63,`**Reckless Attacker.** Overzealous, poor judgement — but you've lived this long.\n*You may attack the same target twice on your turn. Missing the second attack lets your opponent strike (defend at DR+2).*`],
+    [64,64,`**Shield Breaker.** An opponent is most vulnerable right after they've attacked.\n*Whenever you use your shield to block all incoming damage, you may attempt a counter-attack with +3 damage.*`],
+    [65,65,`**Skinner.** The skin of others brings you momentary solace.\n*Wear the skin of a creature you recently killed to disguise yourself — you look, sound and even smell like them. The skin decays after d4 hours, reverting you to your wretched form.*`],
+    [66,66,`**Vile Blood.** Your blood is wrong, more akin to a corpse's putrid ichor.\n*When a creature hurts you with a biting attack, it is poisoned (d4 damage for d6 rounds). Should you suffer an infection, roll a d2; on a 2, you are not infected.*`],
+  ]},
+
+  /* ---- Sacrilegious Songbird ---- */
+  songbirdDeal:{rows:[
+    [1,1,`In an outhouse just outside Grift.`],
+    [2,2,`Hiding from guards in Galgenbeck.`],
+    [3,3,`In a Wästland noble's bedchamber.`],
+    [4,4,`Dreaming in a disremembered ditch.`],
+    [5,5,`In a Schleswig prison cell.`],
+    [6,6,`Minutes from freezing to death on the way to Alliáns.`],
+  ]},
+  songbirdInstrument:{rows:[
+    [1,1,`GUTPIPES OF DESTINY\nAn amalgamation of sewn, hairy gutsacks with extruding bone pipes to blow on. Listeners of your choosing are filled with unearthly hunger, as if they had starved for a week.`],
+    [2,2,`HURTY-GURDY\nCranking this thing of wood and gore emits a droning sound that hurts creatures who fail a DR12 Presence test: d2 damage the first round, increasing to d4 and beyond on subsequent rounds.`],
+    [3,3,`SPINAL HUSK\nA drum made from a hellion's shell. When anyone hits it, roll 2d6:\n- 6+ everyone but you tests Agility DR14 or falls prone.\n- 11 choose d4 creatures that hear it — their spines break like twigs (drum unusable again today).\n- 12 your ears ring; you are deaf for 24 hours.\nAlso doubles as a shield.`],
+    [4,4,`THE DEVIL'S AQUIFER\nThe horn of a beelzebubonic creature from the deepest Endless Sea. When blown, enemies' lungs fill with seawater unless they pass a DR14 Toughness test; they must spend a round expelling it before doing anything else.`],
+    [5,5,`MOUTH-TO-MOUTH ORGAN\nPlay this bony mouth harp to make a broken listener instantly recover d4 HP. They cannot speak until their HP is fully recovered.`],
+    [6,6,`LUTE OF THE ACUTE BRUTE\nThis axe-shaped instrument deals d8 damage. When strummed, the Strength and Presence scores of anyone hearing it swap for the next d6 days. Repeated listening has no effect.`],
+  ]},
+
+  /* ---- Shedding Vicar ---- */
+  vicarPeelWho:{rows:[
+    [1,1,`a Cult leader`],[2,2,`an Abusive parent`],[3,3,`a Skindealer`],[4,4,`a Grift trader`],[5,5,`a Lone goblin`],[6,6,`a Sarkash hermit`],
+  ]},
+  vicarPeelWhat:{rows:[
+    [1,1,`from fingernail to armpit, for assault.`],
+    [2,2,`ear to ear, over closed eyes, for coveting.`],
+    [3,3,`a de-gloved hand, for theft.`],
+    [4,4,`from heel to buttocks, for evasion and lies.`],
+    [5,5,`the face removed, for vanity.`],
+    [6,6,`the Mark of the Heretic on the back, for blasphemy.`],
+  ]},
+  vicarBlessing:{rows:[
+    [1,1,`SKIN WHIP\nOnce daily, pull a thread of skin from your head to an extremity. Elastic and tough — use as d10 ft. of rope, or a whip (d6, DR10 to hit, breaks if it does maximum damage).`],
+    [2,2,`BLOODWRIT ESOTERICA\nPeel a slab of skin, lowering your Toughness d3. Its bloodied side bears heinous glyphs functioning as a random unclean scroll. If your Toughness reaches -6 this way, you die. Reattach and dispel the slab to regain the lost Toughness.`],
+    [3,3,`A FAIR BARTER\nShed skin or scab to tap a higher power. Trade 1 HP of damage for +1 to a test roll, maximum 3.`],
+    [4,4,`BLOOD EAGLE\nYour broken back births a black-eyed, viscera-covered wing-demon hungry for eyes. Each time it attacks, roll d6: 4-6 plucks d2 eyes from the target; 1-3 the hawk is captured (try again next round). A second 1-3 kills it — it cannot be summoned again.`],
+    [5,5,`HOLY MOULTING\nTwist out of your wretched skin, glistening red, to escape grapples and shackles or reduce an incoming attack to 1 damage. Once skinless, your Strength is reduced by d3 (minimum -6) until re-donned.`],
+    [6,6,`BLOOD TRAIL\nThe scent of blood always finds you, and you it. You can track another Shedding Vicar, or any wounded creature that passed by, within the past week.`],
+  ]},
+
+  /* ---- CVRSE generator ---- */
+  curseWhat:{rows:[
+    [1,1,`You must kill a living creature daily or you die come nightfall. A three-faced cadaver tells you this in a dream.`],
+    [2,2,`You are cursed to always fail. Whenever you attempt something for the first time, roll three dice and pick the worst outcome.`],
+    [3,3,`You now trust everyone you meet. They instinctively know this.`],
+    [4,4,`You cannot see, hear or in any way perceive living creatures within 5 feet of you.`],
+    [5,5,`You cannot lie.`],
+    [6,6,`Blood seeps endlessly from your palms and feet. The wounds do not heal. You leave a crimson trail wherever you go.`],
+    [7,7,`You cannot talk normally, only scream at the top of your lungs.`],
+    [8,8,`Slowly but surely, you are transformed into a giant cockroach. In D4+4 days your body is insectoid, beyond your control. After 3 more days, your mind is gone.`],
+    [9,9,`Glass shatters violently in your presence.`],
+    [10,10,`Your hands are covered in a black, tarry gunk that sticks to everything you touch. It's highly flammable.`],
+    [11,11,`Any tool you use breaks.`],
+    [12,12,`Wherever you go, the ghosts of your past friends, parents or mentors follow. They won't shut up about how much of a disappointment and failure you are.`],
+    [13,13,`Unintelligent creatures always instinctively attack you. Intelligent creatures dislike you.`],
+    [14,14,`Black mold spreads in your veins. You must lift the curse in D4+7 days or die. A ghost tells you each dawn how many remain.`],
+    [15,15,`Wherever you go, black cats follow in great numbers. In 2D6+4 days, a black goat comes to you in your sleep and carries you away to the Void Eternal.`],
+    [16,16,`You cannot walk past mud or filth without rolling in it like a swine. Washing hurts.`],
+    [17,17,`Your voice is amplified by the sound of buzzing flies. In D4+1 days, flies start crawling out of your mouth.`],
+    [18,18,`You cannot die. Your body can still be broken, beaten, crushed, pierced and mauled. And it still hurts. But you are never released from agony until everything blackens and burns.`],
+    [19,19,`Whenever you lie down to sleep, it feels as if you're drowning. Which you are. Each morning, you vomit brine and you're not rested.`],
+    [20,20,`You cannot feel joy, pleasure or satisfaction. Life is miserable and pointless. You amount to nothing. No one cares about you. Also, now you're cursed with a headache.`],
+  ]},
+  curseWho:{rows:[
+    [1,1,`**Ketel-Erg**, an eyeless hermit who once lifted a curse, they say.`],
+    [2,2,`**Hukan II**, penniless prince, once a curse-crafter himself. Now a wreck lost in malaise.`],
+    [3,3,`**Ulv and Jöte**, twin scryers at Anthelia's Alliáns court.`],
+    [4,4,`**Tüwold the Red**. Former priest now rotting in King Fathmu's dungeons for murdering dozens one crazed night. Claims to have been possessed by a devil.`],
+    [5,5,`a tome, *"Souls of Distemper"*, hidden in the crypt of Iktin, describing various anti-hex rituals. **Derkan the trollkiller** knows its location but will not go there.`],
+    [6,6,`**Belt**, a young boy whispering untold, esoteric secrets in his sleep. Heavily guarded.`],
+    [7,7,`**Völtu**, witch of Meadow Death. She lives in the obsidian mouth of a lifelike giant statue.`],
+    [8,8,`**Agan-Krit**. To summon this demon, you must first burn an unclean scroll and inhale the smoke. There is no known way to banish it again.`],
+    [9,9,`**Krugan of the Deathless Crag**. This lich is guarded by a ghastly knight who won't let any living being enter the cave.`],
+    [10,10,`**Father Calth**, High Deacon of the Basilica of Gorgh. Will not see unbaptized people.`],
+  ]},
+  cursePrice:{rows:[
+    [1,1,`3d10 silver and a kiss.`],
+    [2,2,`a dangerous errand in a dangerous place.`],
+    [3,3,`a week of hard work.`],
+    [4,4,`your darkest secret.`],
+    [5,5,`a single drop of blood.`],
+    [6,6,`your soul. Whatever that means.`],
+    [7,7,`a human sacrifice.`],
+    [8,8,`nothing. Or so they say.`],
+    [9,9,`everything you own.`],
+    [10,10,`you trade it for another curse.`],
+  ]},
+  curseRid:{rows:[
+    [1,1,`Coat a mirror in a snake's saliva. Pour ash and salt in a metal bowl. Watch yourself cry into it.`],
+    [2,2,`Sleep under the full moon wearing the flesh of a predator.`],
+    [3,3,`Create a spell-breaking talisman from a sinner's skull and a wraith's ectoplasm, then have a priest consecrate it. Carry this with you at all times.`],
+    [4,4,`For 3 nights, share the bed with an undead. You cannot touch.`],
+    [5,5,`Create a clay effigy of your mother and have a troll break it during a downpour. You must ignore the pain.`],
+    [6,6,`Go without food for 6 days and 6 nights. Then eat the heart of a sinner.`],
+    [7,7,`Murder an innocent in a cruel manner. Their ghost will haunt you forever.`],
+    [8,8,`Gather corpseweed, murk nail and wailer's leaf; burn them with dried grass. Stand in the vapors and recite the Prophecy until you pass out.`],
+    [9,9,`Walk naked into the deepest, darkest room of a cursed place and return unscathed. Take nothing. Leave nothing.`],
+    [10,10,`Kill a person of royal blood and befriend one of their family members.`],
+    [11,11,`Sacrifice three goats and a good dog to Nechrubel.`],
+    [12,12,`Swim alone in a dark lake on a moonless night. A being from Beyond will come and eat the curse. But whatever you do, do not…`],
+  ]},
 };
 
 /* ---------- UI strings (chrome) ---------- */
@@ -1714,6 +2101,61 @@ const CLASSES = {
       {id:'crowBlood', section:'capabilities', kind:'fixed', ord:10, label:{en:'The Blood of Anthelia'}, fixed:`The Crow's blood is like Anthelia's: lifeless. You need drain beautiful things out of their colors and warmth; and deprive the world of their existence to live another day. This a heinous act towards life itself and will convoke the fury of church and all who sees it.\n- Each time you drain something, gain +1 to a random ability and -1 Max HP.\n- Each day without feeding, gain -1 to a random ability and +1 Max HP.\nWhen hit, you can reduce your abilities in stead of your HP to a max of -6 for each ability. More means eternal death and darkness.\n*You do not get better,* as only draining the rarest of beauty can grant you permanent ability and life upgrades.\nBEAUTY IN DEATH`},
     ],
   },
+  'the-wall':{
+    name:{en:'The Wall'},
+    omensDie:1,
+    abilityDiceMod:{ strength:3, presence:-3, toughness:3 },
+    patch:{
+      silver:{count:1, die:6, mult:10},
+      hp:{count:2, die:8},
+      weapon:{kind:'fixed', fixed:`Claw Halberd — d10 at DR14 Strength. Cannot be used in tight spaces. (2 item spaces)`},
+      armor:{kind:'fixed', fixed:`Mane Armor — D8+1 Armor (only with the full King's Mane set), but DR+6 for any Agility test.`},
+    },
+    add:[
+      {id:'wallFlavor', section:'background', kind:'fixed', ord:-20, label:{en:'The Wall'}, fixed:`Born to a family of commoners, the Wall worked hard toiling the fields. When the call came, he did not hesitate to become an impenetrable bastion for his fellows.\nHeavy is his armor, as is burden. He knows he is not going to survive. He knows that he will die fighting. But when the battle is over, the Wall will still be standing.`},
+      {id:'wallWhy', section:'background', kind:'table', ord:-10, sides:6, table:T.wallWhy, label:{en:'Why do you keep fighting..? (d6)'}},
+      {id:'wallAbilities', section:'capabilities', kind:'fixed', ord:0, label:{en:'Abilities'}, fixed:`Heavy was his Burden, roll 3d6+3 for Strength. Profound was his Despair, roll 3d6-3 for Presence. Unwaivering was his Will, roll 3d6+3 for Toughness. You can't run, you never run. You walk menacingly and stealth is not even a question. You do not roll on the weapon or armor table — you start with the King's Blessings.`},
+      {id:'wallBlessings', section:'capabilities', kind:'fixed', ord:8, label:{en:`The King's Blessings`}, fixed:`Roar Tower shield — heavy as an anvil, large as a door. So long as you do not move or attack this turn you are an immovable object that can tank any blow. +1 Armor, 2 item spaces.\nMane Armet — 1 item space.\nMane Rondel — 1 item space.\n(Claw Halberd & Mane Armor are listed under Arms & Armor.)`},
+    ],
+  },
+  'the-hunter':{
+    name:{en:'The Hunter'},
+    omensDie:2,
+    abilityDiceMod:{ strength:-1, agility:3, presence:-2 },
+    patch:{ silver:{count:1, die:20, mult:1}, weapon:{sides:4}, armor:{sides:2} },
+    add:[
+      {id:'hunterFlavor', section:'background', kind:'fixed', ord:-20, label:{en:'The Hunter'}, fixed:`Bastard of war, raised by a ruthless band of mercenaries, the Hunter grew up in a culture of brutality where he learned to never be the prey and to kill first. Expert with a long bow, he fed his adoptive family for a long while without a second thought for the poor sods he would attack.\nWhen the last golden tooth is ripped from jaw, the Hunter always flees. For the noose always gets closer, waiting and swinging.`},
+      {id:'hunterCaught', section:'background', kind:'table', ord:-10, sides:6, table:T.hunterCaught, label:{en:'The last time you were caught..? (d6)'}, note:`Roll again when captured or getting better. The 7th time, you're hanged for your crimes.`},
+      {id:'hunterAbilities', section:'capabilities', kind:'fixed', ord:0, label:{en:'Abilities'}, fixed:`Never enough to Eat, roll 3d6-1 for Strength. Always running from the Law, roll 3d6+3 for Agility. Sometimes too drunk to Aim, roll 3d6-2 for Presence. You shine in shadows and all living things are only here to satisfy your primal needs. Roll d4 on the weapon table and d2 on the armor table.`},
+      {id:'hunterBow', section:'capabilities', kind:'fixed', ord:8, label:{en:'Skilled Coward with a bow'}, fixed:`Long bow — DR14 Agility, d12 damage. Can only be used when the target is at a good distance and if you did not move this turn.\nQuite the skilled bowman — you have -2DR to any ranged weapons.\nA Coward at heart — you must flee when hit by a max damage roll, and roll morale at half health.`},
+    ],
+  },
+  'sacrilegious-songbird':{
+    name:{en:'Sacrilegious Songbird'},
+    omensDie:2,
+    abilityDiceMod:{ presence:2, toughness:-2 },
+    patch:{ silver:{count:4, die:6, mult:10}, hp:{die:6}, weapon:{sides:6}, armor:{sides:3} },
+    add:[
+      {id:'songbirdFlavor', section:'background', kind:'fixed', ord:-20, label:{en:'Sacrilegious Songbird'}, fixed:`Always the bringer of unwelcome sounds, your vocation as a bard left you destitute and disreputable… until the rueful day when a being of impious character made you the deal of a lifetime. Your soul may be screaming, but your throat sings sweetly, and your purse ever sweeter. A small price to pay.`},
+      {id:'songbirdDeal', section:'background', kind:'table', ord:-10, sides:6, table:T.songbirdDeal, label:{en:'A deal was struck (d6)'}},
+      {id:'songbirdAbilities', section:'capabilities', kind:'fixed', ord:0, label:{en:'Abilities'}, fixed:`Your amplified personality makes up for a soul bartered — roll 3d6+2 for Presence. A hard life lived has you set for an early grave — roll 3d6-2 for Toughness. Roll d6 on the weapons table and d3 on the armor table. You carry an aura of unnatural charm: spend a use of your daily Powers to add or subtract d6 to any Morale check.`},
+      {id:'songbirdInstrument', section:'capabilities', kind:'table', ord:10, sides:6, table:T.songbirdInstrument, label:{en:'Your accursed instrument (d6)'}},
+    ],
+  },
+  'shedding-vicar':{
+    name:{en:'Shedding Vicar'},
+    omensDie:4,
+    abilityDiceMod:{ agility:-2, presence:2 },
+    patch:{ silver:{count:1, die:6, mult:10}, hp:{die:4}, weapon:{sides:8}, armor:{kind:'fixed', fixed:`None — you can never wear armor or coverings.`} },
+    add:[
+      {id:'vicarFlavor', section:'background', kind:'fixed', ord:-20, label:{en:'Shedding Vicar'}, fixed:`Armor is weak, clothing a sin, and skin an abhorrent vanity. King Sigfum's hubris needs to be stripped from the lands, from our bodies. As skin is shed and scabs peeled, the day when the wounds don't heal is the beginning, and we must seek absolution. The first peel is always THE WORST, but remember: at the END of PAIN lies THE PROMISE of true VINDICATION.`},
+      {id:'vicarPeelWho', section:'background', kind:'table', ord:-12, sides:6, table:T.vicarPeelWho, label:{en:'Your first peel — who? (d6)'}},
+      {id:'vicarPeelWhat', section:'background', kind:'table', ord:-11, sides:6, table:T.vicarPeelWhat, label:{en:'…what and why? (d6)'}},
+      {id:'vicarAbilities', section:'capabilities', kind:'fixed', ord:0, label:{en:'Abilities'}, fixed:`Covered in wounds and on the edge of death, roll 3d6-2 for Agility. Monstrously unnerving, roll 3d6+2 for Presence. Roll d8 on the weapons table. You can never wear armor or coverings. Pain is either a stranger or your constant companion; regardless, you are not bothered by any amount of it.`},
+      {id:'vicarScroll', section:'magic', kind:'scroll', ord:0, scrollType:'unclean', label:{en:'Unclean scrolls (you begin with d2)'}},
+      {id:'vicarBlessing', section:'capabilities', kind:'table', ord:10, sides:6, table:T.vicarBlessing, label:{en:'Your blessing (d6)'}},
+    ],
+  },
 };
 
 /* ---------- class card meta (theme tag · emblem · accent) + emblems ---------- */
@@ -1734,6 +2176,10 @@ const CLASS_META = {
   'goblin-wild-mage':{theme:'WILD',glyph:'goblin',hue:'#a85ec8'},
   'the-blind':{theme:'SPELLSWORD',glyph:'bolt',hue:'#3ab0d8'},
   'the-crow':{theme:'BLOODLESS',glyph:'crow',hue:'#b23a5a'},
+  'the-wall':{theme:'IMMOVABLE',glyph:'shield',hue:'#8c8c84'},
+  'the-hunter':{theme:'BASTARD',glyph:'bow',hue:'#5f8f4a'},
+  'sacrilegious-songbird':{theme:'BARD',glyph:'music',hue:'#c25aa0'},
+  'shedding-vicar':{theme:'FLAYING',glyph:'drop',hue:'#c75b6a'},
 };
 
 /* ---------- shared name pool (any class). d4 decides how many parts: name [+surname] [+epithet] [+origin] ---------- */
@@ -1773,13 +2219,9 @@ function plainValue(f){
   }
 }
 function fitCompact(){
-  const a4=document.querySelector('#compact .a4'), inner=document.querySelector('#compact .cmp-inner');
-  if(!a4||!inner) return;
-  inner.style.transform='none';
-  const cs=getComputedStyle(a4);
-  const avail=a4.clientHeight - parseFloat(cs.paddingTop||0) - parseFloat(cs.paddingBottom||0) - 10;
-  const need=inner.scrollHeight;
-  if(avail>0 && need>avail) inner.style.transform='scale('+(avail/need).toFixed(4)+')';
+  // full size: no scaling — the sheet flows and paginates across A4 pages when needed
+  const inner=document.querySelector('#compact .cmp-inner');
+  if(inner) inner.style.transform='none';
 }
 function renderCompact(){
   const root=document.getElementById('compact'); if(!root) return;
@@ -1792,8 +2234,8 @@ function renderCompact(){
   const omFd=state.f.omens||{}; const omv=(omFd.cur==null?omFd.main:omFd.cur);
   let h='<div class="a4"><div class="cmp-inner"><div class="cmp-head"><div class="cmp-name">'+esc(name)+'</div><div class="cmp-cls">'+emblem+'<span>'+(cls?esc(t(cls.name)):t(UI.noclass))+'</span></div></div>';
   h+='<div class="cmp-stats">'+stat('strength','STR')+stat('agility','AGI')+stat('presence','PRE')+stat('toughness','TOU')
-     +'<div class="cmp-stat"><div class="cmp-sv">'+(hpv==null?'?':hpv)+'</div><div class="cmp-sl">HP</div></div>'
-     +'<div class="cmp-stat"><div class="cmp-sv">'+(omv==null?'?':omv)+'</div><div class="cmp-sl">OMENS</div></div>'
+     +'<div class="cmp-stat cmp-stat-hp"><div class="cmp-sv">'+(hpv==null?'?':hpv)+'</div><div class="cmp-sl">HP</div></div>'
+     +'<div class="cmp-stat"><div class="cmp-sv">D'+omensDie(state)+(omensMod(state)?'+'+omensMod(state):'')+'</div><div class="cmp-sl">OMEN DIE</div></div>'
      +'<div class="cmp-stat"><div class="cmp-sv">'+plainValue(af.find(f=>f.id==='silver')||BASE_BY_ID.silver)+'</div><div class="cmp-sl">SILVER</div></div></div>';
   const block=(secId)=>{
     const sec=SECTIONS.find(x=>x.id===secId);
@@ -1827,6 +2269,9 @@ const EMBLEMS = {
   goblin:`<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 14l14 12M52 14l-14 12"/><path d="M18 30c0-9 6-14 14-14s14 5 14 14c0 13-7 22-14 22s-14-9-14-22z"/><circle cx="26" cy="33" r="2.2" fill="currentColor"/><circle cx="38" cy="33" r="2.2" fill="currentColor"/><path d="M26 43l3 3 3-3 3 3 3-3"/></svg>`,
   bolt:`<svg viewBox="0 0 64 64" fill="currentColor" stroke="none"><path d="M37 4 14 38h12l-5 22 22-34H30z"/></svg>`,
   crow:`<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="27" cy="28" r="14"/><path d="M40 25l19 4-17 9"/><circle cx="24" cy="24" r="2.4" fill="currentColor"/></svg>`,
+  bow:`<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8C34 20 34 44 18 56"/><path d="M18 8L18 56"/><path d="M10 32h44M46 26l8 6-8 6"/></svg>`,
+  music:`<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M26 48V18L50 12V42"/><ellipse cx="19" cy="48" rx="8" ry="6" fill="currentColor" stroke="none"/><ellipse cx="43" cy="42" rx="8" ry="6" fill="currentColor" stroke="none"/></svg>`,
+  drop:`<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M32 8C32 8 16 30 16 42a16 16 0 0 0 32 0C48 30 32 8 32 8z"/></svg>`,
   cross:`<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M32 6v52"/><path d="M18 42h28"/></svg>`,
   mushroom:`<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M10 32a22 14 0 0 1 44 0z"/><path d="M26 32v16a6 6 0 0 0 12 0V32"/></svg>`,
   paw:`<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="32" cy="42" rx="13" ry="11"/><circle cx="16" cy="28" r="5"/><circle cx="27" cy="20" r="5"/><circle cx="37" cy="20" r="5"/><circle cx="48" cy="28" r="5"/></svg>`,
@@ -1887,7 +2332,9 @@ const FIELDS = [
 ];
 
 /* ---------- optional MODULES ---------- */
+const UNHEROIC_NOTE = `When you get better — if not using an optional class — you may gain a Feat instead (max 3, one more each time you get better). Roll d66, choose, or earn it through a narrative achievement (ask your GM).`;
 const MODULES = [
+  {id:'unheroicFeat',   section:'capabilities', kind:'table', sides:66, tens:6, units:6, table:T.unheroicFeats, label:{en:'Unheroic Feat',fr:'Exploit roturier'}, note:UNHEROIC_NOTE, ord:40},
   {id:'terribleTraits', section:'background', kind:'twice', sides:20, table:T.terribleTraits, label:{en:'Terrible Traits',fr:'Traits Terribles'}, note:TERRIBLE_NOTE, ord:30},
   {id:'brokenBodies',   section:'background', kind:'table', sides:20, table:T.brokenBodies,   label:{en:'Broken Bodies',fr:'Corps Brisés'}, ord:30},
   {id:'badHabits',      section:'background', kind:'table', sides:20, table:T.badHabits,      label:{en:'Bad Habits',fr:'Mauvaises Habitudes'}, ord:30},
@@ -2001,28 +2448,170 @@ function spsFields(gid){
   return out;
 }
 /* Categories for the standalone Tables (oracle) page */
+const LOOT_EQUIP = `**Backpack** — 6s · holds 7 normal-sized items
+**Bear trap** — 20s · Presence DR14 to spot, d8 damage
+**Blanket** — 4s
+**Caltrops** — 7s · d4 damage + infection on 1-in-6
+**Chalk** — 1s
+**Chewing tobacco** — 1s
+**Crowbar** — 8s
+**Crucifix, silver** — 60s
+**Crucifix, wood** — 8s
+**Dried food** — 1s · 1 day
+**Exquisite perfume** — 25s
+**Firesteel** — 4s
+**Grappling hook** — 12s
+**Hammer** — 8s
+**Heavy chain** — 10s · 15 feet
+**Iron nails** — 5s · 10 nails
+**Ladder** — 7s
+**Lantern oil** — 5s · Presence + 6 hours
+**Lard** — 5s · may function as 5 meals
+**Large iron hook** — 9s
+**Lockpicks** — 5s
+**Magnesium strip** — 4s
+**Manacles** — 10s
+**Mattress** — 3s
+**Meat cleaver** — 15s
+**Medicine box** — 15s · stops bleeding/infection and +d6 HP, Presence + 4 uses
+**Metal file** — 10s
+**Mirror** — 15s
+**Muzzle** — 6s
+**Noose** — 5s
+**Oil lamp** — 10s
+**Poison (black)** — 20s · Toughness DR14 or d6 damage + blind one hour, 3 doses
+**Poison (red)** — 20s · Toughness DR12 or d10 damage, 3 doses
+**Preserved corpse** — 66+d6s
+**Rope** — 4s · 30 feet
+**Small wagon** — 25s
+**Tent** — 12s
+**Toolbox** — 20s · 10 nails, hammer, small saw, tongs
+**Torch** — 2s
+**Sack** — 3s · holds 10 normal-sized items
+**Salt** — 4s
+**Scissors** — 9s
+**Scroll** — ~50s to the right buyer
+**Sharp needle** — 3s
+**Waterskin** — 4s · 4 days of water
+*Improvised weapons do d4 damage.*`;
+const LOOT_WEAP = `**Battle axe** — d8 · 35s
+**Bow** — d6 · 25s
+**Club** — d6 · 10s
+**Crossbow** — d8 · 40s
+**Flail** — d8 · 35s
+**Femur** — d4 · worthless
+**Handaxe** — d6 · 15s
+**Knife** — d4 · 10s
+**Mace** — d6 · 25s
+**Shortbow** — d4 · 13s
+**Shortsword** — d4 · 20s
+**Sling** — d4 · 8s
+**Staff** — d4 · 5s
+**Sword** — d6 · 30s
+**Warhammer** — d6 · 30s
+**Whip** — d2 · 5s
+**Zweihänder** — d10 · 60s
+20 arrows — 10s · 10 bolts — 10s`;
+const LOOT_SERV = `**Night in hospice** — 3s
+**Drink** — 1s
+**Steady meal** — 2s
+**Bribe, guard** — 20-40s
+**Bribe, clerk** — 30-60s
+**Bribe, rabble** — 5-15s
+**Repair armor** — Tier 1→2: 25s · Tier 2→3: 40s (never above original tier)`;
+const LOOT_BEAST = `**Dog (trained)** — 25s
+**Dog (wild)** — 10s
+**Horse** — 80s
+**Mule** — 10s
+**Rat (tame)** — 8s`;
 function oracleCats(){
   const cats=[];
-  cats.push({label:'Optional', rows: MODULES.map(m=>({id:m.id, label:t(m.label), sides:m.sides, table:m.table})) });
+  cats.push({tab:'oracle', label:'Optional', rows: MODULES.map(m=>({id:m.id, label:t(m.label), sides:m.sides, table:m.table, tens:m.tens, units:m.units, note:m.note})) });
   const sps=[];
-  Object.keys(SPS).forEach(gid=>{ sps.push({header:t(SPS[gid].class)}); SPS[gid].tables.forEach(tb=>sps.push({id:tb.id, label:t(tb.label), sides:tb.sides, table:tb.table, note:tb.note})); });
-  cats.push({label:'Salt, Spit & Silver', rows:sps});
-  cats.push({label:'Scrolls', rows:[
+  Object.keys(SPS).forEach(gid=>{ sps.push({header:t(SPS[gid].class), gid:gid}); SPS[gid].tables.forEach(tb=>sps.push({id:tb.id, label:t(tb.label), sides:tb.sides, table:tb.table, note:tb.note})); });
+  cats.push({tab:'oracle', label:'Salt, Spit & Silver', rows:sps});
+  const scrolls=[
     {id:'or_unclean', label:'Unclean Scrolls (d10)', sides:10, table:T.unclean},
     {id:'or_sacred',  label:'Sacred Scrolls (d10)',  sides:10, table:T.sacred},
-  ]});
-  cats.push({label:'Weapons', rows:[{id:'or_weapons', label:'Weapons (d10)', sides:10, table:T.weapons}]});
-  cats.push({label:'Equipment', rows:[
+  ];
+  const weapons=[{id:'or_weapons', label:'Weapons (d10)', sides:10, table:T.weapons}];
+  cats.push({tab:'oracle', label:'Scrolls', rows:scrolls});
+  cats.push({tab:'oracle', label:'Weapons', rows:weapons});
+  cats.push({tab:'oracle', label:'Equipment', rows:[
     {id:'or_container', label:'Container (d6)', sides:6, table:T.container},
     {id:'or_gear1', label:'Gear — first roll (d12)', sides:12, table:T.gear1},
     {id:'or_gear2', label:'Gear — second roll (d12)', sides:12, table:T.gear2},
   ]});
-  cats.push({label:'Armor', rows:[{id:'or_armor', label:'Armor (d4)', sides:4, table:T.armor}]});
-  cats.push({label:'Relics', rows:[{id:'or_ochre', label:'Tablet of Ochre Obscurity (d10)', sides:10, table:T.ochreTablets, note:`Relics of a forgotten mind-cult, made from the clay of the Valley of the Unfortunate Undead. Sellable for 100 silver, counts as a normal-sized item. Used like a scroll; the wielder needs Presence +3 (minimum) or to be a Forlorn Philosopher.`}]});
+  cats.push({tab:'oracle', label:'Armor', rows:[{id:'or_armor', label:'Armor (d4)', sides:4, table:T.armor}]});
+  cats.push({tab:'oracle', label:'Relics', rows:[{id:'or_ochre', label:'Tablet of Ochre Obscurity (d10)', sides:10, table:T.ochreTablets, note:`Relics of a forgotten mind-cult, made from the clay of the Valley of the Unfortunate Undead. Sellable for 100 silver, counts as a normal-sized item. Used like a scroll; the wielder needs Presence +3 (minimum) or to be a Forlorn Philosopher.`}]});
+  cats.push({tab:'loot', label:'Books', rows:[{id:'or_books', label:'Books to find in libraries & vaults (d86)', sides:86, tens:8, units:6, table:T.lootBooks, note:`These filthy scriptures are worth, in silver, their dice ×10.`}]});
+  cats.push({tab:'loot', label:'The Forbidden Vault', rows:[
+    {id:'or_vault', label:`Safaril's wares (d12)`, sides:12, table:T.vaultItems, note:`Safaril the Disturbingly Gifted sells the most rotten desires — he only accepts BLOOD SILVER (silver ill-gotten by thievery, blackmail, robbery, confidence tricks or foul murder). For protection he keeps half a dozen goblins on a leash.`},
+    {id:'or_vault_rumors', label:`Rumors Safaril sells (d8)`, sides:8, table:T.vaultRumors, note:`5s each.`},
+  ]});
+  cats.push({tab:'loot', label:'Occult Treasures', rows:[{id:'or_occult', label:'Occult treasures (d10)', sides:10, table:T.occultTreasures}]});
+  cats.push({tab:'loot', label:'Corpse Plundering', rows:[{id:'or_corpse', label:'Corpse plundering (d66)', sides:66, tens:6, units:6, table:T.corpsePlunder}]});
+  cats.push({tab:'loot', label:'Shop & Prices', rows:[
+    {id:'or_equip_ref', label:'Equipment', ref:LOOT_EQUIP},
+    {id:'or_weap_ref',  label:'Weapons & ammo', ref:LOOT_WEAP},
+    {id:'or_serv_ref',  label:'Services', ref:LOOT_SERV},
+    {id:'or_beast_ref', label:'Beasts', ref:LOOT_BEAST},
+  ]});
+  cats.push({tab:'loot', label:'Scrolls', rows:scrolls});
+  cats.push({tab:'loot', label:'Weapons', rows:weapons});
   return cats;
 }
 const ORACLE_BY_ID = {};
-oracleCats().forEach(c=>c.rows.forEach(r=>{ if(r.id) ORACLE_BY_ID[r.id]={sides:r.sides, table:r.table}; }));
+oracleCats().forEach(c=>c.rows.forEach(r=>{ if(r.id) ORACLE_BY_ID[r.id]={sides:r.sides, table:r.table, tens:r.tens, units:r.units}; }));
+
+/* ---------- generic generators (Tables → Cvlt / Cvrse tabs): named dice → composed prose ---------- */
+const GENERATORS = {
+  cvlt: {
+    seedsTitle:'Seeds of a Cvlt', composedTitle:'The Cvlt, composed',
+    parts:[
+      {id:'name',   label:'Its name (2d12)', note:'forbidden to utter aloud', cols:T.cvltName.cols},
+      {id:'status', label:'The cult is… (d10)', sides:10, table:T.cvltStatus},
+      {id:'member', label:'Key member, perhaps the leader? (3d10)', cols:T.cvltMember.cols, join:v=>v[0]+' '+v[1]+', '+v[2]},
+      {id:'hq',     label:'Headquarters (d10)', sides:10, table:T.cvltHQ},
+      {id:'ritual', label:'To reach the Shimmering Fields, one must… (d20)', sides:20, table:T.cvltRitual},
+      {id:'hate',   label:'They truly hate… (d20)', sides:20, table:T.cvltHate},
+    ],
+    compose:g=>`There is a cvlt — its name, **${g('name')}**, forbidden to utter aloud. It is ${g('status')} Its key member, perhaps the leader, is a **${g('member')}**. They gather in ${g('hq')} To reach the Shimmering Fields, one must ${g('ritual')} And, above all, they truly hate ${g('hate')}`,
+  },
+  cvrse: {
+    seedsTitle:'You Are Cursed', composedTitle:'The Curse, composed',
+    parts:[
+      {id:'what',  label:'What now? (d20)', sides:20, table:T.curseWhat},
+      {id:'who',   label:'They say one can help you. Who? (d10)', sides:10, table:T.curseWho},
+      {id:'price', label:'The price for this knowledge? (d10)', sides:10, table:T.cursePrice},
+      {id:'rid',   label:'So how do I get rid of it? (d12)', sides:12, table:T.curseRid},
+    ],
+    compose:g=>`You are cursed: ${g('what')} They say one can help you — ${g('who')} And the price for this knowledge? ${g('price')} So, to be rid of it, you must: **${g('rid')}**`,
+  },
+};
+let genRolls = {};                  // generator rolls per tab → part
+function genState(tab){ genRolls[tab]=genRolls[tab]||{}; return genRolls[tab]; }
+function genRollPart(tab,p){ const d=genState(tab); d[p.id]=d[p.id]||{}; if(p.cols) d[p.id].r=p.cols.map(c=>rollDie(c.length)); else d[p.id].main=rollDie(p.sides); }
+function genRollAll(tab){ GENERATORS[tab].parts.forEach(p=>genRollPart(tab,p)); }
+function genResult(tab,p){ const d=(genRolls[tab]||{})[p.id]||{}; if(p.cols){ const r=d.r||[]; if(r.length!==p.cols.length||r.some(x=>x==null)) return null; const v=p.cols.map((c,i)=>c[r[i]-1]); return p.join?p.join(v):v.join(' '); } if(d.main==null) return null; const row=lookup(p.table,d.main); return row?row[2]:null; }
+function genSeedsHTML(tab){
+  const G=GENERATORS[tab]; let parts='';
+  G.parts.forEach(p=>{
+    const d=(genRolls[tab]||{})[p.id]||{};
+    let dice='';
+    if(p.cols){ const r=d.r||[]; p.cols.forEach((c,i)=> dice+='<button class="cvltdie" data-act="gen-die" data-gen="'+tab+'" data-part="'+p.id+'" data-i="'+i+'" title="Reroll">'+(r[i]!=null?r[i]:'?')+'</button>'); }
+    else dice+='<button class="cvltdie" data-act="gen-die" data-gen="'+tab+'" data-part="'+p.id+'" data-i="0" title="Reroll">'+(d.main!=null?d.main:'?')+'</button>';
+    const res=genResult(tab,p);
+    parts+='<div class="cvltpart"><div class="cvlthead"><span class="cvltlabel">'+esc(p.label)+'</span>'+(p.note?'<span class="cvltnote">'+esc(p.note)+'</span>':'')+'<span class="cvltdice">'+dice+'</span></div><div class="cvltres">'+(res==null?'<span class="sub">…</span>':fmt(res))+'</div></div>';
+  });
+  return '<section class="card oraclecat cvltcard"><h2>'+esc(G.seedsTitle)+' <button class="btn gold cvltrollall" data-act="gen-roll-all" data-gen="'+tab+'">↻ Roll all</button></h2><div class="cardbody">'+parts+'</div></section>';
+}
+function genComposedHTML(tab){
+  const G=GENERATORS[tab];
+  const ready=G.parts.every(p=>genResult(tab,p)!=null);
+  const body=ready? fmt(G.compose(id=>genResult(tab, G.parts.find(p=>p.id===id)))) : '<span class="sub">Roll to compose the tale…</span>';
+  return '<section class="card oraclecat cvltcard"><h2>'+esc(G.composedTitle)+'</h2><div class="cardbody"><div class="cvltpara">'+body+'</div></div></section>';
+}
 
 /* ---------- state ---------- */
 const LS_LIST = 'mb.scvm.list.v1';
@@ -2030,6 +2619,8 @@ const LS_CUR  = 'mb.scvm.current.v1';
 let state, curById = {}, animQ = [];
 let view = 'home', pickSel = '';
 let oracle = {}, oracleOpen = {};   // standalone rolls for the optional-tables page (separate from the character)
+let tablesTab = 'oracle';           // Tables page tab: 'oracle' | 'loot'
+let spsOpen = {};                   // Tables page: which SPS class groups are unfolded (default folded = compact)
 
 function newChar(){
   return { v:1, meta:{id:null,name:''}, lang:LANG, classId:'', boost:{}, collapsed:{},
@@ -2104,7 +2695,7 @@ function randomizeField(s,f){
     case 'omens':  fd.main = rollDie(sidesOf(f,s)); fd.cur = fd.main + omensMod(s); break;
     case 'silver': { const n=f.count||2, dd=f.die||6; fd.sv=[]; for(let i=0;i<n;i++)fd.sv.push(rollDie(dd)); break; }
     case 'food':   fd.main = rollDie(4); break;
-    case 'table':  { const sd=sidesOf(f,s); let v=rollDie(sd), g=0; while(needsReroll(f,s,v) && g++<50) v=rollDie(sd); fd.main=v; const r=lookup(f.table,fd.main); if(r&&r[3]) fd.scroll=rollDie(10); break; }
+    case 'table':  { const sd=sidesOf(f,s), roll=()=>f.tens?(rollDie(f.tens)*10+rollDie(f.units)):rollDie(sd); let v=roll(), g=0; while(needsReroll(f,s,v) && g++<50) v=roll(); fd.main=v; const r=lookup(f.table,fd.main); if(r&&r[3]) fd.scroll=rollDie(10); break; }
     case 'twice':  { const sd=sidesOf(f,s); fd.a=rollDie(sd); fd.b=rollDie(sd); break; }
     case 'scroll': { fd.type = (f.scrollType==='random') ? (rollDie(2)===1?'unclean':'sacred') : (f.scrollType||'unclean'); fd.n = rollDie(10); break; }
     case 'name3':  { fd.r = (f.cols||[[],[],[]]).map(c=>rollDie(c.length||20)); break; }
@@ -2120,8 +2711,8 @@ function rerollDie(s,f,key){
   if(f.kind==='scroll'){ fd.n=rollDie(10); return; }
   if(f.kind==='name3'){ const i=+key.slice(1); fd.r=fd.r||[]; fd.r[i]=rollDie((f.cols&&f.cols[i]&&f.cols[i].length)||20); return; }
   if(key==='scroll'){ fd.scroll=rollDie(10); return; }
-  let sd=sidesOf(f,s), v=rollDie(sd), g=0;
-  if(f.kind==='table'){ while(needsReroll(f,s,v) && g++<50) v=rollDie(sd); }
+  let sd=sidesOf(f,s), roll=()=>f.tens?(rollDie(f.tens)*10+rollDie(f.units)):rollDie(sd), v=roll(), g=0;
+  if(f.kind==='table'){ while(needsReroll(f,s,v) && g++<50) v=roll(); }
   fd.main=v;
   if(f.kind==='table'){ const r=lookup(f.table,fd.main); if(r&&r[3]) fd.scroll=rollDie(10); }
 }
@@ -2136,7 +2727,7 @@ function setDie(f,key,val){
   if(f.kind==='scroll'){ fd.n=clamp(val,1,10); return; }
   if(f.kind==='name3'){ const i=+key.slice(1); fd.r=fd.r||[]; fd.r[i]=clamp(val,1,(f.cols&&f.cols[i]&&f.cols[i].length)||20); return; }
   if(key==='scroll'){ fd.scroll=clamp(val,1,10); return; }
-  const sd=sidesOf(f,state); fd.main=clamp(val,1,sd);
+  const sd=sidesOf(f,state); fd.main=clamp(val,1,(f.tens?tableMax(f.table):sd));
   if(f.kind==='table'){ const r=lookup(f.table,fd.main); if(r&&r[3]&&fd.scroll==null) fd.scroll=rollDie(10); }
 }
 
@@ -2201,7 +2792,7 @@ function fieldBody(f){
     case 'hp': {
       const die = f.die||8, dv = fd.hp, tough = abScore('toughness');
       const hp = (dv!=null && tough!=null) ? Math.max(1, tough + dv) : null;
-      return L + `<div class="abrow"><div class="score" data-act="rollfield" data-field="${id}" title="${esc(t(UI.reroll1))}">${hp==null?'?':hp}</div><div class="dice">${dieHTML(id,'hp',die,dv)}</div></div><div class="sub">Toughness + ${(f.count||1)>1?f.count:''}d${die} (min 1)</div>`;
+      return L + `<div class="abrow"><div class="score scorehp" data-act="rollfield" data-field="${id}" title="${esc(t(UI.reroll1))}">${hp==null?'?':hp}</div><div class="dice">${dieHTML(id,'hp',die,dv)}</div></div><div class="sub">Toughness + ${(f.count||1)>1?f.count:''}d${die} (min 1)</div>`;
     }
     case 'omens': {
       const die = sidesOf(f,s), mod = omensMod(s);
@@ -2299,10 +2890,11 @@ function renderRef(){
 
 /* ---------- main render ---------- */
 function isCollapsed(sid){ const c=state.collapsed||{}; return (c[sid]!==undefined) ? !!c[sid] : (sid!=='identity'); }
-function renderToggles(){
-  const opt = MODULES.map(m=>'<button class="modchip'+(state.modules[m.id]?' on':'')+'" data-act="toggle-mod" data-mod="'+m.id+'">'+esc(t(m.label))+'</button>').join('');
-  const gid=state.classId;
-  const sps = SPS[gid] ? '<span class="tbsep"></span><button class="modchip'+(state.sps&&state.sps[gid]?' on':'')+'" data-act="toggle-sps" data-grp="'+gid+'">'+esc(t(SPS[gid].label))+'</button>' : '';
+function renderToggles(section){
+  const opt = MODULES.filter(m=>(m.section||'background')===section).map(m=>'<button class="modchip'+(state.modules[m.id]?' on':'')+'" data-act="toggle-mod" data-mod="'+m.id+'">'+esc(t(m.label))+'</button>').join('');
+  let sps='';
+  if(section==='background'){ const gid=state.classId; if(SPS[gid]) sps='<span class="tbsep"></span><button class="modchip'+(state.sps&&state.sps[gid]?' on':'')+'" data-act="toggle-sps" data-grp="'+gid+'">'+esc(t(SPS[gid].label))+'</button>'; }
+  if(!opt && !sps) return '';
   return '<div class="sheet-toggles"><span class="opt-title">'+esc(t(UI.optional))+'</span>'+opt+sps+'</div>';
 }
 function renderCard(secId, af){
@@ -2323,7 +2915,8 @@ function render(){
   curById = {}; const af = activeFields(s); af.forEach(f=>curById[f.id]=f);
   let html = `<div class="hint">${esc(t(UI.reroll))}</div>`;
   BANDS.forEach(band=>{
-    if(band.indexOf('background')>=0) html += renderToggles();   // optional + SPS toggles sit just above the Background band
+    if(band.indexOf('capabilities')>=0) html += renderToggles('capabilities');  // Unheroic Feat toggle above the Capabilities band
+    if(band.indexOf('background')>=0) html += renderToggles('background');        // other optional + SPS toggles above the Background band
     const cards = band.map(secId=>renderCard(secId, af)).filter(Boolean);
     if(!cards.length) return;
     html += `<div class="band" data-n="${cards.length}">${cards.join('')}</div>`;
@@ -2415,13 +3008,15 @@ function del(){
   saveList(loadList().filter(x=>!(x.meta && x.meta.id===id)));
   populateSlots(); toast(t(UI.deleted));
 }
-function exportJSON(){
-  const name = ((state.f.name && state.f.name.text) || 'scvm').replace(/[^\w\-]+/g,'_');
-  const blob = new Blob([JSON.stringify(state,null,2)], {type:'application/json'});
-  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name + '.json';
+function exportObj(obj, name){
+  const fn = (name || 'scvm').replace(/[^\w\-]+/g,'_');
+  const blob = new Blob([JSON.stringify(obj,null,2)], {type:'application/json'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = fn + '.json';
   document.body.appendChild(a); a.click(); a.remove();
   setTimeout(()=>URL.revokeObjectURL(a.href), 1000);
 }
+function exportJSON(){ exportObj(state, (state.f.name && state.f.name.text) || 'scvm'); }
+function exportById(id){ const c=loadList().find(x=>x.meta&&x.meta.id===id); if(c) exportObj(c, (c.meta&&c.meta.name) || 'scvm'); }
 function importFile(file){
   if(!file) return;
   const r = new FileReader();
@@ -2529,19 +3124,41 @@ function oracleDieHTML(tid,key,sides,val){
 }
 function renderTables(){
   const grid=document.getElementById('tablesgrid'); if(!grid) return;
-  let html='';
-  oracleCats().forEach(cat=>{
-    let body='';
+  const tabsEl=document.getElementById('tablestabs');
+  if(tabsEl){ tabsEl.innerHTML=[['oracle','Oracle'],['loot','Loot'],['cvlt','Cvlt'],['cvrse','Cvrse']].map(tb=>'<button class="tab'+(tablesTab===tb[0]?' on':'')+'" data-act="tables-tab" data-tab="'+tb[0]+'">'+tb[1]+'</button>').join(''); }
+  if(GENERATORS[tablesTab]){ if(!genRolls[tablesTab]) genRollAll(tablesTab); grid.innerHTML='<div class="tablescol">'+genSeedsHTML(tablesTab)+'</div><div class="tablescol">'+genComposedHTML(tablesTab)+'</div>'; return; }
+  const cats=oracleCats().filter(cat=>(cat.tab||'oracle')===tablesTab);
+  const nCols=Math.max(1, Math.min(3, Math.floor(Math.min(1232, window.innerWidth-48)/360)));
+  const cols=Array.from({length:nCols},()=>({w:0, html:''}));   // fixed balanced columns: a card never changes column when toggled
+  cats.forEach(cat=>{
+    let body='', foldHidden=false;
     cat.rows.forEach(r=>{
-      if(r.header){ body+='<div class="spssub">'+esc(r.header)+'</div>'; return; }
+      if(r.header){
+        if(r.gid!=null){ const op=!!spsOpen[r.gid]; foldHidden=!op; body+='<div class="spssub spsfold" data-act="sps-fold" data-gid="'+esc(r.gid)+'">'+(op?'▾ ':'▸ ')+esc(r.header)+'</div>'; }
+        else { foldHidden=false; body+='<div class="spssub">'+esc(r.header)+'</div>'; }
+        return;
+      }
+      if(foldHidden) return;
       const open=!!oracleOpen[r.id], o=oracle[r.id]||{};
       body+='<div class="spsrow"><button class="spsname" data-act="oracle-toggle" data-table="'+r.id+'">'+(open?'▾ ':'▸ ')+esc(r.label)+'</button>';
-      if(open){ body+='<div class="trow">'+oracleDieHTML(r.id,'main',r.sides,o.main)+'<div class="result" data-act="oracle-roll" data-table="'+r.id+'" data-key="main" title="'+esc(t(UI.reroll1))+'">'+(o.main!=null?fmt(lookup(r.table,o.main)[2]):'<span class="sub">…</span>')+'</div></div>'; if(r.note) body+='<div class="note">'+esc(r.note)+'</div>'; }
+      if(open){
+        if(r.ref){ body+='<div class="reflist">'+fmt(r.ref)+'</div>'; }
+        else {
+          const row = (o.main!=null) ? lookup(r.table,o.main) : null;
+          const res = row ? fmt(row[2]) : '<span class="sub">…</span>';
+          body+='<div class="trow">'+oracleDieHTML(r.id,'main',r.sides,o.main)+'<div class="result" data-act="oracle-roll" data-table="'+r.id+'" data-key="main" title="'+esc(t(UI.reroll1))+'">'+res+'</div></div>';
+          if(r.note) body+='<div class="note">'+esc(r.note)+'</div>';
+        }
+      }
       body+='</div>';
     });
-    html+='<section class="card oraclecat"><h2>'+esc(cat.label)+'</h2><div class="cardbody">'+body+'</div></section>';
+    const cardHtml='<section class="card oraclecat"><h2>'+esc(cat.label)+'</h2><div class="cardbody">'+body+'</div></section>';
+    const foldable=cat.rows.some(r=>r.gid!=null);
+    const weight=1 + cat.rows.reduce((s,r)=>s+(r.header?1:(foldable?0.15:1.2)),0);   // static weight (row count) → stable distribution regardless of open state
+    const col=cols.reduce((m,c)=>c.w<m.w?c:m, cols[0]);
+    col.html+=cardHtml; col.w+=weight;
   });
-  grid.innerHTML=html;
+  grid.innerHTML=cols.map(c=>'<div class="tablescol">'+c.html+'</div>').join('');
 }
 function snapScore(c,name){
   const fd=c.f&&c.f[name]; if(!fd||!fd.dice||!fd.dice.length) return null;
@@ -2563,6 +3180,7 @@ function renderScvms(){
     let tm=''; if(c.meta.savedAt){const d=new Date(c.meta.savedAt);tm='saved '+('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2);}
     return '<div class="scvmcard" data-act="load-scvm" data-id="'+c.meta.id+'" style="--accent:'+hue+'">'
       +'<span class="sc-del" data-act="del-scvm" data-id="'+c.meta.id+'" title="Delete">×</span>'
+      +'<span class="sc-export" data-act="export-scvm" data-id="'+c.meta.id+'" title="Export JSON"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg></span>'
       +'<div class="sc-name">'+esc(c.meta.name||t(UI.unnamed))+'</div>'
       +'<div class="sc-class">'+emblem+'<span>'+esc(cls)+'</span></div>'
       +'<div class="sc-stats">'+esc(stats)+'</div>'
@@ -2598,11 +3216,16 @@ function onClick(e){
   else if(act==='toggle-section'){ const sid=actEl.dataset.section; state.collapsed=state.collapsed||{}; state.collapsed[sid]=!isCollapsed(sid); render(); }
   else if(act==='toggle-mod'){ const id=actEl.dataset.mod; state.modules[id]=!state.modules[id]; render(); }
   else if(act==='usename'){ const f=fieldFor(fid), fd=state.f[fid]||{}, r=fd.r||[]; if(f.cols && r.length===3 && r.every(x=>x!=null)){ state.f.name=state.f.name||{}; state.f.name.text=[f.cols[0][r[0]-1],f.cols[1][r[1]-1],f.cols[2][r[2]-1]].join(' '); render(); } }
-  else if(act==='oracle-roll'){ const tid=actEl.dataset.table, m=ORACLE_BY_ID[tid]; oracle[tid]=oracle[tid]||{}; oracle[tid][key]=rollDie(m.sides); animQ.push(['oracle:'+tid,key]); renderTables(); flushAnim(); }
-  else if(act==='oracle-toggle'){ const tid=actEl.dataset.table; oracleOpen[tid]=!oracleOpen[tid]; if(oracleOpen[tid] && !(oracle[tid]&&oracle[tid].main!=null)){ const m=ORACLE_BY_ID[tid]; oracle[tid]=oracle[tid]||{}; oracle[tid].main=rollDie(m.sides); animQ.push(['oracle:'+tid,'main']); } renderTables(); flushAnim(); }
+  else if(act==='tables-tab'){ tablesTab=actEl.dataset.tab; renderTables(); }
+  else if(act==='sps-fold'){ const g=actEl.dataset.gid; spsOpen[g]=!spsOpen[g]; renderTables(); }
+  else if(act==='gen-roll-all'){ genRollAll(actEl.dataset.gen); renderTables(); }
+  else if(act==='gen-die'){ const tab=actEl.dataset.gen, p=GENERATORS[tab].parts.find(x=>x.id===actEl.dataset.part); if(p){ const i=+actEl.dataset.i, d=genState(tab); d[p.id]=d[p.id]||{}; if(p.cols){ d[p.id].r=d[p.id].r||p.cols.map(()=>1); d[p.id].r[i]=rollDie(p.cols[i].length); } else d[p.id].main=rollDie(p.sides); renderTables(); } }
+  else if(act==='oracle-roll'){ const tid=actEl.dataset.table, m=ORACLE_BY_ID[tid]; if(!m||!m.table) return; oracle[tid]=oracle[tid]||{}; oracle[tid][key]= m.tens ? (rollDie(m.tens)*10+rollDie(m.units)) : rollDie(m.sides); animQ.push(['oracle:'+tid,key]); renderTables(); flushAnim(); }
+  else if(act==='oracle-toggle'){ const tid=actEl.dataset.table, m=ORACLE_BY_ID[tid]; oracleOpen[tid]=!oracleOpen[tid]; if(oracleOpen[tid] && m && m.table && !(oracle[tid]&&oracle[tid].main!=null)){ oracle[tid]=oracle[tid]||{}; oracle[tid].main= m.tens ? (rollDie(m.tens)*10+rollDie(m.units)) : rollDie(m.sides); animQ.push(['oracle:'+tid,'main']); } renderTables(); flushAnim(); }
   else if(act==='toggle-sps'){ const gid=actEl.dataset.grp; state.sps=state.sps||{}; state.sps[gid]=!state.sps[gid]; render(); }
   else if(act==='load-scvm'){ loadById(actEl.dataset.id, 'compact'); }
   else if(act==='del-scvm'){ delById(actEl.dataset.id); renderScvms(); }
+  else if(act==='export-scvm'){ exportById(actEl.dataset.id); }
 }
 function onDblClick(e){
   const cardEl = e.target.closest('[data-pick]');
@@ -2637,6 +3260,7 @@ function boot(){
   document.addEventListener('change', onChange);
   document.addEventListener('input', onInput);
   window.addEventListener('beforeprint', function(){ try{ showView('compact'); }catch(e){} });
+  let _rt; window.addEventListener('resize', function(){ clearTimeout(_rt); _rt=setTimeout(function(){ if(view==='tables') renderTables(); }, 160); });
   const cur = localStorage.getItem(LS_CUR);
   if(cur){ try{ const c=JSON.parse(cur); if(c&&c.meta&&c.meta.id&&loadList().some(x=>x.meta&&x.meta.id===c.meta.id)){ state=c; LANG=state.lang||'en'; } }catch(e){} }
   if(!state) state = newChar();
