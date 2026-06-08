@@ -153,6 +153,74 @@ h2:hover{color:#fff;}
 
 /* ── Toast ── */
 .toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%) translateY(20px);background:#000;border:1px solid var(--red);color:var(--ink);padding:10px 18px;border-radius:6px;opacity:0;pointer-events:none;transition:.25s;z-index:50;}
+/* ── Forge overlay: a skull hopping grave-to-grave while Roll all runs ── */
+.roller{position:fixed;inset:0;z-index:100;display:none;flex-direction:column;align-items:center;justify-content:center;gap:20px;background:radial-gradient(ellipse at 50% 42%, rgba(26,23,7,.95), rgba(0,0,0,.97));}
+.roller.show{display:flex;animation:rollerin .18s ease;}
+@keyframes rollerin{from{opacity:0}to{opacity:1}}
+.gscene{position:relative;width:260px;height:122px;}
+.gground{position:absolute;left:0;right:0;bottom:18px;height:3px;background:var(--yellow);opacity:.45;box-shadow:0 8px 16px rgba(0,0,0,.6);}
+.tomb{position:absolute;bottom:21px;width:46px;height:56px;background:#3a3a36;border:2px solid #15150f;border-radius:23px 23px 4px 4px;box-shadow:inset 0 -7px 11px rgba(0,0,0,.5);}
+.tomb::before{content:"";position:absolute;left:50%;top:13px;transform:translateX(-50%);width:6px;height:24px;background:#15150f;}
+.tomb::after{content:"";position:absolute;left:50%;top:20px;transform:translateX(-50%);width:22px;height:6px;background:#15150f;}
+.tomb.left{left:4px;}
+.tomb.right{right:4px;}
+.gskull{position:absolute;bottom:24px;left:12px;width:42px;height:42px;color:var(--yellow);filter:drop-shadow(0 0 7px rgba(255,216,0,.5));animation:gravehop .92s ease-in-out infinite alternate;}
+@keyframes gravehop{0%{left:12px;transform:translateY(0) rotate(0deg);}50%{transform:translateY(-60px) rotate(360deg);}100%{left:206px;transform:translateY(0) rotate(720deg);}}
+.roller-txt{font:900 22px/1 Impact,'Arial Black',sans-serif;letter-spacing:2px;color:var(--yellow);text-transform:uppercase;transform:skewX(-7deg);text-align:center;}
+.roller-dots::after{content:"";animation:rdots 1.1s steps(1,end) infinite;}
+@keyframes rdots{0%{content:"";}25%{content:".";}50%{content:"..";}75%{content:"...";}}
+.hero-graves{display:flex;justify-content:center;margin-top:34px;}
+.gscene.slow .gskull{animation-duration:2.2s;}
+/* Scene 2 — the Black Sun (eclipse) */
+.scene-sun .bsun{position:absolute;left:50%;top:50%;width:84px;height:84px;transform:translate(-50%,-50%);}
+.scene-sun .bsun::before{content:"";position:absolute;inset:-15px;border-radius:50%;background:repeating-conic-gradient(rgba(255,216,0,.38) 0 5deg,transparent 5deg 17deg);animation:spin 9s linear infinite;}
+.scene-sun .bsun-core{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle,#ffe400 58%,#d39e00 100%);box-shadow:0 0 22px 5px rgba(255,216,0,.45);animation:sunpulse 1.4s ease-in-out infinite;}
+.scene-sun .bsun-disk{position:absolute;inset:0;border-radius:50%;background:#0a0a06;animation:eclipse 1.9s ease-in-out infinite alternate;}
+@keyframes sunpulse{0%,100%{transform:scale(1);}50%{transform:scale(1.06);}}
+@keyframes spin{to{transform:rotate(360deg);}}
+@keyframes eclipse{0%{transform:translateX(-94px);}100%{transform:translateX(94px);}}
+.gscene.slow.scene-sun .bsun-disk{animation-duration:3.6s;}
+/* Scene 3 — the Hanged (pendulum skull) */
+.scene-pend .pend{position:absolute;left:50%;top:12px;width:0;height:0;}
+.scene-pend .pend::before{content:"";position:absolute;left:-32px;top:-3px;width:64px;height:5px;background:#3a3a36;border-radius:2px;}
+.scene-pend .pend-arm{position:absolute;left:0;top:0;transform-origin:top center;animation:swing 1.7s ease-in-out infinite alternate;}
+.scene-pend .pend-arm::before{content:"";position:absolute;left:-1px;top:0;width:2px;height:54px;background:linear-gradient(#caa24a,#5a4a22);}
+.scene-pend .pskull{position:absolute;left:-20px;top:52px;width:40px;height:40px;color:var(--yellow);filter:drop-shadow(0 0 6px rgba(255,216,0,.4));}
+@keyframes swing{0%{transform:rotate(-28deg);}100%{transform:rotate(28deg);}}
+.gscene.slow.scene-pend .pend-arm{animation-duration:3s;}
+@media (prefers-reduced-motion:reduce){.gskull,.bsun-disk,.bsun-core,.bsun::before,.pend-arm{animation:none!important;}.roller-dots::after{animation:none;content:"…";}}
+/* ── Play mode (gameplay) ── */
+.den{opacity:.5;font-size:.62em;font-weight:700;}
+.playbar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:0 0 14px;padding:10px 14px;border:2px solid var(--yellow);border-radius:6px;background:color-mix(in srgb,var(--yellow) 10%,#0a0a0a);}
+.playbar strong{color:var(--yellow);text-transform:uppercase;letter-spacing:2px;font:800 15px/1 Impact,'Arial Black',sans-serif;}
+.playbar .pb-sub{color:#9a8f6a;font-size:13px;flex:1 1 auto;}
+.playbar .pb-day{flex:none;}
+#playtoggle.on{background:var(--yellow);color:#000;border-color:var(--yellow);}
+/* A4 sheet interactive in Play mode (white-themed controls) */
+.cmp-adj{display:flex;gap:6px;justify-content:center;margin-top:7px;}
+.cmp-adj .cadj{width:26px;height:24px;border:1px solid #c4c4bc;background:#f1f1ec;color:#111;border-radius:5px;font:700 16px/1 system-ui,sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;}
+.cmp-adj .cadj:hover{background:#e6e6e0;border-color:#999;}
+.cmp-stats.playstats{grid-template-columns:repeat(8,1fr);}
+.playonly{display:none!important;}
+.playon .playonly{display:inline-flex!important;}
+#cmptoggle.on{background:var(--yellow);color:#000;border-color:var(--yellow);}
+#cmpedit.on{background:var(--yellow);color:#000;border-color:var(--yellow);}
+.cmpedit{font-family:inherit;box-sizing:border-box;}
+.cmpedit-num{width:58px;text-align:center;font:800 19px/1 'Arial Black',Impact,sans-serif;border:1px solid #b9b9b1;border-radius:5px;background:#fff;color:#111;padding:3px 2px;}
+.cmp-stat-hp .cmpedit-num{color:#c1121f;}
+.cmpedit-name{width:100%;font:800 26px/1.05 Impact,'Arial Black',sans-serif;border:0;border-bottom:2px solid #ccc;background:transparent;color:#111;padding:0 0 2px;}
+.cmpedit-sel{width:100%;font-size:13px;padding:4px;border:1px solid #b9b9b1;border-radius:5px;background:#fff;color:#111;}
+.cmpedit-txt{width:100%;font:inherit;font-size:13px;padding:4px 6px;border:1px solid #b9b9b1;border-radius:5px;background:#fff;color:#111;margin-top:3px;}
+.cmpedit-area{width:100%;font:inherit;font-size:13px;line-height:1.35;padding:5px 7px;border:1px solid #b9b9b1;border-radius:5px;background:#fff;color:#111;resize:vertical;}
+.cmp-custom{margin:5px 0;font-size:13px;line-height:1.4;}
+.cc-edit{position:relative;border:1px dashed #c4c4bc;border-radius:6px;padding:7px 8px;background:#fafaf7;margin:7px 0;}
+.cc-edit .cc-title{margin-top:0;font-weight:700;padding-right:28px;}
+.cc-del{position:absolute;top:6px;right:6px;width:22px;height:22px;border:1px solid #d9b3b3;background:#f7ecec;color:#a33;border-radius:5px;cursor:pointer;font:700 13px/1 system-ui,sans-serif;display:flex;align-items:center;justify-content:center;padding:0;}
+.cc-del:hover{background:#f0dada;}
+.cc-add{margin-top:6px;font:700 12px/1 system-ui,sans-serif;color:#6a6a60;background:#f1f1ec;border:1px dashed #b9b9b1;border-radius:6px;padding:6px 11px;cursor:pointer;}
+.cc-add:hover{background:#e7e7e2;color:#111;}
+.cmp-log{position:relative;margin:6px 0;font-size:12px;line-height:1.45;padding:6px 9px;background:#f3f3ee;border-left:3px solid #c9a200;border-radius:0 5px 5px 0;}
+.cmp-log b{color:#111;}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 
 .printonly{display:none;}
@@ -284,7 +352,7 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.05;b
 .classcard.selected .cc-confirm{display:flex;align-items:center;justify-content:center;gap:6px;position:absolute;top:0;left:0;right:0;z-index:2;background:var(--accent,#caa24a);color:#0a0a0a;font:800 12px/1 'Inter',sans-serif;letter-spacing:.14em;text-transform:uppercase;padding:9px;}
 
 /* ===== sheet tools bar ===== */
-#sheettools{background:#0d0d0d;border-bottom:1px solid var(--line);padding:12px 16px;}
+#sheettools{position:sticky;top:var(--navh,52px);z-index:19;background:#0d0d0d;border-bottom:1px solid var(--line);padding:12px 16px;box-shadow:0 6px 14px rgba(0,0,0,.45);}
 
 /* ===== optional-tables (oracle) view ===== */
 .tablesgrid{max-width:1280px;margin:18px auto 64px;padding:0 24px;display:flex;gap:16px;align-items:flex-start;}
@@ -336,7 +404,7 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.05;b
   @page{size:A4 portrait;margin:14mm;}
   html,body{background:#fff!important;margin:0;padding:0;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
   body::before{display:none!important;}
-  #topnav,#sheettools,.cmp-bar,.die-in,.boostbtn,.hint,.ref,.refblock,.toast{display:none!important;}
+  #topnav,#sheettools,.cmp-bar,.cmp-adj,.die-in,.boostbtn,.hint,.ref,.refblock,.toast{display:none!important;}
   .view{display:none!important;}
   #view-compact{display:block!important;}
   .a4{width:auto!important;min-height:0!important;height:auto!important;margin:0!important;padding:0!important;border:0!important;border-radius:0!important;overflow:visible!important;}
@@ -364,6 +432,7 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.05;b
     <p class="hero-sub" data-i18n="homeSub">The world is ending. The sun has not risen for years. Create your miserable vessel and suffer the consequences.</p>
     <button class="bigbtn" data-nav="classpick"><svg viewBox="0 0 32 32" width="30" height="30" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M16 3S7 14 7 21a9 9 0 0 0 18 0c0-7-9-18-9-18z"/><line x1="16" y1="13" x2="16" y2="23"/><line x1="11" y1="18" x2="21" y2="18"/></svg><span data-i18n="generateScum">Generate Scum</span></button>
     <div class="hero-alt"><button class="bigbtn2" data-nav="tables"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><circle cx="9" cy="9" r="1.6" fill="currentColor"/><circle cx="15" cy="9" r="1.6" fill="currentColor"/><circle cx="9" cy="15" r="1.6" fill="currentColor"/><circle cx="15" cy="15" r="1.6" fill="currentColor"/></svg><span data-i18n="borgMyMork">Borg my Mörk</span></button><button class="bigbtn2" data-nav="scvms"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="4" y="5" width="7" height="14" rx="1"/><rect x="13" y="5" width="7" height="14" rx="1"/></svg><span data-i18n="myScvms">My Scvms</span></button><a class="bigbtn2 shit" href="https://istallri.itch.io/" target="_blank" rel="noopener">My Shit</a></div>
+    <div class="hero-graves" aria-hidden="true"><div class="gscene slow" id="homescene"></div></div>
   </div>
   <footer class="home-legal">
     <p>MUG (Mörk Unauthorized Generator) is an independent production by Istallri Astra and is not affiliated with Ockult Örtmästare Games or Stockholm Kartell. It is published under the MÖRK BORG Third Party License.</p>
@@ -385,6 +454,7 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.05;b
     <div class="toolbar">
       <button class="btn primary" data-app="rollall" title="Roll the whole sheet"><svg class="bi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><circle cx="9" cy="9" r="1.5" fill="currentColor" stroke="none"/><circle cx="15" cy="9" r="1.5" fill="currentColor" stroke="none"/><circle cx="9" cy="15" r="1.5" fill="currentColor" stroke="none"/><circle cx="15" cy="15" r="1.5" fill="currentColor" stroke="none"/></svg><span data-i18n="rollall">Roll all</span></button>
       <button class="btn" data-app="fold-all" title="Fold / unfold all sections"><svg class="bi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9l4-4 4 4M8 15l4 4 4-4"/></svg><span data-i18n="foldAll">Fold all</span></button>
+      <button class="btn" id="playtoggle" data-app="toggle-play" title="Switch build / play mode"><svg class="bi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4v16l13-8z"/></svg><span>Play</span></button>
       <span class="tbsep"></span>
       <button class="btn" data-app="new" title="New scvm"><svg class="bi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg><span data-i18n="new">New</span></button>
       <button class="btn gold" data-app="save" title="Save scvm"><svg class="bi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h11l3 3v15H5z"/><path d="M8 3v5h7"/><rect x="8" y="13" width="8" height="8"/></svg><span data-i18n="save">Save</span></button>
@@ -427,6 +497,11 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.05;b
   <div class="cmp-bar">
     <button class="navlink" data-nav="sheet" data-i18n="backSheet">← Back to sheet</button>
     <div class="cmp-baractions">
+      <button class="btn" id="cmptoggle" data-app="toggle-play" title="Play / view mode"><svg class="bi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4v16l13-8z"/></svg><span>Play</span></button>
+      <button class="btn" id="cmpedit" data-app="toggle-edit" title="Edit fields directly on the sheet"><svg class="bi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4l10-10-4-4L4 16z"/><path d="M14 6l4 4"/></svg><span>Edit</span></button>
+      <button class="btn gold playonly" data-app="new-day" title="New day — reroll Omens & Powers"><svg class="bi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.4 1.4M17.6 17.6L19 19M19 5l-1.4 1.4M6.4 17.6L5 19"/></svg><span data-i18n="newdaybtn">New day</span></button>
+      <button class="btn playonly" data-app="get-better" title="Getting better or worse (GM-approved advancement: HP + abilities)"><svg class="bi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></svg><span data-i18n="getbetter">Get better</span></button>
+      <button class="btn gold" data-app="save" title="Save scvm"><svg class="bi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h11l3 3v15H5z"/><path d="M8 3v5h7"/><rect x="8" y="13" width="8" height="8"/></svg><span data-i18n="save">Save</span></button>
       <button class="btn" data-app="export" title="Export JSON"><svg class="bi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg><span data-i18n="export">Export</span></button>
       <button class="btn primary" data-app="print"><svg class="bi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V3h12v6M6 18H4v-6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v6h-2M6 14h12v7H6z"/></svg><span data-i18n="print">Print / PDF</span></button>
     </div>
@@ -443,6 +518,10 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.05;b
   </div>
 </div>
 <div id="toast" class="toast"></div>
+<div id="roller" class="roller" aria-hidden="true">
+  <div class="gscene" id="rollerscene"></div>
+  <div class="roller-txt"><span data-i18n="forging">Forging your scvm</span><span class="roller-dots"></span></div>
+</div>
 
 <script>
 "use strict";
@@ -1242,7 +1321,7 @@ People follow you unto death.`],
     [2,2,`**Trepanation ritual.** You drilled a hole in your skull to let the clouding devils out; to see things clearly. This wound burns when undead are near (or so you believe).`],
     [3,3,`**Lithophagical sorceries.** The stones from ruins and fallen temples that you eat grant vague visions of what the rubble once was. Also, your tummy aches.`],
     [4,4,`**Serpent's kiss.** You let deadly, drugged vipers winter with you. Now you're constantly feverish and your blood is toxic (biting you deals D2 damage).`],
-    [5,5,`**The Void-Worm Synergism.** You cultivated a small, wriggling void-worm and made it crawl into your ear to nest between your spinal plates. You have no Omens, but your Presence is +2 when wielding Powers.`],
+    [5,5,`**The Void-Worm Synergism.** You cultivated a small, wriggling void-worm and made it crawl into your ear to nest between your spinal plates. You have no Omens, but your Presence is +2 when wielding Powers.`,0,{noOmens:true}],
     [6,6,`**Arcane Intelligence.** Grafting a hand of glory onto your own flesh, you now have too many fingers and can hold two items in one hand, but all Agility tests are DR+4.`],
     [7,7,`**Seven-day burial.** You were buried alive for a week and slipped halfway into the underworld. There is a 1-in-4 chance that the undead won't attack you unless provoked.`],
     [8,8,`**Metaspatial mutilation.** You carved a chart of Refva's meandering rivers into your chest. When you bleed, the red flows gently toward the nearest source of magic.`],
@@ -1644,7 +1723,7 @@ People follow you unto death.`],
     [31,31,`**Iron Stomach.** When crops fail, one learns not to be picky about food.\n*You may consume rotting, putrid flesh with a DR6 Toughness test. Witnesses may find it disgusting; outcasts roll morale.*`],
     [32,32,`**First Strike.** The Shimmering Fields are for those first to reap glory.\n*Whether your side passes or fails initiative, you may always act first if your action involves inflicting harm.*`],
     [33,33,`**Gutsy Strike.** You once saw a man decapitate a horse with a giant slab of iron.\n*When wielding zweihand weapons, swing at DR+2; on a hit, add d6 damage. Missing lets your opponent strike, which you defend against at DR+2.*`],
-    [34,34,`**Harbinger of Misery.** You've dedicated yourself to the black disk that will block out the sun.\n*Gain 4 maximum Omens instead of 2. As long as you live, the GM rolls two Misery dice every day.*`],
+    [34,34,`**Harbinger of Misery.** You've dedicated yourself to the black disk that will block out the sun.\n*Gain 4 maximum Omens instead of 2. As long as you live, the GM rolls two Misery dice every day.*`,0,{omensSet:4}],
     [35,35,`**Herbalist Healer.** You spent an eternity apprenticed to a master herbalist.\n*Once per day, scrounge herbs to create an infection-curing elixir that also heals d4 HP. Test Presence DR12; failing instead creates a toxin dealing d4 damage.*`],
     [36,36,`**Horrific Growth.** Whatever it is, you can't get rid of it.\n*You violently grow an extra arm and hand. It works just like your others and grips fine. Others see it as a sign of evil.*`],
     [41,41,`**Hyper-Awareness.** You are paranoid, seeing danger in every shadow, jittery with bird-like movements.\n*You can never be the victim of a surprise attack. Additionally, your side takes the initiative on 3+.*`],
@@ -1653,7 +1732,7 @@ People follow you unto death.`],
     [44,44,`**Leech.** An acquired taste. Or a disease. Maybe a curse. An eternal thirst.\n*Blood heals and sustains you — a pint heals d4 HP. You may still eat food, but suffer starvation after one day.*`],
     [45,45,`**Likeable.** There's something about your smile. You're best described as approachable. It's weird.\n*Whenever a reaction roll is made, roll 3d6 and keep the highest two dice.*`],
     [46,46,`**Living Armor.** Cold steel scarred so you may live; it's become a part of you.\n*Remove the Agility penalty for the armor you currently wear (does not affect defence rolls). You may not remove it without painfully dying — likewise if it breaks. Repair is possible but very painful.*`],
-    [51,51,`**Lucky.** You prefer luck to Fate. Good things always seem to happen to you.\n*You have no Omens and cannot spend them; instead you always roll 2d20 for tests and pick the highest. But you still fumble if either die is a 1. Your luck must run out eventually.*`],
+    [51,51,`**Lucky.** You prefer luck to Fate. Good things always seem to happen to you.\n*You have no Omens and cannot spend them; instead you always roll 2d20 for tests and pick the highest. But you still fumble if either die is a 1. Your luck must run out eventually.*`,0,{noOmens:true}],
     [52,52,`**Mortal Draw.** Your blade hungers, sated only with blood. Once drawn, it demands it.\n*Your first attack always deals max damage if it hits. If you miss, your opponent may attack you (defend at DR+2).*`],
     [53,53,`**Negotiator.** A pacifist by nature, sometimes it's best to de-escalate. Some call you a coward.\n*Test Presence, DR6 + opponents' highest morale. Success means the fighting stops. For now.*`],
     [54,54,`**Outback Survivalist.** Time in the harsh wilderness taught you to thrive.\n*Test Presence DR9 to make a comfortable campsite (DR+1 per extra person sheltered). Resting there, everyone recovers 2d6 HP instead of d6.*`],
@@ -1801,6 +1880,21 @@ const UI = {
   scrollRules:{en:'Scrolls — rules',fr:'Parchemins — règles'},
   rulesRef:{en:'Rules reference (abilities, carrying, hit points)',fr:'Aide-mémoire (caractéristiques, portage, points de vie)'},
   unnamed:{en:'Unnamed scvm',fr:'Scvm sans nom'},
+  forging:{en:'Forging your scvm',fr:'Forge de ton scvm'},
+  forged:{en:'☠ Your scvm is forged — scroll down to inspect & save.',fr:'☠ Ton scvm est forgé — descends pour l\'inspecter et le sauver.'},
+  playmode:{en:'Play',fr:'Jeu'},
+  buildmode:{en:'Build',fr:'Création'},
+  viewmode:{en:'View',fr:'Lecture'},
+  editmode:{en:'Edit',fr:'Éditer'},
+  donemode:{en:'Done',fr:'OK'},
+  addcustom:{en:'Add',fr:'Ajouter'},
+  getbetter:{en:'Get better',fr:'Évoluer'},
+  getbettertoast:{en:'☠ Getting better or worse — see the Advancement log below.',fr:'☠ Tu évolues (ou empires) — vois le journal d\'évolution plus bas.'},
+  advancement:{en:'Advancement',fr:'Évolution'},
+  rollfirst:{en:'Roll your scvm first.',fr:'Génère d\'abord ton scvm.'},
+  playhint:{en:'Track HP, Omens & Powers. Tap a value to reroll the day.',fr:'Suis PV, Présages & Sorts. Touche une valeur pour relancer le jour.'},
+  newdaybtn:{en:'New day',fr:'Nouveau jour'},
+  newdaytoast:{en:'A new day dawns — Omens & Powers refreshed.',fr:'Un nouveau jour se lève — Présages & Sorts réinitialisés.'},
   homeL1:{en:'Enter the',fr:'Entrez dans'},
   homeL2:{en:'Dying World',fr:'le Monde Mourant'},
   homeSub:{en:'The world is ending. The sun has not risen for years. Create your miserable vessel and suffer the consequences.',fr:'Le monde se meurt. Le soleil ne s\'est pas levé depuis des années. Crée ton misérable réceptacle et subis-en les conséquences.'},
@@ -2202,12 +2296,17 @@ function genName(){
 /* ---------- compact A4 play-sheet (read-only, basis for PDF/print) ---------- */
 function plainValue(f){
   const fd=state.f[f.id]||{};
+  if(fd.manual!=null && fd.manual!==''){   // manual override from edit mode
+    if(f.kind==='silver') return (+fd.manual)+(f.unit!=null?f.unit:'s');
+    if(['table','fixed','twice','scroll','scrollset','name3','food'].includes(f.kind)) return fmt(String(fd.manual));
+  }
   switch(f.kind){
     case 'text': return esc(fd.text||'—');
     case 'fixed': return fmt(t(f.fixed));
     case 'ability': { const sc=abScore(f.id); return sc==null?'?':signed(sc); }
-    case 'hp': { const dv=fd.hp, tg=abScore('toughness'); const hp=(dv!=null&&tg!=null)?Math.max(1,tg+dv):null; return hp==null?'?':String(hp); }
-    case 'omens': { const cur=(fd.cur==null?fd.main:fd.cur); return cur==null?'?':String(cur); }
+    case 'hp': { const m=hpMax(); return m==null?'?':(hpCur()+'/'+m); }
+    case 'powers': { const m=powersMax(); return m==null?'?':(powersCur()+'/'+m); }
+    case 'omens': { if(curEff.noOmens) return '—'; const cur=(fd.cur==null?fd.main:fd.cur); const den=(curEff.omensSet!=null)?curEff.omensSet:omensDieLbl(state); return (cur==null?'?':cur)+'/'+den; }
     case 'silver': { const sv=fd.sv,mult=f.mult||10,n=f.count||2; const v=(sv&&sv.length===n&&sv.every(x=>x!=null))?sv.reduce((a,b)=>a+b,0)*mult:null; return v==null?'?':v+(f.unit!=null?f.unit:'s'); }
     case 'food': return fd.main==null?'—':('Waterskin + '+fd.main+' days of food');
     case 'table': { const m=fd.main; if(m==null) return '—'; const r=lookup(f.table,clamp(m+(f.mod||0),1,tableMax(f.table))); return r?fmt(r[2]):'—'; }
@@ -2218,6 +2317,21 @@ function plainValue(f){
     default: return '—';
   }
 }
+function cmpPlainText(f){ return plainValue(f).replace(/<br\s*\/?>/gi,'\n').replace(/<[^>]+>/g,'').trim(); }   // current value as plain text (for edit textareas)
+function editControl(f){
+  const fd=state.f[f.id]||{};
+  if(f.kind==='silver'){ const cur=(fd.manual!=null&&fd.manual!=='')?fd.manual:((fd.sv&&fd.sv.length)?fd.sv.reduce((a,b)=>a+b,0)*(f.mult||10):''); return '<input class="cmpedit cmpedit-num" type="number" min="0" data-edit="num" data-field="silver" value="'+cur+'">'; }
+  if(f.kind==='table' && f.table){
+    let opts='<option value="">— pick —</option>';
+    (f.table.rows||[]).forEach(r=>{ const txt=String(r[2]).replace(/\n/g,' · ').replace(/\*/g,'').slice(0,72); const sel=(fd.manual==null && fd.main!=null && fd.main>=r[0] && fd.main<=r[1])?' selected':''; opts+='<option value="'+r[0]+'"'+sel+'>'+esc(txt)+'</option>'; });
+    opts+='<option value="__custom__"'+(fd.manual!=null?' selected':'')+'>✎ Custom…</option>';
+    let h2='<select class="cmpedit cmpedit-sel" data-edit="tablepick" data-field="'+f.id+'">'+opts+'</select>';
+    if(fd.manual!=null) h2+='<input class="cmpedit cmpedit-txt" data-edit="manualtext" data-field="'+f.id+'" value="'+esc(fd.manual)+'" placeholder="Custom text">';
+    return h2;
+  }
+  const cur=(fd.manual!=null)?fd.manual:cmpPlainText(f);
+  return '<textarea class="cmpedit cmpedit-area" data-edit="manualtext" data-field="'+f.id+'" rows="2">'+esc(cur)+'</textarea>';
+}
 function fitCompact(){
   // full size: no scaling — the sheet flows and paginates across A4 pages when needed
   const inner=document.querySelector('#compact .cmp-inner');
@@ -2225,37 +2339,63 @@ function fitCompact(){
 }
 function renderCompact(){
   const root=document.getElementById('compact'); if(!root) return;
-  const af=activeFields(state);
+  const af=activeFields(state); curEff = activeEffects(state); curById={}; af.forEach(f=>curById[f.id]=f);
   const name=(state.f.name&&state.f.name.text)||t(UI.unnamed);
   const cls=CLASSES[state.classId], meta=CLASS_META[state.classId];
   const emblem=(cls&&meta&&EMBLEMS[meta.glyph])?'<span class="cmp-emblem" style="--accent:'+(meta.hue||'#caa24a')+'">'+EMBLEMS[meta.glyph]+'</span>':'';
-  const stat=(id,lbl)=>{const sc=abScore(id);return '<div class="cmp-stat"><div class="cmp-sv">'+(sc==null?'?':signed(sc))+'</div><div class="cmp-sl">'+lbl+'</div></div>';};
+  const stat=(id,lbl)=>{ const sc=abScore(id); const inner = state.edit ? '<input class="cmpedit cmpedit-num" type="number" min="-3" max="6" data-edit="num" data-field="'+id+'" value="'+(sc==null?'':sc)+'">' : '<div class="cmp-sv">'+(sc==null?'?':signed(sc))+'</div>'; return '<div class="cmp-stat">'+inner+'<div class="cmp-sl">'+lbl+'</div></div>'; };
   const hpFd=state.f.hp||{}, tg=abScore('toughness'); const hpv=(hpFd.hp!=null&&tg!=null)?Math.max(1,tg+hpFd.hp):null;
   const omFd=state.f.omens||{}; const omv=(omFd.cur==null?omFd.main:omFd.cur);
-  let h='<div class="a4"><div class="cmp-inner"><div class="cmp-head"><div class="cmp-name">'+esc(name)+'</div><div class="cmp-cls">'+emblem+'<span>'+(cls?esc(t(cls.name)):t(UI.noclass))+'</span></div></div>';
-  h+='<div class="cmp-stats">'+stat('strength','STR')+stat('agility','AGI')+stat('presence','PRE')+stat('toughness','TOU')
-     +'<div class="cmp-stat cmp-stat-hp"><div class="cmp-sv">'+(hpv==null?'?':hpv)+'</div><div class="cmp-sl">HP</div></div>'
-     +'<div class="cmp-stat"><div class="cmp-sv">D'+omensDie(state)+(omensMod(state)?'+'+omensMod(state):'')+'</div><div class="cmp-sl">OMEN DIE</div></div>'
-     +'<div class="cmp-stat"><div class="cmp-sv">'+plainValue(af.find(f=>f.id==='silver')||BASE_BY_ID.silver)+'</div><div class="cmp-sl">SILVER</div></div></div>';
+  const omDisp = curEff.noOmens ? '—' : ((curEff.omensSet!=null ? clamp(omv||0,0,curEff.omensSet) : (omv==null?'?':omv)) + '/' + (curEff.omensSet!=null?curEff.omensSet:omensDieLbl(state)));
+  const adj=(fid)=> state.play ? '<div class="cmp-adj"><button class="cadj" data-act="'+fid+'-dec" data-field="'+fid+'" title="−1">−</button><button class="cadj" data-act="'+fid+'-inc" data-field="'+fid+'" title="+1">+</button></div>' : '';
+  const pMax=powersMax(), pCur=powersCur(); const pDisp=(pMax==null)?'?':(pCur+'/'+pMax);
+  const nameInner = state.edit ? '<input class="cmpedit cmpedit-name" data-act="settext" data-field="name" value="'+esc((state.f.name&&state.f.name.text)||'')+'" placeholder="'+esc(t(UI.unnamed))+'">' : esc(name);
+  const silverF=af.find(f=>f.id==='silver')||BASE_BY_ID.silver;
+  const hpInner = state.edit ? '<input class="cmpedit cmpedit-num" type="number" min="1" data-edit="num" data-field="hp" value="'+(hpv==null?'':hpv)+'">' : '<div class="cmp-sv">'+(hpv==null?'?':(hpCur()+'/'+hpv))+'</div>';
+  const silvInner = state.edit ? editControl(silverF) : '<div class="cmp-sv">'+plainValue(silverF)+'</div>';
+  let h='<div class="a4"><div class="cmp-inner"><div class="cmp-head"><div class="cmp-name">'+nameInner+'</div><div class="cmp-cls">'+emblem+'<span>'+(cls?esc(t(cls.name)):t(UI.noclass))+'</span></div></div>';
+  h+='<div class="cmp-stats'+((state.play&&!state.edit)?' playstats':'')+'">'+stat('strength','STR')+stat('agility','AGI')+stat('presence','PRE')+stat('toughness','TOU')
+     +'<div class="cmp-stat cmp-stat-hp">'+hpInner+'<div class="cmp-sl">HP</div>'+(state.edit?'':adj('hp'))+'</div>'
+     +'<div class="cmp-stat"><div class="cmp-sv">'+omDisp+'</div><div class="cmp-sl">OMENS</div>'+(state.edit?'':adj('omens'))+'</div>'
+     +((state.play&&!state.edit)?'<div class="cmp-stat"><div class="cmp-sv">'+pDisp+'</div><div class="cmp-sl">POWERS</div>'+adj('powers')+'</div>':'')
+     +'<div class="cmp-stat">'+silvInner+'<div class="cmp-sl">SILVER</div></div></div>';
   const block=(secId)=>{
     const sec=SECTIONS.find(x=>x.id===secId);
     const fields=af.filter(f=>f.section===secId && f.kind!=='classdisplay').sort((a,b)=>(a.ord||0)-(b.ord||0));
-    if(!fields.length) return '';
+    const customs=(state.custom&&state.custom[secId])||[]; const hasCustom=customs.some(c=>c.title||c.body);
+    if(!fields.length && !hasCustom && !state.edit) return '';
     const stacked=(secId!=='combat' && secId!=='gear');  // prose sections (magic/capabilities/background/sps) → title on top, content below; combat/gear keep 2 cols
     let b='<div class="cmp-block"><h4>'+esc(t(sec.title))+'</h4>';
     fields.forEach(f=>{
-      const lbl=esc(t(f.label)), val=plainValue(f);
+      const lbl=esc(t(f.label)), val=state.edit?editControl(f):plainValue(f);
       if(f.id==='silver') b+='<div class="cmp-row cmp-money"><span class="cmp-l">'+lbl+'</span><span class="cmp-v">'+val+'</span></div>';
       else if(f.kind==='fixed') b+='<div class="cmp-fix"><b class="cmp-fl">'+lbl+'</b> '+val+'</div>';
       else if(f.kind==='text'){ if(val&&val!=='—') b+='<div class="cmp-fix">'+val+'</div>'; }
       else if(stacked) b+='<div class="cmp-stack"><div class="cmp-sk-l">'+lbl+'</div><div class="cmp-sk-v">'+val+'</div></div>';
       else b+='<div class="cmp-row"><span class="cmp-l">'+lbl+'</span><span class="cmp-v">'+val+'</span></div>';
     });
+    customs.forEach(c=>{
+      if(state.edit){
+        b+='<div class="cmp-custom cc-edit"><input class="cmpedit cmpedit-txt cc-title" data-edit="custom-title" data-section="'+secId+'" data-cid="'+c.id+'" value="'+esc(c.title||'')+'" placeholder="Title (e.g. a new ability)"><button class="cc-del" data-act="del-custom" data-section="'+secId+'" data-cid="'+c.id+'" title="Remove">✕</button><textarea class="cmpedit cmpedit-area" data-edit="custom-body" data-section="'+secId+'" data-cid="'+c.id+'" rows="2" placeholder="Description…">'+esc(c.body||'')+'</textarea></div>';
+      } else if(c.title||c.body){
+        b+='<div class="cmp-custom"><b class="cmp-fl">'+esc(c.title||'')+'</b> '+fmt(c.body||'')+'</div>';
+      }
+    });
+    if(state.edit) b+='<button class="cc-add" data-act="add-custom" data-section="'+secId+'">+ '+esc(t(UI.addcustom))+'</button>';
     return b+'</div>';
   };
-  h+='<div class="cmp-body">'+['combat','magic','gear','capabilities','background','sps'].map(block).join('')+'</div></div></div>';
+  let logHtml='';
+  if(state.log && state.log.length){
+    logHtml='<div class="cmp-block"><h4>'+esc(t(UI.advancement))+'</h4>';
+    logHtml+=state.log.map((e,i)=>{ const d=new Date(e.t); const del=state.edit?'<button class="cc-del" data-act="del-log" data-i="'+i+'" title="Remove">✕</button>':''; return '<div class="cmp-log">'+del+'<b>'+esc(d.toLocaleDateString())+'</b><br>'+(e.lines||[]).map(esc).join('<br>')+'</div>'; }).reverse().join('');
+    logHtml+='</div>';
+  }
+  h+='<div class="cmp-body">'+['combat','magic','gear','capabilities','background','sps'].map(block).join('')+logHtml+'</div></div></div>';
   root.innerHTML=h;
   fitCompact();
+  const _vc=document.getElementById('view-compact'); if(_vc){ _vc.classList.toggle('playon', !!state.play); _vc.classList.toggle('editon', !!state.edit); }
+  const _ct=document.getElementById('cmptoggle'); if(_ct){ _ct.classList.toggle('on', !!state.play); const _cs=_ct.querySelector('span'); if(_cs) _cs.textContent = state.play ? t(UI.viewmode) : t(UI.playmode); }
+  const _ce=document.getElementById('cmpedit'); if(_ce){ _ce.classList.toggle('on', !!state.edit); const _es=_ce.querySelector('span'); if(_es) _es.textContent = state.edit ? t(UI.donemode) : t(UI.editmode); }
 }
 const EMBLEMS = {
   teeth:`<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 18h40"/><path d="M22 18l-4 26-4-26"/><path d="M46 18l-4 26-4-26"/></svg>`,
@@ -2315,6 +2455,7 @@ const FIELDS = [
   {id:'toughness',section:'stats', kind:'ability', label:{en:'Toughness',fr:'Endurance'}},
   {id:'hp',       section:'stats', kind:'hp', label:{en:'Hit Points',fr:'Points de vie'}},
   {id:'omens',    section:'stats', kind:'omens', sides:s=>omensDie(s), label:{en:'Omens',fr:'Présages'}},
+  {id:'powers',   section:'stats', kind:'powers', sides:s=>powersDie(s), label:{en:'Powers / day',fr:'Sorts / jour'}, enabled:s=>!!s.play},
 
   {id:'silver',   section:'gear', kind:'silver', label:{en:'Silver',fr:'Argent'}},
   {id:'food',     section:'gear', kind:'food', sides:4, label:{en:'Provisions',fr:'Provisions'}},
@@ -2616,14 +2757,14 @@ function genComposedHTML(tab){
 /* ---------- state ---------- */
 const LS_LIST = 'mb.scvm.list.v1';
 const LS_CUR  = 'mb.scvm.current.v1';
-let state, curById = {}, animQ = [];
+let state, curById = {}, animQ = [], curEff = {strength:0,agility:0,presence:0,toughness:0,noOmens:false,omensSet:null};
 let view = 'home', pickSel = '';
 let oracle = {}, oracleOpen = {};   // standalone rolls for the optional-tables page (separate from the character)
 let tablesTab = 'oracle';           // Tables page tab: 'oracle' | 'loot'
 let spsOpen = {};                   // Tables page: which SPS class groups are unfolded (default folded = compact)
 
 function newChar(){
-  return { v:1, meta:{id:null,name:''}, lang:LANG, classId:'', boost:{}, collapsed:{},
+  return { v:1, meta:{id:null,name:''}, lang:LANG, classId:'', play:false, edit:false, custom:{}, log:[], boost:{}, collapsed:{},
            modules:{terribleTraits:false,brokenBodies:false,badHabits:false,troublingTales:false,starSigns:false}, sps:{}, f:{} };
 }
 
@@ -2632,6 +2773,35 @@ function sidesOf(f,s){ return typeof f.sides==='function' ? f.sides(s) : f.sides
 function classNoScrolls(s){ const c=CLASSES[s.classId]; return !!(c && c.noScrolls); }
 function omensDie(s){ const c=CLASSES[s.classId]; return (c && c.omensDie) || 2; }
 function omensMod(s){ const c=CLASSES[s.classId]; return (c && c.omensMod) || 0; }
+/* Play-mode daily resources. Powers usable per day = 1dX + Presence (default d4; a class may override via powersDie/powersMod). */
+function powersDie(s){ const c=CLASSES[s.classId]; return (c && c.powersDie) || 4; }
+function powersMod(s){ const c=CLASSES[s.classId]; return (c && c.powersMod) || 0; }
+function hpMax(){ const fd=state.f.hp||{}; if(fd.manual!=null && fd.manual!=='') return Math.max(1,+fd.manual); const tg=abScore('toughness'); return (fd.hp!=null && tg!=null) ? Math.max(1, tg+fd.hp) : null; }
+function hpCur(){ const m=hpMax(); if(m==null) return null; const c=state.f.hp&&state.f.hp.cur; return (c!=null)?clamp(c,0,m):m; }
+function powersMax(){ const fd=state.f.powers||{}; if(fd.main==null) return null; const pre=abScore('presence'); return Math.max(0, fd.main + (pre||0) + powersMod(state)); }
+function powersCur(){ const m=powersMax(); if(m==null) return null; const c=state.f.powers&&state.f.powers.cur; return (c!=null)?clamp(c,0,m):m; }
+/* Official MÖRK BORG "Getting better or worse" (GM-approved advancement). Applies HP + ability changes, returns a log of what happened. */
+function getBetter(){
+  const ABBR={strength:'STR',agility:'AGI',presence:'PRE',toughness:'TOU'}, lines=[];
+  let r=0; for(let i=0;i<6;i++) r+=rollDie(10);                              // More HP: roll 6D10
+  const curMax=hpMax();
+  if(curMax!=null){
+    if(r>=curMax){ const g=rollDie(6); const fd=state.f.hp=state.f.hp||{}; if(fd.manual!=null&&fd.manual!=='') fd.manual=(+fd.manual)+g; else fd.hp=(fd.hp||0)+g; lines.push('HP — 6D10='+r+' ≥ '+curMax+' → maximum +'+g); }
+    else lines.push('HP — 6D10='+r+' < '+curMax+' → unchanged');
+  }
+  ['strength','agility','presence','toughness'].forEach(name=>{                // Ability changes: D6 vs each
+    const a=abScore(name); if(a==null) return;
+    const d=rollDie(6); let na;
+    if(a>=-3 && a<=1) na=(d===1)?Math.max(-3,a-1):(a+1);                       // -3..+1 always +1 unless D6=1 (then -1, min -3)
+    else na=(d>=a)?Math.min(6,a+1):(a-1);                                      // +2..+6: D6 ≥ ability → +1 (max +6), else -1
+    state.f[name]=state.f[name]||{}; state.f[name].manual=na;
+    lines.push(ABBR[name]+' — D6='+d+' vs '+signed(a)+' → '+signed(na)+(na>a?' ▲':(na<a?' ▼':' =')));
+  });
+  const fhp=state.f.hp;                                    // current HP follows the max gain (Toughness can rise after the HP step), keeping any damage
+  if(fhp){ const postMax=hpMax(); if(postMax!=null){ fhp.cur=(curMax==null||fhp.cur==null)?postMax:clamp(fhp.cur+Math.max(0,postMax-curMax),0,postMax); } }
+  return lines;
+}
+function omensDieLbl(s){ const d=omensDie(s), m=omensMod(s); return (d===1?'1':'D'+d) + (m?'+'+m:''); }
 function needsReroll(f,s,v){
   if(f.rerollVals && f.rerollVals.indexOf(v)>=0) return true;            // class reroll (e.g. royalty: no heavy armor)
   if(classNoScrolls(s) && f.table){ const r=lookup(f.table,v); if(r && r[3]) return true; }  // illiterate: reroll scrolls
@@ -2639,6 +2809,8 @@ function needsReroll(f,s,v){
 }
 function hasScroll(s){
   if(classNoScrolls(s)) return false;
+  const c=CLASSES[s.classId];
+  if(c && c.add && c.add.some(f=>f.kind==='scroll'||f.kind==='scrollset')) return true;   // class grants a scroll (e.g. Goblin Wild Mage) → scroll-user → d6 weapon / d2 armor
   return ['gear1','gear2'].some(id=>{
     const fd = s.f[id]; if(!fd || fd.main==null) return false;
     const row = lookup(BASE_BY_ID[id].table, fd.main);
@@ -2646,13 +2818,15 @@ function hasScroll(s){
   });
 }
 function abScore(name){
-  const fd = state.f[name]; if(!fd || !fd.dice || !fd.dice.length || fd.dice.some(x=>x==null)) return null;
+  const fd = state.f[name];
+  if(fd && fd.manual!=null && fd.manual!=='') return clamp(+fd.manual, -3, 6);   // manual override (edit mode)
+  if(!fd || !fd.dice || !fd.dice.length || fd.dice.some(x=>x==null)) return null;
   const d = fd.dice;
   const sum = d.length>3 ? d.slice().sort((a,b)=>b-a).slice(0,3).reduce((x,y)=>x+y,0) : d.reduce((x,y)=>x+y,0);
   const cls = CLASSES[state.classId];
   const dmod = (cls && cls.abilityDiceMod && cls.abilityDiceMod[name]) || 0;
   const smod = (cls && cls.statMods && cls.statMods[name]) || 0;
-  return clamp(abilityScore(sum + dmod) + smod, -3, 6);
+  return clamp(abilityScore(sum + dmod) + smod + (curEff[name]||0), -3, 6);
 }
 function fieldFor(id){ return curById[id] || BASE_BY_ID[id]; }
 
@@ -2669,6 +2843,33 @@ function activeFields(s){
   return list.filter(f => !f.enabled || f.enabled(s));
 }
 
+/* ---------- cross-influence effects: table results that modify creation stats ----------
+   A rolled table row may carry an effect object at row[4] (row[3] is kept falsy so it is NOT
+   treated as a scroll flag):
+     {strength|agility|presence|toughness: ±N}  flat ability-score modifier
+     {omensSet: N}                              set maximum/starting Omens to N
+     {noOmens: true}                            the character has no Omens
+   activeEffects() scans every active rolled field (table / twice) and merges the effects of the
+   rolled rows, so a feat / SPS gift / class choice automatically overrides the affected stat. */
+function activeEffects(s){
+  const e={strength:0,agility:0,presence:0,toughness:0,noOmens:false,omensSet:null};
+  activeFields(s).forEach(f=>{
+    if(!f.table) return;
+    const fd=s.f[f.id]; if(!fd) return;
+    const vals=[];
+    if(f.kind==='twice'){ if(fd.a!=null) vals.push(fd.a); if(fd.b!=null) vals.push(fd.b); }
+    else if(fd.main!=null) vals.push(fd.main);
+    vals.forEach(v=>{
+      const row=lookup(f.table, clamp(v+(f.mod||0),1,tableMax(f.table)));
+      const ef=row&&row[4]; if(!ef) return;
+      ['strength','agility','presence','toughness'].forEach(k=>{ if(ef[k]) e[k]+=ef[k]; });
+      if(ef.noOmens) e.noOmens=true;
+      if(ef.omensSet!=null) e.omensSet=ef.omensSet;
+    });
+  });
+  return e;
+}
+
 /* ---------- dice keys (for animation / iteration) ---------- */
 function diceKeys(f,s){
   const fd = s.f[f.id] || {};
@@ -2676,6 +2877,7 @@ function diceKeys(f,s){
     case 'ability': { const n=(fd.dice&&fd.dice.length)||(s.boost[f.id]?4:3); const o=[]; for(let i=0;i<n;i++)o.push(['a'+i,6]); return o; }
     case 'hp':     return [['hp', f.die||8]];
     case 'omens':  return [];
+    case 'powers': return [];
     case 'silver': { const n=f.count||2, dd=f.die||6; const o=[]; for(let i=0;i<n;i++)o.push(['s'+i,dd]); return o; }
     case 'food':   return [['main',4]];
     case 'table':  { const sd=sidesOf(f,s); const o=[['main',sd]]; if(fd.main!=null){ const r=lookup(f.table,fd.main); if(r&&r[3]) o.push(['scroll',10]); } return o; }
@@ -2691,8 +2893,9 @@ function randomizeField(s,f){
   const fd = s.f[f.id] = s.f[f.id] || {};
   switch(f.kind){
     case 'ability': { const n=s.boost[f.id]?4:3; const d=[]; for(let i=0;i<n;i++)d.push(rollDie(6)); fd.dice=d; break; }
-    case 'hp':     { const c=f.count||1; let h=0; for(let i=0;i<c;i++) h+=rollDie(f.die||8); fd.hp=h; break; }
+    case 'hp':     { const c=f.count||1; let h=0; for(let i=0;i<c;i++) h+=rollDie(f.die||8); fd.hp=h; const tg=abScore('toughness'); fd.cur=(tg!=null)?Math.max(1,tg+h):null; break; }   // reset current HP to the new max
     case 'omens':  fd.main = rollDie(sidesOf(f,s)); fd.cur = fd.main + omensMod(s); break;
+    case 'powers': { fd.main = rollDie(sidesOf(f,s)); const pre=abScore('presence'); fd.cur = Math.max(0, fd.main + (pre||0) + powersMod(s)); break; }
     case 'silver': { const n=f.count||2, dd=f.die||6; fd.sv=[]; for(let i=0;i<n;i++)fd.sv.push(rollDie(dd)); break; }
     case 'food':   fd.main = rollDie(4); break;
     case 'table':  { const sd=sidesOf(f,s), roll=()=>f.tens?(rollDie(f.tens)*10+rollDie(f.units)):rollDie(sd); let v=roll(), g=0; while(needsReroll(f,s,v) && g++<50) v=roll(); fd.main=v; const r=lookup(f.table,fd.main); if(r&&r[3]) fd.scroll=rollDie(10); break; }
@@ -2706,8 +2909,9 @@ function rerollDie(s,f,key){
   if(f.kind==='ability'){ const i=+key.slice(1); fd.dice=fd.dice||[]; fd.dice[i]=rollDie(6); return; }
   if(f.kind==='silver'){ const i=+key.slice(1); fd.sv=fd.sv||[]; fd.sv[i]=rollDie(f.die||6); return; }
   if(f.kind==='twice'){ fd[key]=rollDie(sidesOf(f,s)); return; }
-  if(f.kind==='hp'){ const c=f.count||1; let h=0; for(let i=0;i<c;i++) h+=rollDie(f.die||8); fd.hp=h; return; }
+  if(f.kind==='hp'){ const c=f.count||1; let h=0; for(let i=0;i<c;i++) h+=rollDie(f.die||8); fd.hp=h; const tg=abScore('toughness'); fd.cur=(tg!=null)?Math.max(1,tg+h):null; return; }
   if(f.kind==='omens'){ fd.main=rollDie(sidesOf(f,s)); fd.cur=fd.main+omensMod(s); return; }
+  if(f.kind==='powers'){ fd.main=rollDie(sidesOf(f,s)); const pre=abScore('presence'); fd.cur=Math.max(0, fd.main+(pre||0)+powersMod(s)); return; }
   if(f.kind==='scroll'){ fd.n=rollDie(10); return; }
   if(f.kind==='name3'){ const i=+key.slice(1); fd.r=fd.r||[]; fd.r[i]=rollDie((f.cols&&f.cols[i]&&f.cols[i].length)||20); return; }
   if(key==='scroll'){ fd.scroll=rollDie(10); return; }
@@ -2791,22 +2995,56 @@ function fieldBody(f){
     }
     case 'hp': {
       const die = f.die||8, dv = fd.hp, tough = abScore('toughness');
-      const hp = (dv!=null && tough!=null) ? Math.max(1, tough + dv) : null;
-      return L + `<div class="abrow"><div class="score scorehp" data-act="rollfield" data-field="${id}" title="${esc(t(UI.reroll1))}">${hp==null?'?':hp}</div><div class="dice">${dieHTML(id,'hp',die,dv)}</div></div><div class="sub">Toughness + ${(f.count||1)>1?f.count:''}d${die} (min 1)</div>`;
+      const max = (dv!=null && tough!=null) ? Math.max(1, tough + dv) : null;
+      if(s.play){   // play: track current / max, damage & heal
+        const cur = (max!=null) ? ((fd.cur!=null)?clamp(fd.cur,0,max):max) : null;
+        const frac = (max==null) ? '?' : (cur+'<span class="den">/'+max+'</span>');
+        return L + `<div class="abrow"><button class="adj" data-act="hp-dec" data-field="${id}" title="Damage −1">−</button><div class="score scorehp">${frac}</div><button class="adj" data-act="hp-inc" data-field="${id}" title="Heal +1">+</button></div><div class="sub">Current / Max</div>`;
+      }
+      const frac = (max==null) ? '?' : (max+'<span class="den">/'+max+'</span>');   // build: full, shows the max as "x/x"
+      return L + `<div class="abrow"><div class="score scorehp" data-act="rollfield" data-field="${id}" title="${esc(t(UI.reroll1))}">${frac}</div><div class="dice">${dieHTML(id,'hp',die,dv)}</div></div><div class="sub">Toughness + ${(f.count||1)>1?f.count:''}d${die} (min 1)</div>`;
     }
     case 'omens': {
       const die = sidesOf(f,s), mod = omensMod(s);
+      const dlabel = omensDieLbl(s);
+      if(curEff.noOmens){       // feat/gift override: the character has no Omens
+        return L
+          + `<div class="omrow"><div class="score" style="cursor:default" title="No Omens">—</div></div>`
+          + `<div class="sub">No Omens — overridden by a feat/gift.</div>`
+          + omensRef();
+      }
+      if(curEff.omensSet!=null){ // feat override: maximum Omens fixed → current / max
+        const ocur = (fd.cur!=null)?clamp(fd.cur,0,curEff.omensSet):curEff.omensSet;
+        return L
+          + `<div class="omrow">`
+          +   `<button class="adj" data-act="omens-dec" data-field="${id}" title="−1">−</button>`
+          +   `<div class="score" data-act="rollfield" data-field="${id}" title="${esc(t(UI.newday))}">${ocur}<span class="den">/${curEff.omensSet}</span></div>`
+          +   `<button class="adj" data-act="omens-inc" data-field="${id}" title="+1">+</button>`
+          + `</div>`
+          + `<div class="sub">Maximum Omens set to ${curEff.omensSet} by a feat.</div>`
+          + omensRef();
+      }
       const cur = (fd.cur!=null) ? fd.cur : (fd.main!=null ? fd.main+mod : null);
-      const dlabel = 'D'+die + (mod?('+'+mod):'');
       return L
         + `<div class="omrow">`
-        +   `<button class="omdie" data-act="rollfield" data-field="${id}" title="${esc(t(UI.newday))}">${dlabel}</button>`
         +   `<button class="adj" data-act="omens-dec" data-field="${id}" title="−1">−</button>`
-        +   `<div class="score" data-act="rollfield" data-field="${id}" title="${esc(t(UI.newday))}">${cur==null?'?':cur}</div>`
+        +   `<div class="score" data-act="rollfield" data-field="${id}" title="${esc(t(UI.newday))}">${cur==null?'?':cur}<span class="den">/${dlabel}</span></div>`
         +   `<button class="adj" data-act="omens-inc" data-field="${id}" title="+1">+</button>`
         + `</div>`
         + `<div class="sub">${esc(t(UI.omenssub)).replace('{d}',dlabel)}</div>`
         + omensRef();
+    }
+    case 'powers': {
+      const dlabel = 'D'+sidesOf(f,s) + (powersMod(s)?'+'+powersMod(s):'');
+      const max = powersMax(), cur = powersCur();
+      const frac = (max==null) ? '?' : (cur+'<span class="den">/'+max+'</span>');
+      return L
+        + `<div class="omrow">`
+        +   `<button class="adj" data-act="powers-dec" data-field="${id}" title="Use a Power −1">−</button>`
+        +   `<div class="score" data-act="rollfield" data-field="${id}" title="New day (reroll ${dlabel} + Presence)">${frac}</div>`
+        +   `<button class="adj" data-act="powers-inc" data-field="${id}" title="+1">+</button>`
+        + `</div>`
+        + `<div class="sub">${dlabel} + Presence per day. Tap the value for a new day.</div>`;
     }
     case 'silver': {
       const mult=f.mult||10, dd=f.die||6, n=f.count||2, sv=fd.sv;
@@ -2913,7 +3151,9 @@ function renderCard(secId, af){
 function render(){
   const s = state;
   curById = {}; const af = activeFields(s); af.forEach(f=>curById[f.id]=f);
+  curEff = activeEffects(s);
   let html = `<div class="hint">${esc(t(UI.reroll))}</div>`;
+  if(s.play) html += `<div class="playbar"><strong>${t(UI.playmode)}</strong><span class="pb-sub">${t(UI.playhint)}</span><button class="btn gold pb-day" data-app="new-day">☀ ${t(UI.newdaybtn)}</button></div>`;
   BANDS.forEach(band=>{
     if(band.indexOf('capabilities')>=0) html += renderToggles('capabilities');  // Unheroic Feat toggle above the Capabilities band
     if(band.indexOf('background')>=0) html += renderToggles('background');        // other optional + SPS toggles above the Background band
@@ -2922,6 +3162,7 @@ function render(){
     html += `<div class="band" data-n="${cards.length}">${cards.join('')}</div>`;
   });
   document.getElementById('sheet').innerHTML = html;
+  const _pt=document.getElementById('playtoggle'); if(_pt){ _pt.classList.toggle('on', !!s.play); const _ts=_pt.querySelector('span'); if(_ts) _ts.textContent = s.play ? t(UI.buildmode) : t(UI.playmode); }
   const _vs=document.getElementById('view-sheet'); if(_vs) _vs.style.setProperty('--accent', (CLASS_META[s.classId] && CLASS_META[s.classId].hue) || '#3a3a30');
   document.getElementById('printhead').textContent = (s.f.name && s.f.name.text) || t(UI.unnamed);
   renderRef();
@@ -2929,6 +3170,7 @@ function render(){
   flushAnim();
   autosave();
 }
+function redraw(){ if(view==='compact') renderCompact(); else render(); }   // re-render whichever sheet is showing (builder #sheet or A4 #compact)
 
 /* ---------- dice animation ---------- */
 function animateDie(el){
@@ -2949,12 +3191,30 @@ function flushAnim(){
 function rollAll(){
   const af = activeFields(state);
   af.forEach(f=>{ if(['text','classdisplay','scrollset','fixed'].includes(f.kind)) return; randomizeField(state,f); });
+  state.f.name = state.f.name || {}; state.f.name.text = genName();   // identity: forge a name too (Roll all = roll EVERYTHING)
   animQ = [];
   af.forEach(f=>{ if(['text','classdisplay','scrollset','fixed'].includes(f.kind)) return; diceKeys(f,state).forEach(k=>animQ.push([f.id,k[0]])); });
   render();
 }
+function skullSvg(cls){ return '<svg class="'+cls+'" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 2C9 2 4 7 4 14c0 4 2 6 4 8 1 1 1 3 1 5h2l1-3 1 3h4l1-3 1 3h2c0-2 0-4 1-5 2-2 4-4 4-8 0-7-5-12-12-12z" fill="currentColor"/><circle cx="11.5" cy="14" r="3" fill="#000"/><circle cx="20.5" cy="14" r="3" fill="#000"/><path d="M16 18l-2 4h4z" fill="#000"/></svg>'; }
+function sceneHTML(){   // one of three MÖRK BORG loading scenes, picked at random
+  const w=Math.floor(Math.random()*3);
+  if(w===1) return {cls:'scene-sun',  html:'<div class="bsun"><span class="bsun-core"></span><span class="bsun-disk"></span></div>'};
+  if(w===2) return {cls:'scene-pend', html:'<div class="pend"><span class="pend-arm">'+skullSvg('pskull')+'</span></div>'};
+  return {cls:'scene-graves', html:'<div class="gground"></div><div class="tomb left"></div><div class="tomb right"></div>'+skullSvg('gskull')};
+}
+function applyScene(el, slow){ if(!el) return; const s=sceneHTML(); el.className='gscene'+(slow?' slow':'')+' '+s.cls; el.innerHTML=s.html; }
+function forgeRoll(){                  // Roll all + a brief "forging" overlay so mobile users (who can't see lower sections) get clear feedback
+  state.meta.id = null;                // a fresh full roll = a new, unsaved character
+  rollAll();                           // forge everything (incl. a name) under the overlay
+  const ov = document.getElementById('roller'); if(!ov) return;
+  applyScene(document.getElementById('rollerscene'), false);   // random MÖRK BORG loading scene
+  ov.classList.add('show');
+  clearTimeout(ov._t);
+  ov._t = setTimeout(function(){ ov.classList.remove('show'); toast(t(UI.forged)); }, 1150);
+}
 function doApp(a){
-  if(a==='rollall'){ state.meta.id=null; rollAll(); }   // a fresh full roll = a new, unsaved character
+  if(a==='rollall'){ forgeRoll(); }   // a fresh full roll, behind a fun "forging" overlay = a new, unsaved character
   else if(a==='new'){ state = newChar(); setupChrome(); render(); }
   else if(a==='save') save();
   else if(a==='load') load();
@@ -2968,6 +3228,10 @@ function doApp(a){
   else if(a==='legals'){ const m=document.getElementById('legal'); if(m) m.classList.add('show'); }
   else if(a==='legal-close'){ const m=document.getElementById('legal'); if(m) m.classList.remove('show'); }
   else if(a==='fold-all'){ const secs=SECTIONS.map(s=>s.id).filter(id=>id!=='identity'); state.collapsed=state.collapsed||{}; const anyOpen=secs.some(id=>!isCollapsed(id)); secs.forEach(id=>{ state.collapsed[id]=anyOpen; }); render(); }
+  else if(a==='toggle-play'){ state.play=!state.play; if(state.play){ state.f.hp=state.f.hp||{}; if(state.f.hp.cur==null){ const m=hpMax(); if(m!=null) state.f.hp.cur=m; } const pw=BASE_BY_ID['powers']; if(pw && (!state.f.powers || state.f.powers.main==null)) randomizeField(state,pw); } redraw(); }
+  else if(a==='new-day'){ const om=BASE_BY_ID['omens']; if(om) randomizeField(state,om); const pw=BASE_BY_ID['powers']; if(pw) randomizeField(state,pw); redraw(); toast(t(UI.newdaytoast)); }
+  else if(a==='toggle-edit'){ state.edit=!state.edit; redraw(); }
+  else if(a==='get-better'){ const ln=getBetter(); if(!ln.length){ toast(t(UI.rollfirst)); return; } state.log=state.log||[]; state.log.push({t:Date.now(),lines:ln}); redraw(); toast(t(UI.getbettertoast)); }
   else if(a==='confirm-fate'){
     if(!pickSel) return;
     let cid=pickSel;
@@ -3057,6 +3321,7 @@ function paintChrome(){
   const cs=document.getElementById('classsel'); if(cs && cs.options[0]) cs.options[0].textContent=t(UI.noclass);
   document.querySelectorAll('[data-modlabel]').forEach(el=>{ const m=BASE_BY_ID[el.dataset.modlabel]; if(m) el.textContent=t(m.label); });
 }
+function syncNavH(){ const n=document.getElementById('topnav'); if(n) document.documentElement.style.setProperty('--navh', n.offsetHeight+'px'); }   // keep the sticky toolbar pinned right under the (possibly wrapping) top nav
 
 /* ---------- views & navigation ---------- */
 function showView(v){
@@ -3066,7 +3331,9 @@ function showView(v){
   if(v==='tables') renderTables();
   if(v==='scvms') renderScvms();
   if(v==='compact') renderCompact();
+  if(v==='home') applyScene(document.getElementById('homescene'), true);   // random ambient scene on the home screen
   renderNav();
+  syncNavH();
   window.scrollTo(0,0);
 }
 function navTo(v){
@@ -3212,7 +3479,12 @@ function onClick(e){
   if(act==='rolldie'){ const f=fieldFor(fid); if(f.kind==='ability'||f.kind==='silver'){ randomizeField(state,f); diceKeys(f,state).forEach(k=>animQ.push([fid,k[0]])); } else { rerollDie(state,f,key); animQ.push([fid,key]); } render(); }
   else if(act==='rollfield'){ const f=fieldFor(fid); randomizeField(state,f); diceKeys(f,state).forEach(k=>animQ.push([fid,k[0]])); render(); }
   else if(act==='boost'){ state.boost[fid]=!state.boost[fid]; const f=fieldFor(fid); randomizeField(state,f); diceKeys(f,state).forEach(k=>animQ.push([fid,k[0]])); render(); }
-  else if(act==='omens-inc' || act==='omens-dec'){ const fd=state.f[fid]=state.f[fid]||{}; const base=(fd.cur==null?fd.main:fd.cur)||0; fd.cur=clamp(base+(act==='omens-inc'?1:-1),0,99); render(); }
+  else if(act==='omens-inc' || act==='omens-dec'){ const fd=state.f[fid]=state.f[fid]||{}; const base=(fd.cur==null?fd.main:fd.cur)||0; fd.cur=clamp(base+(act==='omens-inc'?1:-1),0,99); redraw(); }
+  else if(act==='hp-inc' || act==='hp-dec'){ const m=hpMax(); if(m==null) return; const fd=state.f.hp=state.f.hp||{}; const base=(fd.cur!=null?fd.cur:m); fd.cur=clamp(base+(act==='hp-inc'?1:-1),0,m); redraw(); }
+  else if(act==='powers-inc' || act==='powers-dec'){ const m=powersMax(); if(m==null) return; const fd=state.f.powers=state.f.powers||{}; const base=(fd.cur!=null?fd.cur:m); fd.cur=clamp(base+(act==='powers-inc'?1:-1),0,m); redraw(); }
+  else if(act==='add-custom'){ const sec=actEl.dataset.section; state.custom=state.custom||{}; state.custom[sec]=state.custom[sec]||[]; state.custom[sec].push({id:'c'+Date.now().toString(36)+Math.floor(Math.random()*1e4).toString(36), title:'', body:''}); redraw(); }
+  else if(act==='del-custom'){ const sec=actEl.dataset.section, cid=actEl.dataset.cid; if(state.custom&&state.custom[sec]) state.custom[sec]=state.custom[sec].filter(x=>x.id!==cid); redraw(); }
+  else if(act==='del-log'){ const i=+actEl.dataset.i; if(state.log) state.log.splice(i,1); redraw(); }
   else if(act==='toggle-section'){ const sid=actEl.dataset.section; state.collapsed=state.collapsed||{}; state.collapsed[sid]=!isCollapsed(sid); render(); }
   else if(act==='toggle-mod'){ const id=actEl.dataset.mod; state.modules[id]=!state.modules[id]; render(); }
   else if(act==='usename'){ const f=fieldFor(fid), fd=state.f[fid]||{}, r=fd.r||[]; if(f.cols && r.length===3 && r.every(x=>x!=null)){ state.f.name=state.f.name||{}; state.f.name.text=[f.cols[0][r[0]-1],f.cols[1][r[1]-1],f.cols[2][r[2]-1]].join(' '); render(); } }
@@ -3243,6 +3515,8 @@ function onChange(e){
   }
   if(el.dataset && el.dataset.act==='setdie'){ setDie(fieldFor(el.dataset.field), el.dataset.key, el.value); render(); return; }
   if(el.dataset && el.dataset.act==='oracle-set'){ const tid=el.dataset.table, k=el.dataset.key, m=ORACLE_BY_ID[tid], v=parseInt(el.value,10); if(!isNaN(v)){ oracle[tid]=oracle[tid]||{}; oracle[tid][k]=clamp(v,1,m.sides); renderTables(); } return; }
+  if(el.dataset && el.dataset.edit==='num'){ const id=el.dataset.field; state.f[id]=state.f[id]||{}; const v=el.value.trim(); state.f[id].manual=(v===''||isNaN(+v))?null:+v; redraw(); return; }
+  if(el.dataset && el.dataset.edit==='tablepick'){ const id=el.dataset.field, v=el.value, fd=state.f[id]=state.f[id]||{}, f=fieldFor(id); if(v==='__custom__'){ fd.manual=cmpPlainText(f); } else if(v===''){ fd.manual=null; } else { fd.main=+v; fd.manual=null; const r=f.table&&lookup(f.table,fd.main); if(r&&r[3]&&fd.scroll==null) fd.scroll=rollDie(10); } redraw(); return; }
 }
 function onInput(e){
   const el = e.target;
@@ -3250,6 +3524,13 @@ function onInput(e){
     const id=el.dataset.field; state.f[id]=state.f[id]||{}; state.f[id].text=el.value;
     if(id==='name') document.getElementById('printhead').textContent = el.value || t(UI.unnamed);
     autosave();
+  }
+  else if(el.dataset && el.dataset.edit==='manualtext'){
+    const id=el.dataset.field; state.f[id]=state.f[id]||{}; state.f[id].manual=el.value; autosave();
+  }
+  else if(el.dataset && (el.dataset.edit==='custom-title'||el.dataset.edit==='custom-body')){
+    const sec=el.dataset.section, cid=el.dataset.cid, arr=(state.custom&&state.custom[sec])||[], c=arr.find(x=>x.id===cid);
+    if(c){ if(el.dataset.edit==='custom-title') c.title=el.value; else c.body=el.value; autosave(); }
   }
 }
 
@@ -3259,8 +3540,8 @@ function boot(){
   document.addEventListener('dblclick', onDblClick);
   document.addEventListener('change', onChange);
   document.addEventListener('input', onInput);
-  window.addEventListener('beforeprint', function(){ try{ showView('compact'); }catch(e){} });
-  let _rt; window.addEventListener('resize', function(){ clearTimeout(_rt); _rt=setTimeout(function(){ if(view==='tables') renderTables(); }, 160); });
+  window.addEventListener('beforeprint', function(){ try{ state.edit=false; state.play=false; showView('compact'); }catch(e){} });   // PDF is always the clean read-only sheet
+  let _rt; window.addEventListener('resize', function(){ syncNavH(); clearTimeout(_rt); _rt=setTimeout(function(){ if(view==='tables') renderTables(); }, 160); });
   const cur = localStorage.getItem(LS_CUR);
   if(cur){ try{ const c=JSON.parse(cur); if(c&&c.meta&&c.meta.id&&loadList().some(x=>x.meta&&x.meta.id===c.meta.id)){ state=c; LANG=state.lang||'en'; } }catch(e){} }
   if(!state) state = newChar();
