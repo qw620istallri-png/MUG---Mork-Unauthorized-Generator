@@ -248,6 +248,8 @@ h2:hover{color:#fff;}
 .cc-add:hover{background:#e7e7e2;color:#111;}
 .cmp-log{position:relative;margin:6px 0;font-size:12px;line-height:1.45;padding:6px 9px;background:#f3f3ee;border-left:3px solid #c9a200;border-radius:0 5px 5px 0;}
 .cmp-log b{color:#111;}
+.print-hint{font-size:12px;color:var(--muted);flex:1;text-align:center;padding:0 12px;}
+.cmp-subhead{color:#000;font:800 13px/1.1 Impact,'Arial Narrow',sans-serif;text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid #aaa;padding-bottom:4px;margin:10px 0 6px;}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 
 .printonly{display:none;}
@@ -437,7 +439,9 @@ body.light .navlink{color:#4a4535;}
 
 /* ── Print / PDF ── */
 @media print{
-  @page{size:A4 portrait;margin:14mm;}
+  @page{size:A4 portrait;margin:14mm;margin-top:6mm;margin-bottom:6mm;}
+  /* Suppress browser-injected header (date/title) — supported in Firefox/Chrome via @page margin-box */
+  @page :first{ margin-top:14mm; }
   html,body{background:#fff!important;margin:0;padding:0;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
   body::before{display:none!important;}
   #topnav,#sheettools,.cmp-bar,.cmp-adj,.die-in,.boostbtn,.hint,.ref,.refblock,.toast{display:none!important;}
@@ -495,7 +499,7 @@ body.light .navlink{color:#4a4535;}
     <div class="toolbar">
       <button class="btn primary" data-app="rollall" title="Roll the whole sheet"><svg class="bi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><circle cx="9" cy="9" r="1.5" fill="currentColor" stroke="none"/><circle cx="15" cy="9" r="1.5" fill="currentColor" stroke="none"/><circle cx="9" cy="15" r="1.5" fill="currentColor" stroke="none"/><circle cx="15" cy="15" r="1.5" fill="currentColor" stroke="none"/></svg><span data-i18n="rollall">Roll all</span></button>
       <button class="btn" data-app="fold-all" title="Fold / unfold all sections"><svg class="bi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9l4-4 4 4M8 15l4 4 4-4"/></svg><span data-i18n="foldAll">Fold all</span></button>
-      <button class="btn" id="playtoggle" data-app="toggle-play" title="Switch build / play mode"><svg class="bi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4v16l13-8z"/></svg><span>Play</span></button>
+
       <span class="tbsep"></span>
       <button class="btn" data-app="new" title="New scvm"><svg class="bi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg><span data-i18n="new">New</span></button>
       <button class="btn gold" data-app="save" title="Save scvm"><svg class="bi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h11l3 3v15H5z"/><path d="M8 3v5h7"/><rect x="8" y="13" width="8" height="8"/></svg><span data-i18n="save">Save</span></button>
@@ -530,13 +534,18 @@ body.light .navlink{color:#4a4535;}
 <section id="view-scvms" class="view">
   <div class="pick-head">
     <h1 class="pick-h"><span class="l1" data-i18n="scvmsL1">My</span> <span class="l2 slant" data-i18n="scvmsL2">Scvms</span></h1>
+    <div style="margin-top:14px;display:flex;justify-content:center;gap:10px;">
+      <button class="btn" data-app="import-to-list"><svg class="bi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3M7 8l5-5 5 5M5 21h14"/></svg><span data-i18n="importToList">Import a scvm</span></button>
+    </div>
   </div>
+  <input type="file" id="importlistf" accept="application/json,.json" hidden>
   <div id="scvmsgrid" class="scvmsgrid"></div>
 </section>
 
 <section id="view-compact" class="view">
   <div class="cmp-bar">
     <button class="navlink" data-nav="sheet" data-i18n="backSheet">← Back to sheet</button>
+    <span class="print-hint" data-i18n="printHint"></span>
     <div class="cmp-baractions">
       <button class="btn" id="cmptoggle" data-app="toggle-play" title="Play / view mode"><svg class="bi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4v16l13-8z"/></svg><span>Play</span></button>
       <button class="btn" id="cmpedit" data-app="toggle-edit" title="Edit fields directly on the sheet"><svg class="bi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4l10-10-4-4L4 16z"/><path d="M14 6l4 4"/></svg><span>Edit</span></button>
@@ -700,28 +709,28 @@ const T = {
     [12,12,{en:`tent`,fr:`tente`}],
   ]},
   unclean:{rows:[
-    [1,1,`PALMS OPEN THE SOUTHERN GATE: A ball of fire hits D2 creatures dealing D8 damage per creature.`],
-    [2,2,`TONGUE OF ERIS: A creature of your choice is confused for 10 minutes.`],
-    [3,3,`TE-LE-KIN-ESIS: Move an object up to D10×10 feet for D6 minutes.`],
-    [4,4,`LUCY-FIRES LEVITATION: Hover for Presence + D10 rounds.`],
-    [5,5,`DAEMON OF CAPILLARIES: One creature suffocates for D6 rounds, losing D4 HP per round.`],
-    [6,6,`NINE VIOLET SIGNS UNKNOT THE STORM: Produce D2 lightning bolts dealing D6 damage each.`],
-    [7,7,`METZHUOTL BLIND YOUR EYE: A creature becomes invisible for D6 rounds or until it is damaged, attacking/defending with DR6.`],
-    [8,8,`FOUL PSYCHOMPOMP: Summon (D6): 1–3 D4 skeletons / 4–6 D4 zombies`],
-    [9,9,`EYELID BLINDS THE MIND: D4 creatures fall asleep for one hour unless they succeed a DR14 test.`],
-    [10,10,`DEATH: All creatures within 30 feet lose a total of 4D10 HP.`],
+    [1,1,{en:`PALMS OPEN THE SOUTHERN GATE: A ball of fire hits D2 creatures dealing D8 damage per creature.`,fr:`LES PAUMES OUVRENT LA PORTE DU SUD : Une boule de feu frappe D2 créatures infligeant D8 dégâts par créature.`}],
+    [2,2,{en:`TONGUE OF ERIS: A creature of your choice is confused for 10 minutes.`,fr:`LA LANGUE D'ÉRIS : Une créature de ton choix est confuse pendant 10 minutes.`}],
+    [3,3,{en:`TE-LE-KIN-ESIS: Move an object up to D10×10 feet for D6 minutes.`,fr:`TÉ-LÉ-KIN-ÉSIE : Déplace un objet jusqu'à D10×3 mètres pendant D6 minutes.`}],
+    [4,4,{en:`LUCY-FIRES LEVITATION: Hover for Presence + D10 rounds.`,fr:`LÉVITATION DES FEUX DE LUCIE : Flotte pendant Présence + D10 rounds.`}],
+    [5,5,{en:`DAEMON OF CAPILLARIES: One creature suffocates for D6 rounds, losing D4 HP per round.`,fr:`DÉMON DES CAPILLAIRES : Une créature suffoque pendant D6 rounds, perdant D4 PV par round.`}],
+    [6,6,{en:`NINE VIOLET SIGNS UNKNOT THE STORM: Produce D2 lightning bolts dealing D6 damage each.`,fr:`NEUF SIGNES VIOLETS DÉNOUENT LA TEMPÊTE : Produit D2 éclairs infligeant D6 dégâts chacun.`}],
+    [7,7,{en:`METZHUOTL BLIND YOUR EYE: A creature becomes invisible for D6 rounds or until it is damaged, attacking/defending with DR6.`,fr:`METZHUOTL AVEUGLE TON ŒIL : Une créature devient invisible pendant D6 rounds ou jusqu'à ce qu'elle soit blessée, attaquant/défendant à DR6.`}],
+    [8,8,{en:`FOUL PSYCHOMPOMP: Summon (D6): 1–3 D4 skeletons / 4–6 D4 zombies`,fr:`IMMONDE PSYCHOPOMPE : Invoque (D6) : 1–3 D4 squelettes / 4–6 D4 zombies`}],
+    [9,9,{en:`EYELID BLINDS THE MIND: D4 creatures fall asleep for one hour unless they succeed a DR14 test.`,fr:`LA PAUPIÈRE AVEUGLE L'ESPRIT : D4 créatures s'endorment pendant une heure sauf si elles réussissent un test DR14.`}],
+    [10,10,{en:`DEATH: All creatures within 30 feet lose a total of 4D10 HP.`,fr:`MORT : Toutes les créatures dans un rayon de 9 mètres perdent un total de 4D10 PV.`}],
   ]},
   sacred:{rows:[
-    [1,1,`GRACE OF A DEAD SAINT: D2 creatures regain D10 HP each.`],
-    [2,2,`GRACE FOR A SINNER: A creature of your choice gets +D6 on one roll (damage, tests etc.)`],
-    [3,3,`WHISPERS PASS THE GATE: Ask three questions to a deceased creature.`],
-    [4,4,`AEGIS OF SORROW: A creature of your choice gains 2D6 extra HP for 10 rounds.`],
-    [5,5,`UNMET FATE: One creature, dead for no more than a week, is awakened with terrible memories.`],
-    [6,6,`BESTIAL SPEECH: You may speak with animals for D20 minutes.`],
-    [7,7,`FALSE DAWN/NIGHT'S CHARIOT: Light or pitch black for 3D10 minutes.`],
-    [8,8,`HERMETIC STEP: You find all traps in your path for 2D10 minutes.`],
-    [9,9,`ROSKOE'S CONSUMING GLARE: D4 creatures lose D8 HP each.`],
-    [10,10,`ENOCHIAN SYNTAX: One creature blindly obeys a single command.`],
+    [1,1,{en:`GRACE OF A DEAD SAINT: D2 creatures regain D10 HP each.`,fr:`GRÂCE D'UN SAINT MORT : D2 créatures récupèrent chacune D10 PV.`}],
+    [2,2,{en:`GRACE FOR A SINNER: A creature of your choice gets +D6 on one roll (damage, tests etc.)`,fr:`GRÂCE POUR UN PÉCHEUR : Une créature de ton choix obtient +D6 à un jet (dégâts, tests, etc.)`}],
+    [3,3,{en:`WHISPERS PASS THE GATE: Ask three questions to a deceased creature.`,fr:`LES MURMURES FRANCHISSENT LA PORTE : Pose trois questions à une créature décédée.`}],
+    [4,4,{en:`AEGIS OF SORROW: A creature of your choice gains 2D6 extra HP for 10 rounds.`,fr:`ÉGIDE DU CHAGRIN : Une créature de ton choix gagne 2D6 PV supplémentaires pendant 10 rounds.`}],
+    [5,5,{en:`UNMET FATE: One creature, dead for no more than a week, is awakened with terrible memories.`,fr:`DESTIN INACCOMPLI : Une créature, morte depuis au plus une semaine, est réveillée avec de terribles souvenirs.`}],
+    [6,6,{en:`BESTIAL SPEECH: You may speak with animals for D20 minutes.`,fr:`DISCOURS BESTIAL : Tu peux parler aux animaux pendant D20 minutes.`}],
+    [7,7,{en:`FALSE DAWN/NIGHT'S CHARIOT: Light or pitch black for 3D10 minutes.`,fr:`FAUSSE AURORE / CHAR DE LA NUIT : Lumière ou obscurité totale pendant 3D10 minutes.`}],
+    [8,8,{en:`HERMETIC STEP: You find all traps in your path for 2D10 minutes.`,fr:`PAS HERMÉTIQUE : Tu trouves tous les pièges sur ton chemin pendant 2D10 minutes.`}],
+    [9,9,{en:`ROSKOE'S CONSUMING GLARE: D4 creatures lose D8 HP each.`,fr:`REGARD DÉVORANT DE ROSKOE : D4 créatures perdent chacune D8 PV.`}],
+    [10,10,{en:`ENOCHIAN SYNTAX: One creature blindly obeys a single command.`,fr:`SYNTAXE ÉNOCHIENNE : Une créature obéit aveuglément à un unique commandement.`}],
   ]},
   weapons:{rows:[
     [1,1,{en:`Femur, d4 damage`,fr:`Fémur, d4 dégâts`}],
@@ -1578,16 +1587,16 @@ Les gens te suivent jusqu'à la mort.`}],
 
   /* ---- Tablets of Ochre Obscurity (relics; usable on the Tables page) ---- */
   ochreTablets:{rows:[
-    [1,1,`**Dream Theory**\nThe target begins to doubt it is real. Attacking and defending against it is -2 DR (+2 DR for affected PCs).`],
-    [2,2,`**Total Matter Comprehension**\nMends or breaks a normal-sized item, mundane or otherwise, including armor (increase/decrease one tier) and weapons.`],
-    [3,3,`**Ping the Shared Subconscious**\nYou sense the presence of living creatures within 70 feet even in adjacent rooms.`],
-    [4,4,`**Logical Prognostication**\nUsing Pure Logic you can deduce the nature of any traps or mechanisms within 30 feet or of any Powers used within 60 feet.`],
-    [5,5,`**Carno-Organic Speleophagy**\nTransmogrifies a child-sized rock into burnt, chewy meat. Feeds d4 famished people.`],
-    [6,6,`**Time-Locked Pneumotoxin**\nThis cracked tablet can be crushed to a coarse powder. If strewn upon a creature it takes d6 damage—on a 6 it chokes and dies. The tablet reappears each morning in its owner's possession. This Power's Presence test is harmless to the wielder, determining whether or not the powder finds the target.`],
-    [7,7,`**Induced Irrelevance**\nThis tablet's code literally removes a creature's essential meaning for d4 rounds. During which enemies will not attack it, even if it attacks them first.`],
-    [8,8,`**Structural Cryo-condensation (Freezing Moon)**\nWater freezes from the air forming a 15 foot long bridge or all water within 150 feet (unfortunately excluding that within living creatures) freezes.`],
-    [9,9,`**Meta-Alchemy**\nThe user may transform a container of liquid one of the following ways:\n• Transmute it into two doses of Red or Black Poison.\n• Create The Loathing of Vulark. The imbiber rolls a DC16 Toughness test or jumps from great heights.\n• Transform poison to water or wine.`],
-    [10,10,`**Memetic Cognitive Palpitation**\nNear-imperceptible body shifts transmit a simple mind-plague which causes one creature to dance madly for d4 rounds. They may neither attack nor defend during this choreomania.`],
+    [1,1,{en:`**Dream Theory**\nThe target begins to doubt it is real. Attacking and defending against it is -2 DR (+2 DR for affected PCs).`,fr:`**Théorie du Rêve**\nLa cible commence à douter de sa propre réalité. Attaquer et se défendre contre elle est à -2 DR (+2 DR pour les PJs affectés).`}],
+    [2,2,{en:`**Total Matter Comprehension**\nMends or breaks a normal-sized item, mundane or otherwise, including armor (increase/decrease one tier) and weapons.`,fr:`**Compréhension Totale de la Matière**\nRépare ou brise un objet de taille normale, ordinaire ou non, y compris armures (augmente/réduit d'un niveau) et armes.`}],
+    [3,3,{en:`**Ping the Shared Subconscious**\nYou sense the presence of living creatures within 70 feet even in adjacent rooms.`,fr:`**Sonde le Subconscient Partagé**\nTu sens la présence de créatures vivantes dans un rayon de 20 mètres, même dans les pièces adjacentes.`}],
+    [4,4,{en:`**Logical Prognostication**\nUsing Pure Logic you can deduce the nature of any traps or mechanisms within 30 feet or of any Powers used within 60 feet.`,fr:`**Prognostication Logique**\nPar Pure Logique tu déduis la nature de tout piège ou mécanisme dans un rayon de 9 mètres, ou de tout Pouvoir utilisé dans un rayon de 18 mètres.`}],
+    [5,5,{en:`**Carno-Organic Speleophagy**\nTransmogrifies a child-sized rock into burnt, chewy meat. Feeds d4 famished people.`,fr:`**Spéléophagie Carno-Organique**\nTransmue un rocher de la taille d'un enfant en viande brûlée et caoutchouteuse. Nourrit d4 personnes affamées.`}],
+    [6,6,{en:`**Time-Locked Pneumotoxin**\nThis cracked tablet can be crushed to a coarse powder. If strewn upon a creature it takes d6 damage—on a 6 it chokes and dies. The tablet reappears each morning in its owner's possession. This Power's Presence test is harmless to the wielder, determining whether or not the powder finds the target.`,fr:`**Pneumotoxine Verrouillée dans le Temps**\nCette tablette fissurée peut être réduite en poudre grossière. Répandue sur une créature, elle subit d6 dégâts — sur un 6 elle s'étouffe et meurt. La tablette réapparaît chaque matin en possession de son propriétaire. Le test de Présence de ce Pouvoir est sans danger pour le porteur, déterminant si la poudre atteint la cible.`}],
+    [7,7,{en:`**Induced Irrelevance**\nThis tablet's code literally removes a creature's essential meaning for d4 rounds. During which enemies will not attack it, even if it attacks them first.`,fr:`**Insignifiance Induite**\nLe code de cette tablette efface littéralement le sens essentiel d'une créature pendant d4 rounds. Pendant ce temps les ennemis ne l'attaquent pas, même si elle les attaque en premier.`}],
+    [8,8,{en:`**Structural Cryo-condensation (Freezing Moon)**\nWater freezes from the air forming a 15 foot long bridge or all water within 150 feet (unfortunately excluding that within living creatures) freezes.`,fr:`**Cryo-condensation Structurelle (Lune Gelée)**\nL'eau se fige dans l'air formant un pont de 4,5 mètres ou toute l'eau dans un rayon de 45 mètres gèle (malheureusement à l'exclusion de celle dans les créatures vivantes).`}],
+    [9,9,{en:`**Meta-Alchemy**\nThe user may transform a container of liquid one of the following ways:\n• Transmute it into two doses of Red or Black Poison.\n• Create The Loathing of Vulark. The imbiber rolls a DC16 Toughness test or jumps from great heights.\n• Transform poison to water or wine.`,fr:`**Méta-Alchimie**\nL'utilisateur peut transformer un récipient de liquide d'une des façons suivantes :\n• Le transmuer en deux doses de Poison Rouge ou Noir.\n• Créer le Dégoût de Vulark. Celui qui le boit lance un test d'Endurance DC16 ou saute de grandes hauteurs.\n• Transformer du poison en eau ou en vin.`}],
+    [10,10,{en:`**Memetic Cognitive Palpitation**\nNear-imperceptible body shifts transmit a simple mind-plague which causes one creature to dance madly for d4 rounds. They may neither attack nor defend during this choreomania.`,fr:`**Palpitation Cognitive Mémétique**\nDes mouvements corporels quasi imperceptibles transmettent une simple pestilence mentale qui fait danser follement une créature pendant d4 rounds. Elle ne peut ni attaquer ni se défendre pendant cette choréomanie.`}],
   ]},
 
   /* ---- War Pig ---- */
@@ -1645,196 +1654,209 @@ Les gens te suivent jusqu'à la mort.`}],
 
   /* ---- LOOT: Books to Find (d86 — d8 tens, d6 units) ---- */
   lootBooks:{rows:[
-    [11,11,`The Art of Love and Torture, *Osmond von Schleswig*`],
-    [12,12,`About the Mystery of Cursed Letters, *Grey Mage Üro*`],
-    [13,13,`The Many Grottos of Grift, *Unknown*`],
-    [14,14,`The Unclean Hymnal, *Court Bard Moshmer the Unclean*`],
-    [15,15,`The Passion of Josilfa: Impure Adventures of the Clergy, *Unknown*`],
-    [16,16,`Capitulation of Reason, *Unknown*`],
-    [21,21,`A Record of Religious Practices from the West, *Hilda Bergg*`],
-    [22,22,`The Book of Holy Barrows, *Archbishop Vauquelin*`],
-    [23,23,`Formulary of Purple Alchemy, *Scholar Hierocles*`],
-    [24,24,`De Administrando Inferis, *Ravel the Wise*`],
-    [25,25,`Etymologiae Basilískos, *Isidore of Grift*`],
-    [26,26,`Vita Fratris Anuk Schleger, *Deacon Paul Sabas*`],
-    [31,31,`Heretic Converts of Galgenbeck, *Unknown*`],
-    [32,32,`Ater Chronicron: A History of Unjust Holy Wars, *Otter the Blasphemer*`],
-    [33,33,`History of the Prophets, *Magister Harribert Sünderkind*`],
-    [34,34,`Illuminating Teachings of the God of Murder, *Queen Anthelia*`],
-    [35,35,`Converse Theosophy of Tosk, *Bishop Berolt*`],
-    [36,36,`Codex Abrogans: Rethinking Forbidden Thoughts, *Duchess Anachorita*`],
-    [41,41,`Inpurus Descriptio Corporis Humani, *Unknown*`],
-    [42,42,`The Improper Taktikon, *Grand Field Marshal Tubertus Korn*`],
-    [43,43,`Cryptic Book of Nunnaminster, *Saint Mary the Bewitched*`],
-    [44,44,`The Collected Epistles of Archheretic Lobokran, *Unknown*`],
-    [45,45,`The Renaissance of the Profane Sciences, *Marianne von Lohengrin*`],
-    [46,46,`Royal Annals of Sarkash; Delluminated, *Ungur the Skinfiend*`],
-    [51,51,`Antiphonary of Glorious Sins, *Unknown*`],
-    [52,52,`Liber Mortis et Post Vitam, *Unknown Monk of the Abbey of Gallum*`],
-    [53,53,`The Defiled Psalter, *Dark Bishop Ekatrien*`],
-    [54,54,`Magna Glossatura, *Tabus the Heretic*`],
-    [55,55,`Vox Clamantis, *Unknown*`],
-    [56,56,`Pratica Della Augurium, *Ebbot Millesant*`],
-    [61,61,`The Decameron: Ten Days of Burning Flesh, *Prencipe Galeotto*`],
-    [62,62,`Embracing the Heresy, *Unknown*`],
-    [63,63,`The Broken Cross, *Lady Anny Ecgwynn*`],
-    [64,64,`In Pursuit of Deceptive Enlightenment, *Unknown*`],
-    [65,65,`A Treatise on Cults and How to Join Them, *Zultan the Heretic*`],
-    [66,66,`The Dark Fort, *Pelle Nilsson*`],
-    [71,71,`Libellus Maledictionum, *Most Prudent Magenta Mage Tizer*`],
-    [72,72,`The Ladder of Unclean Ascent, *Unknown*`],
-    [73,73,`The Fell Deeds of Hogin the Desecrator, *Magister Katarina*`],
-    [74,74,`Contra Ecclesiae Nomenclaturam, *Unknown*`],
-    [75,75,`Spiritual Meadow, *Unknown*`],
-    [76,76,`Synaxarion of Fallen Saints, *Dark Bishop Ekatrien*`],
-    [81,81,`How to Herd Goats; A Palimpsest of the Nameless Scriptures, *Unknown*`],
-    [82,82,`Klētorologion Sanctus et Profanus, *Reeve Bable of Wegerich*`],
-    [83,83,`Enchiriadis Studium Daemones, *Archmage Ächzer*`],
-    [84,84,`Lex Basilikum, A Diatribe Against Lusi and Arkh, *Court Jester Fix*`],
-    [85,85,`Topography of the Shimmering Fields, *Unknown*`],
-    [86,86,`The Nameless Scriptures: Apocrypha, *Anuk Schleger*`],
+    [11,11,{en:`The Art of Love and Torture, *Osmond von Schleswig*`,fr:`L'Art de l'Amour et de la Torture, *Osmond von Schleswig*`}],
+    [12,12,{en:`About the Mystery of Cursed Letters, *Grey Mage Üro*`,fr:`Du Mystère des Lettres Maudites, *Grey Mage Üro*`}],
+    [13,13,{en:`The Many Grottos of Grift, *Unknown*`,fr:`Les Nombreuses Grottes de Grift, *Inconnu*`}],
+    [14,14,{en:`The Unclean Hymnal, *Court Bard Moshmer the Unclean*`,fr:`L'Hymnaire Impur, *Barde de Cour Moshmer l'Impur*`}],
+    [15,15,{en:`The Passion of Josilfa: Impure Adventures of the Clergy, *Unknown*`,fr:`La Passion de Josilfa : Aventures Impures du Clergé, *Inconnu*`}],
+    [16,16,{en:`Capitulation of Reason, *Unknown*`,fr:`Capitulation de la Raison, *Inconnu*`}],
+    [21,21,{en:`A Record of Religious Practices from the West, *Hilda Bergg*`,fr:`Relevé des Pratiques Religieuses de l'Ouest, *Hilda Bergg*`}],
+    [22,22,{en:`The Book of Holy Barrows, *Archbishop Vauquelin*`,fr:`Le Livre des Tumuli Sacrés, *Archevêque Vauquelin*`}],
+    [23,23,{en:`Formulary of Purple Alchemy, *Scholar Hierocles*`,fr:`Formulaire d'Alchimie Pourpre, *Érudit Hierocles*`}],
+    [24,24,{en:`De Administrando Inferis, *Ravel the Wise*`,fr:`De Administrando Inferis, *Ravel le Sage*`}],
+    [25,25,{en:`Etymologiae Basilískos, *Isidore of Grift*`,fr:`Etymologiae Basilískos, *Isidore de Grift*`}],
+    [26,26,{en:`Vita Fratris Anuk Schleger, *Deacon Paul Sabas*`,fr:`Vita Fratris Anuk Schleger, *Diacre Paul Sabas*`}],
+    [31,31,{en:`Heretic Converts of Galgenbeck, *Unknown*`,fr:`Convertis Hérétiques de Galgenbeck, *Inconnu*`}],
+    [32,32,{en:`Ater Chronicron: A History of Unjust Holy Wars, *Otter the Blasphemer*`,fr:`Ater Chronicron : Histoire des Guerres Saintes Injustes, *Otter le Blasphémateur*`}],
+    [33,33,{en:`History of the Prophets, *Magister Harribert Sünderkind*`,fr:`Histoire des Prophètes, *Magister Harribert Sünderkind*`}],
+    [34,34,{en:`Illuminating Teachings of the God of Murder, *Queen Anthelia*`,fr:`Enseignements Éclairants du Dieu du Meurtre, *Reine Anthelia*`}],
+    [35,35,{en:`Converse Theosophy of Tosk, *Bishop Berolt*`,fr:`Théosophie Inversée de Tosk, *Évêque Berolt*`}],
+    [36,36,{en:`Codex Abrogans: Rethinking Forbidden Thoughts, *Duchess Anachorita*`,fr:`Codex Abrogans : Repenser les Pensées Interdites, *Duchesse Anachorita*`}],
+    [41,41,{en:`Inpurus Descriptio Corporis Humani, *Unknown*`,fr:`Inpurus Descriptio Corporis Humani, *Inconnu*`}],
+    [42,42,{en:`The Improper Taktikon, *Grand Field Marshal Tubertus Korn*`,fr:`Le Taktikon Impropre, *Grand Maréchal Tubertus Korn*`}],
+    [43,43,{en:`Cryptic Book of Nunnaminster, *Saint Mary the Bewitched*`,fr:`Livre Cryptique de Nunnaminster, *Sainte Marie l'Ensorcelée*`}],
+    [44,44,{en:`The Collected Epistles of Archheretic Lobokran, *Unknown*`,fr:`Les Épîtres Rassemblées de l'Archi-hérétique Lobokran, *Inconnu*`}],
+    [45,45,{en:`The Renaissance of the Profane Sciences, *Marianne von Lohengrin*`,fr:`La Renaissance des Sciences Profanes, *Marianne von Lohengrin*`}],
+    [46,46,{en:`Royal Annals of Sarkash; Delluminated, *Ungur the Skinfiend*`,fr:`Annales Royales de Sarkash ; Déluminées, *Ungur le Peau-Démon*`}],
+    [51,51,{en:`Antiphonary of Glorious Sins, *Unknown*`,fr:`Antiphonaire des Péchés Glorieux, *Inconnu*`}],
+    [52,52,{en:`Liber Mortis et Post Vitam, *Unknown Monk of the Abbey of Gallum*`,fr:`Liber Mortis et Post Vitam, *Moine Inconnu de l'Abbaye de Gallum*`}],
+    [53,53,{en:`The Defiled Psalter, *Dark Bishop Ekatrien*`,fr:`Le Psautier Profané, *Sombre Évêque Ekatrien*`}],
+    [54,54,{en:`Magna Glossatura, *Tabus the Heretic*`,fr:`Magna Glossatura, *Tabus l'Hérétique*`}],
+    [55,55,{en:`Vox Clamantis, *Unknown*`,fr:`Vox Clamantis, *Inconnu*`}],
+    [56,56,{en:`Pratica Della Augurium, *Ebbot Millesant*`,fr:`Pratica Della Augurium, *Ebbot Millesant*`}],
+    [61,61,{en:`The Decameron: Ten Days of Burning Flesh, *Prencipe Galeotto*`,fr:`Le Décaméron : Dix Jours de Chair Brûlante, *Prencipe Galeotto*`}],
+    [62,62,{en:`Embracing the Heresy, *Unknown*`,fr:`Embrasser l'Hérésie, *Inconnu*`}],
+    [63,63,{en:`The Broken Cross, *Lady Anny Ecgwynn*`,fr:`La Croix Brisée, *Lady Anny Ecgwynn*`}],
+    [64,64,{en:`In Pursuit of Deceptive Enlightenment, *Unknown*`,fr:`En Quête d'une Illumination Trompeuse, *Inconnu*`}],
+    [65,65,{en:`A Treatise on Cults and How to Join Them, *Zultan the Heretic*`,fr:`Traité des Cultes et Comment Les Rejoindre, *Zultan l'Hérétique*`}],
+    [66,66,{en:`The Dark Fort, *Pelle Nilsson*`,fr:`Le Fort Obscur, *Pelle Nilsson*`}],
+    [71,71,{en:`Libellus Maledictionum, *Most Prudent Magenta Mage Tizer*`,fr:`Libellus Maledictionum, *Très Prudent Mage Magenta Tizer*`}],
+    [72,72,{en:`The Ladder of Unclean Ascent, *Unknown*`,fr:`L'Échelle de l'Ascension Impure, *Inconnu*`}],
+    [73,73,{en:`The Fell Deeds of Hogin the Desecrator, *Magister Katarina*`,fr:`Les Actes Funestes de Hogin le Profanateur, *Magister Katarina*`}],
+    [74,74,{en:`Contra Ecclesiae Nomenclaturam, *Unknown*`,fr:`Contra Ecclesiae Nomenclaturam, *Inconnu*`}],
+    [75,75,{en:`Spiritual Meadow, *Unknown*`,fr:`Prairie Spirituelle, *Inconnu*`}],
+    [76,76,{en:`Synaxarion of Fallen Saints, *Dark Bishop Ekatrien*`,fr:`Synaxaire des Saints Déchus, *Sombre Évêque Ekatrien*`}],
+    [81,81,{en:`How to Herd Goats; A Palimpsest of the Nameless Scriptures, *Unknown*`,fr:`Comment Garder les Chèvres ; Un Palimpseste des Écritures Sans Nom, *Inconnu*`}],
+    [82,82,{en:`Klētorologion Sanctus et Profanus, *Reeve Bable of Wegerich*`,fr:`Klētorologion Sanctus et Profanus, *Prévôt Bable de Wegerich*`}],
+    [83,83,{en:`Enchiriadis Studium Daemones, *Archmage Ächzer*`,fr:`Enchiriadis Studium Daemones, *Archimage Ächzer*`}],
+    [84,84,{en:`Lex Basilikum, A Diatribe Against Lusi and Arkh, *Court Jester Fix*`,fr:`Lex Basilikum, Diatribe Contre Lusi et Arkh, *Bouffon de Cour Fix*`}],
+    [85,85,{en:`Topography of the Shimmering Fields, *Unknown*`,fr:`Topographie des Champs Scintillants, *Inconnu*`}],
+    [86,86,{en:`The Nameless Scriptures: Apocrypha, *Anuk Schleger*`,fr:`Les Écritures Sans Nom : Apocryphes, *Anuk Schleger*`}],
   ]},
   vaultItems:{rows:[
-    [1,1,`**Skull Clamp** — 400s\n*When attached to a skull, the clamp extracts thoughts and distills them into a vial. Drinking the milky liquid conveys the collected information to the drinker.*\nRoll a d20 when you ask a question of the clamped person. The extraction succeeds unless you fumble. On a 1, the person dies and you harness no thoughts.`],
-    [2,2,`**Acid Sack** — 100s\n*The perfect investment to get rid of evidence and trash.*\nA pouch made from a human stomach. It contains a caustic substance that destroys everything but the hardest matter in minutes.`],
-    [3,3,`**Berserker Horn** — 50s\nDrinking from the horn sends you into a furious rage, killing everyone and smashing everything in sight. Test DR9 Toughness when you take damage. On a success, you take no damage.\n*A drinking horn possessed by the fierce spirit of berserker king, Olof the Mastodon.*`],
-    [4,4,`**Hexed Straw Doll** — 200s\n*Reminds you of a person you used to know.*\nA doll you can link with a creature by adding some part of their body, like blood or hair. The target's mind and soul leave their body behind and become trapped in the now living doll. The original body becomes limp and appears dead. After d4 days, the creature returns to normal.`],
-    [5,5,`**Prison Sphere** — 100s\n*A spiked sphere of arcane might and the prison of the mightiest warrior in history. The Dominator Gar'thu Drex.*\nBy opening the prison sphere, you free Gar'thu Drex. The warrior starts killing. Successfully test DR16 Strength to prevent Gar'thu Drex from attacking you.\nGar'thu Drex — HP 39 | MORALE 9 | CURSED PLATE -d6 | BURNING ZWEIHÄNDER 2d8`],
-    [6,6,`**Demonflesh Quiver**\n*The quiver gurgles and fumes as it presses another arrow from its guts. The freshly birthed projectile glistens, covered in pouch juice.*\nThis quiver can hold up to six parasitic flesh arrows and produces d4 arrows per day. Attacks with these arrows ignore the target's armor as they latch on and burrow into the tender parts.\n*For one day, you know where an injured target hides.*`],
-    [7,7,`**Thief's Lantern** — 250s\n*The famous sneak thief Apple Fox used this lantern until her plague-caused death. Forever unseen, forever uncaught. Forgotten in death.*\nThis lantern has two modes of operation:\n- **LIGHT**: only the person who lit this lantern's candle can see its light.\n- **SMOKE**: instead of light, the lantern produces smoke, which quickly obscures an area.`],
-    [8,8,`**Cat Canopic Jar** — 150s\n*Seven lives weren't enough. An ancient queen's cat lives on in this jar.*\nBy rubbing this jar, you can summon the undead cat that lives inside. For a treat of fish or mice, it fulfills a mission. If the cat is destroyed in the line of duty, its ashes creep back into the jar in d4 days to regain its functionality.`],
-    [9,9,`**Antler Helmet** — 50s\n*Fashioned by the smiths of Kur from cursed soul ingots. The people trapped in the helmet vociferously lament their deaths.*\nCursed helmet -1 damage. Creatures who attack you in close combat take d4 damage.\n*Forget about sneaking while wearing this abomination. The screams give you away.*`],
-    [10,10,`**Blood Wine** — 25s\n*A wine pressed from human grapes in rusty iron maidens.*\nRoll d6 when you drink this wine.\n- 5–6: your maximum HP increases by 2d6.\n- 2–4: you vomit.\n- 1: you get a **dire infection** (an infection that can't be cured).`],
-    [11,11,`**Alien Death Knell** — 1,000s\n*The death-hungry apostles of an unnamable god used this bell to depopulate the land and unleash a riptide of zombies. Their world is now dead, preserved for eons in a state of torpidity.*\nWhen you ring this bell, every creature within earshot, including you, must successfully test DR10 Presence or die and turn into a zombie.`],
-    [12,12,`**Herbmaster Mask** — 25s\n*Occult herbmasters fashion their masks to reflect their souls. If a mask lands in the hands of strangers, the herbmasters find and poison the wearer to destroy the soiled mask.*\nWhile wearing this mask, you speak in a hollow voice that sends shivers down people's spines. Once per day, you can cast **Bestial Speech** without fail.`],
+    [1,1,{en:`**Skull Clamp** — 400s\n*When attached to a skull, the clamp extracts thoughts and distills them into a vial. Drinking the milky liquid conveys the collected information to the drinker.*\nRoll a d20 when you ask a question of the clamped person. The extraction succeeds unless you fumble. On a 1, the person dies and you harness no thoughts.`,fr:`**Crampe-Crâne** — 400a\n*Fixé à un crâne, l'appareil extrait les pensées et les distille dans une fiole. Boire le liquide laiteux transmet les informations collectées au buveur.*\nLance un d20 quand tu poses une question au crâne serré. L'extraction réussit sauf sur un fumble. Sur un 1, la personne meurt et tu ne récoltes aucune pensée.`}],
+    [2,2,{en:`**Acid Sack** — 100s\n*The perfect investment to get rid of evidence and trash.*\nA pouch made from a human stomach. It contains a caustic substance that destroys everything but the hardest matter in minutes.`,fr:`**Sac à Acide** — 100a\n*L'investissement parfait pour se débarrasser des preuves et des ordures.*\nUne bourse faite d'un estomac humain. Elle contient une substance caustique qui détruit tout sauf la matière la plus dure en quelques minutes.`}],
+    [3,3,{en:`**Berserker Horn** — 50s\nDrinking from the horn sends you into a furious rage, killing everyone and smashing everything in sight. Test DR9 Toughness when you take damage. On a success, you take no damage.\n*A drinking horn possessed by the fierce spirit of berserker king, Olof the Mastodon.*`,fr:`**Corne du Berserker** — 50a\nBoire dans la corne te plonge dans une rage furieuse, tuant tout le monde et fracassant tout ce qui se trouve en vue. Teste Endurance DR9 quand tu reçois des dégâts. En cas de succès, tu ne prends aucun dégât.\n*Une corne à boire possédée par l'esprit féroce du roi berserker Olof le Mastodonte.*`}],
+    [4,4,{en:`**Hexed Straw Doll** — 200s\n*Reminds you of a person you used to know.*\nA doll you can link with a creature by adding some part of their body, like blood or hair. The target's mind and soul leave their body behind and become trapped in the now living doll. The original body becomes limp and appears dead. After d4 days, the creature returns to normal.`,fr:`**Poupée de Paille Ensorcelée** — 200a\n*Te rappelle quelqu'un que tu connaissais.*\nUne poupée que tu peux relier à une créature en ajoutant une partie de son corps, comme du sang ou des cheveux. L'esprit et l'âme de la cible quittent son corps et se retrouvent piégés dans la poupée désormais vivante. Le corps d'origine devient inerte et semble mort. Après d4 jours, la créature revient à la normale.`}],
+    [5,5,{en:`**Prison Sphere** — 100s\n*A spiked sphere of arcane might and the prison of the mightiest warrior in history. The Dominator Gar'thu Drex.*\nBy opening the prison sphere, you free Gar'thu Drex. The warrior starts killing. Successfully test DR16 Strength to prevent Gar'thu Drex from attacking you.\nGar'thu Drex — HP 39 | MORALE 9 | CURSED PLATE -d6 | BURNING ZWEIHÄNDER 2d8`,fr:`**Sphère-Prison** — 100a\n*Une sphère hérissée de puissance arcanique et la prison du plus grand guerrier de l'histoire. Le Dominateur Gar'thu Drex.*\nEn ouvrant la sphère-prison, tu libères Gar'thu Drex. Le guerrier commence à tuer. Réussis un test de Force DR16 pour empêcher Gar'thu Drex de t'attaquer.\nGar'thu Drex — PV 39 | MORAL 9 | PLAQUES MAUDITES -d6 | ZWEIHÄNDER BRÛLANT 2d8`}],
+    [6,6,{en:`**Demonflesh Quiver**\n*The quiver gurgles and fumes as it presses another arrow from its guts. The freshly birthed projectile glistens, covered in pouch juice.*\nThis quiver can hold up to six parasitic flesh arrows and produces d4 arrows per day. Attacks with these arrows ignore the target's armor as they latch on and burrow into the tender parts.\n*For one day, you know where an injured target hides.*`,fr:`**Carquois de Chair Démoniaque**\n*Le carquois gargouille et fume en pressant une nouvelle flèche de ses entrailles. Le projectile fraîchement né scintille, couvert de jus de poche.*\nCe carquois peut contenir jusqu'à six flèches de chair parasitaire et en produit d4 par jour. Les attaques avec ces flèches ignorent l'armure de la cible car elles s'accrochent et s'enfouissent dans les parties tendres.\n*Pendant un jour, tu sais où se cache une cible blessée.*`}],
+    [7,7,{en:`**Thief's Lantern** — 250s\n*The famous sneak thief Apple Fox used this lantern until her plague-caused death. Forever unseen, forever uncaught. Forgotten in death.*\nThis lantern has two modes of operation:\n- **LIGHT**: only the person who lit this lantern's candle can see its light.\n- **SMOKE**: instead of light, the lantern produces smoke, which quickly obscures an area.`,fr:`**Lanterne du Voleur** — 250a\n*La célèbre voleuse Apple Fox utilisait cette lanterne jusqu'à sa mort par la peste. Toujours invisible, jamais prise. Oubliée dans la mort.*\nCette lanterne a deux modes de fonctionnement :\n- **LUMIÈRE** : seule la personne qui a allumé la bougie voit sa lumière.\n- **FUMÉE** : au lieu de lumière, la lanterne produit de la fumée qui obscurcit rapidement une zone.`}],
+    [8,8,{en:`**Cat Canopic Jar** — 150s\n*Seven lives weren't enough. An ancient queen's cat lives on in this jar.*\nBy rubbing this jar, you can summon the undead cat that lives inside. For a treat of fish or mice, it fulfills a mission. If the cat is destroyed in the line of duty, its ashes creep back into the jar in d4 days to regain its functionality.`,fr:`**Canope du Chat** — 150a\n*Sept vies n'ont pas suffi. Le chat d'une reine ancienne survit dans ce bocal.*\nEn frottant ce bocal, tu peux invoquer le chat mort-vivant qui y réside. Contre un régal de poisson ou de souris, il accomplit une mission. Si le chat est détruit en service, ses cendres rampent jusqu'au bocal en d4 jours pour retrouver sa fonctionnalité.`}],
+    [9,9,{en:`**Antler Helmet** — 50s\n*Fashioned by the smiths of Kur from cursed soul ingots. The people trapped in the helmet vociferously lament their deaths.*\nCursed helmet -1 damage. Creatures who attack you in close combat take d4 damage.\n*Forget about sneaking while wearing this abomination. The screams give you away.*`,fr:`**Heaume à Bois** — 50a\n*Façonné par les forgerons de Kur à partir de lingots d'âme maudits. Les gens piégés dans le heaume lamentent bruyamment leur mort.*\nHeaume maudit -1 dégât. Les créatures qui t'attaquent en combat rapproché prennent d4 dégâts.\n*Oublie de te faufiler discrètement en portant cette abomination. Les cris te trahissent.*`}],
+    [10,10,{en:`**Blood Wine** — 25s\n*A wine pressed from human grapes in rusty iron maidens.*\nRoll d6 when you drink this wine.\n- 5–6: your maximum HP increases by 2d6.\n- 2–4: you vomit.\n- 1: you get a **dire infection** (an infection that can't be cured).`,fr:`**Vin de Sang** — 25a\n*Un vin pressé de raisins humains dans de rouillées vierges de fer.*\nLance d6 quand tu bois ce vin.\n- 5–6 : tes PV maximum augmentent de 2d6.\n- 2–4 : tu vomis.\n- 1 : tu contractes une **infection terrible** (une infection qu'on ne peut pas soigner).`}],
+    [11,11,{en:`**Alien Death Knell** — 1,000s\n*The death-hungry apostles of an unnamable god used this bell to depopulate the land and unleash a riptide of zombies. Their world is now dead, preserved for eons in a state of torpidity.*\nWhen you ring this bell, every creature within earshot, including you, must successfully test DR10 Presence or die and turn into a zombie.`,fr:`**Glas Alien** — 1 000a\n*Les apôtres assoiffés de mort d'un dieu innommable utilisaient cette cloche pour dépeupler les terres et libérer un raz-de-marée de zombies. Leur monde est désormais mort, préservé depuis des éons dans un état de torpidité.*\nQuand tu sonnes cette cloche, toute créature à portée d'oreille, toi compris, doit réussir un test de Présence DR10 ou mourir et se transformer en zombie.`}],
+    [12,12,{en:`**Herbmaster Mask** — 25s\n*Occult herbmasters fashion their masks to reflect their souls. If a mask lands in the hands of strangers, the herbmasters find and poison the wearer to destroy the soiled mask.*\nWhile wearing this mask, you speak in a hollow voice that sends shivers down people's spines. Once per day, you can cast **Bestial Speech** without fail.`,fr:`**Masque de l'Herboriste** — 25a\n*Les herboristes occultes façonnent leurs masques pour refléter leur âme. Si un masque tombe entre des mains étrangères, les herboristes retrouvent et empoisonnent le porteur pour détruire le masque souillé.*\nEn portant ce masque, tu parles d'une voix creuse qui donne des frissons. Une fois par jour, tu peux lancer **Discours Bestial** sans risque d'échec.`}],
   ]},
   vaultRumors:{rows:[
-    [1,1,`The location of a person infected with **THE BLOATING.**`],
-    [2,2,`A local noblewoman birthed a baby with the head of a locust. The husband wants to get rid of it.`],
-    [3,3,`All employees of the **Guild of Tenacious Gravediggers** vanished without a trace.`],
-    [4,4,`The alchemist Tix searches for test subjects.`],
-    [5,5,`One of the local wells only produces thick blood.`],
-    [6,6,`By night, bells ring in an old ruin to the west.`],
-    [7,7,`A golden cat wanders the streets. Those who see it die or vanish after 7 days.`],
-    [8,8,`A priceless relic, kept in a church, was stolen, and replaced with a speaking skull.`],
+    [1,1,{en:`The location of a person infected with **THE BLOATING.**`,fr:`L'emplacement d'une personne infectée par **LE GONFLEMENT.**`}],
+    [2,2,{en:`A local noblewoman birthed a baby with the head of a locust. The husband wants to get rid of it.`,fr:`Une noble locale a accouché d'un bébé avec une tête de locuste. Le mari veut s'en débarrasser.`}],
+    [3,3,{en:`All employees of the **Guild of Tenacious Gravediggers** vanished without a trace.`,fr:`Tous les employés de la **Guilde des Fossoyeurs Tenaces** ont disparu sans laisser de trace.`}],
+    [4,4,{en:`The alchemist Tix searches for test subjects.`,fr:`L'alchimiste Tix recherche des sujets d'expérience.`}],
+    [5,5,{en:`One of the local wells only produces thick blood.`,fr:`L'un des puits locaux ne produit plus que du sang épais.`}],
+    [6,6,{en:`By night, bells ring in an old ruin to the west.`,fr:`La nuit, des cloches sonnent dans de vieilles ruines à l'ouest.`}],
+    [7,7,{en:`A golden cat wanders the streets. Those who see it die or vanish after 7 days.`,fr:`Un chat doré erre dans les rues. Ceux qui le voient meurent ou disparaissent au bout de 7 jours.`}],
+    [8,8,{en:`A priceless relic, kept in a church, was stolen, and replaced with a speaking skull.`,fr:`Une relique inestimable, gardée dans une église, a été volée et remplacée par un crâne parlant.`}],
   ]},
 
   /* ---- LOOT: Occult Treasures (d10) ---- */
   occultTreasures:{rows:[
-    [1,1,`**Ash-grey ring** a finger-width wide. All that passes through is obliterated.`],
-    [2,2,`The keening music of this small, **vile flute** animates a fetus-sized meat golem in a nearby corpse.\nHP 5 · Morale — · No armor · Bite d4, immune to Powers.`],
-    [3,3,`A note explains: one taste from this **Famine Spoon** means death from slow starvation.`],
-    [4,4,`The image of a being in this malevolently-accurate **mirror** shows only the shameful truth of their soul.`],
-    [5,5,`**Vampiric phurba.** Heals you as it harms your target (d3), but beware: after stealing a total of 6 HP, test Presence DR14 or become addicted—you must then test Presence DR12 daily. Fail and you must stab someone with the knife before next sunrise. Or wither to ash and die as the sun rises.`],
-    [6,6,`A black **pearl.** If dropped in darkness it rolls towards the nearest exit to day.`],
-    [7,7,`This **torch** burns for an immortal hour. Hold it and live. You can lose limbs and enter negative HP but won't die unless you drop the torch or it burns out.`],
-    [8,8,`Silver **bird cage** slays whatever is placed behind its bars, slowly, over one long night. That which is killed reanimates twice as strong, as a raging uncontrollable undead.`],
-    [9,9,`**Black Crown of the Crippled King.** Wearing this crooks your body as you become aware that you and every creature within 100 yards gain +10 to attack rolls but -10 to defence rolls. Rolls that go above 20 count as crits, and below 1 as fumbles. The worn crown can only be removed in the pale light of a full moon.`],
-    [10,10,`Anyone wearing this ancient **blindfold** becomes invisible to those who breathe — though the undead attack them obsessively and nearby corpses awaken in moaning, unholy wrath.`],
+    [1,1,{en:`**Ash-grey ring** a finger-width wide. All that passes through is obliterated.`,fr:`**Anneau gris cendré** large d'un doigt. Tout ce qui passe à travers est anéanti.`}],
+    [2,2,{en:`The keening music of this small, **vile flute** animates a fetus-sized meat golem in a nearby corpse.\nHP 5 · Morale — · No armor · Bite d4, immune to Powers.`,fr:`La musique gémissante de cette petite **flûte vile** anime un golem de viande de la taille d'un fœtus dans un cadavre proche.\nPV 5 · Moral — · Sans armure · Morsure d4, immunisé aux Pouvoirs.`}],
+    [3,3,{en:`A note explains: one taste from this **Famine Spoon** means death from slow starvation.`,fr:`Une note explique : une seule dégustation de cette **Cuillère de Famine** signifie la mort par inanition lente.`}],
+    [4,4,{en:`The image of a being in this malevolently-accurate **mirror** shows only the shameful truth of their soul.`,fr:`L'image d'un être dans ce **miroir** d'une précision malveillante ne montre que la vérité honteuse de son âme.`}],
+    [5,5,{en:`**Vampiric phurba.** Heals you as it harms your target (d3), but beware: after stealing a total of 6 HP, test Presence DR14 or become addicted—you must then test Presence DR12 daily. Fail and you must stab someone with the knife before next sunrise. Or wither to ash and die as the sun rises.`,fr:`**Phurba vampirique.** Te soigne en blessant ta cible (d3), mais attention : après avoir volé 6 PV au total, teste Présence DR14 ou deviens dépendant — tu dois alors tester Présence DR12 quotidiennement. Échec et tu dois poignarder quelqu'un avec le couteau avant le prochain lever du soleil. Ou dépérir en cendres et mourir au lever du soleil.`}],
+    [6,6,{en:`A black **pearl.** If dropped in darkness it rolls towards the nearest exit to day.`,fr:`Une **perle** noire. Si on la lâche dans l'obscurité, elle roule vers la sortie la plus proche vers le jour.`}],
+    [7,7,{en:`This **torch** burns for an immortal hour. Hold it and live. You can lose limbs and enter negative HP but won't die unless you drop the torch or it burns out.`,fr:`Cette **torche** brûle pendant une heure immortelle. Tiens-la et vis. Tu peux perdre des membres et avoir des PV négatifs mais tu ne mourras pas à moins de lâcher la torche ou qu'elle s'éteigne.`}],
+    [8,8,{en:`Silver **bird cage** slays whatever is placed behind its bars, slowly, over one long night. That which is killed reanimates twice as strong, as a raging uncontrollable undead.`,fr:`**Cage à oiseaux** en argent qui tue ce qu'on place derrière ses barreaux, lentement, au cours d'une longue nuit. Ce qui est tué se ranime deux fois plus fort, en tant que mort-vivant enragé et incontrôlable.`}],
+    [9,9,{en:`**Black Crown of the Crippled King.** Wearing this crooks your body as you become aware that you and every creature within 100 yards gain +10 to attack rolls but -10 to defence rolls. Rolls that go above 20 count as crits, and below 1 as fumbles. The worn crown can only be removed in the pale light of a full moon.`,fr:`**Couronne Noire du Roi Infirme.** La porter courbe ton corps alors que tu prends conscience que toi et toute créature dans un rayon de 90 mètres gagnez +10 aux jets d'attaque mais -10 aux jets de défense. Les jets au-dessus de 20 comptent comme des critiques, en dessous de 1 comme des fumbles. La couronne portée ne peut être retirée qu'à la pâle lumière de la pleine lune.`}],
+    [10,10,{en:`Anyone wearing this ancient **blindfold** becomes invisible to those who breathe — though the undead attack them obsessively and nearby corpses awaken in moaning, unholy wrath.`,fr:`Quiconque porte ce vieux **bandeau** devient invisible pour ceux qui respirent — bien que les morts-vivants les attaquent obsessionnellement et que les cadavres proches s'éveillent dans une rage gémissante et impie.`}],
   ]},
   /* ---- LOOT: Corpse Plundering (d66 — d6 tens, d6 units) ---- */
   corpsePlunder:{rows:[
-    [11,16,`The remains of something worthless crumbles in your hands.`],
-    [21,21,`Pot filled with extremely potent itching ointment.`],
-    [22,22,`Necklace of human teeth.`],
-    [23,23,`Bag of angry, venomous moths. Test Toughness DR6 or die.`],
-    [24,24,`Pocket full of broken glass, PC takes d2 damage.`],
-    [25,25,`Mad manifesto. If read, test Presence DR12 or lose 1 Presence permanently from confusion.`],
-    [26,26,`Key to nearby locked door. Stolen.`],
-    [31,31,`Map to a weak but wealthy family's house.`],
-    [32,32,`A hopeless amount of spiders.`],
-    [33,33,`Metal cylinder with gunpowder and fuse. Roll a d6. 1–2 you lose a hand. 3–6 3d10 damage wherever it lands.`],
-    [34,34,`Known and liked/despised witch-hunter's face. Flayed.`],
-    [35,35,`Note with PC's names. One is crossed out.`],
-    [36,36,`Tortured pixie with torn-off wings and gouged out eyes.`],
-    [41,41,`Map to a place that cannot possibly exist.`],
-    [42,42,`Unmarked bottle with a liquid that shifts between red and green.`],
-    [43,43,`Bond. A local potentate owes the holder a sizable amount.`],
-    [44,44,`Death mask of one of the PCs.`],
-    [45,45,`The 'Water of Life.' Heals d8. Test Toughness DR10 or go blind. Highly alcoholic.`],
-    [46,46,`There was something very wrong with this one. Hands covered with something lukewarm, brown and acidic. Take d2+1 damage and smell terrible for d4 days.`],
-    [51,51,`Black Kergüs dagger. 2d4 damage.`],
-    [52,52,`Labelled poison bottle. Test Toughness DR12 or lower random ability by d4. The ability can be increased when your character is improved.`],
-    [53,53,`Scalp with long black hair.`],
-    [54,54,`Golden ball with an invisible seam, twists open.`],
-    [55,55,`Bloodstained knuckle-duster.`],
-    [56,56,`Two weighted dice.`],
-    [61,66,`The result in silver.`],
+    [11,16,{en:`The remains of something worthless crumbles in your hands.`,fr:`Les restes de quelque chose de sans valeur s'effritent dans tes mains.`}],
+    [21,21,{en:`Pot filled with extremely potent itching ointment.`,fr:`Pot rempli d'un onguent qui gratte extrêmement puissant.`}],
+    [22,22,{en:`Necklace of human teeth.`,fr:`Collier de dents humaines.`}],
+    [23,23,{en:`Bag of angry, venomous moths. Test Toughness DR6 or die.`,fr:`Sac de mites venimeuses et enragées. Teste Endurance DR6 ou meurs.`}],
+    [24,24,{en:`Pocket full of broken glass, PC takes d2 damage.`,fr:`Poche pleine de verre brisé, le PJ prend d2 dégâts.`}],
+    [25,25,{en:`Mad manifesto. If read, test Presence DR12 or lose 1 Presence permanently from confusion.`,fr:`Manifeste délirant. Si lu, teste Présence DR12 ou perds 1 Présence définitivement de confusion.`}],
+    [26,26,{en:`Key to nearby locked door. Stolen.`,fr:`Clé d'une porte verrouillée à proximité. Volée.`}],
+    [31,31,{en:`Map to a weak but wealthy family's house.`,fr:`Carte menant à la maison d'une famille faible mais fortunée.`}],
+    [32,32,{en:`A hopeless amount of spiders.`,fr:`Une quantité désespérante d'araignées.`}],
+    [33,33,{en:`Metal cylinder with gunpowder and fuse. Roll a d6. 1–2 you lose a hand. 3–6 3d10 damage wherever it lands.`,fr:`Cylindre métallique avec poudre à canon et mèche. Lance un d6. 1–2 tu perds une main. 3–6 : 3d10 dégâts là où il atterrit.`}],
+    [34,34,{en:`Known and liked/despised witch-hunter's face. Flayed.`,fr:`Visage d'un chasseur de sorcières connu et apprécié/méprisé. Écorché.`}],
+    [35,35,{en:`Note with PC's names. One is crossed out.`,fr:`Note avec les noms des PJs. L'un est barré.`}],
+    [36,36,{en:`Tortured pixie with torn-off wings and gouged out eyes.`,fr:`Pixie torturée aux ailes arrachées et aux yeux crevés.`}],
+    [41,41,{en:`Map to a place that cannot possibly exist.`,fr:`Carte menant à un endroit qui ne peut absolument pas exister.`}],
+    [42,42,{en:`Unmarked bottle with a liquid that shifts between red and green.`,fr:`Bouteille sans étiquette avec un liquide qui alterne entre rouge et vert.`}],
+    [43,43,{en:`Bond. A local potentate owes the holder a sizable amount.`,fr:`Billet de créance. Un potentat local doit une somme conséquente au porteur.`}],
+    [44,44,{en:`Death mask of one of the PCs.`,fr:`Masque mortuaire de l'un des PJs.`}],
+    [45,45,{en:`The 'Water of Life.' Heals d8. Test Toughness DR10 or go blind. Highly alcoholic.`,fr:`L'« Eau de Vie ». Soigne d8. Teste Endurance DR10 ou deviens aveugle. Très alcoolisé.`}],
+    [46,46,{en:`There was something very wrong with this one. Hands covered with something lukewarm, brown and acidic. Take d2+1 damage and smell terrible for d4 days.`,fr:`Il y avait quelque chose de très anormal avec celui-là. Mains couvertes de quelque chose de tiède, brun et acide. Prends d2+1 dégâts et sens terriblement mauvais pendant d4 jours.`}],
+    [51,51,{en:`Black Kergüs dagger. 2d4 damage.`,fr:`Poignard noir du Kergüs. 2d4 dégâts.`}],
+    [52,52,{en:`Labelled poison bottle. Test Toughness DR12 or lower random ability by d4. The ability can be increased when your character is improved.`,fr:`Bouteille de poison étiquetée. Teste Endurance DR12 ou réduis un attribut aléatoire de d4. L'attribut peut être augmenté quand ton personnage s'améliore.`}],
+    [53,53,{en:`Scalp with long black hair.`,fr:`Cuir chevelu avec de longs cheveux noirs.`}],
+    [54,54,{en:`Golden ball with an invisible seam, twists open.`,fr:`Boule dorée avec une couture invisible, s'ouvre en tournant.`}],
+    [55,55,{en:`Bloodstained knuckle-duster.`,fr:`Coup-de-poing américain taché de sang.`}],
+    [56,56,{en:`Two weighted dice.`,fr:`Deux dés pipés.`}],
+    [61,66,{en:`The result in silver.`,fr:`Le résultat en argent.`}],
   ]},
 
   /* ---- CVLT generator ---- */
-  cvltName:{cols:[
-    [`Eternal`,`Children of`,`Reach for`,`Pipes of`,`Holders of`,`Unholy`,`Ruins of`,`Embrace`,`Night of`,`Førlørn`,`Hateful`,`Temple of`],
-    [`Dawn`,`Knife Blood`,`Deathcrush`,`Devastation`,`Burned Bones`,`Unsacred Signs`,`Nechrubel`,`Rusty Razors`,`Sarkantha`,`Black Gates`,`Lost Chants`,`Dark Thrones`],
-  ]},
+  cvltName:{
+    cols:[
+      [`Eternal`,`Children of`,`Reach for`,`Pipes of`,`Holders of`,`Unholy`,`Ruins of`,`Embrace`,`Night of`,`Førlørn`,`Hateful`,`Temple of`],
+      [`Dawn`,`Knife Blood`,`Deathcrush`,`Devastation`,`Burned Bones`,`Unsacred Signs`,`Nechrubel`,`Rusty Razors`,`Sarkantha`,`Black Gates`,`Lost Chants`,`Dark Thrones`],
+    ],
+    colsFr:[
+      [`Éternel(le)`,`Enfants de`,`Tendez vers`,`Pipes de`,`Gardiens de`,`Profane`,`Ruines de`,`Étreindre`,`Nuit de`,`Førlørn`,`Haineux`,`Temple de`],
+      [`l'Aube`,`Sang de Lame`,`Broyeur de Mort`,`Dévastation`,`Os Brûlés`,`Signes Impies`,`Nechrubel`,`Rasoirs Rouillés`,`Sarkantha`,`Portes Noires`,`Chants Perdus`,`Trônes Sombres`],
+    ],
+  },
   cvltStatus:{rows:[
-    [1,2,`almost annihilated, desperate for aid.`],
-    [3,4,`thriving, or would be if only…`],
-    [5,5,`enormous, official, legitimate, protected.`],
-    [6,7,`secret and unknown. Legend. Lies. Myth.`],
-    [8,8,`scattered in cells. Should they find a way to work together, all will tremble.`],
-    [9,10,`in absolute turmoil. Warring and destroying itself from within.`],
+    [1,2,{en:`almost annihilated, desperate for aid.`,fr:`presque anéanti, désespérément en quête d'aide.`}],
+    [3,4,{en:`thriving, or would be if only…`,fr:`prospère, ou le serait si seulement…`}],
+    [5,5,{en:`enormous, official, legitimate, protected.`,fr:`énorme, officiel, légitime, protégé.`}],
+    [6,7,{en:`secret and unknown. Legend. Lies. Myth.`,fr:`secret et inconnu. Légende. Mensonges. Mythe.`}],
+    [8,8,{en:`scattered in cells. Should they find a way to work together, all will tremble.`,fr:`dispersé en cellules. S'ils trouvent un moyen de coopérer, tout tremblera.`}],
+    [9,10,{en:`in absolute turmoil. Warring and destroying itself from within.`,fr:`en absolue tourmente. En guerre et se détruisant de l'intérieur.`}],
   ]},
-  cvltMember:{cols:[
-    [`Demented`,`Narcissistic`,`Charming`,`Unseen`,`Stone-faced`,`Lip-sewn`,`Cannibal`,`Black Disk's`,`Mocking`,`'No one', cult-hating`],
-    [`Elder`,`Pastor`,`Poet`,`Shadow creeper`,`Executor`,`Thought-whisperer`,`Caretaker`,`Child`,`Prisoner`,`Carpenter`],
-    [`full of keys`,`covered in rings`,`masked and stoic`,`followed by black cats`,`broken and wasting`,`loved by all`,`back from the grave`,`who water cannot touch`,`afraid of daylight`,`arm- and legless`],
-  ]},
+  cvltMember:{
+    cols:[
+      [`Demented`,`Narcissistic`,`Charming`,`Unseen`,`Stone-faced`,`Lip-sewn`,`Cannibal`,`Black Disk's`,`Mocking`,`'No one', cult-hating`],
+      [`Elder`,`Pastor`,`Poet`,`Shadow creeper`,`Executor`,`Thought-whisperer`,`Caretaker`,`Child`,`Prisoner`,`Carpenter`],
+      [`full of keys`,`covered in rings`,`masked and stoic`,`followed by black cats`,`broken and wasting`,`loved by all`,`back from the grave`,`who water cannot touch`,`afraid of daylight`,`arm- and legless`],
+    ],
+    colsFr:[
+      [`Dément`,`Narcissique`,`Charmeur`,`Invisible`,`Visage de pierre`,`Lèvres cousues`,`Cannibale`,`Du Disque Noir`,`Moqueur`,`"Personne", haineux du culte`],
+      [`Ancien`,`Pasteur`,`Poète`,`Rampeur des ombres`,`Exécuteur`,`Murmureur de pensées`,`Gardien`,`Enfant`,`Prisonnier`,`Charpentier`],
+      [`plein de clés`,`couvert d'anneaux`,`masqué et stoïque`,`suivi de chats noirs`,`brisé et dépérissant`,`aimé de tous`,`revenu de la tombe`,`que l'eau ne peut toucher`,`craignant la lumière du jour`,`sans bras ni jambes`],
+    ],
+  },
   cvltHQ:{rows:[
-    [1,1,`dim Schleswig sewers.`],
-    [2,2,`the oldest, most obscure Grift temples.`],
-    [3,3,`the Meadows of Strange Mist in Sarkash.`],
-    [4,4,`Beneath the Beneath in Galgenbeck.`],
-    [5,5,`bonfire camps in the coldest Kergüs crevices.`],
-    [6,6,`a granite Bergen Chrypt peak piercing the dying skies.`],
-    [7,7,`a Graven-Tosk murder-maze mausoleum.`],
-    [8,8,`the murky bog where Lake Onda merges with Targ-Dungel.`],
-    [9,9,`the spell-dead center of the Valley of the Unfortunate Undead.`],
-    [10,10,`the blackest of Alliáns cathedrals.`],
+    [1,1,{en:`dim Schleswig sewers.`,fr:`les sombres égouts de Schleswig.`}],
+    [2,2,{en:`the oldest, most obscure Grift temples.`,fr:`les temples de Grift les plus anciens et obscurs.`}],
+    [3,3,{en:`the Meadows of Strange Mist in Sarkash.`,fr:`les Prairies de Brume Étrange dans le Sarkash.`}],
+    [4,4,{en:`Beneath the Beneath in Galgenbeck.`,fr:`le Sous-sol du Sous-sol dans Galgenbeck.`}],
+    [5,5,{en:`bonfire camps in the coldest Kergüs crevices.`,fr:`des camps de feu de joie dans les crevasses les plus froides du Kergüs.`}],
+    [6,6,{en:`a granite Bergen Chrypt peak piercing the dying skies.`,fr:`un pic de granit de Bergen Chrypt perçant les ciels mourants.`}],
+    [7,7,{en:`a Graven-Tosk murder-maze mausoleum.`,fr:`un mausolée-labyrinthe meurtrier de Graven-Tosk.`}],
+    [8,8,{en:`the murky bog where Lake Onda merges with Targ-Dungel.`,fr:`le marécage trouble où le Lac Onda se fond dans Targ-Dungel.`}],
+    [9,9,{en:`the spell-dead center of the Valley of the Unfortunate Undead.`,fr:`le centre magiquement mort de la Vallée des Morts-Vivants Malheureux.`}],
+    [10,10,{en:`the blackest of Alliáns cathedrals.`,fr:`la plus noire des cathédrales d'Alliáns.`}],
   ]},
   cvltRitual:{rows:[
-    [1,1,`bake Blutday bread with a bipedal's blood.`],
-    [2,2,`hang living corpses upside down in strong trees.`],
-    [3,3,`lock strangers in torture catacombs where no one dies.`],
-    [4,4,`wear nothing but the hair of strangers.`],
-    [5,5,`completely numb all senses to know the Truth.`],
-    [6,6,`build portals with the bones of 77 humans.`],
-    [7,7,`have servants erect the Tallest Tower. (many cults claim to have built the tallest one.)`],
-    [8,8,`kill the youngest one in an unknown party.`],
-    [9,9,`set all clothes ablaze. The gods of the stars must see you in the flesh.`],
-    [10,10,`never speak aloud the name of a living soul.`],
-    [11,11,`give all silver to the deep well of underworlds.`],
-    [12,12,`talk only in riddles. Come night, you can speak clearly again.`],
-    [13,13,`declare all Omens to the Nech-a-bebul Oracle. Hate those who refuse.`],
-    [14,14,`never hurt monkeys and always ride with donkeys, for they are holy.`],
-    [15,15,`every week, sacrifice the oldest member and recruit two new ones.`],
-    [16,16,`dig deep pits and keep undead (and a few living) prisoners.`],
-    [17,17,`keep a diet of herbs, meat and drugs.`],
-    [18,18,`walk barefoot and feel the mesmerizing strings from below. Some accept sandals.`],
-    [19,19,`never do honest work during the time of day.`],
-    [20,20,`tie the legs with itching ropes and always walk slowly.`],
+    [1,1,{en:`bake Blutday bread with a bipedal's blood.`,fr:`cuire le pain du Blutday avec le sang d'un bipède.`}],
+    [2,2,{en:`hang living corpses upside down in strong trees.`,fr:`suspendre des cadavres vivants à l'envers dans de grands arbres.`}],
+    [3,3,{en:`lock strangers in torture catacombs where no one dies.`,fr:`enfermer des étrangers dans des catacombes de torture où personne ne meurt.`}],
+    [4,4,{en:`wear nothing but the hair of strangers.`,fr:`ne porter que les cheveux d'étrangers.`}],
+    [5,5,{en:`completely numb all senses to know the Truth.`,fr:`engourdir complètement tous les sens pour connaître la Vérité.`}],
+    [6,6,{en:`build portals with the bones of 77 humans.`,fr:`construire des portails avec les os de 77 humains.`}],
+    [7,7,{en:`have servants erect the Tallest Tower. (many cults claim to have built the tallest one.)`,fr:`faire ériger la Plus Grande Tour par des serviteurs. (beaucoup de cultes prétendent avoir bâti la plus haute.)`}],
+    [8,8,{en:`kill the youngest one in an unknown party.`,fr:`tuer le plus jeune d'un groupe inconnu.`}],
+    [9,9,{en:`set all clothes ablaze. The gods of the stars must see you in the flesh.`,fr:`mettre tous les vêtements en feu. Les dieux des étoiles doivent te voir en chair.`}],
+    [10,10,{en:`never speak aloud the name of a living soul.`,fr:`ne jamais prononcer à voix haute le nom d'une âme vivante.`}],
+    [11,11,{en:`give all silver to the deep well of underworlds.`,fr:`donner tout l'argent au puits profond des enfers.`}],
+    [12,12,{en:`talk only in riddles. Come night, you can speak clearly again.`,fr:`ne parler qu'en énigmes. À la nuit tombée, tu peux à nouveau parler clairement.`}],
+    [13,13,{en:`declare all Omens to the Nech-a-bebul Oracle. Hate those who refuse.`,fr:`déclarer tous les Présages à l'Oracle Nech-a-bebul. Haïr ceux qui refusent.`}],
+    [14,14,{en:`never hurt monkeys and always ride with donkeys, for they are holy.`,fr:`ne jamais blesser les singes et toujours voyager avec des ânes, car ils sont sacrés.`}],
+    [15,15,{en:`every week, sacrifice the oldest member and recruit two new ones.`,fr:`chaque semaine, sacrifier le membre le plus âgé et en recruter deux nouveaux.`}],
+    [16,16,{en:`dig deep pits and keep undead (and a few living) prisoners.`,fr:`creuser des fosses profondes et y garder des prisonniers morts-vivants (et quelques vivants).`}],
+    [17,17,{en:`keep a diet of herbs, meat and drugs.`,fr:`suivre un régime d'herbes, de viande et de drogues.`}],
+    [18,18,{en:`walk barefoot and feel the mesmerizing strings from below. Some accept sandals.`,fr:`marcher pieds nus et sentir les cordes hypnotisantes d'en bas. Certains acceptent des sandales.`}],
+    [19,19,{en:`never do honest work during the time of day.`,fr:`ne jamais faire de travail honnête pendant les heures du jour.`}],
+    [20,20,{en:`tie the legs with itching ropes and always walk slowly.`,fr:`attacher les jambes avec des cordes qui grattent et toujours marcher lentement.`}],
   ]},
   cvltHate:{rows:[
-    [1,1,`an outsider's wise, condescending words.`],
-    [2,2,`the Two-Headed Basilisks, brutes and false prophets all.`],
-    [3,3,`scrolls. Living Words of Power imprisoned in pathetic parchment.`],
-    [4,4,`Verhu claiming to be the head of Truth. All hubris and pride.`],
-    [5,5,`bright light and loud voices. *SHUT UP!*`],
-    [6,6,`a nearby life cult constantly threatening to occupy this area.`],
-    [7,7,`intruders hesitant to embrace the one trve cvlt.`],
-    [8,8,`all kinds of birds; wings give the cult an inferiority complex.`],
-    [9,9,`anyone of noble or, worse yet, royal lineage — blasphemous blue bloods.`],
-    [10,10,`those not obsessed with tribulation. You waste such good suffering.`],
-    [11,11,`anyone carrying pitiful signs or sigils. (Only the cult's are worthy.)`],
-    [12,12,`bragging, boastful words. We, on the other hand, never boast.`],
-    [13,13,`listening to stories from the world outside this true one.`],
-    [14,14,`a face uninged, too good for the flames.`],
-    [15,15,`those who care for children.`],
-    [16,16,`alcohol, smoke and prepared meat.`],
-    [17,17,`intruders hesitant to embrace the one trve cvlt. (yeah, same as 7.)`],
-    [18,18,`spineless deserters and filthy gutterscum.`],
-    [19,19,`pale ones, earthbound and weird wickheads unpierced by spikes.`],
-    [20,20,`nothing, really… or maybe funeral fog and a freezing moon. This is a place of harmony, love and kindness. Come, join the Circle of Euphoria. And rejoice! Your nails all got chewed off.`],
+    [1,1,{en:`an outsider's wise, condescending words.`,fr:`les paroles sages et condescendantes d'un étranger.`}],
+    [2,2,{en:`the Two-Headed Basilisks, brutes and false prophets all.`,fr:`les Basilics à Deux Têtes, des brutes et de faux prophètes.`}],
+    [3,3,{en:`scrolls. Living Words of Power imprisoned in pathetic parchment.`,fr:`les parchemins. Des Mots de Pouvoir vivants emprisonnés dans un parchemin pathétique.`}],
+    [4,4,{en:`Verhu claiming to be the head of Truth. All hubris and pride.`,fr:`Verhu prétendant être le chef de la Vérité. Tout hubris et fierté.`}],
+    [5,5,{en:`bright light and loud voices. *SHUT UP!*`,fr:`la lumière vive et les voix fortes. *FERMEZ-LA !*`}],
+    [6,6,{en:`a nearby life cult constantly threatening to occupy this area.`,fr:`un culte de la vie voisin qui menace constamment d'occuper ce territoire.`}],
+    [7,7,{en:`intruders hesitant to embrace the one trve cvlt.`,fr:`les intrus hésitant à embrasser le seul vrai cvlte.`}],
+    [8,8,{en:`all kinds of birds; wings give the cult an inferiority complex.`,fr:`toutes sortes d'oiseaux ; les ailes donnent au culte un complexe d'infériorité.`}],
+    [9,9,{en:`anyone of noble or, worse yet, royal lineage — blasphemous blue bloods.`,fr:`quiconque de lignée noble ou, pire encore, royale — des sang-bleu blasphématoires.`}],
+    [10,10,{en:`those not obsessed with tribulation. You waste such good suffering.`,fr:`ceux qui ne sont pas obsédés par la tribulation. Vous gâchez une si belle souffrance.`}],
+    [11,11,{en:`anyone carrying pitiful signs or sigils. (Only the cult's are worthy.)`,fr:`quiconque portant de pitoyables signes ou sceaux. (Seuls ceux du culte sont dignes.)`}],
+    [12,12,{en:`bragging, boastful words. We, on the other hand, never boast.`,fr:`les mots vantards et fanfarons. Nous, en revanche, ne nous vantons jamais.`}],
+    [13,13,{en:`listening to stories from the world outside this true one.`,fr:`écouter des histoires du monde extérieur à ce monde vrai.`}],
+    [14,14,{en:`a face uninged, too good for the flames.`,fr:`un visage non marqué, trop bien pour les flammes.`}],
+    [15,15,{en:`those who care for children.`,fr:`ceux qui s'occupent des enfants.`}],
+    [16,16,{en:`alcohol, smoke and prepared meat.`,fr:`l'alcool, la fumée et la viande préparée.`}],
+    [17,17,{en:`intruders hesitant to embrace the one trve cvlt. (yeah, same as 7.)`,fr:`les intrus hésitant à embrasser le seul vrai cvlte. (oui, pareil que le 7.)`}],
+    [18,18,{en:`spineless deserters and filthy gutterscum.`,fr:`les déserteurs sans épine dorsale et les raclures de caniveau immondes.`}],
+    [19,19,{en:`pale ones, earthbound and weird wickheads unpierced by spikes.`,fr:`les pâles, liés à la terre et les étranges têtes tordues non percées de pointes.`}],
+    [20,20,{en:`nothing, really… or maybe funeral fog and a freezing moon. This is a place of harmony, love and kindness. Come, join the Circle of Euphoria. And rejoice! Your nails all got chewed off.`,fr:`rien, vraiment… ou peut-être la brume funèbre et une lune glacée. C'est un lieu d'harmonie, d'amour et de bonté. Venez, rejoignez le Cercle d'Euphorie. Et réjouissez-vous ! Vos ongles ont tous été rongés.`}],
   ]},
 
   /* ---- Unheroic Feats (d66 — d6 tens, d6 units) ---- */
@@ -1918,64 +1940,64 @@ Les gens te suivent jusqu'à la mort.`}],
 
   /* ---- CVRSE generator ---- */
   curseWhat:{rows:[
-    [1,1,`You must kill a living creature daily or you die come nightfall. A three-faced cadaver tells you this in a dream.`],
-    [2,2,`You are cursed to always fail. Whenever you attempt something for the first time, roll three dice and pick the worst outcome.`],
-    [3,3,`You now trust everyone you meet. They instinctively know this.`],
-    [4,4,`You cannot see, hear or in any way perceive living creatures within 5 feet of you.`],
-    [5,5,`You cannot lie.`],
-    [6,6,`Blood seeps endlessly from your palms and feet. The wounds do not heal. You leave a crimson trail wherever you go.`],
-    [7,7,`You cannot talk normally, only scream at the top of your lungs.`],
-    [8,8,`Slowly but surely, you are transformed into a giant cockroach. In D4+4 days your body is insectoid, beyond your control. After 3 more days, your mind is gone.`],
-    [9,9,`Glass shatters violently in your presence.`],
-    [10,10,`Your hands are covered in a black, tarry gunk that sticks to everything you touch. It's highly flammable.`],
-    [11,11,`Any tool you use breaks.`],
-    [12,12,`Wherever you go, the ghosts of your past friends, parents or mentors follow. They won't shut up about how much of a disappointment and failure you are.`],
-    [13,13,`Unintelligent creatures always instinctively attack you. Intelligent creatures dislike you.`],
-    [14,14,`Black mold spreads in your veins. You must lift the curse in D4+7 days or die. A ghost tells you each dawn how many remain.`],
-    [15,15,`Wherever you go, black cats follow in great numbers. In 2D6+4 days, a black goat comes to you in your sleep and carries you away to the Void Eternal.`],
-    [16,16,`You cannot walk past mud or filth without rolling in it like a swine. Washing hurts.`],
-    [17,17,`Your voice is amplified by the sound of buzzing flies. In D4+1 days, flies start crawling out of your mouth.`],
-    [18,18,`You cannot die. Your body can still be broken, beaten, crushed, pierced and mauled. And it still hurts. But you are never released from agony until everything blackens and burns.`],
-    [19,19,`Whenever you lie down to sleep, it feels as if you're drowning. Which you are. Each morning, you vomit brine and you're not rested.`],
-    [20,20,`You cannot feel joy, pleasure or satisfaction. Life is miserable and pointless. You amount to nothing. No one cares about you. Also, now you're cursed with a headache.`],
+    [1,1,{en:`You must kill a living creature daily or you die come nightfall. A three-faced cadaver tells you this in a dream.`,fr:`Tu dois tuer une créature vivante chaque jour ou tu meurs à la tombée de la nuit. Un cadavre à trois visages te l'annonce en rêve.`}],
+    [2,2,{en:`You are cursed to always fail. Whenever you attempt something for the first time, roll three dice and pick the worst outcome.`,fr:`Tu es maudit à toujours échouer. Chaque fois que tu tentes quelque chose pour la première fois, lance trois dés et choisis le pire résultat.`}],
+    [3,3,{en:`You now trust everyone you meet. They instinctively know this.`,fr:`Tu fais désormais confiance à tout le monde. Ils le savent instinctivement.`}],
+    [4,4,{en:`You cannot see, hear or in any way perceive living creatures within 5 feet of you.`,fr:`Tu ne peux pas voir, entendre ni percevoir d'aucune façon les créatures vivantes dans un rayon de 1,5 mètre.`}],
+    [5,5,{en:`You cannot lie.`,fr:`Tu ne peux pas mentir.`}],
+    [6,6,{en:`Blood seeps endlessly from your palms and feet. The wounds do not heal. You leave a crimson trail wherever you go.`,fr:`Du sang suinte sans fin de tes paumes et de tes pieds. Les blessures ne guérissent pas. Tu laisses une traînée cramoisie partout où tu vas.`}],
+    [7,7,{en:`You cannot talk normally, only scream at the top of your lungs.`,fr:`Tu ne peux pas parler normalement, seulement hurler à pleins poumons.`}],
+    [8,8,{en:`Slowly but surely, you are transformed into a giant cockroach. In D4+4 days your body is insectoid, beyond your control. After 3 more days, your mind is gone.`,fr:`Lentement mais sûrement, tu te transformes en cafard géant. Dans D4+4 jours ton corps est insectoïde, hors de ton contrôle. Après 3 jours de plus, ton esprit a disparu.`}],
+    [9,9,{en:`Glass shatters violently in your presence.`,fr:`Le verre se brise violemment en ta présence.`}],
+    [10,10,{en:`Your hands are covered in a black, tarry gunk that sticks to everything you touch. It's highly flammable.`,fr:`Tes mains sont couvertes d'une substance noire et goudronneuse qui colle à tout ce que tu touches. Hautement inflammable.`}],
+    [11,11,{en:`Any tool you use breaks.`,fr:`Tout outil que tu utilises se casse.`}],
+    [12,12,{en:`Wherever you go, the ghosts of your past friends, parents or mentors follow. They won't shut up about how much of a disappointment and failure you are.`,fr:`Partout où tu vas, les fantômes de tes anciens amis, parents ou mentors te suivent. Ils n'arrêtent pas de rabâcher à quel point tu es une déception et un échec.`}],
+    [13,13,{en:`Unintelligent creatures always instinctively attack you. Intelligent creatures dislike you.`,fr:`Les créatures non intelligentes t'attaquent toujours instinctivement. Les créatures intelligentes te détestent.`}],
+    [14,14,{en:`Black mold spreads in your veins. You must lift the curse in D4+7 days or die. A ghost tells you each dawn how many remain.`,fr:`Une moisissure noire se répand dans tes veines. Tu dois lever la malédiction en D4+7 jours ou mourir. Un fantôme te dit chaque aube combien il en reste.`}],
+    [15,15,{en:`Wherever you go, black cats follow in great numbers. In 2D6+4 days, a black goat comes to you in your sleep and carries you away to the Void Eternal.`,fr:`Partout où tu vas, des chats noirs te suivent en grand nombre. Dans 2D6+4 jours, un bouc noir vient à toi dans ton sommeil et t'emporte dans le Vide Éternel.`}],
+    [16,16,{en:`You cannot walk past mud or filth without rolling in it like a swine. Washing hurts.`,fr:`Tu ne peux pas passer devant de la boue ou des immondices sans t'y rouler comme un porcin. Se laver fait mal.`}],
+    [17,17,{en:`Your voice is amplified by the sound of buzzing flies. In D4+1 days, flies start crawling out of your mouth.`,fr:`Ta voix est amplifiée par le bourdonnement des mouches. Dans D4+1 jours, des mouches commencent à ramper hors de ta bouche.`}],
+    [18,18,{en:`You cannot die. Your body can still be broken, beaten, crushed, pierced and mauled. And it still hurts. But you are never released from agony until everything blackens and burns.`,fr:`Tu ne peux pas mourir. Ton corps peut toujours être brisé, battu, écrasé, percé et mutilé. Et ça fait toujours mal. Mais tu n'es jamais libéré de l'agonie jusqu'à ce que tout noircisse et brûle.`}],
+    [19,19,{en:`Whenever you lie down to sleep, it feels as if you're drowning. Which you are. Each morning, you vomit brine and you're not rested.`,fr:`Chaque fois que tu te couches pour dormir, tu as l'impression de te noyer. Ce qui est le cas. Chaque matin, tu vomis de la saumure et tu n'es pas reposé.`}],
+    [20,20,{en:`You cannot feel joy, pleasure or satisfaction. Life is miserable and pointless. You amount to nothing. No one cares about you. Also, now you're cursed with a headache.`,fr:`Tu ne peux pas ressentir de joie, de plaisir ni de satisfaction. La vie est misérable et sans sens. Tu ne vaux rien. Personne ne se soucie de toi. En plus, tu es maintenant maudit d'un mal de tête.`}],
   ]},
   curseWho:{rows:[
-    [1,1,`**Ketel-Erg**, an eyeless hermit who once lifted a curse, they say.`],
-    [2,2,`**Hukan II**, penniless prince, once a curse-crafter himself. Now a wreck lost in malaise.`],
-    [3,3,`**Ulv and Jöte**, twin scryers at Anthelia's Alliáns court.`],
-    [4,4,`**Tüwold the Red**. Former priest now rotting in King Fathmu's dungeons for murdering dozens one crazed night. Claims to have been possessed by a devil.`],
-    [5,5,`a tome, *"Souls of Distemper"*, hidden in the crypt of Iktin, describing various anti-hex rituals. **Derkan the trollkiller** knows its location but will not go there.`],
-    [6,6,`**Belt**, a young boy whispering untold, esoteric secrets in his sleep. Heavily guarded.`],
-    [7,7,`**Völtu**, witch of Meadow Death. She lives in the obsidian mouth of a lifelike giant statue.`],
-    [8,8,`**Agan-Krit**. To summon this demon, you must first burn an unclean scroll and inhale the smoke. There is no known way to banish it again.`],
-    [9,9,`**Krugan of the Deathless Crag**. This lich is guarded by a ghastly knight who won't let any living being enter the cave.`],
-    [10,10,`**Father Calth**, High Deacon of the Basilica of Gorgh. Will not see unbaptized people.`],
+    [1,1,{en:`**Ketel-Erg**, an eyeless hermit who once lifted a curse, they say.`,fr:`**Ketel-Erg**, un ermite sans yeux qui a levé une malédiction une fois, dit-on.`}],
+    [2,2,{en:`**Hukan II**, penniless prince, once a curse-crafter himself. Now a wreck lost in malaise.`,fr:`**Hukan II**, prince sans le sou, autrefois faiseur de malédictions lui-même. Maintenant une épave perdue dans le malaise.`}],
+    [3,3,{en:`**Ulv and Jöte**, twin scryers at Anthelia's Alliáns court.`,fr:`**Ulv et Jöte**, scryers jumeaux à la cour d'Alliáns d'Anthelia.`}],
+    [4,4,{en:`**Tüwold the Red**. Former priest now rotting in King Fathmu's dungeons for murdering dozens one crazed night. Claims to have been possessed by a devil.`,fr:`**Tüwold le Rouge**. Ancien prêtre pourrissant dans les donjons du Roi Fathmu pour avoir tué des dizaines de personnes une nuit de folie. Prétend avoir été possédé par un diable.`}],
+    [5,5,{en:`a tome, *"Souls of Distemper"*, hidden in the crypt of Iktin, describing various anti-hex rituals. **Derkan the trollkiller** knows its location but will not go there.`,fr:`un tome, *"Âmes de Détresse"*, caché dans la crypte d'Iktin, décrivant divers rituels anti-malédiction. **Derkan le tueur de trolls** connaît son emplacement mais n'y ira pas.`}],
+    [6,6,{en:`**Belt**, a young boy whispering untold, esoteric secrets in his sleep. Heavily guarded.`,fr:`**Belt**, un jeune garçon murmurant d'inédits secrets ésotériques dans son sommeil. Lourdement gardé.`}],
+    [7,7,{en:`**Völtu**, witch of Meadow Death. She lives in the obsidian mouth of a lifelike giant statue.`,fr:`**Völtu**, sorcière de la Prairie Mort. Elle vit dans la bouche d'obsidienne d'une statue géante réaliste.`}],
+    [8,8,{en:`**Agan-Krit**. To summon this demon, you must first burn an unclean scroll and inhale the smoke. There is no known way to banish it again.`,fr:`**Agan-Krit**. Pour invoquer ce démon, tu dois d'abord brûler un parchemin impur et inhaler la fumée. On ne connaît aucun moyen de le bannir à nouveau.`}],
+    [9,9,{en:`**Krugan of the Deathless Crag**. This lich is guarded by a ghastly knight who won't let any living being enter the cave.`,fr:`**Krugan du Pic Immortel**. Ce liche est gardé par un chevalier effroyable qui ne laisse aucun être vivant entrer dans la grotte.`}],
+    [10,10,{en:`**Father Calth**, High Deacon of the Basilica of Gorgh. Will not see unbaptized people.`,fr:`**Père Calth**, Haut Diacre de la Basilique de Gorgh. Ne reçoit pas les non-baptisés.`}],
   ]},
   cursePrice:{rows:[
-    [1,1,`3d10 silver and a kiss.`],
-    [2,2,`a dangerous errand in a dangerous place.`],
-    [3,3,`a week of hard work.`],
-    [4,4,`your darkest secret.`],
-    [5,5,`a single drop of blood.`],
-    [6,6,`your soul. Whatever that means.`],
-    [7,7,`a human sacrifice.`],
-    [8,8,`nothing. Or so they say.`],
-    [9,9,`everything you own.`],
-    [10,10,`you trade it for another curse.`],
+    [1,1,{en:`3d10 silver and a kiss.`,fr:`3d10 argent et un baiser.`}],
+    [2,2,{en:`a dangerous errand in a dangerous place.`,fr:`une course dangereuse dans un endroit dangereux.`}],
+    [3,3,{en:`a week of hard work.`,fr:`une semaine de dur labeur.`}],
+    [4,4,{en:`your darkest secret.`,fr:`ton secret le plus sombre.`}],
+    [5,5,{en:`a single drop of blood.`,fr:`une seule goutte de sang.`}],
+    [6,6,{en:`your soul. Whatever that means.`,fr:`ton âme. Quoi que cela signifie.`}],
+    [7,7,{en:`a human sacrifice.`,fr:`un sacrifice humain.`}],
+    [8,8,{en:`nothing. Or so they say.`,fr:`rien. C'est du moins ce qu'on dit.`}],
+    [9,9,{en:`everything you own.`,fr:`tout ce que tu possèdes.`}],
+    [10,10,{en:`you trade it for another curse.`,fr:`tu l'échanges contre une autre malédiction.`}],
   ]},
   curseRid:{rows:[
-    [1,1,`Coat a mirror in a snake's saliva. Pour ash and salt in a metal bowl. Watch yourself cry into it.`],
-    [2,2,`Sleep under the full moon wearing the flesh of a predator.`],
-    [3,3,`Create a spell-breaking talisman from a sinner's skull and a wraith's ectoplasm, then have a priest consecrate it. Carry this with you at all times.`],
-    [4,4,`For 3 nights, share the bed with an undead. You cannot touch.`],
-    [5,5,`Create a clay effigy of your mother and have a troll break it during a downpour. You must ignore the pain.`],
-    [6,6,`Go without food for 6 days and 6 nights. Then eat the heart of a sinner.`],
-    [7,7,`Murder an innocent in a cruel manner. Their ghost will haunt you forever.`],
-    [8,8,`Gather corpseweed, murk nail and wailer's leaf; burn them with dried grass. Stand in the vapors and recite the Prophecy until you pass out.`],
-    [9,9,`Walk naked into the deepest, darkest room of a cursed place and return unscathed. Take nothing. Leave nothing.`],
-    [10,10,`Kill a person of royal blood and befriend one of their family members.`],
-    [11,11,`Sacrifice three goats and a good dog to Nechrubel.`],
-    [12,12,`Swim alone in a dark lake on a moonless night. A being from Beyond will come and eat the curse. But whatever you do, do not…`],
+    [1,1,{en:`Coat a mirror in a snake's saliva. Pour ash and salt in a metal bowl. Watch yourself cry into it.`,fr:`Enduire un miroir de salive de serpent. Verser de la cendre et du sel dans un bol métallique. Te regarder pleurer dedans.`}],
+    [2,2,{en:`Sleep under the full moon wearing the flesh of a predator.`,fr:`Dormir sous la pleine lune en portant la chair d'un prédateur.`}],
+    [3,3,{en:`Create a spell-breaking talisman from a sinner's skull and a wraith's ectoplasm, then have a priest consecrate it. Carry this with you at all times.`,fr:`Créer un talisman brise-sort à partir d'un crâne de pécheur et d'ectoplasme de spectre, puis faire le consacrer par un prêtre. Le porter en permanence.`}],
+    [4,4,{en:`For 3 nights, share the bed with an undead. You cannot touch.`,fr:`Pendant 3 nuits, partager le lit avec un mort-vivant. Tu ne peux pas toucher.`}],
+    [5,5,{en:`Create a clay effigy of your mother and have a troll break it during a downpour. You must ignore the pain.`,fr:`Créer une effigie d'argile de ta mère et la faire briser par un troll sous une averse. Tu dois ignorer la douleur.`}],
+    [6,6,{en:`Go without food for 6 days and 6 nights. Then eat the heart of a sinner.`,fr:`Se passer de nourriture pendant 6 jours et 6 nuits. Puis manger le cœur d'un pécheur.`}],
+    [7,7,{en:`Murder an innocent in a cruel manner. Their ghost will haunt you forever.`,fr:`Assassiner un innocent de façon cruelle. Son fantôme te hanter pour toujours.`}],
+    [8,8,{en:`Gather corpseweed, murk nail and wailer's leaf; burn them with dried grass. Stand in the vapors and recite the Prophecy until you pass out.`,fr:`Récolter de l'herbe-cadavre, un clou de boue et une feuille du gémisseur ; les brûler avec de l'herbe séchée. Se tenir dans les vapeurs et réciter la Prophétie jusqu'à s'évanouir.`}],
+    [9,9,{en:`Walk naked into the deepest, darkest room of a cursed place and return unscathed. Take nothing. Leave nothing.`,fr:`Marcher nu dans la pièce la plus profonde et la plus sombre d'un lieu maudit et en revenir indemne. Ne rien prendre. Ne rien laisser.`}],
+    [10,10,{en:`Kill a person of royal blood and befriend one of their family members.`,fr:`Tuer une personne de sang royal et se lier d'amitié avec l'un de ses proches.`}],
+    [11,11,{en:`Sacrifice three goats and a good dog to Nechrubel.`,fr:`Sacrifier trois chèvres et un bon chien à Nechrubel.`}],
+    [12,12,{en:`Swim alone in a dark lake on a moonless night. A being from Beyond will come and eat the curse. But whatever you do, do not…`,fr:`Nager seul dans un lac sombre lors d'une nuit sans lune. Un être de l'Au-delà viendra manger la malédiction. Mais quoi que tu fasses, ne…`}],
   ]},
 };
 
@@ -2044,9 +2066,11 @@ const UI = {
   randomClass:{en:'Random class',fr:'Classe aléatoire'},
   randomName:{en:'Random name',fr:'Nom aléatoire'},
   backSheet:{en:'← Back to sheet',fr:'← Retour à la fiche'},
+  printHint:{en:'💡 In the print dialog, uncheck "Headers and footers" to hide date & page title.',fr:'💡 Dans la boîte d\'impression, décochez "En-têtes et pieds de page" pour masquer la date et le titre.'},
   pdfBtn:{en:'Sheet / PDF',fr:'Fiche / PDF'},
   legals:{en:'Legals',fr:'Mentions légales'},
   foldAll:{en:'Fold all',fr:'Replier'},
+  unfoldAll:{en:'Unfold all',fr:'Déplier'},
   navTables:{en:'Tables',fr:'Tables'},
   tablesL1:{en:'Roll the',fr:'Lance les'},
   tablesL2:{en:'Tables',fr:'Tables'},
@@ -2056,6 +2080,21 @@ const UI = {
   scvmsL1:{en:'My',fr:'Mes'},
   scvmsL2:{en:'Scvms',fr:'Raclures'},
   noScvms:{en:'No saved scvm yet. Generate one and hit Save.',fr:'Aucune fiche enregistrée. Génère un perso puis clique Sauver.'},
+  hpSub:{en:'Toughness + {n}d{d} (min 1)',fr:'Endurance + {n}d{d} (min 1)'},
+  hpCurMax:{en:'Current / Max',fr:'Actuel / Max'},
+  omensSub2:{en:'Maximum Omens set to {n} by a feat.',fr:'Présages maximum fixés à {n} par un exploit.'},
+  omensNone:{en:'No Omens — overridden by a feat/gift.',fr:'Pas de Présages — annulé par un exploit/don.'},
+  powersSub:{en:'{d} + Presence per day. Tap the value for a new day.',fr:'{d} + Présence par jour. Tape la valeur pour un nouveau jour.'},
+  foodResult:{en:'Waterskin + {n} days of food',fr:'Outre + {n} jours de vivres'},
+  importToList:{en:'Import a scvm',fr:'Importer une raclure'},
+  abbrStr:{en:'STR',fr:'FOR'},
+  abbrAgi:{en:'AGI',fr:'AGI'},
+  abbrPre:{en:'PRE',fr:'PRÉ'},
+  abbrTou:{en:'TOU',fr:'END'},
+  abbrHp:{en:'HP',fr:'PV'},
+  abbrOmens:{en:'OMENS',fr:'PRÉSAGES'},
+  abbrPowers:{en:'POWERS',fr:'SORTS'},
+  abbrSilver:{en:'SILVER',fr:'ARGENT'},
 };
 
 /* ---------- CLASSES ---------- */
@@ -2135,7 +2174,7 @@ Visions from the Third Eye — roll 3d6+2 for Presence.
 Roll d6 on the weapons table and d4−1 on the armor table.`, fr:`Corps noueux — lance 3d6-2 pour la Force.
 Visions du Troisième Œil — lance 3d6+2 pour la Présence.
 Lance d6 sur la table des armes et d4-1 sur la table des armures.`};
-const VOODOO_GEAR = {en:`You start with 6d20 silver and the ordinary starting equipment, plus: 1d4 Voodoo dolls, 1d6 Scrolls Lost in the Mud, and a jar of dirt. Do not lose it, lest the basilisks find you.`, fr:`Tu débutes avec 6d20 pièces d'argent et l'équipement de départ ordinaire, plus : 1d4 poupées vaudou, 1d6 Parchemins Perdus dans la Boue et un bocal de terre. Ne le perds pas, sans quoi les basilics te trouveront.`};
+const VOODOO_GEAR = {en:`A jar of dirt. Do not lose it, lest the basilisks find you.`, fr:`Un bocal de terre. Ne le perds pas, sans quoi les basilics te trouveront.`};
 const VOODOO_DOOM = {en:`Dark spirits watch and judge over your shoulders. You have d4+1 Omens, but when you suffer a critical hit or failure, roll 1d10: the corresponding Omen of Doom manifests permanently. Scratch it and write another one in its stead.`, fr:`Des esprits ténébreux observent et jugent par-dessus ton épaule. Tu as d4+1 Présages, mais lorsque tu subis un coup critique ou un échec critique, lance 1d10 : l'Augure de Malheur correspondant se manifeste à jamais. Raye-le et inscris-en un autre à sa place.`};
 const VOODOO_FEAT_NOTE = {en:`You start with a feat and can choose another one when getting better (max 3).`, fr:`Tu débutes avec un exploit et peux en choisir un autre lorsque tu t'améliores (3 au maximum).`};
 
@@ -2258,6 +2297,7 @@ const CLASSES = {
       {id:'voodooSuffering', section:'background',   kind:'table', ord:-10, sides:4, table:T.voodooSuffering, label:{en:'Where does the suffering come from? (d4)', fr:"D'où vient la souffrance ? (d4)"}},
       {id:'voodooAbilities', section:'capabilities', kind:'fixed', ord:0,   label:{en:'Abilities', fr:'Aptitudes'}, fixed:VOODOO_ABIL},
       {id:'voodooGear',      section:'capabilities', kind:'fixed', ord:5,   label:{en:'Starting gear', fr:"Équipement de départ"}, fixed:VOODOO_GEAR},
+      {id:'voodooDolls',     section:'gear',         kind:'dcount', ord:-5, die:4, unit:{en:'Voodoo dolls',fr:'poupées vaudou'}, label:{en:'Voodoo dolls (d4)', fr:'Poupées vaudou (d4)'}},
       {id:'voodooMudScroll',  section:'magic',        kind:'table', ord:6,   sides:6, table:T.mudScrolls, label:{en:'Scroll Lost in the Mud (d6)', fr:'Parchemin Perdu dans la Boue (d6)'}, note:{en:`Roll 1d6 times. Each scroll can be used once.`, fr:`Lance 1d6 fois. Chaque parchemin ne peut être utilisé qu'une seule fois.`}},
       {id:'voodooDoom',      section:'capabilities', kind:'fixed', ord:10,  label:{en:'Omens of Doom', fr:'Augures de Malheur'}, fixed:VOODOO_DOOM},
       {id:'voodooOmen',      section:'capabilities', kind:'table', ord:15,  sides:10, table:T.voodooOmensOfDoom, label:{en:'Manifested Omen of Doom (d10)', fr:'Augure de Malheur Manifesté (d10)'}},
@@ -2461,6 +2501,59 @@ function genName(){
   return parts.join(' ');
 }
 /* ---------- compact A4 play-sheet (read-only, basis for PDF/print) ---------- */
+// Strip builder-only chargen instructions from fixed-field text for the compact sheet
+function stripMeta(txt){
+  const ABILITY_FR = '(?:l[ae\u2019\u0027]?\\s*)?(?:force|agilit[e\xe9]|pr[e\xe9]sence|endurance)';
+  const ABILITY_EN = '(?:the\\s+)?(?:strength|agility|presence|toughness)';
+  const ABILITY_ANY = '(?:' + ABILITY_FR + '|' + ABILITY_EN + ')';
+  const ABILITY_LIST = ABILITY_ANY + '(?:\\s*(?:,|et|and)\\s*' + ABILITY_ANY + ')*';
+  const parts = txt.split(/(?<=[.!?:\u00bb])\s+|\n/);
+  const result = [];
+  for(let part of parts){
+    let p = part.trim();
+    if(!p) continue;
+    const low = p.toLowerCase();
+    // Drop whole sentence: "roll/lance Xd6±Y for/pour …" or "roll Xd6±Y Ability" (no 'for')
+    if(/^(roll|lance[sz]?)\s+[\ddD+\-\u2212]+\s+(for|pour)\b/.test(low)) continue;
+    if(/^(roll|lance[sz]?)\s+[\ddD+\-\u2212]+\s+(strength|agility|presence|toughness|force|agilit|pr[eé]sence|endurance)/.test(low)) continue;
+    // Drop: "Roll/Lance Dd on the weapons/armor table…"
+    if(/^(roll|lance[sz]?)\s+[dD]\d+\s+(on\s+the|sur\s+la|on\s+|sur\s+)/.test(low)) continue;
+    if(/^(roll|lance[sz]?)\s+[dD]\d+\s+(weapon|armor|arme|armure|weapon|table)/.test(low)) continue;
+    // Drop: "Roll Presence + 2d4…"
+    if(/^(roll|lance[sz]?)\s+(presence|pr[e\xe9]sence)\s*\+/.test(low)) continue;
+    // Drop: "You also start with…" / "Starts with at least…" / "Begins with…" (starting gear)
+    if(/^(you also start with|starts? with at least|you start with|tu débutes? (aussi |également )?avec)\b/.test(low)) continue;
+    // Drop: "Débute avec…" / "Débutes avec…" (standalone gear sentence in FR)
+    if(/^d[ée]butes? avec\b/.test(low)) continue;
+    // Drop: "You begin with N…" / "Begins with a X…" (numbered gear)
+    if(/^(you begin with|tu d[eé]butes? avec|begins? with)\s+\d/.test(low)) continue;
+    if(/^begins? with (a|an|the|one|two|d\d)\b/.test(low)) continue;
+    // Drop: "You do not roll on the weapon/armor table…"
+    if(/^you do not roll on the (weapon|armor|weapon or armor)\b/.test(low)) continue;
+    if(/^tu ne lances? pas sur la? table (des armes?|d.armures?)\b/.test(low)) continue;
+    // Drop: "Roll randomly for two gifts…" / "Lance au hasard…"
+    if(/^(roll randomly|lance au hasard)\b/.test(low)) continue;
+    // Drop: "Choose one…" / "Choisis…"
+    if(/^(choose\b|choisi[sr]?\b)/.test(low)) continue;
+    // Drop: "Take this feat…" / "Reprends cet exploit…"
+    if(/^(take this feat|reprends?[-\s]?(?:cet|ce)\s+exploit)/.test(low)) continue;
+    // Remove inline ", roll/lance Xd6±Y for/pour [ability list]" or ", roll Xd6 Ability"
+    const rollInline = new RegExp(',?\\s*(?:roll|lance[sz]?)\\s+[\\dDd+\\-\u2212]+\\s+(?:for|pour)\\s+' + ABILITY_LIST, 'gi');
+    const rollInline2 = new RegExp(',?\\s*(?:roll|lance[sz]?)\\s+[\\dDd+\\-\u2212]+\\s+' + ABILITY_ANY + '(?:\\s*(?:and|et)\\s*' + ABILITY_ANY + ')*', 'gi');
+    p = p.replace(rollInline, '');
+    p = p.replace(rollInline2, '');
+    // Clean dangling "et l'Agilité" / "and Agility" leftovers
+    const dangle = new RegExp('^\\s*(?:et\\s+' + ABILITY_FR + '|and\\s+' + ABILITY_EN + ')\\s*[,.]?\\s*', 'i');
+    p = p.replace(dangle, '');
+    p = p.trim().replace(/,$/, '').trim();
+    p = p.replace(/^[—\-]\s*\.?\s*$/, '').trim();   // remove orphan dashes (whole sentence)
+    p = p.replace(/\s*[—\-]\s*\.$/, '.').trim();     // trailing "— ." → "."
+    p = p.replace(/\s*[—\-]\s*$/, '').trim();        // trailing dash
+    if(p) result.push(p);
+  }
+  return result.join(' ');
+}
+
 function plainValue(f){
   const fd=state.f[f.id]||{};
   if(fd.manual!=null && fd.manual!==''){   // manual override from edit mode
@@ -2469,13 +2562,14 @@ function plainValue(f){
   }
   switch(f.kind){
     case 'text': return esc(fd.text||'—');
-    case 'fixed': return fmt(t(f.fixed));
+    case 'fixed': return fmt(stripMeta(t(f.fixed)));
     case 'ability': { const sc=abScore(f.id); return sc==null?'?':signed(sc); }
     case 'hp': { const m=hpMax(); return m==null?'?':(hpCur()+'/'+m); }
     case 'powers': { const m=powersMax(); return m==null?'?':(powersCur()+'/'+m); }
     case 'omens': { if(curEff.noOmens) return '—'; const cur=(fd.cur==null?fd.main:fd.cur); const den=(curEff.omensSet!=null)?curEff.omensSet:omensDieLbl(state); return (cur==null?'?':cur)+'/'+den; }
     case 'silver': { const sv=fd.sv,mult=f.mult||10,n=f.count||2; const v=(sv&&sv.length===n&&sv.every(x=>x!=null))?sv.reduce((a,b)=>a+b,0)*mult:null; return v==null?'?':v+(f.unit!=null?f.unit:'s'); }
-    case 'food': return fd.main==null?'—':('Waterskin + '+fd.main+' days of food');
+    case 'food': return fd.main==null?'—':t(UI.foodResult).replace('{n}',fd.main);
+    case 'dcount': { const m=fd.main; if(m==null) return '—'; return m + (f.unit ? (' '+t(f.unit)) : ''); }
     case 'table': { const m=fd.main; if(m==null) return '—'; const r=lookup(f.table,clamp(m+(f.mod||0),1,tableMax(f.table))); return r?fmt(rowText(r)):'—'; }
     case 'twice': { const a=fd.a,b=fd.b; const r=[a!=null?fmt(rowText(lookup(f.table,a))):null,b!=null?fmt(rowText(lookup(f.table,b))):null].filter(Boolean); return r.length?r.join('<br>'):'—'; }
     case 'scroll': { const tbl=fd.type==='sacred'?T.sacred:T.unclean; const r=fd.n!=null?lookup(tbl,fd.n):null; return r?('<b class="term">'+(fd.type==='sacred'?'Sacred':'Unclean')+'</b> '+fmt(rowText(r))):'—'; }
@@ -2521,26 +2615,73 @@ function renderCompact(){
   const hpInner = state.edit ? '<input class="cmpedit cmpedit-num" type="number" min="1" data-edit="num" data-field="hp" value="'+(hpv==null?'':hpv)+'">' : '<div class="cmp-sv">'+(hpv==null?'?':(hpCur()+'/'+hpv))+'</div>';
   const silvInner = state.edit ? editControl(silverF) : '<div class="cmp-sv">'+plainValue(silverF)+'</div>';
   let h='<div class="a4"><div class="cmp-inner"><div class="cmp-head"><div class="cmp-name">'+nameInner+'</div><div class="cmp-cls">'+emblem+'<span>'+(cls?esc(t(cls.name)):t(UI.noclass))+'</span></div></div>';
-  h+='<div class="cmp-stats'+((state.play&&!state.edit)?' playstats':'')+'">'+stat('strength','STR')+stat('agility','AGI')+stat('presence','PRE')+stat('toughness','TOU')
-     +'<div class="cmp-stat cmp-stat-hp">'+hpInner+'<div class="cmp-sl">HP</div>'+(state.edit?'':adj('hp'))+'</div>'
-     +'<div class="cmp-stat"><div class="cmp-sv">'+omDisp+'</div><div class="cmp-sl">OMENS</div>'+(state.edit?'':adj('omens'))+'</div>'
-     +((state.play&&!state.edit)?'<div class="cmp-stat"><div class="cmp-sv">'+pDisp+'</div><div class="cmp-sl">POWERS</div>'+adj('powers')+'</div>':'')
-     +'<div class="cmp-stat">'+silvInner+'<div class="cmp-sl">SILVER</div></div></div>';
+  h+='<div class="cmp-stats'+((state.play&&!state.edit)?' playstats':'')+'">'+stat('strength',t(UI.abbrStr))+stat('agility',t(UI.abbrAgi))+stat('presence',t(UI.abbrPre))+stat('toughness',t(UI.abbrTou))
+     +'<div class="cmp-stat cmp-stat-hp">'+hpInner+'<div class="cmp-sl">'+t(UI.abbrHp)+'</div>'+(state.edit?'':adj('hp'))+'</div>'
+     +'<div class="cmp-stat"><div class="cmp-sv">'+omDisp+'</div><div class="cmp-sl">'+t(UI.abbrOmens)+'</div>'+(state.edit?'':adj('omens'))+'</div>'
+     +((state.play&&!state.edit)?'<div class="cmp-stat"><div class="cmp-sv">'+pDisp+'</div><div class="cmp-sl">'+t(UI.abbrPowers)+'</div>'+adj('powers')+'</div>':'')
+     +'<div class="cmp-stat">'+silvInner+'<div class="cmp-sl">'+t(UI.abbrSilver)+'</div></div></div>';
+  const TWISTED_IDS = ['terribleTraits','brokenBodies','badHabits','troublingTales'];
+  const ABILITY_LABELS = ['abilities','aptitudes'];
+  const CLASS_FLAVOR_IDS = ['fangedFlavor','gutterFlavor','hermitFlavor','royaltyFlavor','priestFlavor','herbFlavor','skinFlavor','paleFlavor','knightFlavor','voodooFlavor','dgpFlavor','fpFlavor','wpFlavor','goblinFlavor','blindFlavor','crowFlavor','wallFlavor','hunterFlavor','songbirdFlavor','vicarFlavor','crowGear'];
+  const renderField=(b,f,stacked)=>{
+    if(f.id==='silver') return;
+    // Skip class flavor fields in background (class name already in header)
+    if(CLASS_FLAVOR_IDS.includes(f.id) && !state.edit) return;
+    if(f.id==='container' && !state.edit){
+      const fd=state.f[f.id]||{}, m=fd.main;
+      if(m==null) return;
+      const row=lookup(f.table,m);
+      const plain=(row?rowText(row):'').replace(/\*\*/g,'').trim().toLowerCase();
+      if(plain===''||plain==='nothing'||plain==='rien') return;
+    }
+    const rawLbl = t(f.label).replace(/\s*\(d\d+\)\s*$/i,'').trim();
+    const hideLabel = !state.edit && f.kind==='fixed' && ABILITY_LABELS.includes(rawLbl.toLowerCase());
+    const lbl=esc(rawLbl), val=state.edit?editControl(f):plainValue(f);
+    if(f.kind==='fixed'){
+      if(hideLabel) b.push('<div class="cmp-fix">'+val+'</div>');
+      else b.push('<div class="cmp-fix"><b class="cmp-fl">'+lbl+'</b> '+val+'</div>');
+    }
+    else if(f.kind==='text'){ if(val&&val!=='—') b.push('<div class="cmp-fix">'+val+'</div>'); }
+    else if(stacked) b.push('<div class="cmp-stack"><div class="cmp-sk-l">'+lbl+'</div><div class="cmp-sk-v">'+val+'</div></div>');
+    else b.push('<div class="cmp-row"><span class="cmp-l">'+lbl+'</span><span class="cmp-v">'+val+'</span></div>');
+  };
   const block=(secId)=>{
     const sec=SECTIONS.find(x=>x.id===secId);
     const fields=af.filter(f=>f.section===secId && f.kind!=='classdisplay').sort((a,b)=>(a.ord||0)-(b.ord||0));
     const customs=(state.custom&&state.custom[secId])||[]; const hasCustom=customs.some(c=>c.title||c.body);
     if(!fields.length && !hasCustom && !state.edit) return '';
-    const stacked=(secId!=='combat' && secId!=='gear');  // prose sections (magic/capabilities/background/sps) → title on top, content below; combat/gear keep 2 cols
+    const stacked=(secId!=='combat' && secId!=='gear');
+    // Separate twisted-fate fields from other background fields
+    const twistedFields = secId==='background' ? fields.filter(f=>TWISTED_IDS.includes(f.id)) : [];
+    const normalFields  = secId==='background' ? fields.filter(f=>!TWISTED_IDS.includes(f.id)) : fields;
     let b='<div class="cmp-block"><h4>'+esc(t(sec.title))+'</h4>';
-    fields.forEach(f=>{
-      const lbl=esc(t(f.label)), val=state.edit?editControl(f):plainValue(f);
-      if(f.id==='silver') b+='<div class="cmp-row cmp-money"><span class="cmp-l">'+lbl+'</span><span class="cmp-v">'+val+'</span></div>';
-      else if(f.kind==='fixed') b+='<div class="cmp-fix"><b class="cmp-fl">'+lbl+'</b> '+val+'</div>';
-      else if(f.kind==='text'){ if(val&&val!=='—') b+='<div class="cmp-fix">'+val+'</div>'; }
-      else if(stacked) b+='<div class="cmp-stack"><div class="cmp-sk-l">'+lbl+'</div><div class="cmp-sk-v">'+val+'</div></div>';
-      else b+='<div class="cmp-row"><span class="cmp-l">'+lbl+'</span><span class="cmp-v">'+val+'</span></div>';
-    });
+    const parts=[];
+    normalFields.forEach(f=>renderField(parts,f,stacked));
+    b+=parts.join('');
+    if(twistedFields.length){
+      const hasValues = twistedFields.some(f=>{ const fd=state.f[f.id]||{}; return fd.main!=null||fd.a!=null; });
+      if(hasValues||state.edit){
+        b+='<div class="cmp-subhead">'+esc(t(UI.twistedFate))+'</div>';
+        // Merge all twisted-fate results into one prose block
+        const tvals = twistedFields.flatMap(f=>{
+          if(!state.edit){
+            const val = plainValue(f);
+            if(!val||val==='—') return [];
+            // strip label, just keep values
+            return val.split('<br>').filter(v=>v&&v!=='—');
+          }
+          return [];
+        });
+        if(tvals.length && !state.edit){
+          b+='<div class="cmp-fix">'+tvals.join(' ')+'</div>';
+        } else if(state.edit){
+          const tp=[];
+          twistedFields.forEach(f=>renderField(tp,f,stacked));
+          b+=tp.join('');
+        }
+      }
+    }
+    fields.forEach(f=>{});  // noop — already handled above
     customs.forEach(c=>{
       if(state.edit){
         b+='<div class="cmp-custom cc-edit"><input class="cmpedit cmpedit-txt cc-title" data-edit="custom-title" data-section="'+secId+'" data-cid="'+c.id+'" value="'+esc(c.title||'')+'" placeholder="Title (e.g. a new ability)"><button class="cc-del" data-act="del-custom" data-section="'+secId+'" data-cid="'+c.id+'" title="Remove">✕</button><textarea class="cmpedit cmpedit-area" data-edit="custom-body" data-section="'+secId+'" data-cid="'+c.id+'" rows="2" placeholder="Description…">'+esc(c.body||'')+'</textarea></div>';
@@ -2599,7 +2740,7 @@ const SECTIONS = [
   {id:'capabilities', title:{en:'Capabilities',fr:'Capacités'}},
   {id:'combat',       title:{en:'Arms & Armor',fr:'Armes & Armure'}},
   {id:'magic',        title:{en:'Scrolls',fr:'Parchemins'}},
-  {id:'gear',         title:{en:'Silver & Gear',fr:'Argent & Équipement'}},
+  {id:'gear',         title:{en:'Gear',fr:'Équipement'}},
   {id:'sps',          title:{en:'Salt, Spit & Silver',fr:'Salt, Spit & Silver'}},
 ];
 /* Sheet layout: related cards sit side-by-side in stable "bands" (collapsing one card only reflows its band). */
@@ -2752,7 +2893,7 @@ function spsFields(gid){
   return out;
 }
 /* Categories for the standalone Tables (oracle) page */
-const LOOT_EQUIP = `**Backpack** — 6s · holds 7 normal-sized items
+const LOOT_EQUIP = {en:`**Backpack** — 6s · holds 7 normal-sized items
 **Bear trap** — 20s · Presence DR14 to spot, d8 damage
 **Blanket** — 4s
 **Caltrops** — 7s · d4 damage + infection on 1-in-6
@@ -2797,8 +2938,53 @@ const LOOT_EQUIP = `**Backpack** — 6s · holds 7 normal-sized items
 **Scroll** — ~50s to the right buyer
 **Sharp needle** — 3s
 **Waterskin** — 4s · 4 days of water
-*Improvised weapons do d4 damage.*`;
-const LOOT_WEAP = `**Battle axe** — d8 · 35s
+*Improvised weapons do d4 damage.*`,fr:`**Sac à dos** — 6a · contient 7 objets de taille normale
+**Piège à ours** — 20a · Présence DR14 pour repérer, d8 dégâts
+**Couverture** — 4a
+**Chausse-trapes** — 7a · d4 dégâts + infection sur 1 sur 6
+**Craie** — 1a
+**Tabac à mâcher** — 1a
+**Pied-de-biche** — 8a
+**Crucifix, argent** — 60a
+**Crucifix, bois** — 8a
+**Nourriture séchée** — 1a · 1 jour
+**Parfum exquis** — 25a
+**Briquet à silex** — 4a
+**Grappin** — 12a
+**Marteau** — 8a
+**Chaîne lourde** — 10a · 4,5 mètres
+**Clous de fer** — 5a · 10 clous
+**Échelle** — 7a
+**Huile de lanterne** — 5a · Présence + 6 heures
+**Saindoux** — 5a · peut remplacer 5 repas
+**Grand crochet de fer** — 9a
+**Crochets de serrurier** — 5a
+**Bande de magnésium** — 4a
+**Menottes** — 10a
+**Matelas** — 3a
+**Couperet** — 15a
+**Coffret de médecine** — 15a · stoppe saignements/infections et +d6 PV, Présence + 4 utilisations
+**Lime métallique** — 10a
+**Miroir** — 15a
+**Muselière** — 6a
+**Corde de pendaison** — 5a
+**Lampe à huile** — 10a
+**Poison (noir)** — 20a · Endurance DR14 ou d6 dégâts + aveugle une heure, 3 doses
+**Poison (rouge)** — 20a · Endurance DR12 ou d10 dégâts, 3 doses
+**Cadavre conservé** — 66+d6a
+**Corde** — 4a · 9 mètres
+**Petite charrette** — 25a
+**Tente** — 12a
+**Boîte à outils** — 20a · 10 clous, marteau, petite scie, tenailles
+**Torche** — 2a
+**Sac** — 3a · contient 10 objets de taille normale
+**Sel** — 4a
+**Ciseaux** — 9a
+**Parchemin** — ~50a pour le bon acheteur
+**Aiguille acérée** — 3a
+**Outre** — 4a · 4 jours d'eau
+*Les armes improvisées infligent d4 dégâts.*`};
+const LOOT_WEAP = {en:`**Battle axe** — d8 · 35s
 **Bow** — d6 · 25s
 **Club** — d6 · 10s
 **Crossbow** — d8 · 40s
@@ -2815,55 +3001,82 @@ const LOOT_WEAP = `**Battle axe** — d8 · 35s
 **Warhammer** — d6 · 30s
 **Whip** — d2 · 5s
 **Zweihänder** — d10 · 60s
-20 arrows — 10s · 10 bolts — 10s`;
-const LOOT_SERV = `**Night in hospice** — 3s
+20 arrows — 10s · 10 bolts — 10s`,fr:`**Hache de guerre** — d8 · 35a
+**Arc** — d6 · 25a
+**Gourdin** — d6 · 10a
+**Arbalète** — d8 · 40a
+**Fléau** — d8 · 35a
+**Fémur** — d4 · sans valeur
+**Hachette** — d6 · 15a
+**Couteau** — d4 · 10a
+**Masse** — d6 · 25a
+**Arc court** — d4 · 13a
+**Épée courte** — d4 · 20a
+**Fronde** — d4 · 8a
+**Bâton** — d4 · 5a
+**Épée** — d6 · 30a
+**Marteau de guerre** — d6 · 30a
+**Fouet** — d2 · 5a
+**Zweihänder** — d10 · 60a
+20 flèches — 10a · 10 carreaux — 10a`};
+const LOOT_SERV = {en:`**Night in hospice** — 3s
 **Drink** — 1s
 **Steady meal** — 2s
 **Bribe, guard** — 20-40s
 **Bribe, clerk** — 30-60s
 **Bribe, rabble** — 5-15s
-**Repair armor** — Tier 1→2: 25s · Tier 2→3: 40s (never above original tier)`;
-const LOOT_BEAST = `**Dog (trained)** — 25s
+**Repair armor** — Tier 1→2: 25s · Tier 2→3: 40s (never above original tier)`,fr:`**Nuit à l'hospice** — 3a
+**Boisson** — 1a
+**Repas solide** — 2a
+**Pot-de-vin, garde** — 20-40a
+**Pot-de-vin, clerc** — 30-60a
+**Pot-de-vin, populace** — 5-15a
+**Réparation d'armure** — Niveau 1→2 : 25a · Niveau 2→3 : 40a (jamais au-delà du niveau d'origine)`};
+const LOOT_BEAST = {en:`**Dog (trained)** — 25s
 **Dog (wild)** — 10s
 **Horse** — 80s
 **Mule** — 10s
-**Rat (tame)** — 8s`;
+**Rat (tame)** — 8s`,fr:`**Chien (dressé)** — 25a
+**Chien (sauvage)** — 10a
+**Cheval** — 80a
+**Mulet** — 10a
+**Rat (apprivoisé)** — 8a`};
 function oracleCats(){
   const cats=[];
-  cats.push({tab:'oracle', label:'Optional', rows: MODULES.map(m=>({id:m.id, label:t(m.label), sides:m.sides, table:m.table, tens:m.tens, units:m.units, note:m.note})) });
+  cats.push({tab:'oracle', label:{en:'Optional',fr:'Optionnel'}, rows: MODULES.map(m=>({id:m.id, label:t(m.label), sides:m.sides, table:m.table, tens:m.tens, units:m.units, note:m.note})) });
   const sps=[];
   Object.keys(SPS).forEach(gid=>{ sps.push({header:t(SPS[gid].class), gid:gid}); SPS[gid].tables.forEach(tb=>sps.push({id:tb.id, label:t(tb.label), sides:tb.sides, table:tb.table, note:tb.note})); });
-  cats.push({tab:'oracle', label:'Salt, Spit & Silver', rows:sps});
+  cats.push({tab:'oracle', label:{en:'Salt, Spit & Silver',fr:'Sel, Crachat & Argent'}, rows:sps});
   const scrolls=[
     {id:'or_unclean',     label:{en:'Unclean Scrolls (d10)',            fr:'Parchemins Impurs (d10)'},           sides:10, table:T.unclean},
     {id:'or_sacred',      label:{en:'Sacred Scrolls (d10)',             fr:'Parchemins Sacrés (d10)'},           sides:10, table:T.sacred},
     {id:'or_mudscrolls',  label:{en:'D6 Scrolls Lost in the Mud (d6)',  fr:'D6 Parchemins Perdus dans la Boue (d6)'}, sides:6,  table:T.mudScrolls},
   ];
-  const weapons=[{id:'or_weapons', label:'Weapons (d10)', sides:10, table:T.weapons}];
-  cats.push({tab:'oracle', label:'Scrolls', rows:scrolls});
-  cats.push({tab:'oracle', label:'Weapons', rows:weapons});
-  cats.push({tab:'oracle', label:'Equipment', rows:[
-    {id:'or_container', label:'Container (d6)', sides:6, table:T.container},
-    {id:'or_gear1', label:'Gear — first roll (d12)', sides:12, table:T.gear1},
-    {id:'or_gear2', label:'Gear — second roll (d12)', sides:12, table:T.gear2},
+  const weapons=[{id:'or_weapons', label:{en:'Weapons (d10)',fr:'Armes (d10)'}, sides:10, table:T.weapons}];
+  cats.push({tab:'oracle', label:{en:'Scrolls',fr:'Parchemins'}, rows:scrolls});
+  cats.push({tab:'oracle', label:{en:'Weapons',fr:'Armes'}, rows:weapons});
+  cats.push({tab:'oracle', label:{en:'Equipment',fr:'Équipement'}, rows:[
+    {id:'or_container', label:{en:'Container (d6)',fr:'Contenant (d6)'}, sides:6, table:T.container},
+    {id:'or_gear1', label:{en:'Gear — first roll (d12)',fr:'Équipement — premier jet (d12)'}, sides:12, table:T.gear1},
+    {id:'or_gear2', label:{en:'Gear — second roll (d12)',fr:'Équipement — deuxième jet (d12)'}, sides:12, table:T.gear2},
   ]});
-  cats.push({tab:'oracle', label:'Armor', rows:[{id:'or_armor', label:'Armor (d4)', sides:4, table:T.armor}]});
-  cats.push({tab:'oracle', label:'Relics', rows:[{id:'or_ochre', label:'Tablet of Ochre Obscurity (d10)', sides:10, table:T.ochreTablets, note:{en:`Relics of a forgotten mind-cult, made from the clay of the Valley of the Unfortunate Undead. Sellable for 100 silver, counts as a normal-sized item. Used like a scroll; the wielder needs Presence +3 (minimum) or to be a Forlorn Philosopher.`, fr:`Reliques d'un culte de l'esprit oublié, faites de l'argile de la Vallée des Morts-Vivants Malheureux. Vendables pour 100 argent, compte comme un objet de taille normale. Utilisé comme un parchemin ; le porteur doit avoir Présence +3 (minimum) ou être un Philosophe Désespéré.`}}]});
-  cats.push({tab:'loot', label:'Books', rows:[{id:'or_books', label:'Books to find in libraries & vaults (d86)', sides:86, tens:8, units:6, table:T.lootBooks, note:{en:`These filthy scriptures are worth, in silver, their dice ×10.`, fr:`Ces Écritures immondes valent, en argent, leur dé ×10.`}}]});
-  cats.push({tab:'loot', label:'The Forbidden Vault', rows:[
-    {id:'or_vault', label:`Safaril's wares (d12)`, sides:12, table:T.vaultItems, note:{en:`Safaril the Disturbingly Gifted sells the most rotten desires — he only accepts BLOOD SILVER (silver ill-gotten by thievery, blackmail, robbery, confidence tricks or foul murder). For protection he keeps half a dozen goblins on a leash.`, fr:`Safaril le Disturbingly Gifted vend les désirs les plus corrompus — il n'accepte que l'ARGENT DE SANG (argent mal acquis par vol, chantage, brigandage, escroquerie ou meurtre sordide). Pour sa protection, il tient une demi-douzaine de gobelins en laisse.`}},
-    {id:'or_vault_rumors', label:`Rumors Safaril sells (d8)`, sides:8, table:T.vaultRumors, note:{en:`5s each.`, fr:`5a pièce.`}},
+  cats.push({tab:'oracle', label:{en:'Armor',fr:'Armure'}, rows:[{id:'or_armor', label:{en:'Armor (d4)',fr:'Armure (d4)'}, sides:4, table:T.armor}]});
+  cats.push({tab:'oracle', label:{en:'Relics',fr:'Reliques'}, rows:[{id:'or_ochre', label:{en:'Tablet of Ochre Obscurity (d10)',fr:"Tablette de l'Ocre Obscur (d10)"}, sides:10, table:T.ochreTablets, note:{en:`Relics of a forgotten mind-cult, made from the clay of the Valley of the Unfortunate Undead. Sellable for 100 silver, counts as a normal-sized item. Used like a scroll; the wielder needs Presence +3 (minimum) or to be a Forlorn Philosopher.`, fr:`Reliques d'un culte de l'esprit oublié, faites de l'argile de la Vallée des Morts-Vivants Malheureux. Vendables pour 100 argent, compte comme un objet de taille normale. Utilisé comme un parchemin ; le porteur doit avoir Présence +3 (minimum) ou être un Philosophe Désespéré.`}}]});
+  cats.push({tab:'loot', label:{en:'Books',fr:'Livres'}, rows:[{id:'or_books', label:{en:'Books to find in libraries & vaults (d86)',fr:'Livres à trouver en bibliothèques & coffres (d86)'}, sides:86, tens:8, units:6, table:T.lootBooks, note:{en:`These filthy scriptures are worth, in silver, their dice ×10.`, fr:`Ces Écritures immondes valent, en argent, leur dé ×10.`}}]});
+  cats.push({tab:'loot', label:{en:'The Forbidden Vault',fr:'La Chambre Forte Interdite'}, rows:[
+    {id:'or_vault', label:{en:`Safaril's wares (d12)`,fr:`Marchandises de Safaril (d12)`}, sides:12, table:T.vaultItems, note:{en:`Safaril the Disturbingly Gifted sells the most rotten desires — he only accepts BLOOD SILVER (silver ill-gotten by thievery, blackmail, robbery, confidence tricks or foul murder). For protection he keeps half a dozen goblins on a leash.`, fr:`Safaril le Disturbingly Gifted vend les désirs les plus corrompus — il n'accepte que l'ARGENT DE SANG (argent mal acquis par vol, chantage, brigandage, escroquerie ou meurtre sordide). Pour sa protection, il tient une demi-douzaine de gobelins en laisse.`}},
+    {id:'or_vault_rumors', label:{en:`Rumors Safaril sells (d8)`,fr:`Rumeurs vendues par Safaril (d8)`}, sides:8, table:T.vaultRumors, note:{en:`5s each.`, fr:`5a pièce.`}},
   ]});
-  cats.push({tab:'loot', label:'Occult Treasures', rows:[{id:'or_occult', label:'Occult treasures (d10)', sides:10, table:T.occultTreasures}]});
-  cats.push({tab:'loot', label:'Corpse Plundering', rows:[{id:'or_corpse', label:'Corpse plundering (d66)', sides:66, tens:6, units:6, table:T.corpsePlunder}]});
-  cats.push({tab:'loot', label:'Shop & Prices', rows:[
-    {id:'or_equip_ref', label:'Equipment', ref:LOOT_EQUIP},
-    {id:'or_weap_ref',  label:'Weapons & ammo', ref:LOOT_WEAP},
-    {id:'or_serv_ref',  label:'Services', ref:LOOT_SERV},
-    {id:'or_beast_ref', label:'Beasts', ref:LOOT_BEAST},
+  cats.push({tab:'loot', label:{en:'Occult Treasures',fr:'Trésors Occultes'}, rows:[{id:'or_occult', label:{en:'Occult treasures (d10)',fr:'Trésors occultes (d10)'}, sides:10, table:T.occultTreasures}]});
+  cats.push({tab:'loot', label:{en:'Corpse Plundering',fr:'Pillage de Cadavres'}, rows:[{id:'or_corpse', label:{en:'Corpse plundering (d66)',fr:'Pillage de cadavres (d66)'}, sides:66, tens:6, units:6, table:T.corpsePlunder}]});
+  cats.push({tab:'loot', label:{en:'Shop & Prices',fr:'Boutique & Prix'}, rows:[
+    {id:'or_equip_ref', label:{en:'Equipment',fr:'Équipement'}, ref:LOOT_EQUIP},
+    {id:'or_weap_ref',  label:{en:'Weapons & ammo',fr:'Armes & munitions'}, ref:LOOT_WEAP},
+    {id:'or_serv_ref',  label:{en:'Services',fr:'Services'}, ref:LOOT_SERV},
+    {id:'or_beast_ref', label:{en:'Beasts',fr:'Bêtes'}, ref:LOOT_BEAST},
   ]});
-  cats.push({tab:'loot', label:'Scrolls', rows:scrolls});
-  cats.push({tab:'loot', label:'Weapons', rows:weapons});
+  cats.push({tab:'loot', label:{en:'Scrolls',fr:'Parchemins'}, rows:scrolls});
+  cats.push({tab:'loot', label:{en:'Weapons',fr:'Armes'}, rows:weapons});
   return cats;
 }
 const ORACLE_BY_ID = {};
@@ -2872,33 +3085,37 @@ oracleCats().forEach(c=>c.rows.forEach(r=>{ if(r.id) ORACLE_BY_ID[r.id]={sides:r
 /* ---------- generic generators (Tables → Cvlt / Cvrse tabs): named dice → composed prose ---------- */
 const GENERATORS = {
   cvlt: {
-    seedsTitle:'Seeds of a Cvlt', composedTitle:'The Cvlt, composed',
+    seedsTitle:{en:'Seeds of a Cvlt',fr:'Graines d\'un Cvlte'}, composedTitle:{en:'The Cvlt, composed',fr:'Le Cvlte, composé'},
     parts:[
-      {id:'name',   label:'Its name (2d12)', note:'forbidden to utter aloud', cols:T.cvltName.cols},
-      {id:'status', label:'The cult is… (d10)', sides:10, table:T.cvltStatus},
-      {id:'member', label:'Key member, perhaps the leader? (3d10)', cols:T.cvltMember.cols, join:v=>v[0]+' '+v[1]+', '+v[2]},
-      {id:'hq',     label:'Headquarters (d10)', sides:10, table:T.cvltHQ},
-      {id:'ritual', label:'To reach the Shimmering Fields, one must… (d20)', sides:20, table:T.cvltRitual},
-      {id:'hate',   label:'They truly hate… (d20)', sides:20, table:T.cvltHate},
+      {id:'name',   label:{en:'Its name (2d12)',fr:'Son nom (2d12)'}, note:{en:'forbidden to utter aloud',fr:'interdit de prononcer à voix haute'}, cols:T.cvltName.cols, colsFr:T.cvltName.colsFr},
+      {id:'status', label:{en:'The cult is… (d10)',fr:'Le culte est… (d10)'}, sides:10, table:T.cvltStatus},
+      {id:'member', label:{en:'Key member, perhaps the leader? (3d10)',fr:'Membre clé, peut-être le chef ? (3d10)'}, cols:T.cvltMember.cols, colsFr:T.cvltMember.colsFr, join:v=>v[0]+' '+v[1]+', '+v[2]},
+      {id:'hq',     label:{en:'Headquarters (d10)',fr:'Quartier général (d10)'}, sides:10, table:T.cvltHQ},
+      {id:'ritual', label:{en:'To reach the Shimmering Fields, one must… (d20)',fr:'Pour atteindre les Champs Scintillants, on doit… (d20)'}, sides:20, table:T.cvltRitual},
+      {id:'hate',   label:{en:'They truly hate… (d20)',fr:'Ils détestent vraiment… (d20)'}, sides:20, table:T.cvltHate},
     ],
-    compose:g=>`There is a cvlt — its name, **${g('name')}**, forbidden to utter aloud. It is ${g('status')} Its key member, perhaps the leader, is a **${g('member')}**. They gather in ${g('hq')} To reach the Shimmering Fields, one must ${g('ritual')} And, above all, they truly hate ${g('hate')}`,
+    compose:g=>LANG==='fr'
+      ? `Il existe un cvlte — son nom, **${g('name')}**, interdit de prononcer à voix haute. Il est ${g('status')} Son membre clé, peut-être le chef, est un **${g('member')}**. Ils se rassemblent dans ${g('hq')} Pour atteindre les Champs Scintillants, on doit ${g('ritual')} Et, par-dessus tout, ils détestent vraiment ${g('hate')}`
+      : `There is a cvlt — its name, **${g('name')}**, forbidden to utter aloud. It is ${g('status')} Its key member, perhaps the leader, is a **${g('member')}**. They gather in ${g('hq')} To reach the Shimmering Fields, one must ${g('ritual')} And, above all, they truly hate ${g('hate')}`,
   },
   cvrse: {
-    seedsTitle:'You Are Cursed', composedTitle:'The Curse, composed',
+    seedsTitle:{en:'You Are Cursed',fr:'Tu Es Maudit'}, composedTitle:{en:'The Curse, composed',fr:'La Malédiction, composée'},
     parts:[
-      {id:'what',  label:'What now? (d20)', sides:20, table:T.curseWhat},
-      {id:'who',   label:'They say one can help you. Who? (d10)', sides:10, table:T.curseWho},
-      {id:'price', label:'The price for this knowledge? (d10)', sides:10, table:T.cursePrice},
-      {id:'rid',   label:'So how do I get rid of it? (d12)', sides:12, table:T.curseRid},
+      {id:'what',  label:{en:'What now? (d20)',fr:'Et maintenant ? (d20)'}, sides:20, table:T.curseWhat},
+      {id:'who',   label:{en:'They say one can help you. Who? (d10)',fr:'On dit que quelqu\'un peut t\'aider. Qui ? (d10)'}, sides:10, table:T.curseWho},
+      {id:'price', label:{en:'The price for this knowledge? (d10)',fr:'Le prix pour ce savoir ? (d10)'}, sides:10, table:T.cursePrice},
+      {id:'rid',   label:{en:'So how do I get rid of it? (d12)',fr:'Alors comment m\'en débarrasser ? (d12)'}, sides:12, table:T.curseRid},
     ],
-    compose:g=>`You are cursed: ${g('what')} They say one can help you — ${g('who')} And the price for this knowledge? ${g('price')} So, to be rid of it, you must: **${g('rid')}**`,
+    compose:g=>LANG==='fr'
+      ? `Tu es maudit : ${g('what')} On dit que quelqu'un peut t'aider — ${g('who')} Et le prix pour ce savoir ? ${g('price')} Donc, pour s'en débarrasser, tu dois : **${g('rid')}**`
+      : `You are cursed: ${g('what')} They say one can help you — ${g('who')} And the price for this knowledge? ${g('price')} So, to be rid of it, you must: **${g('rid')}**`,
   },
 };
 let genRolls = {};                  // generator rolls per tab → part
 function genState(tab){ genRolls[tab]=genRolls[tab]||{}; return genRolls[tab]; }
 function genRollPart(tab,p){ const d=genState(tab); d[p.id]=d[p.id]||{}; if(p.cols) d[p.id].r=p.cols.map(c=>rollDie(c.length)); else d[p.id].main=rollDie(p.sides); }
 function genRollAll(tab){ GENERATORS[tab].parts.forEach(p=>genRollPart(tab,p)); }
-function genResult(tab,p){ const d=(genRolls[tab]||{})[p.id]||{}; if(p.cols){ const r=d.r||[]; if(r.length!==p.cols.length||r.some(x=>x==null)) return null; const v=p.cols.map((c,i)=>c[r[i]-1]); return p.join?p.join(v):v.join(' '); } if(d.main==null) return null; const row=lookup(p.table,d.main); return row?rowText(row):null; }
+function genResult(tab,p){ const d=(genRolls[tab]||{})[p.id]||{}; if(p.cols){ const r=d.r||[]; if(r.length!==p.cols.length||r.some(x=>x==null)) return null; const cols=(LANG==='fr'&&p.colsFr)?p.colsFr:p.cols; const v=cols.map((c,i)=>c[r[i]-1]); return p.join?p.join(v):v.join(' '); } if(d.main==null) return null; const row=lookup(p.table,d.main); return row?rowText(row):null; }
 function genSeedsHTML(tab){
   const G=GENERATORS[tab]; let parts='';
   G.parts.forEach(p=>{
@@ -2909,13 +3126,13 @@ function genSeedsHTML(tab){
     const res=genResult(tab,p);
     parts+='<div class="cvltpart"><div class="cvlthead"><span class="cvltlabel">'+esc(t(p.label))+'</span>'+(p.note?'<span class="cvltnote">'+esc(t(p.note))+'</span>':'')+'<span class="cvltdice">'+dice+'</span></div><div class="cvltres">'+(res==null?'<span class="sub">…</span>':fmt(res))+'</div></div>';
   });
-  return '<section class="card oraclecat cvltcard"><h2>'+esc(t(G.seedsTitle))+' <button class="btn gold cvltrollall" data-act="gen-roll-all" data-gen="'+tab+'">↻ Roll all</button></h2><div class="cardbody">'+parts+'</div></section>';
+  return '<section class="card oraclecat cvltcard"><h2>'+esc(t(G.seedsTitle))+' <button class="btn gold cvltrollall" data-act="gen-roll-all" data-gen="'+tab+'">↻ '+t({en:'Roll all',fr:'Tout lancer'})+'</button></h2><div class="cardbody">'+parts+'</div></section>';
 }
 function genComposedHTML(tab){
   const G=GENERATORS[tab];
   const ready=G.parts.every(p=>genResult(tab,p)!=null);
-  const body=ready? fmt(G.compose(id=>genResult(tab, G.parts.find(p=>p.id===id)))) : '<span class="sub">Roll to compose the tale…</span>';
-  return '<section class="card oraclecat cvltcard"><h2>'+esc(G.composedTitle)+'</h2><div class="cardbody"><div class="cvltpara">'+body+'</div></div></section>';
+  const body=ready? fmt(G.compose(id=>genResult(tab, G.parts.find(p=>p.id===id)))) : '<span class="sub">'+t({en:'Roll to compose the tale…',fr:'Lance les dés pour composer…'})+'</span>';
+  return '<section class="card oraclecat cvltcard"><h2>'+esc(t(G.composedTitle))+'</h2><div class="cardbody"><div class="cvltpara">'+body+'</div></div></section>';
 }
 
 /* ---------- state ---------- */
@@ -3044,6 +3261,7 @@ function diceKeys(f,s){
     case 'powers': return [];
     case 'silver': { const n=f.count||2, dd=f.die||6; const o=[]; for(let i=0;i<n;i++)o.push(['s'+i,dd]); return o; }
     case 'food':   return [['main',4]];
+    case 'dcount': return [['main', f.die||4]];
     case 'table':  { const sd=sidesOf(f,s); const o=[['main',sd]]; if(fd.main!=null){ const r=lookup(f.table,fd.main); if(r&&r[3]) o.push(['scroll',10]); } return o; }
     case 'twice':  { const sd=sidesOf(f,s); return [['a',sd],['b',sd]]; }
     case 'scroll': return [['n',10]];
@@ -3062,6 +3280,7 @@ function randomizeField(s,f){
     case 'powers': { fd.main = rollDie(sidesOf(f,s)); const pre=abScore('presence'); fd.cur = Math.max(0, fd.main + (pre||0) + powersMod(s)); break; }
     case 'silver': { const n=f.count||2, dd=f.die||6; fd.sv=[]; for(let i=0;i<n;i++)fd.sv.push(rollDie(dd)); break; }
     case 'food':   fd.main = rollDie(4); break;
+    case 'dcount': fd.main = rollDie(f.die||4); break;
     case 'table':  { const sd=sidesOf(f,s), roll=()=>f.tens?(rollDie(f.tens)*10+rollDie(f.units)):rollDie(sd); let v=roll(), g=0; while(needsReroll(f,s,v) && g++<50) v=roll(); fd.main=v; const r=lookup(f.table,fd.main); if(r&&r[3]) fd.scroll=rollDie(10); break; }
     case 'twice':  { const sd=sidesOf(f,s); fd.a=rollDie(sd); fd.b=rollDie(sd); break; }
     case 'scroll': { fd.type = (f.scrollType==='random') ? (rollDie(2)===1?'unclean':'sacred') : (f.scrollType||'unclean'); fd.n = rollDie(10); break; }
@@ -3131,7 +3350,20 @@ function scrollRulesRef(){
 
 function fieldBody(f){
   const s = state, id = f.id, fd = s.f[id] || {};
-  const L = `<div class="flabel">${esc(t(f.label))}${kindExtraLabel(f)}</div>`;
+  const rawLabel = t(f.label);
+  // In builder: append (dX) for rollable kinds whose label doesn't already show a die
+  const hasDieInLabel = /\(d\d+\)/i.test(rawLabel);
+  let builderLabel = rawLabel;
+  if(!hasDieInLabel){
+    if(f.kind==='hp')           builderLabel += ` (d${f.die||8})`;
+    else if(f.kind==='omens')   builderLabel += ` (d${sidesOf(f,state)})`;
+    else if(f.kind==='powers')  builderLabel += ` (d${sidesOf(f,state)})`;
+    else if(f.kind==='silver')  builderLabel += ` (d${f.die||6})`;
+    else if(f.kind==='food')    builderLabel += ` (d4)`;
+    else if(f.kind==='ability') builderLabel += ` (3d6)`;
+    else if(f.kind==='table' || f.kind==='twice'){ const sd=sidesOf(f,state); if(sd) builderLabel += ` (d${sd})`; }
+  }
+  const L = `<div class="flabel">${esc(builderLabel)}${kindExtraLabel(f)}</div>`;
 
   switch(f.kind){
     case 'text': {
@@ -3163,10 +3395,10 @@ function fieldBody(f){
       if(s.play){   // play: track current / max, damage & heal
         const cur = (max!=null) ? ((fd.cur!=null)?clamp(fd.cur,0,max):max) : null;
         const frac = (max==null) ? '?' : (cur+'<span class="den">/'+max+'</span>');
-        return L + `<div class="abrow"><button class="adj" data-act="hp-dec" data-field="${id}" title="Damage −1">−</button><div class="score scorehp">${frac}</div><button class="adj" data-act="hp-inc" data-field="${id}" title="Heal +1">+</button></div><div class="sub">Current / Max</div>`;
+        return L + `<div class="abrow"><button class="adj" data-act="hp-dec" data-field="${id}" title="Damage −1">−</button><div class="score scorehp">${frac}</div><button class="adj" data-act="hp-inc" data-field="${id}" title="Heal +1">+</button></div><div class="sub">${esc(t(UI.hpCurMax))}</div>`;
       }
       const frac = (max==null) ? '?' : (max+'<span class="den">/'+max+'</span>');   // build: full, shows the max as "x/x"
-      return L + `<div class="abrow"><div class="score scorehp" data-act="rollfield" data-field="${id}" title="${esc(t(UI.reroll1))}">${frac}</div><div class="dice">${dieHTML(id,'hp',die,dv)}</div></div><div class="sub">Toughness + ${(f.count||1)>1?f.count:''}d${die} (min 1)</div>`;
+      return L + `<div class="abrow"><div class="score scorehp" data-act="rollfield" data-field="${id}" title="${esc(t(UI.reroll1))}">${frac}</div><div class="dice">${dieHTML(id,'hp',die,dv)}</div></div><div class="sub">${esc(t(UI.hpSub).replace('{n}',(f.count||1)>1?f.count:'').replace('{d}',die))}</div>`;
     }
     case 'omens': {
       const die = sidesOf(f,s), mod = omensMod(s);
@@ -3174,7 +3406,7 @@ function fieldBody(f){
       if(curEff.noOmens){       // feat/gift override: the character has no Omens
         return L
           + `<div class="omrow"><div class="score" style="cursor:default" title="No Omens">—</div></div>`
-          + `<div class="sub">No Omens — overridden by a feat/gift.</div>`
+          + `<div class="sub">${esc(t(UI.omensNone))}</div>`
           + omensRef();
       }
       if(curEff.omensSet!=null){ // feat override: maximum Omens fixed → current / max
@@ -3185,7 +3417,7 @@ function fieldBody(f){
           +   `<div class="score" data-act="rollfield" data-field="${id}" title="${esc(t(UI.newday))}">${ocur}<span class="den">/${curEff.omensSet}</span></div>`
           +   `<button class="adj" data-act="omens-inc" data-field="${id}" title="+1">+</button>`
           + `</div>`
-          + `<div class="sub">Maximum Omens set to ${curEff.omensSet} by a feat.</div>`
+          + `<div class="sub">${esc(t(UI.omensSub2).replace('{n}',curEff.omensSet))}</div>`
           + omensRef();
       }
       const cur = (fd.cur!=null) ? fd.cur : (fd.main!=null ? fd.main+mod : null);
@@ -3208,7 +3440,7 @@ function fieldBody(f){
         +   `<div class="score" data-act="rollfield" data-field="${id}" title="New day (reroll ${dlabel} + Presence)">${frac}</div>`
         +   `<button class="adj" data-act="powers-inc" data-field="${id}" title="+1">+</button>`
         + `</div>`
-        + `<div class="sub">${dlabel} + Presence per day. Tap the value for a new day.</div>`;
+        + `<div class="sub">${esc(t(UI.powersSub).replace('{d}',dlabel))}</div>`;
     }
     case 'silver': {
       const mult=f.mult||10, dd=f.die||6, n=f.count||2, sv=fd.sv;
@@ -3219,7 +3451,12 @@ function fieldBody(f){
     }
     case 'food': {
       const m=fd.main;
-      return L + `<div class="abrow"><div class="result" data-act="rollfield" data-field="${id}" title="${esc(t(UI.reroll1))}">${m==null?'?':('Waterskin + '+m+' days of food')}</div><div class="dice">${dieHTML(id,'main',4,m)}</div></div>`;
+      return L + `<div class="abrow"><div class="result" data-act="rollfield" data-field="${id}" title="${esc(t(UI.reroll1))}">${m==null?'?':esc(t(UI.foodResult).replace('{n}',m))}</div><div class="dice">${dieHTML(id,'main',4,m)}</div></div>`;
+    }
+    case 'dcount': {
+      const die=f.die||4, m=fd.main;
+      const unit = f.unit ? (' '+t(f.unit)) : '';
+      return L + `<div class="abrow"><div class="result" data-act="rollfield" data-field="${id}" title="${esc(t(UI.reroll1))}">${m==null?'?':(m+unit)}</div><div class="dice">${dieHTML(id,'main',die,m)}</div></div>`;
     }
     case 'table': {
       const sides=sidesOf(f,s), m=fd.main, invalid=(m!=null && m>sides);
@@ -3305,7 +3542,9 @@ function renderCard(secId, af){
   if(!fields.length) return '';
   const col = isCollapsed(secId);
   let h = `<section class="card card-${secId}${col?' collapsed':''}"><h2 data-act="toggle-section" data-section="${secId}"><span class="caret">${col?'▸':'▾'}</span>${esc(t(sec.title))}</h2><div class="cardbody">`;
-  fields.forEach(f=>{ h += `<div class="field field-${f.kind}">${fieldBody(f)}</div>`; });
+  fields.forEach(f=>{
+    h += `<div class="field field-${f.kind}">${fieldBody(f)}</div>`;
+  });
   if(secId==='stats'){
     const str = abScore('strength');
     h += `<div class="carry sub">${esc(t(UI.carrying))}: Strength+8 = <b>${str==null?'?':(str+8)}</b> ${esc(t(UI.items))} <span style="opacity:.7">(max ${str==null?'?':2*(str+8)})</span></div>`;
@@ -3443,8 +3682,32 @@ function exportObj(obj, name){
   document.body.appendChild(a); a.click(); a.remove();
   setTimeout(()=>URL.revokeObjectURL(a.href), 1000);
 }
-function exportJSON(){ exportObj(state, (state.f.name && state.f.name.text) || 'scvm'); }
+function exportJSON(){
+  const charName = (state.f.name && state.f.name.text) || '';
+  const cls = state.classId && CLASSES[state.classId] ? t(CLASSES[state.classId].name) : '';
+  const parts = [cls, charName].map(s=>s.trim()).filter(Boolean);
+  const fn = parts.length ? parts.join('_').replace(/[^a-zA-Z0-9À-ÿ_\-]/g,'_').replace(/_+/g,'_') : 'scvm';
+  exportObj(state, fn);
+}
 function exportById(id){ const c=loadList().find(x=>x.meta&&x.meta.id===id); if(c) exportObj(c, (c.meta&&c.meta.name) || 'scvm'); }
+function importToList(file){
+  if(!file) return;
+  const r = new FileReader();
+  r.onload = ()=>{
+    try{
+      const c = JSON.parse(r.result);
+      if(!c || !c.meta) { toast('Import error: invalid file'); return; }
+      if(!c.meta.id) c.meta.id = Date.now().toString(36);
+      const list = loadList();
+      const idx = list.findIndex(x=>x.meta&&x.meta.id===c.meta.id);
+      if(idx>=0) list[idx]=c; else list.push(c);
+      saveList(list);
+      renderScvms();
+      toast(t(UI.imported)+': '+(c.meta.name||''));
+    } catch(e){ toast('Import error'); }
+  };
+  r.readAsText(file);
+}
 function importFile(file){
   if(!file) return;
   const r = new FileReader();
@@ -3487,6 +3750,10 @@ function paintChrome(){
   document.querySelectorAll('[data-i18n]').forEach(el=>{ const k=el.dataset.i18n; if(UI[k]!=null) el.textContent=t(UI[k]); });
   const cs=document.getElementById('classsel'); if(cs && cs.options[0]) cs.options[0].textContent=t(UI.noclass);
   document.querySelectorAll('[data-modlabel]').forEach(el=>{ const m=BASE_BY_ID[el.dataset.modlabel]; if(m) el.textContent=t(m.label); });
+  // Fold button: show what the button WILL do next
+  const secs=SECTIONS.map(s=>s.id).filter(id=>id!=='identity');
+  const anyOpen=secs.some(id=>!isCollapsed(id));
+  document.querySelectorAll('[data-app="fold-all"] span').forEach(el=>{ el.textContent = anyOpen ? t(UI.foldAll) : t(UI.unfoldAll); });
 }
 function syncNavH(){ const n=document.getElementById('topnav'); if(n) document.documentElement.style.setProperty('--navh', n.offsetHeight+'px'); }   // keep the sticky toolbar pinned right under the (possibly wrapping) top nav
 
@@ -3559,7 +3826,7 @@ function oracleDieHTML(tid,key,sides,val){
 function renderTables(){
   const grid=document.getElementById('tablesgrid'); if(!grid) return;
   const tabsEl=document.getElementById('tablestabs');
-  if(tabsEl){ tabsEl.innerHTML=[['oracle','Oracle'],['loot','Loot'],['cvlt','Cvlt'],['cvrse','Cvrse']].map(tb=>'<button class="tab'+(tablesTab===tb[0]?' on':'')+'" data-act="tables-tab" data-tab="'+tb[0]+'">'+tb[1]+'</button>').join(''); }
+  if(tabsEl){ const tabLabels={oracle:{en:'Oracle',fr:'Oracle'},loot:{en:'Loot',fr:'Butin'},cvlt:{en:'Cvlt',fr:'Cvlte'},cvrse:{en:'Cvrse',fr:'Malédiction'}}; tabsEl.innerHTML=['oracle','loot','cvlt','cvrse'].map(tb=>'<button class="tab'+(tablesTab===tb?' on':'')+'" data-act="tables-tab" data-tab="'+tb+'">'+t(tabLabels[tb])+'</button>').join(''); }
   if(GENERATORS[tablesTab]){ if(!genRolls[tablesTab]) genRollAll(tablesTab); grid.innerHTML='<div class="tablescol">'+genSeedsHTML(tablesTab)+'</div><div class="tablescol">'+genComposedHTML(tablesTab)+'</div>'; return; }
   const cats=oracleCats().filter(cat=>(cat.tab||'oracle')===tablesTab);
   const nCols=Math.max(1, Math.min(3, Math.floor(Math.min(1232, window.innerWidth-48)/360)));
@@ -3666,6 +3933,7 @@ function onClick(e){
   else if(act==='toggle-sps'){ const gid=actEl.dataset.grp; state.sps=state.sps||{}; state.sps[gid]=!state.sps[gid]; render(); }
   else if(act==='load-scvm'){ loadById(actEl.dataset.id, 'compact'); }
   else if(act==='del-scvm'){ delById(actEl.dataset.id); renderScvms(); }
+  else if(act==='import-to-list'){ document.getElementById('importlistf').click(); }
   else if(act==='export-scvm'){ exportById(actEl.dataset.id); }
 }
 function onDblClick(e){
@@ -3677,6 +3945,7 @@ function onChange(e){
   if(el.id==='lang'){ LANG=el.value; state.lang=LANG; setupChrome(); render(); showView(view); return; }
   if(el.id==='classsel'){ state.classId=el.value; state.boost={}; setupChrome(); render(); return; }
   if(el.id==='importf'){ importFile(el.files[0]); el.value=''; return; }
+  if(el.id==='importlistf'){ importToList(el.files[0]); el.value=''; return; }
   if(el.dataset && el.dataset.mod){
     state.modules[el.dataset.mod]=el.checked;
     if(el.checked && !state.f[el.dataset.mod]) randomizeField(state, BASE_BY_ID[el.dataset.mod]);
