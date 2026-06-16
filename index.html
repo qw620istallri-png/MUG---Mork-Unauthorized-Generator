@@ -1104,6 +1104,10 @@ Vraiment trop. Tu ne peux pas être attaqué par surprise. Tu peux dépenser une
     [`Abhorred`,`Beneath`,`Clad`,`Errant`,`Familiar`,`Giant`,`Hidden`,`Lyrical`,`Maniacal`,`Nameless`,`Obscene`,`Painful`,`Reposed`,`Skeletal`,`Strong`,`Sudden`,`Unaware`,`Unknowing`,`Vitriolic`,`Westward`],
     [`Attacks`,`Attracts`,`Awaits`,`Blackens`,`Chimes`,`Covers`,`Dances`,`Denies`,`Descends`,`Drowns`,`Echoes`,`Proffers`,`Quivers`,`Rains`,`Reflects`,`Returns`,`Seals`,`Submits`,`Weaves`,`Wilts`],
     [`the Æther`,`the Damned`,`the Decay`,`the Dust`,`the Eye`,`the Face`,`the Flesh`,`the Flies`,`the Flower`,`the Knives`,`the Moon`,`the Mountain`,`the Plague`,`the Prayer`,`the Rats`,`the Saint`,`the Sea`,`the Stranger`,`the Truth`,`the Void`],
+  ],colsFr:[
+    [`l'Abhorré`,`le Souterrain`,`le Vêtu`,`l'Errant`,`le Familier`,`le Géant`,`le Caché`,`le Lyrique`,`le Maniaque`,`le Sans-Nom`,`l'Obscène`,`le Douloureux`,`le Reposé`,`le Squelettique`,`le Fort`,`le Soudain`,`l'Inconscient`,`l'Ignorant`,`le Vitriolique`,`l'Occidental`],
+    [`Attaque`,`Attire`,`Attend`,`Noircit`,`Carillonne`,`Couvre`,`Danse`,`Nie`,`Descend`,`Noie`,`Résonne`,`Offre`,`Frémit`,`Pleut`,`Reflète`,`Revient`,`Scelle`,`Se Soumet`,`Tisse`,`Se Fane`],
+    [`l'Éther`,`les Damnés`,`la Décomposition`,`la Poussière`,`l'Œil`,`le Visage`,`la Chair`,`les Mouches`,`la Fleur`,`les Couteaux`,`la Lune`,`la Montagne`,`la Peste`,`la Prière`,`les Rats`,`le Saint`,`la Mer`,`l'Étranger`,`la Vérité`,`le Vide`],
   ]},
 
   knightArmor:{rows:[
@@ -2889,7 +2893,7 @@ function plainValue(f){
     case 'twice': { const a=fd.a,b=fd.b; const r=[a!=null?fmt(rowText(lookup(f.table,a))):null,b!=null?fmt(rowText(lookup(f.table,b))):null].filter(Boolean); return r.length?r.join('<br>'):'—'; }
     case 'scroll': { const tbl=fd.type==='sacred'?T.sacred:T.unclean; const r=fd.n!=null?lookup(tbl,fd.n):null; return r?('<b class="term">'+(fd.type==='sacred'?'Sacred':'Unclean')+'</b> '+fmt(rowText(r))):'—'; }
     case 'scrollset': { const out=[]; ['gear1','gear2'].forEach(gid=>{ const gd=state.f[gid]; if(gd&&gd.main!=null){ const grow=lookup(BASE_BY_ID[gid].table,gd.main); if(grow&&grow[3]&&gd.scroll!=null){ const stbl=grow[3]==='unclean'?T.unclean:T.sacred; out.push('<b class="term">'+(grow[3]==='unclean'?'Unclean':'Sacred')+'</b> '+fmt(rowText(lookup(stbl,gd.scroll)))); } } }); return out.length?out.join('<br>'):'—'; }
-    case 'name3': { const r=fd.r||[]; return (r.length===3&&r.every(x=>x!=null)&&f.cols)?esc([f.cols[0][r[0]-1],f.cols[1][r[1]-1],f.cols[2][r[2]-1]].join(' ')):'—'; }
+    case 'name3': { const r=fd.r||[]; const cols=(LANG==='fr'&&f.colsFr)?f.colsFr:f.cols; return (r.length===3&&r.every(x=>x!=null)&&cols)?esc([cols[0][r[0]-1],cols[1][r[1]-1],cols[2][r[2]-1]].join(' ')):'—'; }
     default: return '—';
   }
 }
@@ -4294,11 +4298,11 @@ function fieldBody(f){
         + (f.note ? `<div class="note">${esc(t(f.note))}</div>` : '');
     }
     case 'name3': {
-      const r = fd.r || [], cols = f.cols || [[],[],[]];
+      const r = fd.r || [], baseCols = f.cols||[[],[],[]], cols = (LANG==='fr'&&f.colsFr)?f.colsFr:baseCols;
       const ready = r.length===3 && r.every(x=>x!=null);
       const nameStr = ready ? [cols[0][r[0]-1], cols[1][r[1]-1], cols[2][r[2]-1]].join(' ') : '?';
       return L
-        + `<div class="trow"><div class="dice">${dieHTML(id,'r0',cols[0].length||20,r[0])}${dieHTML(id,'r1',cols[1].length||20,r[1])}${dieHTML(id,'r2',cols[2].length||20,r[2])}</div>`
+        + `<div class="trow"><div class="dice">${dieHTML(id,'r0',baseCols[0].length||20,r[0])}${dieHTML(id,'r1',baseCols[1].length||20,r[1])}${dieHTML(id,'r2',baseCols[2].length||20,r[2])}</div>`
         +   `<div class="result" data-act="rollfield" data-field="${id}" title="${esc(t(UI.reroll1))}">${esc(nameStr)}</div></div>`
         + `<button class="usebtn" data-act="usename" data-field="${id}">${esc(t(UI.usename))}</button>`;
     }
