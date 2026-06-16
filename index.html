@@ -2589,7 +2589,7 @@ const CLASSES = {
     add:[
       {id:'paleFlavor',     section:'background',   kind:'fixed',  ord:-20, label:{en:'Pale One', fr:"L'Être Pâle"}, fixed:PALE_FLAVOR},
       {id:'paleOrigins',    section:'background',   kind:'table',  ord:-10, sides:6, table:T.paleOrigins, label:{en:'Unspoken Origins (d6)', fr:'Origines Indicibles (d6)'}},
-      {id:'paleName',       section:'identity',     kind:'name3',  ord:10,  asName:true, cols:T.paleName.cols, label:{en:'You call yourself… (3d20)', fr:'Tu te nommes… (3d20)'}},
+      {id:'paleName',       section:'identity',     kind:'name3',  ord:10,  asName:true, cols:T.paleName.cols, colsFr:T.paleName.colsFr, label:{en:'You call yourself… (3d20)', fr:'Tu te nommes… (3d20)'}},
       {id:'paleAbilities',  section:'capabilities', kind:'fixed',  ord:0,   label:{en:'Abilities', fr:'Aptitudes'}, fixed:PALE_ABIL},
       {id:'paleBlessing',   section:'capabilities', kind:'table',  ord:10,  sides:6, table:T.paleBlessings, label:{en:'Pale One Blessing (d6)', fr:"Bénédiction de l'Être Pâle (d6)"}},
       {id:'paleDailyPower', section:'magic',        kind:'scroll', ord:0,   scrollType:'random', label:{en:'Daily Power — rolled at dawn/dusk', fr:"Pouvoir quotidien — tiré à l'aube/crépuscule"}},
@@ -2811,7 +2811,7 @@ const NAMES = {
 function pick(a){ return a[Math.floor(Math.random()*a.length)]; }
 function genName(){
   const n3 = activeFields(state).find(f=>f.kind==='name3' && f.asName);  // only a name3 that IS the character's name (Pale One); a god-name table doesn't count
-  if(n3 && n3.cols){ const r=n3.cols.map(c=>rollDie(c.length)); state.f[n3.id]={r}; return n3.cols.map((c,i)=>c[r[i]-1]).join(' '); }
+  if(n3 && n3.cols){ const r=n3.cols.map(c=>rollDie(c.length)); state.f[n3.id]={r}; const cols=(LANG==='fr'&&n3.colsFr)?n3.colsFr:n3.cols; return cols.map((c,i)=>c[r[i]-1]).join(' '); }
   const lang = (typeof LANG!=='undefined' && LANG==='fr') ? 'fr' : 'en';
   const parts=[pick(NAMES.first)]; const cnt=rollDie(4);            // d4 = how many parts
   if(cnt>=2) parts.push(pick(NAMES.surname[lang]));
@@ -4745,7 +4745,7 @@ function onClick(e){
   else if(act==='del-log'){ const i=+actEl.dataset.i; if(state.log) state.log.splice(i,1); redraw(); }
   else if(act==='toggle-section'){ const sid=actEl.dataset.section; state.collapsed=state.collapsed||{}; state.collapsed[sid]=!isCollapsed(sid); render(); }
   else if(act==='toggle-mod'){ const id=actEl.dataset.mod; state.modules[id]=!state.modules[id]; render(); }
-  else if(act==='usename'){ const f=fieldFor(fid), fd=state.f[fid]||{}, r=fd.r||[]; if(f.cols && r.length===3 && r.every(x=>x!=null)){ state.f.name=state.f.name||{}; state.f.name.text=[f.cols[0][r[0]-1],f.cols[1][r[1]-1],f.cols[2][r[2]-1]].join(' '); render(); } }
+  else if(act==='usename'){ const f=fieldFor(fid), fd=state.f[fid]||{}, r=fd.r||[]; if(f.cols && r.length===3 && r.every(x=>x!=null)){ const cols=(LANG==='fr'&&f.colsFr)?f.colsFr:f.cols; state.f.name=state.f.name||{}; state.f.name.text=[cols[0][r[0]-1],cols[1][r[1]-1],cols[2][r[2]-1]].join(' '); render(); } }
   else if(act==='tables-tab'){ tablesTab=actEl.dataset.tab; renderTables(); }
   else if(act==='sps-fold'){ const g=actEl.dataset.gid; spsOpen[g]=!spsOpen[g]; renderTables(); }
   else if(act==='gen-roll-all'){ genRollAll(actEl.dataset.gen); renderTables(); }
