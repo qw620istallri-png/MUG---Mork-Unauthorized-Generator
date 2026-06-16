@@ -4,7 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MÖRK BORG — Character Generator</title>
-<style>
+<style>@import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Uncial+Antiqua&display=swap');
+
 :root{
   --bg:#0a0a0a; --paper:#141414; --paper2:#1b1b1a; --line:#2c2c22;
   --ink:#ece9dd; --muted:#8b8b7a; --yellow:#ffe400; --yellow2:#bf9e00; --red:#e10600;
@@ -286,7 +288,13 @@ body.light .navlink{color:#4a4535;}
 /* ===== home ===== */
 .hero{max-width:1000px;margin:0 auto;padding:9vh 24px 12vh;text-align:center;}
 .hero-h{display:flex;flex-direction:column;align-items:center;font-family:Impact,'Haettenschweiler','Arial Narrow',sans-serif;text-transform:uppercase;line-height:.9;}
-.hero-h .l1{font-size:clamp(46px,9.2vw,120px);color:#fff;letter-spacing:.004em;}
+.hero-h .l1{font-size:clamp(46px,9.2vw,120px);color:#fff;letter-spacing:.004em;animation:fontcycle 9s infinite;}
+@keyframes fontcycle{
+  0%,30%{font-family:Impact,'Haettenschweiler','Arial Narrow',sans-serif;font-style:normal;text-transform:uppercase;}
+  33%,63%{font-family:'UnifrakturCook',serif;font-style:normal;text-transform:none;letter-spacing:.03em;}
+  66%,96%{font-family:'Uncial Antiqua',serif;font-style:normal;text-transform:none;letter-spacing:.05em;}
+  97%,100%{font-family:Impact,'Haettenschweiler','Arial Narrow',sans-serif;font-style:normal;text-transform:uppercase;}
+}
 .hero-h .l2{font-size:clamp(46px,9.2vw,120px);color:var(--yellow);text-shadow:3px 3px 0 rgba(0,0,0,.5);}
 .slant{font-style:italic;transform:skewX(-9deg);display:inline-block;}
 .hr-yellow{width:min(560px,80%);height:4px;background:var(--yellow);margin:32px auto;transform:rotate(-.5deg);}
@@ -420,7 +428,81 @@ body.light .navlink{color:#4a4535;}
 .spsname{display:block;width:100%;text-align:left;background:none;border:0;color:var(--ink);font:700 12px/1.4 inherit;letter-spacing:.03em;text-transform:uppercase;cursor:pointer;padding:9px 2px;}
 .spsname:hover{color:var(--yellow);}
 .modchip.match{border-color:var(--yellow);}
-/* ===== my scvms view ===== */
+/* ===== Misery Calendar ===== */
+.mis-wrap{max-width:820px;margin:0 auto;padding:0 20px 64px;}
+.mis-header{text-align:center;padding:24px 0 20px;}
+.mis-title{font:900 30px/1.1 Impact,'Arial Narrow',sans-serif;text-transform:uppercase;letter-spacing:.06em;color:var(--red);margin-bottom:10px;}
+.mis-gothic{font-family:'UnifrakturCook',serif!important;font-size:36px!important;font-weight:700!important;letter-spacing:.03em!important;text-transform:none!important;line-height:1.2!important;}
+.mis-intro{font-size:14px;color:var(--muted);line-height:1.6;max-width:560px;margin:0 auto;}
+.mis-panel{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:18px 20px 16px;margin-bottom:20px;display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end;}
+.mis-ctrl{display:flex;flex-direction:column;gap:7px;}
+.mis-label{font:700 11px/1 inherit;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);}
+.mis-diepicker{display:flex;gap:5px;flex-wrap:wrap;}
+.mis-diebtn{background:var(--paper2);border:1px solid var(--line);color:var(--muted);font:700 14px/1 inherit;padding:6px 10px;border-radius:4px;cursor:pointer;transition:.12s;}
+.mis-diebtn:hover{border-color:var(--yellow);color:var(--ink);}
+.mis-diebtn.on{background:var(--yellow);border-color:var(--yellow);color:#000;}
+.mis-dayrow{display:flex;align-items:center;gap:6px;}
+.mis-adj{background:var(--paper2);border:1px solid var(--line);color:var(--ink);font:700 16px/1 inherit;width:30px;height:30px;border-radius:4px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.mis-adj:hover{background:var(--yellow);color:#000;}
+.mis-dayinp{width:64px;background:var(--paper2);border:1px solid var(--line);color:var(--ink);font:700 16px/1 inherit;text-align:center;padding:5px;border-radius:4px;}
+/* Die row — uses native .die style */
+.mis-die-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.mis-die-row .die{flex-shrink:0;}
+.mis-die-row .die-in{width:52px;}
+.mis-sep{width:100%;border:0;border-top:1px solid var(--line);margin:4px 0;}
+/* Tracker */
+.mis-tracker{display:flex;gap:6px;align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:12px 16px;margin-bottom:14px;}
+.mis-tracker-label{font:700 11px/1 inherit;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-right:4px;}
+.mis-dot{width:28px;height:28px;border-radius:50%;border:2px solid var(--line);background:var(--paper2);cursor:pointer;transition:.15s;display:flex;align-items:center;justify-content:center;font-size:14px;color:transparent;}
+.mis-dot:hover{border-color:var(--yellow);}
+.mis-dot.on{background:var(--yellow);border-color:var(--yellow);color:#000;}
+.mis-dot.mis-last{border-color:var(--red);}
+.mis-dot.mis-last.on{background:var(--red);border-color:var(--red);color:#fff;}
+/* Result banner — flash animation */
+.mis-banner{width:100%;font-size:14px;padding:9px 14px;border-radius:4px;border-left:3px solid var(--muted);background:var(--paper2);transition:border-color .3s;}
+.mis-banner.mis-ok{border-left-color:var(--yellow);}
+.mis-banner.mis-alert{border-left-color:var(--red);color:var(--red);font-weight:700;}
+.mis-banner.mis-flash{animation:misflash .55s ease-out;}
+@keyframes misflash{0%{opacity:0;transform:translateY(-4px);}100%{opacity:1;transform:none;}}
+/* Active misery panel */
+.mis-misery-panel{background:var(--paper);border:1px solid var(--yellow);border-radius:6px;padding:16px 20px;margin-bottom:20px;}
+.mis-misery-title{font:700 14px/1.3 Impact,'Arial Narrow',sans-serif;text-transform:uppercase;letter-spacing:.06em;color:var(--yellow);margin-bottom:12px;}
+/* Chronicle */
+.mis-chronicle{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:14px 18px;margin-bottom:20px;min-height:52px;}
+.mis-chronicle-title{font:700 11px/1 inherit;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:8px;}
+.mis-chronicle-list{list-style:none;display:flex;flex-direction:column;gap:4px;}
+.mis-chronicle-item{font-size:14px;line-height:1.4;color:var(--ink);padding:4px 8px;border-radius:3px;background:var(--paper2);border-left:2px solid var(--red);}
+.mis-chronicle-empty{font-size:14px;color:var(--muted);font-style:italic;}
+/* End box */
+.mis-endbox{text-align:center;margin-top:24px;padding:24px 20px;border:2px solid var(--red);border-radius:6px;background:color-mix(in srgb,var(--red) 8%,var(--paper));}
+.mis-endbox.mis-hidden{display:none;}
+.mis-end-77{font:900 48px/1 Impact,'Arial Narrow',sans-serif;color:var(--red);letter-spacing:.06em;margin-bottom:12px;}
+.mis-end-text{font-size:14px;line-height:1.8;color:var(--ink);}
+.mis-end-text em{font-style:italic;}
+/* Actions */
+.mis-actions{display:flex;gap:8px;margin-left:auto;flex-wrap:wrap;align-items:flex-end;}
+/* Psalms */
+.mis-psalms{display:flex;flex-direction:column;gap:12px;margin-bottom:24px;}
+.mis-psalm{background:var(--paper);border:1px solid var(--line);border-radius:6px;overflow:hidden;}
+.mis-psalm.mis-psalm-last{border-color:var(--red);}
+.mis-psalm-hd{display:flex;align-items:center;gap:10px;padding:10px 16px;background:var(--paper2);border-bottom:1px solid var(--line);}
+.mis-psalm-hd-click{cursor:pointer;user-select:none;}
+.mis-psalm-hd-click:hover{background:var(--line);}
+.mis-psalm-htitle{font:800 12px/1 Impact,'Arial Narrow',sans-serif;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);flex:1;}
+.mis-psalm-last .mis-psalm-htitle{color:var(--red);}
+.mis-psalm-chev{font-size:14px;color:var(--muted);}
+.mis-psalm-body.mis-collapsed{display:none;}
+.mis-verse{display:flex;gap:10px;align-items:flex-start;padding:9px 14px;cursor:pointer;border-bottom:1px solid var(--line);user-select:none;transition:background .1s;}
+.mis-verse:last-child{border-bottom:0;}
+.mis-verse:hover{background:var(--paper2);}
+.mis-verse.mis-verse-on{background:color-mix(in srgb,var(--yellow) 10%,transparent);}
+.mis-verse.mis-verse-on .mis-vtext{text-decoration:line-through;opacity:.5;}
+.mis-ref{font:700 12px/1.6 inherit;color:var(--red);min-width:32px;flex-shrink:0;}
+.mis-vtext{font-size:14px;line-height:1.5;flex:1;}
+.mis-vcheck{width:18px;flex-shrink:0;font-size:14px;color:var(--yellow);text-align:center;margin-top:2px;}
+body.light .mis-verse.mis-verse-on{background:color-mix(in srgb,var(--yellow) 12%,transparent);}
+
+
 .scvmsgrid{max-width:1280px;margin:24px auto 64px;padding:0 24px;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;}
 .scvmcard{position:relative;background:var(--paper);background:radial-gradient(150% 115% at 50% 0, color-mix(in srgb, var(--accent,#caa24a) 22%, var(--paper)) 0%, var(--paper) 70%);border:1px solid var(--line);border-top:3px solid var(--accent,#caa24a);border-radius:6px;padding:16px;cursor:pointer;min-height:148px;transition:transform .14s,border-color .14s;}
 .scvmcard:hover{border-color:var(--accent,#caa24a);transform:translateY(-3px);}
@@ -641,34 +723,51 @@ function abilityScore(sum){
 }
 
 /* ---------- verbatim rules text (formatted, not rewritten) ---------- */
-const WEAPON_NOTE = `Unarmed d2 damage. Weapons d10 (d6 if you begin with a scroll).`;
-const ARMOR_NOTE  = `Shield −1 damage, 20s — you can ignore all damage from one attack but the shield breaks. Scrolls will never work when wielding zweihand weapons or medium/heavy armor.`;
-const TERRIBLE_NOTE  = `Roll twice.`;
-const TROUBLING_NOTE = `The whole group can share the same backstory, or groups within the group can share a tale. Or the GM can quickly give history to a seemingly mundane character.`;
-const OMENS_INTRO = `Clearly the eyes of other powers are upon you, eldritch watchers or the tangled Fates of alternate worlds. Call it luck if you like. Every class gains a number of Omens. If you play without classes every character begins with D2 Omens. When depleted roll the class' designated die (D2 if playing without classes) and regain that many Omens after resting at least six hours.`;
-const OMENS_USE = [
-  `deal maximum damage with an attack`,
-  `reroll a dice roll (yours or someone else's)`,
-  `lower damage dealt to you by D6`,
-  `neutralize a Crit or Fumble`,
-  `lower one test's DR by -4`,
-];
-const SCROLL_RULES = `Scrolls are the twisted magic of MÖRK BORG. A few so-called powers are known and they are usually found written in scrolls. Roll Presence + d4 every morning to determine how many times you can use Powers that day; choose from your available scrolls. When reading a scroll, test Presence DR12. If you succeed, the Power is activated and you subtract one use from your daily total. If you fail, the Power doesn't work, you lose d2 HP and you become dizzy for the next hour. During this time, Powers will always fail in the worst possible way.`;
-const ABIL_DESC = [
-  `AGILITY — Defend, balance, swim, flee`,
-  `PRESENCE — Perceive, aim, charm, wield Powers`,
-  `STRENGTH — Crush, lift, strike, grapple`,
-  `TOUGHNESS — Resist poison/cold/heat, survive falling`,
-];
-const ABIL_RULE = `Roll 3d6 and use the table to generate each ability score from −3 to +3. The sum is not used in the game once the character is created, only the table value. Player Characters not created with the optional classes can roll 4d6 and drop the lowest die for two of their abilities. When the character is later improved an ability can never exceed +6 or −3.`;
+const WEAPON_NOTE = {en:`Unarmed d2 damage. Weapons d10 (d6 if you begin with a scroll).`, fr:`À mains nues d2 dégâts. Armes d10 (d6 si tu débutes avec un parchemin).`};
+const ARMOR_NOTE  = {en:`Shield −1 damage, 20s — you can ignore all damage from one attack but the shield breaks. Scrolls will never work when wielding zweihand weapons or medium/heavy armor.`, fr:`Bouclier −1 dégât, 20a — tu peux ignorer tous les dégâts d'une attaque mais le bouclier se brise. Les parchemins ne fonctionnent jamais avec des armes à deux mains ou une armure intermédiaire/lourde.`};
+const TERRIBLE_NOTE  = {en:`Roll twice.`, fr:`Lance deux fois.`};
+const TROUBLING_NOTE = {en:`The whole group can share the same backstory, or groups within the group can share a tale. Or the GM can quickly give history to a seemingly mundane character.`, fr:`Tout le groupe peut partager le même passé, ou des sous-groupes peuvent partager une histoire. Le MJ peut aussi donner rapidement un passé à un personnage qui semble ordinaire.`};
+const OMENS_INTRO = {en:`Clearly the eyes of other powers are upon you, eldritch watchers or the tangled Fates of alternate worlds. Call it luck if you like. Every class gains a number of Omens. If you play without classes every character begins with D2 Omens. When depleted roll the class' designated die (D2 if playing without classes) and regain that many Omens after resting at least six hours.`, fr:`Les yeux d'autres puissances sont clairement posés sur toi — des guetteurs occultes ou les Destinées enchevêtrées de mondes alternatifs. Appelle ça chance si tu veux. Chaque classe gagne un certain nombre de Présages. Si tu joues sans classes, chaque personnage débute avec D2 Présages. Quand ils sont épuisés, lance le dé désigné de ta classe (D2 sans classes) et récupère autant de Présages après au moins six heures de repos.`};
+const OMENS_USE = {
+  en:[
+    `deal maximum damage with an attack`,
+    `reroll a dice roll (yours or someone else's)`,
+    `lower damage dealt to you by D6`,
+    `neutralize a Crit or Fumble`,
+    `lower one test's DR by -4`,
+  ],
+  fr:[
+    `infliger les dégâts maximum avec une attaque`,
+    `relancer un jet de dés (le tien ou celui de quelqu'un d'autre)`,
+    `réduire les dégâts subis de D6`,
+    `annuler un Critique ou un Fumble`,
+    `réduire le DR d'un test de -4`,
+  ],
+};
+const SCROLL_RULES = {en:`Scrolls are the twisted magic of MÖRK BORG. A few so-called powers are known and they are usually found written in scrolls. Roll Presence + d4 every morning to determine how many times you can use Powers that day; choose from your available scrolls. When reading a scroll, test Presence DR12. If you succeed, the Power is activated and you subtract one use from your daily total. If you fail, the Power doesn't work, you lose d2 HP and you become dizzy for the next hour. During this time, Powers will always fail in the worst possible way.`, fr:`Les parchemins sont la magie tordue de MÖRK BORG. Quelques soi-disant pouvoirs sont connus et se trouvent habituellement écrits sur des parchemins. Lance Présence + d4 chaque matin pour déterminer combien de fois tu peux utiliser des Pouvoirs ce jour ; choisis parmi tes parchemins disponibles. En lisant un parchemin, teste Présence DR12. Si tu réussis, le Pouvoir est activé et tu retires une utilisation de ton total journalier. En cas d'échec, le Pouvoir ne fonctionne pas, tu perds d2 PV et tu es étourdi pendant l'heure suivante. Durant ce temps, les Pouvoirs échouent toujours de la pire façon possible.`};
+const ABIL_DESC = {
+  en:[
+    `AGILITY — Defend, balance, swim, flee`,
+    `PRESENCE — Perceive, aim, charm, wield Powers`,
+    `STRENGTH — Crush, lift, strike, grapple`,
+    `TOUGHNESS — Resist poison/cold/heat, survive falling`,
+  ],
+  fr:[
+    `AGILITÉ — Défendre, s'équilibrer, nager, fuir`,
+    `PRÉSENCE — Percevoir, viser, charmer, manier les Pouvoirs`,
+    `FORCE — Écraser, soulever, frapper, empoigner`,
+    `ENDURANCE — Résister au poison/froid/chaleur, survivre aux chutes`,
+  ],
+};
+const ABIL_RULE = {en:`Roll 3d6 and use the table to generate each ability score from −3 to +3. The sum is not used in the game once the character is created, only the table value. Player Characters not created with the optional classes can roll 4d6 and drop the lowest die for two of their abilities. When the character is later improved an ability can never exceed +6 or −3.`, fr:`Lance 3d6 et utilise la table pour générer chaque score de caractéristique de −3 à +3. La somme n'est pas utilisée en jeu une fois le personnage créé, seulement la valeur du tableau. Les Personnages Joueurs non créés avec les classes optionnelles peuvent lancer 4d6 et ignorer le dé le plus faible pour deux de leurs caractéristiques. Quand le personnage s'améliore, une caractéristique ne peut jamais dépasser +6 ni descendre sous −3.`};
 const ABIL_TABLE = [['1–4','−3'],['5–6','−2'],['7–8','−1'],['9–12','±0'],['13–14','+1'],['15–16','+2'],['17–20','+3']];
-const CARRY_TEXT = `You can carry Strength+8 normal-sized items (for example crowbars, lard, scrolls, torches but not anvils, chests, ladders, corpses) without a problem. After that when testing Strength and Agility DR increases by 2 (from 12 to 14 etc.). It is impossible to carry more than twice Strength+8.`;
-const HP_TEXT = `Begin with Toughness + d8. In worst case 1 HP, but never less. Zero HP: broken. Negative HP: dead.`;
+const CARRY_TEXT = {en:`You can carry Strength+8 normal-sized items (for example crowbars, lard, scrolls, torches but not anvils, chests, ladders, corpses) without a problem. After that when testing Strength and Agility DR increases by 2 (from 12 to 14 etc.). It is impossible to carry more than twice Strength+8.`, fr:`Tu peux porter Force+8 objets de taille normale (par exemple des pieds-de-biche, du saindoux, des parchemins, des torches mais pas des enclumes, des coffres, des échelles, des cadavres) sans problème. Au-delà, le DR des tests de Force et d'Agilité augmente de 2 (de 12 à 14 etc.). Il est impossible de porter plus de deux fois Force+8.`};
+const HP_TEXT = {en:`Begin with Toughness + d8. In worst case 1 HP, but never less. Zero HP: broken. Negative HP: dead.`, fr:`Débute avec Endurance + d8. Au pire 1 PV, jamais moins. Zéro PV : brisé. PV négatifs : mort.`};
 const BROKEN_TABLE = [
-  ['1',`Fall unconscious for D4 rounds, awaken with d4 HP.`],
-  ['2',`Roll a d6: 1-5 = Broken or severed limb. 6 = Lost eye. Can't act for d4 rounds then become active with d4 HP.`],
-  ['3',`Hemorrage: death in D2 hours unless treated. All tests are DR16 the first hour. DR18 the last.`],
-  ['4',`Dead.`],
+  ['1',{en:`Fall unconscious for D4 rounds, awaken with d4 HP.`,fr:`Tomber inconscient pendant D4 rounds, se réveiller avec d4 PV.`}],
+  ['2',{en:`Roll a d6: 1-5 = Broken or severed limb. 6 = Lost eye. Can't act for d4 rounds then become active with d4 HP.`,fr:`Lance un d6 : 1-5 = membre brisé ou sectionné. 6 = œil perdu. Impossible d'agir pendant d4 rounds puis actif avec d4 PV.`}],
+  ['3',{en:`Hemorrage: death in D2 hours unless treated. All tests are DR16 the first hour. DR18 the last.`,fr:`Hémorragie : mort dans D2 heures si non soigné. Tous les tests sont DR16 la première heure. DR18 la dernière.`}],
+  ['4',{en:`Dead.`,fr:`Mort.`}],
 ];
 
 /* ---------- tables (verbatim) ---------- */
@@ -1857,6 +1956,222 @@ Les gens te suivent jusqu'à la mort.`}],
     [18,18,{en:`spineless deserters and filthy gutterscum.`,fr:`les déserteurs sans épine dorsale et les raclures de caniveau immondes.`}],
     [19,19,{en:`pale ones, earthbound and weird wickheads unpierced by spikes.`,fr:`les pâles, liés à la terre et les étranges têtes tordues non percées de pointes.`}],
     [20,20,{en:`nothing, really… or maybe funeral fog and a freezing moon. This is a place of harmony, love and kindness. Come, join the Circle of Euphoria. And rejoice! Your nails all got chewed off.`,fr:`rien, vraiment… ou peut-être la brume funèbre et une lune glacée. C'est un lieu d'harmonie, d'amour et de bonté. Venez, rejoignez le Cercle d'Euphorie. Et réjouissez-vous ! Vos ongles ont tous été rongés.`}],
+  ]},
+
+  trapsAndDevilry:{rows:[
+    [1,1,{en:`Well dressed corpse, booby trapped`,fr:`Cadavre bien habillé, piégé`}],
+    [2,2,{en:`Wall-holes shoot poisonous arrows`,fr:`Des trous dans les murs tirent des flèches empoisonnées`}],
+    [3,3,{en:`Bells and marbles on the floor`,fr:`Clochettes et billes sur le sol`}],
+    [4,4,{en:`Scorpion-filled basket poised to fall`,fr:`Panier rempli de scorpions prêt à tomber`}],
+    [5,5,{en:`Fish hooks hanging at eye level`,fr:`Hameçons suspendus à hauteur des yeux`}],
+    [6,6,{en:`Chest marked with explosive runes`,fr:`Coffre marqué de runes explosives`}],
+    [7,7,{en:`Lock trapped with vial of poison gas`,fr:`Serrure piégée avec une fiole de gaz venimeux`}],
+    [8,8,{en:`Jewel removal leads to roof collapse`,fr:`Retirer le joyau provoque l'effondrement du plafond`}],
+    [9,9,{en:`Slanted floor, translucent oil, pit`,fr:`Sol incliné, huile translucide, fosse`}],
+    [10,10,{en:`Snake-cages on collapsing ceiling tiles`,fr:`Cages à serpents sur des dalles de plafond qui s'effondrent`}],
+    [11,11,{en:`Evil urns release cold ghosts`,fr:`Des urnes maléfiques libèrent de froids fantômes`}],
+    [12,12,{en:`Coins coated in grime and poison`,fr:`Pièces enduites de crasse et de poison`}],
+  ]},
+  weather:{rows:[
+    [1,1,{en:`Lifeless grey`,fr:`Gris sans vie`}],
+    [2,2,{en:`Hammering rain`,fr:`Pluie battante`}],
+    [3,3,{en:`Piercing wind`,fr:`Vent perçant`}],
+    [4,4,{en:`Deafening storm`,fr:`Tempête assourdissante`}],
+    [5,5,{en:`Black as night`,fr:`Noir comme la nuit`}],
+    [6,6,{en:`Dead quiet`,fr:`Silence de mort`}],
+    [7,7,{en:`Cloudburst`,fr:`Averse soudaine`}],
+    [8,8,{en:`Soup-thick mist`,fr:`Brume épaisse comme de la soupe`}],
+    [9,9,{en:`Crackling frost`,fr:`Givre craquant`}],
+    [10,10,{en:`Irritating drizzle`,fr:`Bruine irritante`}],
+    [11,11,{en:`Roaring thunder`,fr:`Tonnerre grondant`}],
+    [12,12,{en:`Gravelike cold`,fr:`Froid de tombeau`}],
+  ]},
+
+  whereDoYouWander:{rows:[
+    [1,1,{en:`On the barren fields of Kergüs`,fr:`Dans les champs stériles du Kergüs`}],
+    [2,2,{en:`In the centre of Alliáns`,fr:`Au centre d'Alliáns`}],
+    [3,3,{en:`On a beach not distant from Grift`,fr:`Sur une plage non loin de Grift`}],
+    [4,4,{en:`On a dirty Schleswig street`,fr:`Dans une rue crasseuse de Schleswig`}],
+    [5,5,{en:`In the poor Wästland countryside`,fr:`Dans la campagne pauvre du Wästland`}],
+    [6,6,{en:`At the city wall of Galgenbeck`,fr:`Au rempart de Galgenbeck`}],
+    [7,7,{en:`In the untamed wilds of Tveland`,fr:`Dans les terres sauvages de Tveland`}],
+    [8,8,{en:`Near the Valley of the Unfortunate Undead`,fr:`Près de la Vallée des Morts-Vivants Malheureux`}],
+    [9,9,{en:`Pretty much lost in Sarkash`,fr:`À peu près perdu dans le Sarkash`}],
+    [10,10,{en:`At the Bergen Chrypt tree line`,fr:`À la limite des arbres de Bergen Chrypt`}],
+    [11,11,{en:`Onboard a ship on the Endless Sea`,fr:`À bord d'un navire sur la Mer Sans Fin`}],
+    [12,12,{en:`In a forgotten part of Graven-Tosk`,fr:`Dans une partie oubliée de Graven-Tosk`}],
+  ]},
+  whoContactsYou:{rows:[
+    [1,1,{en:`One-eyed woman who rules the thieves`,fr:`Femme borgne qui dirige les voleurs`}],
+    [2,2,{en:`Bureaucrat with enemies and no honor`,fr:`Bureaucrate avec des ennemis et sans honneur`}],
+    [3,3,{en:`Badly burned priest`,fr:`Prêtre gravement brûlé`}],
+    [4,4,{en:`Noble child said to see dark visions`,fr:`Enfant noble réputé avoir des visions sombres`}],
+    [5,5,{en:`Warrior that switched loyalties`,fr:`Guerrier qui a changé de camp`}],
+    [6,6,{en:`Faint whispers from the crypt`,fr:`Faibles murmures venant de la crypte`}],
+    [7,7,{en:`Remorseful hangman`,fr:`Bourreau plein de remords`}],
+    [8,8,{en:`Tortured traitor`,fr:`Traître torturé`}],
+    [9,9,{en:`Recurring vision in a horrid nightmare`,fr:`Vision récurrente dans un cauchemar horrible`}],
+    [10,10,{en:`Hermit mocked by the other cave-folk`,fr:`Ermite moqué par les autres habitants des cavernes`}],
+    [11,11,{en:`Demented elder`,fr:`Ancien dément`}],
+    [12,12,{en:`Sacrifice who escaped a death-cult`,fr:`Sacrifice qui a échappé à un culte de la mort`}],
+    [13,13,{en:`Monk who was bitten at night`,fr:`Moine mordu dans la nuit`}],
+    [14,14,{en:`Unshaved mystic at The Paunchy Swine`,fr:`Mystique non rasé au Cochon Ventru`}],
+    [15,15,{en:`Devastated mother dressed in white`,fr:`Mère dévastée habillée en blanc`}],
+    [16,16,{en:`Sailor too long at sea`,fr:`Marin trop longtemps en mer`}],
+    [17,17,{en:`Scoundrel covered in ulcers`,fr:`Scélérat couvert d'ulcères`}],
+    [18,18,{en:`Drunk seeress with no teeth`,fr:`Voyante ivre et édentée`}],
+    [19,19,{en:`Restless soul by the name of Ghast`,fr:`Âme agitée du nom de Ghast`}],
+    [20,20,{en:`Terrified soldier with broken knees`,fr:`Soldat terrorisé aux genoux brisés`}],
+  ]},
+  adventureSpark:{rows:[
+    [1,2,{en:`The undead-riddled Valley awaits`,fr:`La Vallée infestée de morts-vivants attend`}],
+    [3,4,{en:`Thirteen priests are missing`,fr:`Treize prêtres ont disparu`}],
+    [5,6,{en:`Wrongly imprisoned for murder`,fr:`Emprisonné à tort pour meurtre`}],
+    [7,8,{en:`66 sacrifices are needed`,fr:`66 sacrifices sont nécessaires`}],
+    [9,10,{en:`Children missing at Lake Onda`,fr:`Des enfants ont disparu au Lac Onda`}],
+    [11,12,{en:`Sinkhole swallows half of Schleswig`,fr:`Un gouffre avale la moitié de Schleswig`}],
+    [13,14,{en:`Sabotage an unholy alliance`,fr:`Saboter une alliance impie`}],
+    [15,16,{en:`The count goes insane at night`,fr:`Le comte devient fou la nuit`}],
+    [17,18,{en:`Hunted by bloodthirsty death-cult`,fr:`Traqué par un culte de la mort assoiffé de sang`}],
+    [19,20,{en:`Trapped by an earthquake`,fr:`Piégé par un tremblement de terre`}],
+    [21,22,{en:`Verhu's prophecy is false!`,fr:`La prophétie de Verhu est fausse !`}],
+    [23,24,{en:`Rumours of a cursed treasure`,fr:`Rumeurs d'un trésor maudit`}],
+    [25,26,{en:`Kidnapped blood-wizard`,fr:`Sorcier du sang kidnappé`}],
+    [27,28,{en:`A dead demon is resurrected`,fr:`Un démon mort est ressuscité`}],
+    [29,30,{en:`Every grave is emptied one night`,fr:`Chaque tombe est vidée une nuit`}],
+    [31,32,{en:`Enormous cave system near Grift`,fr:`Énorme système de grottes près de Grift`}],
+    [33,34,{en:`The dead refuse to stay dead`,fr:`Les morts refusent de rester morts`}],
+    [35,36,{en:`PCs are selected for ritual sacrifice`,fr:`Les PJs sont sélectionnés pour un sacrifice rituel`}],
+    [37,38,{en:`Anthelia falls severely ill`,fr:`Anthelia tombe gravement malade`}],
+    [39,40,{en:`PC dopplegangers go berserk`,fr:`Les doubles des PJs deviennent fous furieux`}],
+    [41,42,{en:`Take part in a holy mass burial`,fr:`Participer à un enterrement de masse sacré`}],
+    [43,44,{en:`The entire kingdom has nightmares`,fr:`Tout le royaume fait des cauchemars`}],
+    [45,46,{en:`Something has infiltrated the court`,fr:`Quelque chose a infiltré la cour`}],
+    [47,48,{en:`Artefact must be destroyed`,fr:`Un artefact doit être détruit`}],
+    [49,50,{en:`Map the land in the west`,fr:`Cartographier les terres à l'ouest`}],
+    [51,52,{en:`Talk of an unexplored island`,fr:`Des rumeurs d'une île inexplorée`}],
+    [53,54,{en:`Gain the trust of a dangerous hermit`,fr:`Gagner la confiance d'un ermite dangereux`}],
+    [55,56,{en:`Find the way to Cube-Violet`,fr:`Trouver le chemin vers Cube-Violet`}],
+    [57,58,{en:`Stop a Grift suicide-cult`,fr:`Arrêter un culte suicidaire de Grift`}],
+    [59,60,{en:`Pardon a mad mass-murderer`,fr:`Gracier un tueur de masse fou`}],
+    [61,62,{en:`Defend a fort from the undead`,fr:`Défendre un fort contre les morts-vivants`}],
+    [63,64,{en:`Steal a sarcophagus from a caravan`,fr:`Voler un sarcophage à une caravane`}],
+    [65,66,{en:`A fire threatens to devour Sarkash`,fr:`Un incendie menace de dévorer le Sarkash`}],
+    [67,68,{en:`Go to the land of the dead and back`,fr:`Aller au pays des morts et en revenir`}],
+    [69,70,{en:`HE demands a gift. See it delivered`,fr:`LUI exige un cadeau. Veillez à ce qu'il soit livré`}],
+    [71,72,{en:`Powerful elixir needs ingredients`,fr:`Un élixir puissant a besoin d'ingrédients`}],
+    [73,74,{en:`Slave revolt in Galgenbeck`,fr:`Révolte d'esclaves à Galgenbeck`}],
+    [75,76,{en:`Mystical ruins are unearthed`,fr:`Des ruines mystiques sont mises au jour`}],
+    [77,78,{en:`They're coming out of the walls!`,fr:`Ils sortent des murs !`}],
+    [79,80,{en:`Three assassinations each night`,fr:`Trois assassinats chaque nuit`}],
+    [81,82,{en:`Alchemist needs a living goblin`,fr:`Un alchimiste a besoin d'un gobelin vivant`}],
+    [83,84,{en:`A strange ship ran aground`,fr:`Un navire étrange s'est échoué`}],
+    [85,86,{en:`A weirdness leaves Bergen Chrypt`,fr:`Une étrangeté quitte Bergen Chrypt`}],
+    [87,88,{en:`Seven women with black eyes`,fr:`Sept femmes aux yeux noirs`}],
+    [89,90,{en:`The icon's eyes have been stolen`,fr:`Les yeux de l'icône ont été volés`}],
+    [91,92,{en:`The beast beneath the bridge`,fr:`La bête sous le pont`}],
+    [93,94,{en:`Movement in a black star's crater`,fr:`Du mouvement dans le cratère d'une étoile noire`}],
+    [95,96,{en:`Light from broken sewer gate`,fr:`Lumière provenant d'une grille d'égout brisée`}],
+    [97,98,{en:`Children hum forbidden songs`,fr:`Des enfants fredonnnent des chansons interdites`}],
+    [99,100,{en:`Newly discovered path in Sarkash`,fr:`Un chemin nouvellement découvert dans le Sarkash`}],
+  ]},
+
+  dungeonName1:{cols:[['Slaughter','Death','Night','Hadean','Hell','Plague','Sin','Doom','Dark','Murder','Torture','Slave']]},
+  dungeonName2:{cols:[['pit','church','temple','tunnels','crypt','grave','fort','ziggurat','den','maze','house','waste']]},
+  dungeonDweller:{rows:[
+    [1,1,{en:`Animated suits of armor battling goblins`,fr:`Des armures animées combattant des gobelins`}],
+    [2,2,{en:`Nechrubel-worshipping lich with a skeletal court`,fr:`Liche adorant Nechrubel avec une cour squelettique`}],
+    [3,3,{en:`Heretic cult lead by a possessed 11-year old`,fr:`Culte hérétique dirigé par un enfant de 11 ans possédé`}],
+    [4,4,{en:`A vengeful cabal of undead porcelain dolls`,fr:`Une cabale vengeresse de poupées de porcelaine mortes-vivantes`}],
+    [5,5,{en:`Desperate thieves guild dying slowly of cholera`,fr:`Guilde de voleurs désespérés mourant lentement du choléra`}],
+    [6,6,{en:`A meaty mass of slime, larvae and spider legs`,fr:`Une masse charnue de vase, larves et pattes d'araignée`}],
+    [7,7,{en:`Wickheads running from foreboding darkness`,fr:`Des Têtes-Tordues fuyant une obscurité de mauvais augure`}],
+    [8,8,{en:`A Bark-Witch and her root-children`,fr:`Une Sorcière-Écorce et ses enfants-racines`}],
+    [9,9,{en:`Four-legged pale gremlins stinking of dirt`,fr:`Des gremlins pâles à quatre pattes puant la terre`}],
+    [10,10,{en:`Tergol's escaped experiment`,fr:`L'expérience échappée de Tergol`}],
+    [11,11,{en:`Disease spreading ochre-beetles`,fr:`Des scarabées ocres propagateurs de maladies`}],
+    [12,12,{en:`Dissident courtiers dedicated to the occult`,fr:`Des courtisans dissidents dédiés à l'occulte`}],
+  ]},
+  dungeonFeature:{rows:[
+    [1,1,{en:`Portal to the land of the dead, soon ready`,fr:`Portail vers le pays des morts, bientôt prêt`}],
+    [2,2,{en:`Lab where corpses are assembled into golems`,fr:`Laboratoire où des cadavres sont assemblés en golems`}],
+    [3,3,{en:`Black prism which twists all Powers`,fr:`Prisme noir qui tord tous les Pouvoirs`}],
+    [4,4,{en:`300 emaciated, mutilated prisoners`,fr:`300 prisonniers émaciés et mutilés`}],
+    [5,5,{en:`Blind hermit, firmly rooted in the ground, spreading his vile corruption`,fr:`Ermite aveugle, fermement enraciné dans le sol, répandant sa vile corruption`}],
+    [6,6,{en:`Bony remains of the Basilisk's spawn`,fr:`Restes osseux de la progéniture du Basilic`}],
+    [7,7,{en:`Obelisk that separates body and soul`,fr:`Obélisque qui sépare le corps et l'âme`}],
+    [8,8,{en:`Rooms move around the dungeon's center`,fr:`Les salles se déplacent autour du centre du donjon`}],
+    [9,9,{en:`High ceilings, whispers in the upper dark`,fr:`Plafonds élevés, murmures dans l'obscurité du haut`}],
+    [10,10,{en:`Artwork affecting the surroundings`,fr:`Des œuvres d'art qui affectent l'environnement`}],
+    [11,11,{en:`Ensnaring, intelligent plants`,fr:`Des plantes intelligentes qui piègent`}],
+    [12,12,{en:`Giant pools of boiling tar`,fr:`Des bassins géants de goudron bouillant`}],
+  ]},
+  dungeonStatus:{rows:[
+    [1,2,{en:`Still active`,fr:`Toujours actif`}],
+    [3,6,{en:`Inactive`,fr:`Inactif`}],
+  ]},
+  dungeonInactive:{rows:[
+    [1,1,{en:`The place was invaded`,fr:`L'endroit a été envahi`}],
+    [2,2,{en:`Everything ended in disaster`,fr:`Tout s'est terminé en désastre`}],
+    [3,3,{en:`It was no longer needed`,fr:`Il n'était plus utile`}],
+    [4,4,{en:`A Misery was fulfilled — roll to see which one`,fr:`Une Misère s'est accomplie — lance pour voir laquelle`}],
+  ]},
+  dungeonDanger:{rows:[
+    [1,1,{en:`Is slowly flooding with: (d4) 1-2 oil · 3-4 water`,fr:`Se remplit lentement de : (d4) 1-2 huile · 3-4 eau`}],
+    [2,2,{en:`Berserkers are appearing`,fr:`Des berserkers apparaissent`}],
+    [3,3,{en:`Is about to collapse`,fr:`Est sur le point de s'effondrer`}],
+    [4,4,{en:`Senses are being distorted`,fr:`Les sens sont perturbés`}],
+    [5,5,{en:`Underworld emissions of poisonous spores`,fr:`Émissions souterraines de spores venéneux`}],
+    [6,6,{en:`A hunted cult intends it to be their new hideout`,fr:`Un culte traqué en a fait sa nouvelle cachette`}],
+    [7,7,{en:`A terrible, dormant curse about to be unleashed`,fr:`Une terrible malédiction dormante sur le point d'être libérée`}],
+    [8,8,{en:`Fire is spreading from the deepest chamber`,fr:`Un incendie se propage depuis la chambre la plus profonde`}],
+    [9,9,{en:`The gate will shut and seal, and not open again until seven days have passed`,fr:`La porte se fermera et se scellera, ne s'ouvrant plus avant sept jours`}],
+    [10,10,{en:`A lethal mechanism is about to activate`,fr:`Un mécanisme mortel est sur le point de s'activer`}],
+  ]},
+  dungeonRoom1:{rows:[
+    [1,1,{en:`Inscriptions, the motifs are`,fr:`Inscriptions, les motifs sont`}],
+    [2,2,{en:`Bloodied beds`,fr:`Lits ensanglantés`}],
+    [3,3,{en:`Flooded`,fr:`Inondée`}],
+    [4,4,{en:`Leaning`,fr:`Inclinée`}],
+    [5,5,{en:`Stinks`,fr:`Pue`}],
+    [6,6,{en:`Fire damage`,fr:`Dégâts de feu`}],
+  ]},
+  dungeonRoom2:{rows:[
+    [1,1,{en:`Obvious traps`,fr:`Pièges évidents`}],
+    [2,2,{en:`Full of blood`,fr:`Pleine de sang`}],
+    [3,3,{en:`Torture chamber`,fr:`Chambre de torture`}],
+    [4,4,{en:`Sooty walls`,fr:`Murs couverts de suie`}],
+    [5,5,{en:`Freezing draft`,fr:`Courant d'air glacial`}],
+    [6,6,{en:`Creaking doors`,fr:`Portes grinçantes`}],
+  ]},
+  dungeonRoom3:{rows:[
+    [1,1,{en:`Compact darkness`,fr:`Obscurité compacte`}],
+    [2,2,{en:`Locked sarcophagi`,fr:`Sarcophages verrouillés`}],
+    [3,3,{en:`Shelves with (d4)`,fr:`Étagères avec (d4)`}],
+    [4,4,{en:`Abyssal pits`,fr:`Puits abyssaux`}],
+    [5,5,{en:`Mirrors everywhere`,fr:`Miroirs partout`}],
+    [6,6,{en:`Ungodly yet exquisite chandeliers`,fr:`Lustres impies mais exquis`}],
+  ]},
+  dungeonRoom4:{rows:[
+    [1,1,{en:`Utterly silent`,fr:`Totalement silencieuse`}],
+    [2,2,{en:`Full of debris`,fr:`Pleine de débris`}],
+    [3,3,{en:`Sacrificial altar (d4)`,fr:`Autel sacrificiel (d4)`}],
+    [4,4,{en:`Remains of a throne`,fr:`Restes d'un trône`}],
+    [5,5,{en:`Smoke-filled`,fr:`Remplie de fumée`}],
+    [6,6,{en:`Bonfire in the center`,fr:`Feu de joie au centre`}],
+  ]},
+  dungeonMotif:{rows:[
+    [1,1,{en:`Vomit-inducing`,fr:`Donnant envie de vomir`}],
+    [2,2,{en:`Terrifying`,fr:`Terrifiantes`}],
+    [3,3,{en:`Hypnotic`,fr:`Hypnotiques`}],
+    [4,4,{en:`Childish`,fr:`Enfantines`}],
+    [5,5,{en:`Teleportation causing`,fr:`Causant la téléportation`}],
+    [6,6,{en:`Ugly and pointless`,fr:`Laides et inutiles`}],
+  ]},
+
+  dungeonDangerSub:{rows:[
+    [1,2,{en:`oil`,fr:`de l'huile`}],
+    [3,4,{en:`water`,fr:`de l'eau`}],
   ]},
 
   /* ---- Unheroic Feats (d66 — d6 tens, d6 units) ---- */
@@ -3062,6 +3377,13 @@ function oracleCats(){
   ]});
   cats.push({tab:'oracle', label:{en:'Armor',fr:'Armure'}, rows:[{id:'or_armor', label:{en:'Armor (d4)',fr:'Armure (d4)'}, sides:4, table:T.armor}]});
   cats.push({tab:'oracle', label:{en:'Relics',fr:'Reliques'}, rows:[{id:'or_ochre', label:{en:'Tablet of Ochre Obscurity (d10)',fr:"Tablette de l'Ocre Obscur (d10)"}, sides:10, table:T.ochreTablets, note:{en:`Relics of a forgotten mind-cult, made from the clay of the Valley of the Unfortunate Undead. Sellable for 100 silver, counts as a normal-sized item. Used like a scroll; the wielder needs Presence +3 (minimum) or to be a Forlorn Philosopher.`, fr:`Reliques d'un culte de l'esprit oublié, faites de l'argile de la Vallée des Morts-Vivants Malheureux. Vendables pour 100 argent, compte comme un objet de taille normale. Utilisé comme un parchemin ; le porteur doit avoir Présence +3 (minimum) ou être un Philosophe Désespéré.`}}]});
+  cats.push({tab:'oracle', label:{en:'Traps & Devilry',fr:'Pièges & Diableries'}, rows:[{id:'or_traps', label:{en:'Traps and Devilry (d12)',fr:'Pièges et Diableries (d12)'}, sides:12, table:T.trapsAndDevilry}]});
+  cats.push({tab:'oracle', label:{en:'Weather',fr:'Météo'}, rows:[{id:'or_weather', label:{en:'Weather (d12)',fr:'Météo (d12)'}, sides:12, table:T.weather}]});
+  cats.push({tab:'oracle', label:{en:"Even More Reasons to Risk One's Life",fr:"Encore Plus de Raisons de Risquer Sa Vie"}, rows:[
+    {id:'or_wander',  label:{en:'Where do you wander? (d12)',fr:'Où errez-vous ? (d12)'},                sides:12,  table:T.whereDoYouWander},
+    {id:'or_contact', label:{en:'Who (or what) contacts you? (d20)',fr:'Qui (ou quoi) vous contacte ? (d20)'}, sides:20,  table:T.whoContactsYou},
+    {id:'or_spark',   label:{en:'Adventure spark (d100)',fr:"Étincelle d'aventure (d100)"},             sides:100, tens:10, units:10, table:T.adventureSpark},
+  ]});
   cats.push({tab:'loot', label:{en:'Books',fr:'Livres'}, rows:[{id:'or_books', label:{en:'Books to find in libraries & vaults (d86)',fr:'Livres à trouver en bibliothèques & coffres (d86)'}, sides:86, tens:8, units:6, table:T.lootBooks, note:{en:`These filthy scriptures are worth, in silver, their dice ×10.`, fr:`Ces Écritures immondes valent, en argent, leur dé ×10.`}}]});
   cats.push({tab:'loot', label:{en:'The Forbidden Vault',fr:'La Chambre Forte Interdite'}, rows:[
     {id:'or_vault', label:{en:`Safaril's wares (d12)`,fr:`Marchandises de Safaril (d12)`}, sides:12, table:T.vaultItems, note:{en:`Safaril the Disturbingly Gifted sells the most rotten desires — he only accepts BLOOD SILVER (silver ill-gotten by thievery, blackmail, robbery, confidence tricks or foul murder). For protection he keeps half a dozen goblins on a leash.`, fr:`Safaril le Disturbingly Gifted vend les désirs les plus corrompus — il n'accepte que l'ARGENT DE SANG (argent mal acquis par vol, chantage, brigandage, escroquerie ou meurtre sordide). Pour sa protection, il tient une demi-douzaine de gobelins en laisse.`}},
@@ -3084,6 +3406,26 @@ oracleCats().forEach(c=>c.rows.forEach(r=>{ if(r.id) ORACLE_BY_ID[r.id]={sides:r
 
 /* ---------- generic generators (Tables → Cvlt / Cvrse tabs): named dice → composed prose ---------- */
 const GENERATORS = {
+  dvngeon: {
+    seedsTitle:{en:'One of the Many Bedeviled Dungeons',fr:'Un des Nombreux Cachots Ensorcelés'},
+    composedTitle:{en:'The Dungeon, composed',fr:'Le Cachot, composé'},
+    parts:[
+      {id:'name',     label:{en:'What is it called? The… (2×d12)',fr:"Comment s'appelle-t-il ? Le… (2×d12)"},
+       cols:[['Slaughter','Death','Night','Hadean','Hell','Plague','Sin','Doom','Dark','Murder','Torture','Slave'],
+             ['pit','church','temple','tunnels','crypt','grave','fort','ziggurat','den','maze','house','waste']],
+       colsFr:[['Massacre','Mort','Nuit','Hadéen','Enfer','Fléau','Péché','Doom','Sombre','Meurtre','Torture','Esclave'],
+               ['fosse','église','temple','tunnels','crypte','tombe','fort','ziggurat','antre','labyrinthe','maison','désolation']],
+       joinFr:v=>'Le '+v[0]+' '+v[1], join:v=>'The '+v[0]+' '+v[1]},
+      {id:'dweller',  label:{en:'Who or what dwells here now? (d12)',fr:'Qui ou quoi y réside maintenant ? (d12)'},  sides:12, table:T.dungeonDweller},
+      {id:'feature',  label:{en:'Distinctive feature (d12)',fr:'Caractéristique distinctive (d12)'},                   sides:12, table:T.dungeonFeature},
+      {id:'status',   label:{en:'Status (d6)',fr:'Statut (d6)'},                                                       sides:6,  table:T.dungeonStatus},
+      {id:'inactive', label:{en:'Inactive because… (d4)',fr:'Inactif car… (d4)'},                                      sides:4,  table:T.dungeonInactive, conditional:'inactive'},
+      {id:'danger',   label:{en:'Imminent danger (d10)',fr:'Danger imminent (d10)'},                                   sides:10, table:T.dungeonDanger},
+      {id:'dangerSub',label:{en:'Flooding with… (d4)',fr:'Se remplit de… (d4)'},                                       sides:4,  table:T.dungeonDangerSub, conditional:'danger1'},
+      {id:'roomCount',label:{en:'Number of rooms (d7+5)',fr:'Nombre de salles (d7+5)'},                                sides:7,  isCount:true, offset:5},
+    ],
+    compose:g=>{ /* handled specially for dvngeon */ return null; },
+  },
   cvlt: {
     seedsTitle:{en:'Seeds of a Cvlt',fr:'Graines d\'un Cvlte'}, composedTitle:{en:'The Cvlt, composed',fr:'Le Cvlte, composé'},
     parts:[
@@ -3113,28 +3455,502 @@ const GENERATORS = {
 };
 let genRolls = {};                  // generator rolls per tab → part
 function genState(tab){ genRolls[tab]=genRolls[tab]||{}; return genRolls[tab]; }
-function genRollPart(tab,p){ const d=genState(tab); d[p.id]=d[p.id]||{}; if(p.cols) d[p.id].r=p.cols.map(c=>rollDie(c.length)); else d[p.id].main=rollDie(p.sides); }
-function genRollAll(tab){ GENERATORS[tab].parts.forEach(p=>genRollPart(tab,p)); }
-function genResult(tab,p){ const d=(genRolls[tab]||{})[p.id]||{}; if(p.cols){ const r=d.r||[]; if(r.length!==p.cols.length||r.some(x=>x==null)) return null; const cols=(LANG==='fr'&&p.colsFr)?p.colsFr:p.cols; const v=cols.map((c,i)=>c[r[i]-1]); return p.join?p.join(v):v.join(' '); } if(d.main==null) return null; const row=lookup(p.table,d.main); return row?rowText(row):null; }
+function genRollPart(tab,p){
+  const d=genState(tab); d[p.id]=d[p.id]||{};
+  if(p.isCount) d[p.id].main=(p.offset||0)+rollDie(p.sides);
+  else if(p.cols) d[p.id].r=p.cols.map(c=>rollDie(c.length));
+  else d[p.id].main=rollDie(p.sides);
+}
+function genRollAll(tab){
+  GENERATORS[tab].parts.forEach(p=>genRollPart(tab,p));
+  // For dvngeon: initialize rooms array to roomCount entries
+  if(tab==='dvngeon'){ const d=genState(tab); const count=(d.roomCount&&d.roomCount.main)||6; d.dvnRooms=[]; for(let i=0;i<count;i++) d.dvnRooms.push(genOneRoom()); }
+}
+function genOneRoom(){
+  const SETS=[T.dungeonRoom1,T.dungeonRoom2,T.dungeonRoom3,T.dungeonRoom4];
+  const setIdx=rollDie(4)-1, roomIdx=rollDie(6);
+  return applyRoom({set:setIdx+1, roll:roomIdx, text:'?'});
+}
+function applyRoom(r){
+  const SETS=[T.dungeonRoom1,T.dungeonRoom2,T.dungeonRoom3,T.dungeonRoom4];
+  const setIdx=(r.set-1), roomIdx=r.roll;
+  const row=lookup(SETS[setIdx],roomIdx);
+  let txt=row?rowText(row):'?';
+  // d3r3 — Shelves with sub-roll
+  if(setIdx===2&&roomIdx===3){
+    const sub=rollDie(4);
+    const result=sub<=2?t({en:'obscure literature',fr:'littérature obscure'}):t({en:'rotting food',fr:'nourriture pourrie'});
+    txt=t({en:`Shelves with ${result}`,fr:`Étagères avec ${result}`});
+  }
+  // d4r3 — Sacrificial altar sub-roll
+  if(setIdx===3&&roomIdx===3){
+    const sub=rollDie(4);
+    const result=sub<=2?t({en:'cracked',fr:'fissuré'}):t({en:'fresh blood',fr:'sang frais'});
+    txt=t({en:`Sacrificial altar — ${result}`,fr:`Autel sacrificiel — ${result}`});
+  }
+  // d1r1 — Inscriptions with motif sub-roll
+  if(setIdx===0&&roomIdx===1){
+    const mot=lookup(T.dungeonMotif,rollDie(6));
+    const motTxt=mot?rowText(mot):'?';
+    txt=t({en:`Inscriptions, the motifs are: ${motTxt}`,fr:`Inscriptions, les motifs sont : ${motTxt}`});
+  }
+  return {set:r.set, roll:r.roll, text:txt};
+}
+function genResult(tab,p){
+  const d=(genRolls[tab]||{})[p.id]||{};
+  if(p.isCount) return d.main!=null ? String(d.main) : null;
+  if(p.cols){
+    const r=d.r||[]; if(r.length!==p.cols.length||r.some(x=>x==null)) return null;
+    const cols=(LANG==='fr'&&p.colsFr)?p.colsFr:p.cols;
+    const v=cols.map((c,i)=>c[r[i]-1]);
+    const joinFn=(LANG==='fr'&&p.joinFr)?p.joinFr:p.join;
+    return joinFn?joinFn(v):v.join(' ');
+  }
+  if(d.main==null||!p.table) return null;
+  const row=lookup(p.table,d.main);
+  return row?rowText(row):null;
+}
+
+function dvngeonIsActive(tab){
+  const d=(genRolls[tab]||{}).status||{};
+  if(d.main==null) return null;
+  const row=lookup(T.dungeonStatus,d.main);
+  const txt=row?rowText(row):'';
+  return txt.toLowerCase().includes('active')&&!txt.toLowerCase().includes('inactive');
+}
+function dvngeonIsDanger1(tab){
+  const d=(genRolls[tab]||{}).danger||{};
+  return d.main===1;
+}
+
 function genSeedsHTML(tab){
   const G=GENERATORS[tab]; let parts='';
   G.parts.forEach(p=>{
+    // Conditionals
+    if(p.conditional==='inactive' && dvngeonIsActive(tab)===true) return;
+    if(p.conditional==='danger1' && !dvngeonIsDanger1(tab)) return;
+
     const d=(genRolls[tab]||{})[p.id]||{};
-    let dice='';
-    if(p.cols){ const r=d.r||[]; p.cols.forEach((c,i)=> dice+='<button class="cvltdie" data-act="gen-die" data-gen="'+tab+'" data-part="'+p.id+'" data-i="'+i+'" title="Reroll">'+(r[i]!=null?r[i]:'?')+'</button>'); }
-    else dice+='<button class="cvltdie" data-act="gen-die" data-gen="'+tab+'" data-part="'+p.id+'" data-i="0" title="Reroll">'+(d.main!=null?d.main:'?')+'</button>';
     const res=genResult(tab,p);
-    parts+='<div class="cvltpart"><div class="cvlthead"><span class="cvltlabel">'+esc(t(p.label))+'</span>'+(p.note?'<span class="cvltnote">'+esc(t(p.note))+'</span>':'')+'<span class="cvltdice">'+dice+'</span></div><div class="cvltres">'+(res==null?'<span class="sub">…</span>':fmt(res))+'</div></div>';
+
+    // Manual input helper
+    const manualId=`gman_${tab}_${p.id}`;
+    const manualSides = p.cols ? p.cols[0].length : (p.sides||'');
+    const manualHint = p.cols ? p.cols.map((c,i)=>`1-${c.length}`).join(', ') : `1-${manualSides}`;
+
+    if(p.id==='roomCount'){
+      // Room count + individual rooms
+      const count=d.main||0;
+      const rooms=(genRolls[tab]||{}).dvnRooms||[];
+      let roomsHtml='';
+      rooms.forEach((r,i)=>{
+        const manId=`gman_${tab}_room_${i}`;
+        roomsHtml+=`<div class="cvltpart" style="margin-left:12px;">
+          <div class="cvlthead">
+            <span class="cvltlabel">${t({en:`Room ${i+1}`,fr:`Salle ${i+1}`})} <span style="color:var(--muted);font-weight:400;">(d4=${r.set} d6=${r.roll})</span></span>
+            <span class="cvltdice">
+              <button class="cvltdie" data-act="dvn-room-reroll" data-gen="${tab}" data-ri="${i}" title="Reroll">↻</button>
+              <input class="die-in" style="width:30px;" type="number" min="1" max="4" placeholder="d4" data-act="dvn-room-manual-set" data-gen="${tab}" data-ri="${i}" title="d4 set">
+              <input class="die-in" style="width:30px;" type="number" min="1" max="6" placeholder="d6" data-act="dvn-room-manual-roll" data-gen="${tab}" data-ri="${i}" title="d6 room">
+            </span>
+          </div>
+          <div class="cvltres">${fmt(r.text)}</div>
+        </div>`;
+      });
+      parts+=`<div class="cvltpart">
+        <div class="cvlthead">
+          <span class="cvltlabel">${esc(t(p.label))}</span>
+          <span class="cvltdice">
+            <button class="cvltdie" data-act="dvn-count-roll" data-gen="${tab}" title="Roll">${count||'?'}</button>
+            <input class="die-in" style="width:40px;" type="number" min="6" max="12" placeholder="6-12" data-act="dvn-count-manual" data-gen="${tab}" title="6-12">
+            <button class="btn" data-act="dvn-rooms-reroll-all" data-gen="${tab}" style="font-size:11px;padding:3px 8px;">${t({en:'All rooms',fr:'Toutes les salles'})}</button>
+          </span>
+        </div>
+      </div>
+      ${roomsHtml}`;
+      return;
+    }
+
+    // Standard part
+    let dice='';
+    if(p.cols){
+      const r=d.r||[];
+      p.cols.forEach((c,i)=> dice+=`<button class="cvltdie" data-act="gen-die" data-gen="${tab}" data-part="${p.id}" data-i="${i}" title="Roll d${c.length}">${r[i]!=null?r[i]:'?'}</button>`);
+      dice+=`<input class="die-in" style="width:60px;" type="number" placeholder="${manualHint}" data-act="dvn-cols-manual" data-gen="${tab}" data-part="${p.id}" title="${manualHint}">`;
+    } else {
+      dice+=`<button class="cvltdie" data-act="gen-die" data-gen="${tab}" data-part="${p.id}" data-i="0" title="Roll d${manualSides}">${d.main!=null?d.main:'?'}</button>`;
+      dice+=`<input class="die-in" style="width:40px;" type="number" min="1" max="${manualSides}" placeholder="1-${manualSides}" data-act="dvn-manual" data-gen="${tab}" data-part="${p.id}" title="1-${manualSides}">`;
+    }
+    parts+=`<div class="cvltpart"><div class="cvlthead"><span class="cvltlabel">${esc(t(p.label))}</span>${p.note?`<span class="cvltnote">${esc(t(p.note))}</span>`:''}<span class="cvltdice">${dice}</span></div><div class="cvltres">${res==null?'<span class="sub">…</span>':fmt(res)}</div></div>`;
   });
-  return '<section class="card oraclecat cvltcard"><h2>'+esc(t(G.seedsTitle))+' <button class="btn gold cvltrollall" data-act="gen-roll-all" data-gen="'+tab+'">↻ '+t({en:'Roll all',fr:'Tout lancer'})+'</button></h2><div class="cardbody">'+parts+'</div></section>';
+  return `<section class="card oraclecat cvltcard"><h2>${esc(t(G.seedsTitle))} <button class="btn gold cvltrollall" data-act="gen-roll-all" data-gen="${tab}">↻ ${t({en:'Roll all',fr:'Tout lancer'})}</button></h2><div class="cardbody">${parts}</div></section>`;
 }
 function genComposedHTML(tab){
   const G=GENERATORS[tab];
+  if(tab==='dvngeon'){
+    const d=genRolls[tab]||{};
+    const name=genResult(tab,G.parts.find(p=>p.id==='name'));
+    const dweller=genResult(tab,G.parts.find(p=>p.id==='dweller'));
+    const feature=genResult(tab,G.parts.find(p=>p.id==='feature'));
+    const status=genResult(tab,G.parts.find(p=>p.id==='status'));
+    const inactive=genResult(tab,G.parts.find(p=>p.id==='inactive'));
+    const danger=genResult(tab,G.parts.find(p=>p.id==='danger'));
+    const dangerSub=genResult(tab,G.parts.find(p=>p.id==='dangerSub'));
+    const rooms=d.dvnRooms||[];
+    const isActive=dvngeonIsActive(tab);
+    const isDanger1=dvngeonIsDanger1(tab);
+    const ready=name&&dweller&&feature&&status&&danger;
+    if(!ready) return `<section class="card oraclecat cvltcard"><h2>${esc(t(G.composedTitle))}</h2><div class="cardbody"><div class="cvltpara"><span class="sub">${t({en:'Roll to compose the tale…',fr:'Lance les dés pour composer…'})}</span></div></div></section>`;
+    let dangerTxt=danger;
+    if(isDanger1&&dangerSub) dangerTxt=LANG==='fr'?`Se remplit lentement de ${dangerSub}`:`Slowly flooding with ${dangerSub}`;
+    const roomLines=rooms.map((r,i)=>LANG==='fr'?`**Salle ${i+1}** — ${r.text}`:`**Room ${i+1}** — ${r.text}`).join('\n');
+    const body=LANG==='fr'
+      ?`**${name}**. ${dweller} y réside. Sa caractéristique distinctive : ${feature}. ${isActive?'Toujours actif.':'Inactif car : '+(inactive||'?')} Danger imminent : ${dangerTxt}.\n\n${roomLines}`
+      :`**${name}**. ${dweller} dwells here. Distinctive feature: ${feature}. ${isActive?'Still active.':'Inactive because: '+(inactive||'?')} Imminent danger: ${dangerTxt}.\n\n${roomLines}`;
+    return `<section class="card oraclecat cvltcard"><h2>${esc(t(G.composedTitle))}</h2><div class="cardbody"><div class="cvltpara">${fmt(body)}</div></div></section>`;
+  }
   const ready=G.parts.every(p=>genResult(tab,p)!=null);
-  const body=ready? fmt(G.compose(id=>genResult(tab, G.parts.find(p=>p.id===id)))) : '<span class="sub">'+t({en:'Roll to compose the tale…',fr:'Lance les dés pour composer…'})+'</span>';
-  return '<section class="card oraclecat cvltcard"><h2>'+esc(t(G.composedTitle))+'</h2><div class="cardbody"><div class="cvltpara">'+body+'</div></div></section>';
+  const body=ready?fmt(G.compose(id=>genResult(tab,G.parts.find(p=>p.id===id)))):`<span class="sub">${t({en:'Roll to compose the tale…',fr:'Lance les dés pour composer…'})}</span>`;
+  return `<section class="card oraclecat cvltcard"><h2>${esc(t(G.composedTitle))}</h2><div class="cardbody"><div class="cvltpara">${body}</div></div></section>`;
 }
 
+/* ---------- Calendar of Nechrubel ---------- */
+const NECHRUBEL_PSALMS = [
+  { num:1, title:{en:'PSALM I',fr:'PSAUME I'}, verses:[
+    {ref:'1:1',en:`The City shall be made hollow. Of those who rest in hollowness, they shall not be seen.`,fr:`La Cité sera rendue creuse. De ceux qui reposent dans le creux, ils ne seront pas vus.`},
+    {ref:'1:2',en:`And the earth shall shake and be riven. And from the cracks shall rise a poisonous mist, and in ten days it will shroud the world.`,fr:`Et la terre tremblera et se fendra. Et des fissures s'élèvera une brume empoisonnée, et en dix jours elle voilera le monde.`},
+    {ref:'1:3',en:`Of those who build mightily, stone by stone, so shall they fall, stone by stone.`,fr:`De ceux qui bâtissent puissamment, pierre par pierre, ainsi tomberont-ils, pierre par pierre.`},
+    {ref:'1:4',en:`And the depths of the underworld shall bring forth flying spectres and crawling beasts. In their passing the worm grows fat, the vulture weary.`,fr:`Et les profondeurs du monde souterrain feront surgir des spectres volants et des bêtes rampantes. Dans leur passage le ver s'engraisse, le vautour se lasse.`},
+    {ref:'1:5',en:`Doubt is crowned. The loyal shall turn their blades on those who silver gave.`,fr:`Le Doute est couronné. Les loyaux tourneront leurs lames contre ceux qui donnèrent l'argent.`},
+    {ref:'1:6',en:`And blood-cough shall spread like fire across the wastelands of the drought.`,fr:`Et la toux de sang se répandra comme le feu à travers les friches de la sécheresse.`},
+  ]},
+  { num:2, title:{en:'PSALM II',fr:'PSAUME II'}, verses:[
+    {ref:'2:1',en:`As at the beginning, so at the end, all manner of fly and wasp shall fill the air.`,fr:`Comme au commencement, ainsi à la fin, toute sorte de mouche et de guêpe remplira l'air.`},
+    {ref:'2:2',en:`And the ground pale with maggots.`,fr:`Et le sol pâle de vers.`},
+    {ref:'2:3',en:`And from the Spears: a frost. Born from Bergen Chrypt and covering all.`,fr:`Et des Lances : un gel. Né de Bergen Chrypt et couvrant tout.`},
+    {ref:'2:4',en:`And in ten days and one the writings of sorcerers will be made pale as air.`,fr:`Et en onze jours les écrits des sorciers seront rendus pâles comme l'air.`},
+    {ref:'2:5',en:`And glass shall become quartz.`,fr:`Et le verre deviendra quartz.`},
+    {ref:'2:6',en:`And SHE shall see HIM grow stronger. And SHE reveals herself and all shall be slain.`,fr:`Et ELLE verra LUI grandir en force. Et ELLE se révèle et tous seront occis.`},
+  ]},
+  { num:3, title:{en:'PSALM III',fr:'PSAUME III'}, verses:[
+    {ref:'3:1',en:`At Graven-Tosk the soil shall grow warm and those who rest be made to walk.`,fr:`À Graven-Tosk la terre deviendra chaude et ceux qui reposent seront mis en marche.`},
+    {ref:'3:2',en:`In the heart of Sarkash fog and dusk shall breathe beneath the waking trees. That which was hewed by man shall now hew in its turn.`,fr:`Au cœur du Sarkash brume et crépuscule respireront sous les arbres qui s'éveillent. Ce que l'homme a abattu maintenant abattra à son tour.`},
+    {ref:'3:3',en:`And hunger shall come among you. You shall dig roots and pull children from the breast. The gaunt shall prey upon the gaunt.`,fr:`Et la faim viendra parmi vous. Vous creuserez des racines et arracherez les enfants du sein. L'émacié s'attaquera à l'émacié.`},
+    {ref:'3:4',en:`The great shall be made poor and the poor poorer still.`,fr:`Les grands seront appauvris et les pauvres plus pauvres encore.`},
+    {ref:'3:5',en:`Then shall come rain unending and the day shall be made night by its coming.`,fr:`Puis viendra une pluie sans fin et le jour sera fait nuit par son arrivée.`},
+    {ref:'3:6',en:`Brother shall slay Brother and Sister poison Sister.`,fr:`Le Frère tuera le Frère et la Sœur empoisonnera la Sœur.`},
+  ]},
+  { num:4, title:{en:'PSALM IV',fr:'PSAUME IV'}, verses:[
+    {ref:'4:1',en:`For five days and five nights mothers flesh shall be the cloak of demons.`,fr:`Pendant cinq jours et cinq nuits la chair des mères sera le manteau des démons.`},
+    {ref:'4:2',en:`And for five days and five nights shall fathers weep.`,fr:`Et pendant cinq jours et cinq nuits les pères pleureront.`},
+    {ref:'4:3',en:`Look to the West. Forth comes fire, and a horde, and the Kingdoms burn.`,fr:`Regarde vers l'Ouest. En sort le feu, et une horde, et les Royaumes brûlent.`},
+    {ref:'4:4',en:`The liar, Arkh shall make knots of the hearts of men, sundering the strongest of bonds.`,fr:`Le menteur, Arkh fera des nœuds des cœurs des hommes, rompant les plus forts des liens.`},
+    {ref:'4:5',en:`Behold now the Endless Sea, where Leviathan causes waves to be as mountains.`,fr:`Contemple maintenant la Mer Sans Fin, où Léviathan fait des vagues comme des montagnes.`},
+    {ref:'4:6',en:`And Leviathan shall come among you. Children winter-born and fated to fall before snow, both shall it take.`,fr:`Et Léviathan viendra parmi vous. Les enfants nés en hiver et voués à tomber avant la neige, tous deux il les prendra.`},
+  ]},
+  { num:5, title:{en:'PSALM V',fr:'PSAUME V'}, verses:[
+    {ref:'5:1',en:`The lake and brook shall blacken and the water become tar.`,fr:`Le lac et le ruisseau noirciront et l'eau deviendra goudron.`},
+    {ref:'5:2',en:`The trees shall wither, shrivel and die.`,fr:`Les arbres se flétriront, se ratatineront et mourront.`},
+    {ref:'5:3',en:`And birds shall fall dead from the sky.`,fr:`Et les oiseaux tomberont morts du ciel.`},
+    {ref:'5:4',en:`In one night all those not yet of seven years and seven days shall pass. Born and unborn. And dawn shall give them life as eaters of men.`,fr:`En une nuit tous ceux n'ayant pas encore sept ans et sept jours trépasseront. Nés et à naître. Et l'aube leur donnera vie en dévoreurs d'hommes.`},
+    {ref:'5:5',en:`The sky shall weep fire and a great stone shall plummet as a city fallen from heaven. Its gift is Death and madness is its herald.`,fr:`Le ciel pleurera le feu et une grande pierre plongera comme une cité tombée des cieux. Son don est la Mort et la folie est son héraut.`},
+    {ref:'5:6',en:`And the last King and the last Queen shall wither to dust. Their wretched courts are devoured by wolves.`,fr:`Et le dernier Roi et la dernière Reine s'effriteront en poussière. Leurs cours misérables sont dévorées par les loups.`},
+  ]},
+  { num:6, title:{en:'PSALM VI',fr:'PSAUME VI'}, verses:[
+    {ref:'6:1',en:`You shall know the last day is come. The sun shall set and never rise.`,fr:`Tu sauras que le dernier jour est venu. Le soleil se couchera et ne se lèvera plus.`},
+    {ref:'6:2',en:`And day shall be as night and night as day. You shall not sleep, neither shall you wake.`,fr:`Et le jour sera comme la nuit et la nuit comme le jour. Tu ne dormiras pas, tu ne t'éveilleras pas non plus.`},
+    {ref:'6:3',en:`Anthelia shall have her will and drink all colour from the world.`,fr:`Anthelia aura sa volonté et boira toutes les couleurs du monde.`},
+    {ref:'6:4',en:`Those who walk on two legs shall be nameless as the beasts of the field.`,fr:`Ceux qui marchent sur deux jambes seront sans nom comme les bêtes des champs.`},
+    {ref:'6:5',en:`The earth shall vein, bringing black serpents forth from within the earth.`,fr:`La terre se veinera, faisant surgir de noirs serpents des entrailles de la terre.`},
+    {ref:'6:6',en:`And the unnamed enter the earth, passing through the Veil as it is sundered by Daejmon, the left underling of Nechrubel.`,fr:`Et les sans-nom entrent dans la terre, passant à travers le Voile alors qu'il est déchiré par Daejmon, le subordonné gauche de Nechrubel.`},
+  ]},
+  { num:7, title:{en:'PSALM VII — THE LAST',fr:'PSAUME VII — LE DERNIER'}, verses:[
+    {ref:'7:7',en:`All praise Yetsabu-Nech, the underworld's nightmare, the black disk which stands before the sun! All praise Verhu, beaming with delight! All praise the fire which burns all! And the darkness shall swallow the darkness.`,fr:`Louanges à Yetsabu-Nech, le cauchemar du monde souterrain, le disque noir qui se dresse devant le soleil ! Louanges à Verhu, rayonnant de joie ! Louanges au feu qui brûle tout ! Et les ténèbres dévoreront les ténèbres.`},
+  ]},
+];
+
+const DURATION_DIES = [
+  {en:'Years of pain',   fr:'Années de douleur',     die:'d100', sides:100},
+  {en:'A bleak half-year',fr:'Une sombre demi-année', die:'d20',  sides:20},
+  {en:'A fall in anguish',fr:'Une chute dans l\'angoisse',die:'d10',sides:10},
+  {en:'A cruel month',   fr:'Un mois cruel',          die:'d6',   sides:6},
+  {en:'The end is nigh!',fr:'La fin est proche !',    die:'d2',   sides:2},
+];
+
+function miseryLoad(){ try{ return JSON.parse(localStorage.getItem('mbMisery')||'{}'); }catch(e){ return {}; } }
+function miserySave(s){ try{ localStorage.setItem('mbMisery', JSON.stringify(s)); }catch(e){} }
+function miseryDefault(){ return {
+  die:'d6', day:1,
+  dawnVal:null,          // last dawn die result
+  miseryCount:0,         // 0–7 miseries fallen
+  miseryRoll:null,       // last misery d6 result (pending assignment)
+  chronicle:[],          // [{num, ref, text}] ordered misery events
+  activated:[],          // set of verse refs manually toggled
+  collapsed:{},          // psalm collapse state
+  durVals:{},            // duration die results
+}; }
+
+function misDieSides(d){ return {'d2':2,'d4':4,'d6':6,'d8':8,'d10':10,'d20':20,'d100':100}[d]||6; }
+function misOrdinal(n){
+  if(LANG==='fr') return (['Première','Deuxième','Troisième','Quatrième','Cinquième','Sixième','Septième'][n-1])||n+'ème';
+  return (['First','Second','Third','Fourth','Fifth','Sixth','Seventh'][n-1])||(n+'th');
+}
+function misDieBtn(id, sides, val, misact){
+  const shown = val!=null ? val : '?';
+  return `<button class="die" data-sides="${sides}" data-misact="${misact}" id="${id}" title="Roll d${sides}"><span class="die-val">${shown}</span></button>`;
+}
+function misAnimDie(id, sides, final){
+  const el = document.getElementById(id); if(!el) return;
+  const valEl = el.querySelector('.die-val');
+  el.classList.remove('rolling'); void el.offsetWidth; el.classList.add('rolling');
+  const iv = setInterval(()=>{ valEl.textContent = 1+Math.floor(Math.random()*sides); }, 60);
+  setTimeout(()=>{ clearInterval(iv); valEl.textContent = final; el.classList.remove('rolling'); }, 690);
+}
+function misFlashBanner(){
+  const b = document.querySelector('.mis-banner'); if(!b) return;
+  b.classList.remove('mis-flash'); void b.offsetWidth; b.classList.add('mis-flash');
+}
+
+function renderMiseryCalendar(){
+  const s = Object.assign(miseryDefault(), miseryLoad());
+  const ended = s.miseryCount>=7;
+  const nextPsalm = Math.min(7, (s.miseryCount||0)+1);   // which psalm is next
+
+  // ── Die selector (this is also the "duration" choice)
+  const DIES = ['d2','d6','d10','d20','d100'];
+  const dieCtrl = `<div class="mis-ctrl" style="flex:1;">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px;"><span class="mis-label">${t({en:'Dawn die — campaign duration',fr:'Dé de l\'Aube — durée de campagne'})}</span><div style="display:flex;gap:6px;"><button class="btn" data-misact="export-cal" style="font-size:12px;padding:4px 10px;">${t({en:'Export',fr:'Exporter'})}</button><button class="btn" data-misact="reset-cal" style="font-size:12px;padding:4px 10px;">${t({en:'Reset',fr:'Réinitialiser'})}</button></div></div>
+    <div style="overflow-x:auto;margin-bottom:8px;padding-bottom:2px;">
+      <div style="display:flex;flex-wrap:nowrap;gap:4px 14px;align-items:center;min-width:max-content;">
+        ${DURATION_DIES.map(dd=>`<span style="font-size:14px;white-space:nowrap;color:${dd.die===s.die?'var(--ink)':'var(--muted)'};">${dd.die} — ${t({en:dd.en,fr:dd.fr})}</span>`).join('')}
+      </div>
+    </div>
+    <div class="mis-diepicker">${DIES.map(d=>`<button class="mis-diebtn${s.die===d?' on':''}" data-misact="setdie" data-die="${d}">${d}</button>`).join('')}</div>
+  </div>`;
+
+  const dayCtrl = '';  // merged into dawnCtrl
+
+  // ── Dawn roll
+  const dawnSides = misDieSides(s.die);
+  const dawnIsMisery = s.dawnVal===1;
+  let bannerHtml = '';
+  if(s.dawnVal!=null){
+    const ok = !dawnIsMisery;
+    bannerHtml = `<div class="mis-banner${ok?' mis-ok':' mis-alert'}">
+      ${ok ? '✔ '+t({en:'The world holds. For now.',fr:'Le monde tient. Pour l\'instant.'}) : '☠ '+t({en:'A Misery is awakened! Roll d6 for Psalm '+nextPsalm+' below.',fr:'Une Misère s\'éveille ! Lance d6 sur le Psaume '+nextPsalm+' ci-dessous.'})}
+    </div>`;
+  }
+  const dawnCtrl = `<div class="mis-ctrl" style="flex:1;min-width:200px;">
+    <span class="mis-label">${t({en:'A New Dawn',fr:'Une Nouvelle Aube'})}</span>
+    <div class="mis-die-row">
+      <button class="btn gold" data-misact="new-dawn" style="font:700 14px/1 Impact,'Arial Narrow',sans-serif;text-transform:uppercase;letter-spacing:.06em;padding:9px 16px;">${t({en:'Dawn',fr:'Aube'})}</button>
+      ${misDieBtn('mis-dawn-die', dawnSides, s.dawnVal, 'new-dawn')}
+      <input class="die-in" type="number" min="1" max="${dawnSides}" placeholder="…" data-misact="dawn-manual" title="${t({en:'Enter manually',fr:'Saisir manuellement'})}">
+      <span style="font-size:14px;color:var(--muted);margin-left:6px;">${t({en:'Day',fr:'Jour'})}</span>
+      <button class="mis-adj" data-misact="day-dec">−</button>
+      <input class="mis-dayinp" type="number" min="1" value="${s.day||1}" data-misact="day-input" style="width:54px;">
+      <button class="mis-adj" data-misact="day-inc">+</button>
+    </div>
+    ${bannerHtml}
+  </div>`;
+
+  // ── Tracker
+  const dots = Array.from({length:7},(_,i)=>{
+    const on = i<(s.miseryCount||0), isLast=i===6;
+    return `<div class="mis-dot${on?' on':''}${isLast?' mis-last':''}" data-misact="dot-toggle" data-idx="${i}" title="${t({en:'Toggle',fr:'Basculer'})}">✕</div>`;
+  }).join('');
+  const trackerHtml = `<div class="mis-tracker">
+    <span class="mis-tracker-label">${t({en:'Miseries',fr:'Misères'})}</span>${dots}
+  </div>`;
+
+  // ── Actions
+  const actHtml = '';  // export in header, reset in die ctrl
+
+  // ── Misery roll panel (always visible)
+  const misNum = Math.min(7, (s.miseryCount||0)+1);
+  const misOrd = misOrdinal(misNum);
+  const misSides = 6;
+  const misCtrl = `<div class="mis-misery-panel">
+    <div class="mis-misery-title">${esc(t({en:`${misOrd} Misery — roll d6 on Psalm ${misNum}`,fr:`${misOrd} Misère — lance d6 sur le Psaume ${misNum}`}))}</div>
+    <div class="mis-die-row">
+      <button class="btn" data-misact="roll-misery" style="font:700 14px/1 Impact,'Arial Narrow',sans-serif;text-transform:uppercase;padding:9px 16px;background:var(--red);border-color:var(--red);color:#fff;">${t({en:'Roll d6',fr:'Lance d6'})}</button>
+      ${misDieBtn('mis-mis-die', misSides, s.miseryRoll, 'roll-misery')}
+      <input class="die-in" type="number" min="1" max="6" placeholder="1-6" data-misact="misery-manual" title="${t({en:'Enter manually',fr:'Saisir manuellement'})}">
+    </div>
+  </div>`;
+
+  // ── Chronicle
+  const chronicleItems = (s.chronicle||[]).map((ev,i)=>
+    `<li class="mis-chronicle-item"><strong>${ev.ref}</strong> — ${esc(t({en:ev.en,fr:ev.fr}))}</li>`
+  ).join('');
+  const chronicleHtml = `<div class="mis-chronicle">
+    <div class="mis-chronicle-title">${t({en:'Chronicle of Miseries',fr:'Chronique des Misères'})}</div>
+    ${chronicleItems ? `<ul class="mis-chronicle-list">${chronicleItems}</ul>` : `<div class="mis-chronicle-empty">${t({en:'No miseries yet.',fr:'Aucune misère pour l\'instant.'})}</div>`}
+  </div>`;
+
+  // ── Psalms
+  let psalmsHtml = '';
+  for(const psalm of NECHRUBEL_PSALMS){
+    if(psalm.num===7) continue;   // 7:7 shown as end box
+    const col=s.collapsed[String(psalm.num)];
+    psalmsHtml += `<div class="mis-psalm">
+      <div class="mis-psalm-hd mis-psalm-hd-click" data-misact="psalm-fold" data-psalm="${psalm.num}">
+        <span class="mis-psalm-htitle">${t(psalm.title)}</span>
+        <span class="mis-psalm-chev">${col?'▸':'▾'}</span>
+      </div>
+      <div class="mis-psalm-body${col?' mis-collapsed':''}">`;
+    for(const v of psalm.verses){
+      const inChr=(s.chronicle||[]).some(c=>c.ref===v.ref);
+      const manual=(s.activated||[]).includes(v.ref);
+      const on=inChr||manual;
+      psalmsHtml+=`<div class="mis-verse${on?' mis-verse-on':''}" data-misact="toggle-verse" data-ref="${v.ref}" data-inchr="${inChr?1:0}">
+        <span class="mis-ref">${v.ref}</span>
+        <span class="mis-vtext">${esc(t({en:v.en,fr:v.fr}))}</span>
+        <span class="mis-vcheck">${inChr?'☠':manual?'✕':''}</span>
+      </div>`;
+    }
+    psalmsHtml+=`</div></div>`;
+  }
+
+  // ── End of world
+  const psalm7v = NECHRUBEL_PSALMS[6].verses[0];
+  const p7chr = (s.chronicle||[]).some(c=>c.ref===psalm7v.ref);
+  const p7man = (s.activated||[]).includes(psalm7v.ref);
+  const p7on = p7chr||p7man;
+  const endHtml = `<div class="mis-endbox">
+    <div class="mis-end-77" style="${ended?'':'color:var(--muted);opacity:.4;'}">7:7</div>
+    <div class="mis-verse${p7on?' mis-verse-on':''}" data-misact="toggle-verse" data-ref="${psalm7v.ref}" data-inchr="${p7chr?1:0}" style="text-align:left;border-radius:4px;margin-bottom:${ended?16:0}px;">
+      <span class="mis-ref">${psalm7v.ref}</span>
+      <span class="mis-vtext">${esc(t({en:psalm7v.en,fr:psalm7v.fr}))}</span>
+      <span class="mis-vcheck">${p7chr?'☠':p7man?'✕':''}</span>
+    </div>
+    ${ended?`<p class="mis-end-text">${t({en:'The world finally dies. The seventh seal is broken for the seventh and final time.<br><br>The game and your lives end here.<br><em>Burn the book.</em>',fr:'Le monde mourra enfin. Le septième sceau est brisé pour la septième et dernière fois.<br><br>Le jeu et vos vies s\'arrêtent ici.<br><em>Brûlez le livre.</em>'})}</p>`:''}
+  </div>`;
+
+  return `<div class="mis-wrap">
+    <div class="mis-header">
+      <h2 class="mis-title mis-gothic" style="text-align:center;">${t({en:'The Calendar of Nechrubel',fr:'Le Calendrier de Nechrubel'})}</h2>
+    </div>
+    <div class="mis-panel">${dieCtrl}${dayCtrl}${dawnCtrl}${actHtml}</div>
+    ${trackerHtml}
+    ${misCtrl}
+    ${chronicleHtml}
+    <div class="mis-psalms">${psalmsHtml}</div>
+    ${endHtml}
+  </div>`;
+}
+
+// Misery calendar — persistent event delegation on the tables grid
+// Bound once at startup; works across re-renders
+function initMiseryDelegation(){
+  const grid = document.getElementById('tablesgrid');
+  if(!grid || grid._miseryBound) return;
+  grid._miseryBound = true;
+
+  function misHandle(e){
+    if(tablesTab!=='misery') return;
+    const el=e.target.closest('[data-misact]'); if(!el) return;
+    const act=el.dataset.misact;
+    const s=Object.assign(miseryDefault(),miseryLoad());
+
+    if(act==='setdie'){ s.die=el.dataset.die; miserySave(s); renderTables(); }
+    else if(act==='day-dec'){ s.day=Math.max(1,(s.day||1)-1); miserySave(s); renderTables(); }
+    else if(act==='day-inc'){ s.day=(s.day||1)+1; miserySave(s); renderTables(); }
+    else if(act==='new-dawn'){
+      const sides=misDieSides(s.die), n=rollDie(sides);
+      s.dawnVal=n; s.day=(s.day||1)+1;
+      miserySave(s); renderTables();
+      misAnimDie('mis-dawn-die',sides,n);
+      setTimeout(misFlashBanner,100);
+    }
+    else if(act==='roll-misery'){
+      const n=rollDie(6); s.miseryRoll=n;
+      miseryApplyRoll(s,n);
+      miserySave(s); renderTables();
+      misAnimDie('mis-mis-die',6,n);
+    }
+    else if(act==='psalm-fold'){
+      const p=String(el.dataset.psalm);
+      s.collapsed=s.collapsed||{}; s.collapsed[p]=!s.collapsed[p];
+      miserySave(s); renderTables();
+      e.stopPropagation();
+    }
+    else if(act==='toggle-verse'){
+      const ref=el.dataset.ref, inChr=el.dataset.inchr==='1';
+      if(inChr){
+        // Remove from chronicle and decrement misery count
+        s.chronicle=(s.chronicle||[]).filter(c=>c.ref!==ref);
+        s.miseryCount=Math.max(0,(s.miseryCount||0)-1);
+      } else {
+        // Find the verse data across all psalms
+        let verseData=null;
+        for(const psalm of NECHRUBEL_PSALMS){
+          const v=psalm.verses.find(v=>v.ref===ref);
+          if(v){ verseData={ref:v.ref,en:v.en,fr:v.fr,manual:true}; break; }
+        }
+        if(verseData){
+          const already=(s.chronicle||[]).some(c=>c.ref===ref);
+          if(already){
+            // Toggle off
+            s.chronicle=(s.chronicle||[]).filter(c=>c.ref!==ref);
+            s.miseryCount=Math.max(0,(s.miseryCount||0)-1);
+          } else {
+            // Add to chronicle
+            s.chronicle=[...(s.chronicle||[]),verseData];
+            s.miseryCount=Math.min(7,(s.miseryCount||0)+1);
+          }
+        }
+      }
+      miserySave(s); renderTables();
+    }
+    else if(act==='dot-toggle'){
+      const idx=parseInt(el.dataset.idx), cur=s.miseryCount||0;
+      if(idx<cur){
+        s.chronicle=(s.chronicle||[]).slice(0,idx);
+        s.miseryCount=idx;
+      } else {
+        const chr=[...(s.chronicle||[])];
+        for(let i=chr.length; i<=idx; i++){
+          const psalm=NECHRUBEL_PSALMS[i];
+          if(psalm){ const v=psalm.verses[0]; chr.push({ref:v.ref,en:v.en,fr:v.fr,manual:true}); }
+        }
+        s.chronicle=chr;
+        s.miseryCount=idx+1;
+      }
+      miserySave(s); renderTables();
+    }
+    else if(act==='export-cal'){
+      const blob=new Blob([JSON.stringify(Object.assign(miseryDefault(),miseryLoad()),null,2)],{type:'application/json'});
+      const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='nechrubel-calendar.json'; a.click();
+    }
+    else if(act==='reset-cal'){
+      if(confirm(t({en:'Reset the Calendar of Nechrubel?',fr:'Réinitialiser le Calendrier de Nechrubel ?'}))){
+        localStorage.removeItem('mbMisery'); renderTables();
+      }
+    }
+  }
+
+  function misChange(e){
+    if(tablesTab!=='misery') return;
+    const el=e.target.closest('[data-misact]'); if(!el) return;
+    const act=el.dataset.misact;
+    const s=Object.assign(miseryDefault(),miseryLoad());
+    if(act==='day-input'){ s.day=Math.max(1,parseInt(el.value)||1); miserySave(s); renderTables(); }
+    else if(act==='dawn-manual'){
+      const v=parseInt(el.value); if(!v||v<1) return;
+      s.dawnVal=v; miserySave(s); renderTables(); misFlashBanner();
+    }
+    else if(act==='misery-manual'){
+      const v=Math.min(6,Math.max(1,parseInt(el.value)||1));
+      s.miseryRoll=v; miseryApplyRoll(s,v); miserySave(s); renderTables();
+    }
+  }
+
+  grid.addEventListener('click', misHandle);
+  grid.addEventListener('change', misChange);
+}
+
+function bindMiseryEvents(){ /* no-op — delegation handled by initMiseryDelegation */ }
 /* ---------- state ---------- */
 const LS_LIST = 'mb.scvm.list.v1';
 const LS_CUR  = 'mb.scvm.current.v1';
@@ -3342,10 +4158,10 @@ function kindExtraLabel(f){
   return '';
 }
 function omensRef(){
-  return `<details class="ref"><summary>${esc(t(UI.omensUse))}</summary><p>${esc(OMENS_INTRO)}</p><ul>${OMENS_USE.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></details>`;
+  return `<details class="ref"><summary>${esc(t(UI.omensUse))}</summary><p>${esc(t(OMENS_INTRO))}</p><ul>${t(OMENS_USE).map(x=>`<li>${esc(x)}</li>`).join('')}</ul></details>`;
 }
 function scrollRulesRef(){
-  return `<details class="ref"><summary>${esc(t(UI.scrollRules))}</summary><p>${esc(SCROLL_RULES)}</p></details>`;
+  return `<details class="ref"><summary>${esc(t(UI.scrollRules))}</summary><p>${esc(t(SCROLL_RULES))}</p></details>`;
 }
 
 function fieldBody(f){
@@ -3515,15 +4331,16 @@ function fieldBody(f){
 /* ---------- reference block (verbatim, hidden in print) ---------- */
 function renderRef(){
   const abTbl = ABIL_TABLE.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join('');
-  const brTbl = BROKEN_TABLE.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join('');
+  const brTbl = BROKEN_TABLE.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(t(r[1]))}</td></tr>`).join('');
+  const abilDesc = t(ABIL_DESC);
   document.getElementById('refblock').innerHTML =
     `<details class="ref"><summary>${esc(t(UI.rulesRef))}</summary>`
-    + `<h3>Abilities</h3><ul>${ABIL_DESC.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`
-    + `<p>${esc(ABIL_RULE)}</p>`
+    + `<h3>${t({en:'Abilities',fr:'Caractéristiques'})}</h3><ul>${abilDesc.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`
+    + `<p>${esc(t(ABIL_RULE))}</p>`
     + `<table><tbody>${abTbl}</tbody></table>`
-    + `<h3>Carrying capacity</h3><p>${esc(CARRY_TEXT)}</p>`
-    + `<h3>Hit points</h3><p>${esc(HP_TEXT)}</p>`
-    + `<h4>Broken (d4)</h4><table><tbody>${brTbl}</tbody></table>`
+    + `<h3>${t({en:'Carrying capacity',fr:'Capacité de portage'})}</h3><p>${esc(t(CARRY_TEXT))}</p>`
+    + `<h3>${t({en:'Hit points',fr:'Points de vie'})}</h3><p>${esc(t(HP_TEXT))}</p>`
+    + `<h4>${t({en:'Broken (d4)',fr:'Brisé (d4)'})}</h4><table><tbody>${brTbl}</tbody></table>`
     + `</details>`;
 }
 
@@ -3826,7 +4643,8 @@ function oracleDieHTML(tid,key,sides,val){
 function renderTables(){
   const grid=document.getElementById('tablesgrid'); if(!grid) return;
   const tabsEl=document.getElementById('tablestabs');
-  if(tabsEl){ const tabLabels={oracle:{en:'Oracle',fr:'Oracle'},loot:{en:'Loot',fr:'Butin'},cvlt:{en:'Cvlt',fr:'Cvlte'},cvrse:{en:'Cvrse',fr:'Malédiction'}}; tabsEl.innerHTML=['oracle','loot','cvlt','cvrse'].map(tb=>'<button class="tab'+(tablesTab===tb?' on':'')+'" data-act="tables-tab" data-tab="'+tb+'">'+t(tabLabels[tb])+'</button>').join(''); }
+  if(tabsEl){ const tabLabels={oracle:{en:'Oracle',fr:'Oracle'},loot:{en:'Loot',fr:'Butin'},cvlt:{en:'Cvlt',fr:'Cvlte'},cvrse:{en:'Cvrse',fr:'Malédiction'},dvngeon:{en:'Dvngeon',fr:'Cachot'},misery:{en:'Miseries',fr:'Misères'}}; tabsEl.innerHTML=['oracle','loot','cvlt','cvrse','dvngeon','misery'].map(tb=>'<button class="tab'+(tablesTab===tb?' on':'')+'"'+(tb==='misery'?' style="color:var(--red);border-color:var(--red);"':'')+' data-act="tables-tab" data-tab="'+tb+'">'+t(tabLabels[tb])+'</button>').join(''); }
+  if(tablesTab==='misery'){ grid.innerHTML=renderMiseryCalendar(); return; }
   if(GENERATORS[tablesTab]){ if(!genRolls[tablesTab]) genRollAll(tablesTab); grid.innerHTML='<div class="tablescol">'+genSeedsHTML(tablesTab)+'</div><div class="tablescol">'+genComposedHTML(tablesTab)+'</div>'; return; }
   const cats=oracleCats().filter(cat=>(cat.tab||'oracle')===tablesTab);
   const nCols=Math.max(1, Math.min(3, Math.floor(Math.min(1232, window.innerWidth-48)/360)));
@@ -3927,7 +4745,33 @@ function onClick(e){
   else if(act==='tables-tab'){ tablesTab=actEl.dataset.tab; renderTables(); }
   else if(act==='sps-fold'){ const g=actEl.dataset.gid; spsOpen[g]=!spsOpen[g]; renderTables(); }
   else if(act==='gen-roll-all'){ genRollAll(actEl.dataset.gen); renderTables(); }
-  else if(act==='gen-die'){ const tab=actEl.dataset.gen, p=GENERATORS[tab].parts.find(x=>x.id===actEl.dataset.part); if(p){ const i=+actEl.dataset.i, d=genState(tab); d[p.id]=d[p.id]||{}; if(p.cols){ d[p.id].r=d[p.id].r||p.cols.map(()=>1); d[p.id].r[i]=rollDie(p.cols[i].length); } else d[p.id].main=rollDie(p.sides); renderTables(); } }
+  else if(act==='gen-die'){
+    const tab=actEl.dataset.gen, p=GENERATORS[tab].parts.find(x=>x.id===actEl.dataset.part);
+    if(p){ const i=+actEl.dataset.i, d=genState(tab); d[p.id]=d[p.id]||{};
+      if(p.isCount){ d[p.id].main=(p.offset||0)+rollDie(p.sides); }
+      else if(p.cols){ d[p.id].r=d[p.id].r||p.cols.map(()=>1); d[p.id].r[i]=rollDie(p.cols[i].length); }
+      else { d[p.id].main=rollDie(p.sides); }
+      // If danger rolled, auto-roll dangerSub if result=1
+      if(p.id==='danger'){ if(d.danger.main===1){ const d2=genState(tab); d2.dangerSub=d2.dangerSub||{}; d2.dangerSub.main=rollDie(4); } }
+      renderTables(); }
+  }
+  // ── Dvngeon handlers
+  else if(act==='dvn-count-roll'){
+    const tab=actEl.dataset.gen, d=genState(tab);
+    const count=6+rollDie(7); d.roomCount={main:count};
+    d.dvnRooms=[]; for(let i=0;i<count;i++) d.dvnRooms.push(genOneRoom());
+    renderTables();
+  }
+  else if(act==='dvn-rooms-reroll-all'){
+    const tab=actEl.dataset.gen, d=genState(tab);
+    const count=(d.roomCount&&d.roomCount.main)||6;
+    d.dvnRooms=[]; for(let i=0;i<count;i++) d.dvnRooms.push(genOneRoom());
+    renderTables();
+  }
+  else if(act==='dvn-room-reroll'){
+    const tab=actEl.dataset.gen, ri=+actEl.dataset.ri, d=genState(tab);
+    d.dvnRooms=d.dvnRooms||[]; d.dvnRooms[ri]=genOneRoom(); renderTables();
+  }
   else if(act==='oracle-roll'){ const tid=actEl.dataset.table, m=ORACLE_BY_ID[tid]; if(!m||!m.table) return; oracle[tid]=oracle[tid]||{}; oracle[tid][key]= m.tens ? (rollDie(m.tens)*10+rollDie(m.units)) : rollDie(m.sides); animQ.push(['oracle:'+tid,key]); renderTables(); flushAnim(); }
   else if(act==='oracle-toggle'){ const tid=actEl.dataset.table, m=ORACLE_BY_ID[tid]; oracleOpen[tid]=!oracleOpen[tid]; if(oracleOpen[tid] && m && m.table && !(oracle[tid]&&oracle[tid].main!=null)){ oracle[tid]=oracle[tid]||{}; oracle[tid].main= m.tens ? (rollDie(m.tens)*10+rollDie(m.units)) : rollDie(m.sides); animQ.push(['oracle:'+tid,'main']); } renderTables(); flushAnim(); }
   else if(act==='toggle-sps'){ const gid=actEl.dataset.grp; state.sps=state.sps||{}; state.sps[gid]=!state.sps[gid]; render(); }
@@ -3946,6 +4790,39 @@ function onChange(e){
   if(el.id==='classsel'){ state.classId=el.value; state.boost={}; setupChrome(); render(); return; }
   if(el.id==='importf'){ importFile(el.files[0]); el.value=''; return; }
   if(el.id==='importlistf'){ importToList(el.files[0]); el.value=''; return; }
+  // ── Dvngeon manual inputs
+  if(el.dataset && el.dataset.act==='dvn-manual'){
+    const tab=el.dataset.gen, pid=el.dataset.part, v=parseInt(el.value);
+    if(!isNaN(v)&&v>=1){ const d=genState(tab); d[pid]=d[pid]||{}; d[pid].main=v;
+      if(pid==='danger'&&v===1){ d.dangerSub=d.dangerSub||{}; d.dangerSub.main=rollDie(4); }
+      renderTables(); el.value=''; } return;
+  }
+  if(el.dataset && el.dataset.act==='dvn-cols-manual'){
+    const tab=el.dataset.gen, pid=el.dataset.part, raw=el.value;
+    const parts=raw.split(',').map(s=>parseInt(s.trim())).filter(n=>!isNaN(n)&&n>=1);
+    const p=GENERATORS[tab].parts.find(x=>x.id===pid);
+    if(p&&parts.length===p.cols.length){ const d=genState(tab); d[pid]=d[pid]||{}; d[pid].r=parts; renderTables(); el.value=''; } return;
+  }
+  if(el.dataset && el.dataset.act==='dvn-count-manual'){
+    const tab=el.dataset.gen, v=Math.min(12,Math.max(6,parseInt(el.value)||6));
+    const d=genState(tab); d.roomCount={main:v};
+    d.dvnRooms=[]; for(let i=0;i<v;i++) d.dvnRooms.push(genOneRoom());
+    renderTables(); el.value=''; return;
+  }
+  if(el.dataset && el.dataset.act==='dvn-room-manual-set'){
+    const tab=el.dataset.gen, ri=+el.dataset.ri, v=Math.min(4,Math.max(1,parseInt(el.value)||1));
+    const d=genState(tab); d.dvnRooms=d.dvnRooms||[];
+    if(!d.dvnRooms[ri]) d.dvnRooms[ri]={set:v,roll:rollDie(6),text:'?'};
+    d.dvnRooms[ri].set=v; d.dvnRooms[ri]=applyRoom(d.dvnRooms[ri]);
+    renderTables(); el.value=''; return;
+  }
+  if(el.dataset && el.dataset.act==='dvn-room-manual-roll'){
+    const tab=el.dataset.gen, ri=+el.dataset.ri, v=Math.min(6,Math.max(1,parseInt(el.value)||1));
+    const d=genState(tab); d.dvnRooms=d.dvnRooms||[];
+    if(!d.dvnRooms[ri]) d.dvnRooms[ri]={set:rollDie(4),roll:v,text:'?'};
+    d.dvnRooms[ri].roll=v; d.dvnRooms[ri]=applyRoom(d.dvnRooms[ri]);
+    renderTables(); el.value=''; return;
+  }
   if(el.dataset && el.dataset.mod){
     state.modules[el.dataset.mod]=el.checked;
     if(el.checked && !state.f[el.dataset.mod]) randomizeField(state, BASE_BY_ID[el.dataset.mod]);
@@ -3988,6 +4865,7 @@ function boot(){
   setupChrome();
   render();          // do NOT auto-roll: fields start as "?" until the player rolls or types
   showView('home');
+  initMiseryDelegation();
 }
 
 // theme toggle
