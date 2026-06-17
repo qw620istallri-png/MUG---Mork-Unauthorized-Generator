@@ -385,6 +385,8 @@ body.light .navlink{color:#4a4535;}
 .classcard::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,8,8,.05) 0%,rgba(8,8,8,.55) 52%,rgba(8,8,8,.96) 100%);}
 .cc-body{position:absolute;left:0;right:0;bottom:0;z-index:1;padding:14px 16px;}
 .cc-title{display:block;font:400 23px/0.95 Impact,'Arial Narrow',sans-serif;text-transform:uppercase;color:#fff;letter-spacing:.02em;}
+.cc-src{display:inline-block;margin-left:6px;font:700 11px/1 'Inter',sans-serif;color:var(--yellow2);text-decoration:none;vertical-align:middle;opacity:.8;transition:opacity .12s;white-space:nowrap;}
+.cc-src:hover{opacity:1;text-decoration:underline;}
 .cc-underline{display:block;width:52px;height:3px;background:var(--yellow);margin:9px 0 11px;}
 .cc-tags{display:flex;flex-wrap:wrap;gap:6px;min-height:44px;align-content:flex-start;}
 .cc-tag{font:700 9.5px/1 'Inter',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);background:rgba(0,0,0,.5);padding:4px 6px;border-radius:3px;}
@@ -4197,7 +4199,9 @@ function fieldBody(f){
     case 'classdisplay': {
       const cls = CLASSES[s.classId], meta = CLASS_META[s.classId];
       const emblem = (cls && meta && EMBLEMS[meta.glyph]) ? `<span class="classemblem" style="--accent:${meta.hue||'#caa24a'}">${EMBLEMS[meta.glyph]}</span>` : '';
-      return L + `<div class="classrow">${emblem}<span class="result big noroll">${esc(cls ? t(cls.name) : t(UI.noclass))}</span></div>`;
+      const src = CLASS_SOURCE[s.classId];
+      const srcLink = (cls && src) ? ` <a href="${esc(src.url)}" target="_blank" rel="noopener" class="cc-src">↗ ${esc(classSourceLabel(src))}</a>` : '';
+      return L + `<div class="classrow">${emblem}<span class="result big noroll">${esc(cls ? t(cls.name) : t(UI.noclass))}</span>${srcLink}</div>`;
     }
     case 'fixed': {
       return L + `<div class="fixedtext">${fmt(t(f.fixed))}</div>`;
@@ -4614,6 +4618,32 @@ function renderNav(){
   const av=nl.querySelector('[data-nav="'+view+'"]'); if(av) av.classList.add('active');
   paintChrome();
 }
+const CLASS_SOURCE = {
+  'fanged-deserter':      {url:'https://morkborg.com/content/', author:null},
+  'gutterborn-scum':       {url:'https://morkborg.com/content/', author:null},
+  'esoteric-hermit':       {url:'https://morkborg.com/content/', author:null},
+  'wretched-royalty':      {url:'https://morkborg.com/content/', author:null},
+  'heretical-priest':      {url:'https://morkborg.com/content/', author:null},
+  'occult-herbmaster':     {url:'https://morkborg.com/content/', author:null},
+  'cursed-skinwalker':     {url:'https://morkborg.com/content/', author:null},
+  'pale-one':              {url:'https://morkborg.com/content/', author:null},
+  'forlorn-philosopher':   {url:'https://morkborg.com/content/', author:null},
+  'sacrilegious-songbird': {url:'https://morkborg.com/content/', author:null},
+  'shedding-vicar':        {url:'https://morkborg.com/content/', author:null},
+  'dead-gods-prophet':     {url:'https://morkborg.com/content/', author:null},
+  'the-blind':             {url:'https://istallri.itch.io/verdux-borg', author:'Istallri'},
+  'the-crow':              {url:'https://istallri.itch.io/verdux-borg', author:'Istallri'},
+  'the-wall':              {url:'https://istallri.itch.io/verdux-borg', author:'Istallri'},
+  'the-hunter':            {url:'https://istallri.itch.io/verdux-borg', author:'Istallri'},
+  'fugitive-knight':       {url:'https://alleyesno.itch.io/mork-borg-fugitive-knight', author:'Michal Gotkowski'},
+  'war-pig':               {url:'https://christianeichhorn.itch.io/apocrypha', author:'Christian Eichhorn'},
+  'goblin-wild-mage':      {url:'https://christianeichhorn.itch.io/apocrypha', author:'Christian Eichhorn'},
+  'voodoo-witch':          {url:'https://istallri.itch.io/burning-marsh-zine', author:'Istallri'},
+};
+function classSourceLabel(src){
+  if(!src) return '';
+  return src.author ? t({en:'by ',fr:'par '})+src.author : t({en:'Download it here',fr:'Télécharger ici'});
+}
 function renderClasspick(){
   const grid=document.getElementById('classgrid'); if(!grid) return;
   const map={strength:'STR',agility:'AGI',presence:'PRE',toughness:'TGH'};
@@ -4623,9 +4653,11 @@ function renderClasspick(){
     const tags=[];
     if(c.abilityDiceMod) ['strength','agility','presence','toughness'].forEach(a=>{ const val=c.abilityDiceMod[a]; if(val) tags.push('<span class="cc-tag stat">'+(val>0?'+':'')+val+' '+map[a]+'</span>'); });
     if(m.theme) tags.push('<span class="cc-tag">'+(typeof m.theme==='object'?t(m.theme):m.theme)+'</span>');
+    const src = CLASS_SOURCE[cid];
+    const srcLink = src ? '<a href="'+esc(src.url)+'" target="_blank" rel="noopener" class="cc-src" onclick="event.stopPropagation()">↗ '+esc(classSourceLabel(src))+'</a>' : '';
     html+='<button class="classcard'+(pickSel===cid?' selected':'')+'" data-pick="'+cid+'" style="--accent:'+(m.hue||'#caa24a')+'">'
       +'<span class="cc-art">'+(EMBLEMS[m.glyph]||EMBLEMS.dice)+'</span>'
-      +'<span class="cc-body"><span class="cc-title">'+esc(t(c.name))+'</span><span class="cc-underline"></span><span class="cc-tags">'+tags.join('')+'</span></span>'
+      +'<span class="cc-body"><span class="cc-title">'+esc(t(c.name))+srcLink+'</span><span class="cc-underline"></span><span class="cc-tags">'+tags.join('')+'</span></span>'
       +'<span class="cc-confirm" data-i18n="confirmFate">Confirm fate</span>'
       +'</button>';
   });
