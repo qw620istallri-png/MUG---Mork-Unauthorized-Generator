@@ -155,6 +155,9 @@ h2:hover{color:#fff;}
 }
 .die-in{display:block;width:46px;margin-top:5px;background:#0e0e0e;border:1px solid var(--line);color:var(--ink);font:600 12px/1 inherit;text-align:center;padding:3px 2px;border-radius:4px;}
 .die-in:focus{outline:1px solid var(--yellow);}
+.mon-manual{width:46px;background:#0e0e0e;border:1px solid var(--line);color:var(--ink);font:600 12px/1 inherit;text-align:center;padding:3px 2px;border-radius:4px;height:26px;}
+.mon-manual:focus{outline:1px solid var(--yellow);}
+body.light .mon-manual{background:var(--paper2);color:var(--ink);border-color:var(--line);}
 
 /* ── Misc field bits ── */
 .boostbtn{font:700 10px/1 inherit;background:#0e0e0e;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:3px 5px;cursor:pointer;}
@@ -2320,6 +2323,160 @@ Les gens te suivent jusqu'à la mort.`}],
     [11,11,{en:`Sacrifice three goats and a good dog to Nechrubel.`,fr:`Sacrifier trois chèvres et un bon chien à Nechrubel.`}],
     [12,12,{en:`Swim alone in a dark lake on a moonless night. A being from Beyond will come and eat the curse. But whatever you do, do not…`,fr:`Nager seul dans un lac sombre lors d'une nuit sans lune. Un être de l'Au-delà viendra manger la malédiction. Mais quoi que tu fasses, ne…`}],
   ]},
+
+  monsterTableA:{rows:[
+    [1,1,{en:`Dragging one limb`,fr:`Traînant un membre`}],
+    [2,2,{en:`Bent like a coat hanger`,fr:`Courbé comme un cintre`}],
+    [3,3,{en:`Winged and flapping`,fr:`Ailé et battant des ailes`}],
+    [4,4,{en:`Distorted, walking on the "wrong" limbs`,fr:`Distordu, marchant sur les "mauvais" membres`}],
+    [5,5,{en:`Over-endowed in tentacles`,fr:`Surabondant en tentacules`}],
+    [6,6,{en:`Shimmering as if unreal`,fr:`Scintillant comme s'il n'était pas réel`}],
+    [7,7,{en:`Ash-grey, wide-eyed and ghost-gaunt`,fr:`Gris cendre, les yeux écarquillés et émacié comme un fantôme`}],
+    [8,8,{en:`Blindingly white`,fr:`D'un blanc aveuglant`}],
+    [9,9,{en:`Crawling like liquid`,fr:`Rampant comme un liquide`}],
+    [10,10,{en:`Clearly once-human`,fr:`Manifestement autrefois humain`}],
+    [11,11,{en:`Vibrating and steaming like a kettle`,fr:`Vibrant et fumant comme une bouilloire`}],
+    [12,12,{en:`Visibly necrotic`,fr:`Visiblement nécrotique`}],
+  ]},
+  monsterTableB:{rows:[
+    [1,1,{en:`Blood-caked fur`,fr:`Fourrure incrustée de sang`}],
+    [2,2,{en:`Filthy claws like swords`,fr:`Griffes sales comme des épées`}],
+    [3,3,{en:`Blood-shot eyes`,fr:`Yeux injectés de sang`}],
+    [4,4,{en:`Shrunken arms`,fr:`Bras atrophiés`}],
+    [5,5,{en:`Throbbing exposed glands`,fr:`Glandes exposées et palpitantes`}],
+    [6,6,{en:`Acid-wet flesh`,fr:`Chair mouillée d'acide`}],
+    [7,7,{en:`A face like a rotting intestine`,fr:`Un visage comme un intestin en décomposition`}],
+    [8,8,{en:`Impaling spikes`,fr:`Pointes empalantes`}],
+    [9,9,{en:`A broad sewer-reeking maw`,fr:`Une large gueule puant l'égout`}],
+    [10,10,{en:`Scabious feathers`,fr:`Plumes scabieuses`}],
+    [11,11,{en:`Protruding bones`,fr:`Os saillants`}],
+    [12,12,{en:`Long, wispy hair`,fr:`De longs cheveux filiformes`}],
+  ]},
+  monsterTableC:{rows:[
+    [1,1,{en:`Hissing and it cuts like a knife`,fr:`Sifflant et coupant comme un couteau`}],
+    [2,2,{en:`Bleeding from every orifice`,fr:`Saignant de chaque orifice`}],
+    [3,3,{en:`Radiating a dizzying magnetism`,fr:`Irradiant un magnétisme vertigineux`}],
+    [4,4,{en:`Clucking twisted words`,fr:`Gloussant des mots tordus`}],
+    [5,5,{en:`Fading in and out of sight`,fr:`Apparaissant et disparaissant de la vue`}],
+    [6,6,{en:`Crooning disgustingly`,fr:`Roucoulant de façon dégoûtante`}],
+    [7,7,{en:`Absorbing all sound, eerie dead quiet`,fr:`Absorbant tous les sons, un silence sinistre de mort`}],
+    [8,8,{en:`Spasmodically skittering close`,fr:`S'approchant en courant de façon spasmodique`}],
+    [9,9,{en:`Dying, dead, perhaps reanimated`,fr:`Mourant, mort, peut-être réanimé`}],
+    [10,10,{en:`Covered in its own spawn`,fr:`Couvert de sa propre progéniture`}],
+    [11,11,{en:`Leaking sulfuric, corrosive oil from its bulbous gut`,fr:`Fuyant une huile sulfurique et corrosive de son ventre bulbeux`}],
+    [12,12,{en:`More metal than flesh`,fr:`Plus métal que chair`}],
+  ]},
+  monsterWantsTo:{rows:[
+    [1,1,{en:`Collect fresh body parts`,fr:`Collecter de nouvelles parties de corps`}],
+    [2,2,{en:`Devour every living thing it seizes`,fr:`Dévorer chaque être vivant qu'il saisit`}],
+    [3,3,{en:`Escape something worse (roll another creature)`,fr:`Fuir quelque chose de pire (lancer une autre créature)`}],
+    [4,4,{en:`Revel in fear — mutilates or traumatizes rather than kills`,fr:`Se délecter de la peur — mutile ou traumatise plutôt qu'il ne tue`}],
+    [5,5,{en:`Find and rule fresh territory`,fr:`Trouver et régner sur un nouveau territoire`}],
+    [6,6,{en:`Praise its obscure god through combat, constructing idols from the slain`,fr:`Louer son dieu obscur par le combat, construisant des idoles avec les morts`}],
+    [7,7,{en:`Become one with another creature`,fr:`Ne faire qu'un avec une autre créature`}],
+    [8,8,{en:`Make its way to SHE. Or a PC.`,fr:`Se frayer un chemin vers ELLE. Ou un PJ.`}],
+    [9,9,{en:`Die, but not alone`,fr:`Mourir, mais pas seul`}],
+    [10,10,{en:`Build a treasure hoard of silver, iron and blood-stained steel`,fr:`Construire un trésor d'argent, de fer et d'acier taché de sang`}],
+    [11,11,{en:`Defend its territory`,fr:`Défendre son territoire`}],
+    [12,12,{en:`Mate, birthing a wondrous new horror`,fr:`S'accoupler, engendrant une nouvelle horreur merveilleuse`}],
+    [13,13,{en:`Enslave all it encounters`,fr:`Réduire en esclavage tout ce qu'il rencontre`}],
+    [14,14,{en:`Cover lifeless corridors and rooms with warm flayed skin`,fr:`Couvrir les couloirs et pièces sans vie de peau fraîchement écorchée`}],
+    [15,15,{en:`Collect eyes to see Nechrubel`,fr:`Collecter des yeux pour voir Nechrubel`}],
+    [16,16,{en:`Cook fresh meat in its ever-burning hearth`,fr:`Cuire de la viande fraîche dans son âtre toujours brûlant`}],
+    [17,17,{en:`Be sympathized with, petted and cooed over. Reacts violently if not.`,fr:`Être plaint, caressé et cajolé. Réagit violemment sinon.`}],
+    [18,18,{en:`Make necklaces of fingers`,fr:`Fabriquer des colliers de doigts`}],
+    [19,19,{en:`Build stitched-skin dolls stuffed with hair. The bald have no worth.`,fr:`Construire des poupées de peau cousue bourrées de cheveux. Les chauves n'ont aucune valeur.`}],
+    [20,20,{en:`Specifically and permanently traumatize one survivor into total insanity`,fr:`Traumatiser spécifiquement et définitivement un survivant jusqu'à la folie totale`}],
+  ]},
+  monsterTraits:{rows:[
+    [1,1,{en:`Sprays acid every other round. Normal damage, but 2-in-6 chance of reducing armor one tier (additional d4 damage without armor).`,fr:`Projette de l'acide tous les deux tours. Dégâts normaux, mais 2 chances sur 6 de réduire l'armure d'un cran (d4 dégâts supplémentaires sans armure).`}],
+    [2,4,{en:`Can, and will converse. Attempts to persuade PCs to assist its aim.`,fr:`Peut, et va, converser. Tente de persuader les PJ de l'aider à atteindre son but.`}],
+    [5,5,{en:`Can speak and humiliates the PCs. -2 Presence for the fight's duration.`,fr:`Peut parler et humilie les PJ. -2 Présence pendant toute la durée du combat.`}],
+    [6,6,{en:`Loves choking its victims and observing their slow death (-d4 HP/round). Test Agility DR10 to avoid, Strength DR14 to escape.`,fr:`Aime étrangler ses victimes et observer leur mort lente (-d4 PV/tour). Test d'Agilité DR10 pour éviter, Force DR14 pour s'échapper.`}],
+    [7,7,{en:`Exists partly in an anti-arcane dimension. In the vicinity, Powers do not work.`,fr:`Existe en partie dans une dimension anti-arcane. À proximité, les Pouvoirs ne fonctionnent pas.`}],
+    [8,8,{en:`Terrifyingly fast: Attacks and Defense are DR14.`,fr:`Terrifyingly rapide : Attaques et Défense sont DR14.`}],
+    [9,9,{en:`Roll on this table every 3 rounds. Rolled again, every second round, etc.`,fr:`Lancer sur cette table tous les 3 tours. Relancé, tous les deux tours, etc.`}],
+    [10,10,{en:`Rare — and valuable! 200s (alive), 150s (severed head), 80s (vial of blood).`,fr:`Rare — et précieux ! 200 pièces (vivant), 150 pièces (tête coupée), 80 pièces (fiole de sang).`}],
+    [11,11,{en:`Extrudes a mist of deadly infectious spores. Everyone in contact rolls a d20, dying on a 1.`,fr:`Extrude un brouillard de spores infectieuses mortelles. Toute personne au contact lance un d20 et meurt sur un 1.`}],
+    [12,12,{en:`Visibly tumescent. Explodes in a cascade of boiling blood upon death: d12 damage equally distributed among PCs.`,fr:`Visiblement tumescent. Explose en une cascade de sang bouillant à la mort : d12 dégâts répartis également entre les PJ.`}],
+    [13,13,{en:`Multiplies! When taking exactly 1 damage it splits. The new creature is weaker (½ HP and Morale, reduce armor and damage die one step).`,fr:`Se multiplie ! En prenant exactement 1 dégât, il se divise. La nouvelle créature est plus faible (½ PV et Moral, réduire l'armure et le dé de dégâts d'un cran).`}],
+    [14,14,{en:`Petrifying Gaze, Breath or Sting. Every 3 rounds tries to petrify a random PC. Test Presence DR10 or have your soul forever enclosed in a statue.`,fr:`Regard, Souffle ou Dard Pétrifiant. Tous les 3 tours, tente de pétrifier un PJ aléatoire. Test de Présence DR10 ou votre âme est enfermée pour toujours dans une statue.`}],
+    [15,20,{en:`Terrible, but not in a great way.`,fr:`Terrible, mais pas d'une bonne façon.`}],
+  ]},
+
+  roadCondition:{rows:[
+    [1,1,{en:`Almost-forgotten dirt track.`,fr:`Chemin de terre presque oublié.`}],
+    [2,2,{en:`Narrow wagon track used by farmers.`,fr:`Piste de charrette étroite utilisée par les paysans.`}],
+    [3,3,{en:`Tracks drawn up by wild beasts or savage monsters.`,fr:`Traces tracées par des bêtes sauvages ou des monstres féroces.`}],
+    [4,5,{en:`Once well maintained trade road fallen into disrepair.`,fr:`Ancienne route commerciale bien entretenue tombée en décrépitude.`}],
+    [6,7,{en:`Well-used road.`,fr:`Route bien fréquentée.`}],
+    [8,8,{en:`Paved road, sporadically patrolled by the King's soldiers.`,fr:`Route pavée, sporadiquement patrouillée par les soldats du Roi.`}],
+  ]},
+  roadEvents:{rows:[
+    [1,3,{en:`Nothing particular happens. The world is grey.`,fr:`Rien de particulier ne se passe. Le monde est gris.`}],
+    [4,4,{en:`The weather worsens (becoming more extreme) and no progress is made.`,fr:`Le temps empire (devenant plus extrême) et aucun progrès n'est fait.`}],
+    [5,6,{en:`Weather change. Roll on the weather table.`,fr:`Changement météo. Lance sur la table météo.`}],
+    [7,8,{en:`The road forks, the signs are unintelligible. Reroll.`,fr:`La route bifurque, les panneaux sont inintelligibles. Relance.`}],
+    [9,9,{en:`d6 rations of food or water spoil.`,fr:`d6 rations de nourriture ou d'eau pourrissent.`}],
+    [10,10,{en:`A monastery beside the road, chanting is audible from within. (The monks and nuns are cultists of Nechrubel).`,fr:`Un monastère au bord de la route, des chants sont audibles depuis l'intérieur. (Les moines et les nonnes sont des cultistes de Nechrubel).`}],
+    [11,11,{en:`Castle ruins stand out against the sky. (It's infested with savage crows. A blind alchemist resides in the remaining tower).`,fr:`Des ruines de château se détachent sur le ciel. (Elle est infestée de corbeaux sauvages. Un alchimiste aveugle réside dans la tour restante).`}],
+    [12,12,{en:`A religious procession of flagellants and hermits. (They seek to see HIM but lost their way.)`,fr:`Une procession religieuse de flagellants et d'ermites. (Ils cherchent à voir LUI mais ont perdu leur chemin.)`}],
+    [13,13,{en:`Filthy farmers on their way to the market.`,fr:`De sales paysans en route pour le marché.`}],
+    [14,14,{en:`d6+1 slavers, leading 2d6 slaves, half beaten to death, half freshly caught.`,fr:`d6+1 esclavagistes, menant 2d6 esclaves, moitié battus à mort, moitié fraîchement capturés.`}],
+    [15,15,{en:`A few mercenaries and their d8 guards. (All infected by a brain parasite.)`,fr:`Quelques mercenaires et leurs d8 gardes. (Tous infectés par un parasite cérébral.)`}],
+    [16,16,{en:`Across the road, a battle between a flayed cultist band and an Earthbound pack.`,fr:`En travers de la route, une bataille entre une bande de cultistes écorchés et une meute Terrestre.`}],
+    [17,17,{en:`The troll Adnah ambushes you.`,fr:`Le troll Adnah vous tend une embuscade.`}],
+    [18,18,{en:`Abandoned graveyard (In a chapel there is an inverted gold cross worth 50s. d8 zombies hide in a crypt.)`,fr:`Cimetière abandonné (Dans une chapelle se trouve une croix d'or inversée valant 50 pièces. d8 zombies se cachent dans une crypte.)`}],
+    [19,19,{en:`A funerary procession of toothless villagers, carrying a very large coffin. (The giant inside is dead but dreaming.)`,fr:`Une procession funèbre de villageois édentés, portant un très grand cercueil. (Le géant à l'intérieur est mort mais rêve.)`}],
+    [20,20,{en:`Two roadside corpses, one of them has something in their pockets (Roll on the Corpse Plundering table).`,fr:`Deux cadavres au bord de la route, l'un d'eux a quelque chose dans les poches (Lance sur la table de Pillage de Cadavre).`}],
+  ]},
+  roadForaging:{rows:[
+    [1,1,{en:`You get lost and spend the day finding the road again.`,fr:`Tu te perds et passes la journée à retrouver la route.`}],
+    [2,2,{en:`Locate d6+1 rations of food and water — one ration is spoiled and you sicken 6 hours after consumption. Presence DR12 to notice this.`,fr:`Trouve d6+1 rations de nourriture et d'eau — une ration est avariée et tu tombes malade 6 heures après la consommation. Présence DR12 pour le remarquer.`}],
+    [3,3,{en:`You find d6+3 rations of good food or fresh water.`,fr:`Tu trouves d6+3 rations de bonne nourriture ou d'eau fraîche.`}],
+    [4,4,{en:`You track down a savage beast. Killing it nets d8+2 rations. Or see EAT PREY KILL.`,fr:`Tu traque une bête sauvage. La tuer rapporte d8+2 rations. Ou voir MANGER SA PROIE.`}],
+    [5,6,{en:`You find a village potentially selling what you need. Roll on the village table.`,fr:`Tu trouves un village potentiellement vendant ce dont tu as besoin. Lance sur la table du village.`}],
+  ]},
+  roadVillage:{rows:[
+    [1,1,{en:`Deserted, d6 rations of food and water can be scavenged.`,fr:`Désert, d6 rations de nourriture et d'eau peuvent être récupérées.`}],
+    [2,2,{en:`Plague-stricken, any ration has a 2-in-6 chance of being tainted.`,fr:`Frappé par la peste, toute ration a 2 chances sur 6 d'être contaminée.`}],
+    [3,3,{en:`A well-off trading post, food and water are plentiful and cheap.`,fr:`Un comptoir commercial prospère, nourriture et eau sont abondantes et bon marché.`}],
+    [4,4,{en:`Ruled by bandits. Don't show off too much wealth.`,fr:`Dirigé par des bandits. Ne faites pas trop étalage de vos richesses.`}],
+    [5,5,{en:`Dominated by spider cultists. No trading with outsiders.`,fr:`Dominé par des cultistes araignées. Pas d'échanges avec les étrangers.`}],
+    [6,6,{en:`Inhabited by cannibals. No water for sale but plentiful food.`,fr:`Habité par des cannibales. Pas d'eau à vendre mais de la nourriture en abondance.`}],
+  ]},
+  roadOffRoad:{rows:[
+    [1,1,{en:`A petrified forest.`,fr:`Une forêt pétrifiée.`}],
+    [2,2,{en:`An ancient battlefield (full of half-buried rusty blades and wraiths).`,fr:`Un ancien champ de bataille (plein de lames rouillées à demi enterrées et de spectres).`}],
+    [3,3,{en:`A valley full of extinct animal bones.`,fr:`Une vallée pleine d'ossements d'animaux éteints.`}],
+    [4,4,{en:`A pre-human god's lichen-covered temple.`,fr:`Le temple couvert de lichens d'un dieu pré-humain.`}],
+    [5,5,{en:`An entrance to the deeper underworld.`,fr:`Une entrée vers les profondeurs des enfers.`}],
+    [6,6,{en:`A cannibal village.`,fr:`Un village de cannibales.`}],
+    [7,7,{en:`Goblin-infested hills.`,fr:`Des collines infestées de gobelins.`}],
+    [8,8,{en:`A ruined abbey. (Guarded by a grotesque. Hidden in a crypt is a random occult artifact.)`,fr:`Une abbaye en ruine. (Gardée par un grotesque. Caché dans une crypte se trouve un artefact occulte aléatoire.)`}],
+    [9,9,{en:`A pumpkin patch. Sickly but sweet smell hanging heavily in the air. (Strongly hallucinogenic. Fiercely protective farmers harvest by night.)`,fr:`Un champ de citrouilles. Une odeur nauséabonde mais sucrée flotte lourdement dans l'air. (Fortement hallucinogène. Des paysans farouchement protecteurs récoltent de nuit.)`}],
+    [10,10,{en:`The silhouette of a wyvern against the purple evening sky.`,fr:`La silhouette d'un wyverne contre le ciel violet du soir.`}],
+    [11,11,{en:`A clock tower, chiming. (Heretic witches create unliving troll hybrids in its shadow.)`,fr:`Une tour de l'horloge, sonnant. (Des sorcières hérétiques créent des hybrides trolls non-vivants dans son ombre.)`}],
+    [12,12,{en:`A vast bog. (Precarious to traverse. Ruled by a huge, bloated, tentacular thing that claims to once have been royalty.)`,fr:`Un vaste marécage. (Précaire à traverser. Dirigé par une chose énorme, bouffie et tentaculaire qui prétend avoir autrefois été de la royauté.)`}],
+  ]},
+  roadCampsite:{rows:[
+    [1,5,{en:`Quiet night. For once.`,fr:`Nuit tranquille. Pour une fois.`}],
+    [6,6,{en:`A wild beast (fox, wolverine, sludge-ape) steals d4 rations of food. The PC with the highest Presence tests (DR12) to notice.`,fr:`Une bête sauvage (renard, glouton, singe-boue) vole d4 rations de nourriture. Le PJ avec la plus haute Présence teste (DR12) pour le remarquer.`}],
+    [7,7,{en:`Everyone is haunted by twisted dreams of the first random encounter for the next day (rolled now).`,fr:`Tout le monde est hanté par des rêves tordus du premier événement aléatoire du lendemain (lancé maintenant).`}],
+    [8,8,{en:`A lurking coward steals an item from d3 PCs' packs — DR14 Presence test to notice.`,fr:`Un lâche tapi vole un objet dans les sacs de d3 PJ — Test de Présence DR14 pour le remarquer.`}],
+    [9,9,{en:`A green and terrible moon shines on the campsite. All characters have one less omen the next day.`,fr:`Une lune verte et terrible brille sur le campement. Tous les personnages ont un présage de moins le lendemain.`}],
+    [10,10,{en:`All dream of (d6): see sub-table. The next day, each PC has d6-3 omens (a negative total reduces their omens).`,fr:`Tous rêvent de (d6) : voir sous-table. Le lendemain, chaque PJ a d6-3 présages (un total négatif réduit leurs présages).`}],
+    [11,11,{en:`A band of blind albino cultists pass by, quietly chanting eerie hymns to their alligator goddess.`,fr:`Une bande de cultistes albinos aveugles passe, chantant tranquillement des hymnes sinistres à leur déesse alligator.`}],
+    [12,12,{en:`d4+2 peddlers and their donkey travel slowly with sooty lanterns. (They are really robbers and might attack weak PCs).`,fr:`d4+2 colporteurs et leur âne voyagent lentement avec des lanternes fuligineuses. (Ils sont en réalité des voleurs et pourraient attaquer les PJ faibles).`}],
+  ]},
+  roadDreams:{rows:[
+    [1,1,{en:`Black stars imploding at the center of the dying cosmos.`,fr:`Des étoiles noires s'effondrant au centre du cosmos mourant.`}],
+    [2,2,{en:`Infinite snow plains.`,fr:`Des plaines de neige infinies.`}],
+    [3,3,{en:`Gothic channel houses.`,fr:`Des maisons-charniers gothiques.`}],
+    [4,4,{en:`Sterile hospitals from a future that will never come.`,fr:`Des hôpitaux stériles d'un avenir qui ne viendra jamais.`}],
+    [5,5,{en:`Hunting game in primeval forests.`,fr:`La chasse dans des forêts primordiales.`}],
+    [6,6,{en:`Bright white nothingness.`,fr:`Un néant blanc éblouissant.`}],
+  ]},
 };
 
 const UI = {
@@ -3966,6 +4123,290 @@ let oracle = {}, oracleOpen = {};   // standalone rolls for the optional-tables 
 let tablesTab = 'oracle';           // Tables page tab: 'oracle' | 'loot'
 let spsOpen = {};                   // Tables page: which SPS class groups are unfolded (default folded = compact)
 
+/* ── Hunting data ── */
+const HUNT_MISHAPS = [
+  {en:`The beast is infested with exploding ticks.`,fr:`La bête est infestée de tiques explosives.`},
+  {en:`Another hunting party is nearby.`,fr:`Une autre équipe de chasse est à proximité.`},
+  {en:`Another predator lurks in the shadows, ready to strike.`,fr:`Un autre prédateur rôde dans l'ombre, prêt à frapper.`},
+  {en:`Scavengers followed the tired beast.`,fr:`Des charognards ont suivi la bête fatiguée.`},
+  {en:`The beast is actually undead and controlled by a mad necromancer.`,fr:`La bête est en réalité un mort-vivant contrôlé par un nécromancien fou.`},
+  {en:`The beast's lair is nearby and it tries to escape. There might be more of its kind there.`,fr:`Le repaire de la bête est proche et elle tente de s'y réfugier. Il pourrait y en avoir d'autres là-bas.`},
+  {en:`The beast is sick, contagious and not good to eat.`,fr:`La bête est malade, contagieuse et impropre à la consommation.`},
+  {en:`The beast is tamed and belongs to an Earthbound mud shaman.`,fr:`La bête est apprivoisée et appartient à un chaman de boue Terrestre.`},
+  {en:`The beast is covered in painted symbols and considered holy by locals, who will know if it is killed.`,fr:`La bête est couverte de symboles peints et considérée comme sacrée par les habitants, qui le sauront si elle est tuée.`},
+  {en:`The hunt takes both hunter and prey into a field of poisonous thorns, unstable glacier ice or a ravine about to collapse depending on the terrain.`,fr:`La chasse entraîne chasseur et proie dans un champ d'épines venimeuses, de glace glaciaire instable ou un ravin sur le point de s'effondrer selon le terrain.`},
+];
+const HUNT_BELLY = [
+  {en:`A priest's remains. Might be a scroll there too.`,fr:`Les restes d'un prêtre. Il pourrait y avoir un parchemin aussi.`},
+  {en:`A long and angry flesh worm.`,fr:`Un long ver de chair en colère.`},
+  {en:`One of its spawn. Still living, perhaps?`,fr:`Un de ses rejetons. Encore vivant, peut-être ?`},
+  {en:`A sharp bone usable as a piercing weapon (2d4).`,fr:`Un os tranchant utilisable comme arme perforante (2d4).`},
+  {en:`A lich's skull (with ruby eyes worth 25s each).`,fr:`Le crâne d'un liche (avec des yeux en rubis valant 25 pièces chacun).`},
+  {en:`d6 silver coins.`,fr:`d6 pièces d'argent.`},
+  {en:`Remains of a child. A nearby village is looking for it, preferably alive.`,fr:`Les restes d'un enfant. Un village proche le cherche, de préférence vivant.`},
+  {en:`Broken glass contaminates half the meat.`,fr:`Du verre brisé contamine la moitié de la viande.`},
+  {en:`A black tube containing hallucinogenic powder (Presence DR12 or -2 Presence for an hour, but can see and communicate with spirits for the duration).`,fr:`Un tube noir contenant une poudre hallucinogène (Présence DR12 ou -2 Présence pendant une heure, mais peut voir et communiquer avec les esprits pendant ce temps).`},
+  {en:`A human femur covered in arcane runes. Will open any nearby magically sealed door, turning into salt and cursing its owner.`,fr:`Un fémur humain couvert de runes arcaniques. Ouvrira toute porte magiquement scellée à proximité, se transformant en sel et maudissant son propriétaire.`},
+];
+
+// qty: die sides for quantity roll (null = one appears), countDie shown in parens in source
+// armor: display string, atk: attack display, hp/morale: numbers or null
+// special: optional text
+const HUNT_REGIONS = [
+  { id:'tveland', label:{en:'Tveland',fr:'Tveland'}, creatures:[
+    { num:1, name:{en:'Antideer',fr:'Anticerf'}, qty:4,
+      desc:{en:'Tastes like venison, but isn\'t.',fr:'A le goût du gibier, mais n\'en est pas.'},
+      hp:7, morale:6, armor:{en:'Tough skin -d2',fr:'Peau résistante -d2'}, atk:{en:'Antlers d6',fr:'Bois d6'},
+      special:{en:'After eating Antideer meat pass a DR12 Presence test to live with yourself. If not, the unknowledge of what you\'ve done weighs on you (-1 Presence).',fr:'Après avoir mangé de la viande d\'Anticerf, réussis un test de Présence DR12 pour assumer. Sinon, l\'ignorance de ce que tu as fait pèse sur toi (-1 Présence).'}},
+    { num:2, name:{en:'Flayed Vultures',fr:'Vautours Écorchés'}, qty:8,
+      desc:{en:'Flightless but fearless climbers.',fr:'Incapables de voler mais grimpeurs intrépides.'},
+      hp:3, morale:null, armor:null, atk:{en:'Bite/Claws d4',fr:'Morsure/Griffes d4'}, special:null},
+    { num:3, name:{en:'Ratbit',fr:'Ratlapin'}, qty:null,
+      desc:{en:'In a human-sized hole made with 10 inch claws lived a Ratbit.',fr:'Dans un trou à taille humaine creusé avec des griffes de 25 cm vit un Ratlapin.'},
+      hp:6, morale:null, armor:null, atk:{en:'Claws d8',fr:'Griffes d8'}, special:null},
+    { num:4, name:{en:'Feral Horses',fr:'Chevaux Sauvages'}, qty:4,
+      desc:{en:'More than wild — for they know and love the taste of flesh.',fr:'Plus que sauvages — car ils connaissent et adorent le goût de la chair.'},
+      hp:8, morale:null, armor:{en:'Tough skin -d2',fr:'Peau résistante -d2'}, atk:{en:'Bite/Kick d6',fr:'Morsure/Coup d6'}, special:null},
+    { num:5, name:{en:'Steppe Wolfe',fr:'Loup des Steppes'}, qty:8,
+      desc:{en:'The lanky Steppe Wolfe has long legs but short patience. Outlast d4 rounds and the pack (d8) may leave you alone.',fr:'Le longiligne Loup des Steppes a de longues pattes mais peu de patience. Tiens d4 rounds et la meute (d8) pourrait te laisser tranquille.'},
+      hp:8, morale:10, armor:{en:'Tough skin -d2',fr:'Peau résistante -d2'}, atk:{en:'Bite d6',fr:'Morsure d6'}, special:null},
+    { num:6, name:{en:'Tusked Bison',fr:'Bison à Défenses'}, qty:null,
+      desc:{en:'Among the kindest creatures — as long as you stay well away from them and their own. Fighting one brings d4 more.',fr:'Parmi les créatures les plus sympathiques — tant que tu restes loin d\'eux et des leurs. En combattre un en attire d4 autres.'},
+      hp:16, morale:null, armor:{en:'Tough skin -d4',fr:'Peau résistante -d4'}, atk:{en:'Tusks d8',fr:'Défenses d8'}, special:null},
+  ]},
+  { id:'sarkash', label:{en:'Sarkash',fr:'Sarkash'}, creatures:[
+    { num:1, name:{en:'Skelelk',fr:'Squelcerf'}, qty:4,
+      desc:{en:'Wear their bones on the outside of their otherwise elk-like bodies. Great for defence, although blunt weapons always deal maximum damage.',fr:'Portent leurs os à l\'extérieur de leur corps semblable à un élan. Excellente défense, bien que les armes contondantes infligent toujours les dégâts maximum.'},
+      hp:9, morale:8, armor:{en:'Exoskeleton -d6',fr:'Exosquelette -d6'}, atk:{en:'Antlers d6',fr:'Bois d6'}, special:null},
+    { num:2, name:{en:'Dredgehog',fr:'Hérisson-Drague'}, qty:null,
+      desc:{en:'Has daggers on its back, which may be why it trusts no one and when provoked roll up into a big ball of murder.',fr:'A des dagues dans le dos, ce qui explique peut-être pourquoi il ne fait confiance à personne et, lorsqu\'il est provoqué, se roule en une grosse boule meurtrière.'},
+      hp:14, morale:10, armor:{en:'Daggerback -d6',fr:'Dos-dague -d6'}, atk:{en:'Bite/Daggers d6',fr:'Morsure/Dagues d6'},
+      special:{en:'Missing an attack against them means you strike a dagger and suffer d4 damage.',fr:'Rater une attaque contre lui signifie que tu frappes une dague et subis d4 dégâts.'}},
+    { num:3, name:{en:'Carrion Owls',fr:'Hiboux Charognards'}, qty:null,
+      desc:{en:'Only eat what died the night before.',fr:'Ne mangent que ce qui est mort la nuit précédente.'},
+      hp:2, morale:null, armor:null, atk:{en:'Bite/Claws d4',fr:'Morsure/Griffes d4'}, special:null},
+    { num:4, name:{en:'Throat-Cutting Warbler',fr:'Fauvette Égorgeuse'}, qty:null,
+      desc:{en:'The tiny (attacks and defence are DR14) Throat-Cutting Warbler has the sharpest beak and the best aim of all Sarkash\'s birds.',fr:'La minuscule Fauvette Égorgeuse (attaques et défense sont DR14) a le bec le plus tranchant et la meilleure visée de tous les oiseaux de Sarkash.'},
+      hp:1, morale:null, armor:null, atk:{en:'Beak d10',fr:'Bec d10'},
+      special:{en:'Attacks and defence are DR14.',fr:'Attaques et défense sont DR14.'}},
+    { num:5, name:{en:'Mulch-Squirrels',fr:'Écureuils-Compost'}, qty:4,
+      desc:{en:'Eat dirt and taste about the same.',fr:'Mangent de la terre et ont à peu près le même goût.'},
+      hp:1, morale:3, armor:null, atk:{en:'Bite/Claws 1 dmg',fr:'Morsure/Griffes 1 dég'}, special:null},
+    { num:6, name:{en:'Howler Bears',fr:'Ours Hurleurs'}, qty:null,
+      desc:{en:'Lure prey by wailing like dying men. Some even form words like "HELP" and "I\'M BEING EATEN BY A HOWLER BEAR".',fr:'Attirent leurs proies en gémissant comme des mourants. Certains forment même des mots comme "À L\'AIDE" et "JE SUIS EN TRAIN D\'ÊTRE MANGÉ PAR UN OURS HURLEUR".'},
+      hp:18, morale:null, armor:{en:'Skin -d2',fr:'Peau -d2'}, atk:{en:'Bite/Claws d8',fr:'Morsure/Griffes d8'}, special:null},
+  ]},
+  { id:'graven', label:{en:'Graven-Tosk',fr:'Graven-Tosk'}, creatures:[
+    { num:1, name:{en:'Giant Skull Moth',fr:'Papillon Géant Tête-de-Mort'}, qty:null,
+      desc:{en:'Has a human-sized skull mark on its tar-black wings. Perfect bait for squirrels and tomb raiders alike.',fr:'Porte une marque de crâne humaine sur ses ailes noir goudron. Appât parfait pour les écureuils et les pillards de tombes.'},
+      hp:3, morale:null, armor:null, atk:{en:'Stinger d4 + special',fr:'Dard d4 + spécial'},
+      special:{en:'DR14 Toughness test or d4 damage and become infected.',fr:'Test d\'Endurance DR14 ou d4 dégâts et tu es infecté.'}},
+    { num:2, name:{en:'Twice-Grown Corpse Flies',fr:'Mouches Cadavres Double-Croissance'}, qty:null,
+      desc:{en:'Larva go through two cocooning stages, in two different hosts, before emerging — bulging, bloated, and starving for more.',fr:'La larve passe par deux stades de cocon dans deux hôtes différents avant d\'émerger — gonflée, bouffie et affamée.'},
+      hp:4, morale:null, armor:{en:'Exoskeleton -d4',fr:'Exosquelette -d4'}, atk:{en:'Bite d4 + special',fr:'Morsure d4 + spécial'},
+      special:{en:'DR12 Toughness test or a dozen fly eggs are implanted. Get them out within d6 days or watch them hatch in your corpse.',fr:'Test d\'Endurance DR12 ou une douzaine d\'œufs de mouche sont implantés. Retire-les dans d6 jours ou regarde-les éclore dans ton cadavre.'}},
+    { num:3, name:{en:'Unbred Mutts',fr:'Bâtards Non-Engendrés'}, qty:6,
+      desc:{en:'Said to be the descendants of pedigreed dogs waiting by their late masters\' graves. Some say they\'re the same dogs, still waiting.',fr:'Supposément les descendants de chiens de race attendant près des tombes de leurs défunts maîtres. Certains disent que ce sont les mêmes chiens, encore en train d\'attendre.'},
+      hp:8, morale:null, armor:null, atk:{en:'Bite d6',fr:'Morsure d6'}, special:null},
+    { num:4, name:{en:'Grim-Toothed Squirrel',fr:'Écureuil aux Dents Sinistres'}, qty:null,
+      desc:{en:'Teeth are made for cracking bones and savoring the marrow within.',fr:'Les dents sont faites pour craquer les os et savourer la moelle à l\'intérieur.'},
+      hp:2, morale:6, armor:null, atk:{en:'Bite d6',fr:'Morsure d6'}, special:null},
+    { num:5, name:{en:'Meatroach',fr:'Cafard-Viande'}, qty:null,
+      desc:{en:'A delicacy if cooked right, but first you have to remove the poisonous murder-appendix (DR16 Agility test). Failure spoils the meat (DR14 Toughness or d8 damage).',fr:'Un mets délicat si bien cuisiné, mais il faut d\'abord retirer l\'appendice-meurtre venimeux (test d\'Agilité DR16). L\'échec gâte la viande (Endurance DR14 ou d8 dégâts).'},
+      hp:4, morale:null, armor:{en:'Exoskeleton -d4',fr:'Exosquelette -d4'}, atk:{en:'Bite d4',fr:'Morsure d4'}, special:null},
+    { num:6, name:{en:'Half-Billed Raven',fr:'Corbeau Demi-Bec'}, qty:4,
+      desc:{en:'Has only its upper beak, and a sticky, reaching tongue beneath.',fr:'N\'a que la partie supérieure de son bec, avec une langue collante et allongée en dessous.'},
+      hp:2, morale:null, armor:null, atk:{en:'Beak/Choking tongue d4/special',fr:'Bec/Langue étranglante d4/spécial'},
+      special:{en:'DR12 Agility test to avoid or d4 damage/round until a successful DR14 Strength test or raven dies.',fr:'Test d\'Agilité DR12 pour éviter ou d4 dégâts/round jusqu\'à un test de Force DR14 réussi ou la mort du corbeau.'}},
+  ]},
+  { id:'grift', label:{en:'Grift',fr:'Grift'}, creatures:[
+    { num:1, name:{en:'Uncommon Rats',fr:'Rats Peu Communs'}, qty:4,
+      desc:{en:'Commonly seen on Grift\'s streets. Like large hounds with twice the spite and thrice the teeth.',fr:'Communément vus dans les rues de Grift. Comme de grands chiens avec deux fois la rancœur et trois fois les dents.'},
+      hp:6, morale:null, armor:null, atk:{en:'Bite/Claws d8/d6',fr:'Morsure/Griffes d8/d6'}, special:null},
+    { num:2, name:{en:'Cellar Crabs',fr:'Crabes de Cave'}, qty:4,
+      desc:{en:'Found in numerous cold, dark places. When you hear their 20 inch legs clickety clack on the stone floor you know it\'s time to leave.',fr:'Trouvés dans de nombreux endroits froids et sombres. Quand tu entends leurs pattes de 50 cm cliqueter sur le sol de pierre, tu sais qu\'il est temps de partir.'},
+      hp:6, morale:null, armor:{en:'Shell -d4',fr:'Carapace -d4'}, atk:{en:'Bite/Claws d6',fr:'Morsure/Griffes d6'}, special:null},
+    { num:3, name:{en:'Nameless & Tameless Strays',fr:'Errants Sans Nom ni Maître'}, qty:8,
+      desc:{en:'Grift\'s streets house many Nameless & Tameless Strays eating nothing, yet everything, given the chance.',fr:'Les rues de Grift abritent de nombreux Errants Sans Nom ni Maître ne mangeant rien, pourtant tout, si l\'occasion se présente.'},
+      hp:4, morale:null, armor:null, atk:{en:'Bite d4',fr:'Morsure d4'}, special:null},
+    { num:4, name:{en:'Straw-Lion',fr:'Lion-de-Paille'}, qty:null,
+      desc:{en:'Hides in piles of hay, waiting to use its pincers and grabby claws to pull its prey into its lobotomizing maw. It eats the brain and discards the rest.',fr:'Se cache dans des meules de foin, attendant d\'utiliser ses pinces et ses griffes pour attirer sa proie dans sa gueule lobotomisante. Il mange le cerveau et jette le reste.'},
+      hp:14, morale:null, armor:{en:'Exoskeleton -d6',fr:'Exosquelette -d6'}, atk:{en:'Pincers/Jaws special/d8',fr:'Pinces/Mâchoires spécial/d8'},
+      special:{en:'DR14 Agility test or be pulled into the Straw-Lion\'s toothy jaws, taking d8 damage instantly and on every round until you pass a DR18 Strength test or the lion dies. If broken or hit negative HP while inside but rescued, a half-botched lobotomy grants -3 Presence.',fr:'Test d\'Agilité DR14 ou être aspiré dans les mâchoires dentées du Lion-de-Paille, subissant d8 dégâts instantanément et à chaque round jusqu\'à réussir un test de Force DR18 ou la mort du lion. Si brisé ou à PV négatifs à l\'intérieur mais secouru, une lobotomie à moitié ratée donne -3 Présence.'}},
+    { num:5, name:{en:'Lentil Lice',fr:'Poux-Lentilles'}, qty:null,
+      desc:{en:'No silly, Lentil Lice don\'t eat you from the inside — until you\'re dead! \'Til then they wait. They\'re the size of rice, so you\'ll need at least a corpse\'s worth to feed a hungry party.',fr:'Les Poux-Lentilles ne te mangent pas de l\'intérieur — jusqu\'à ta mort ! Jusque-là ils attendent. Ils sont de la taille d\'un grain de riz, il faudra au moins un cadavre pour nourrir un groupe affamé.'},
+      hp:4, morale:7, armor:null, atk:{en:'Knife/Femur d4',fr:'Couteau/Fémur d4'}, special:null},
+    { num:6, name:{en:'Múrder Gulls',fr:'Goélands Múrtrières'}, qty:20,
+      desc:{en:'Dig hollows along the Múr\'s banks with sawtooth beaks and sticky putty spewn from their gullets.',fr:'Creusent des creux le long des berges du Múr avec leurs becs en dents de scie et le mastic collant craché de leurs gosiers.'},
+      hp:2, morale:null, armor:null, atk:{en:'Beak d4',fr:'Bec d4'}, special:null},
+  ]},
+  // Placeholder regions — to be filled when screenshots arrive
+  { id:'kergus', label:{en:'Kergüs',fr:'Kergüs'}, creatures:[
+    { num:1, name:{en:'Flail-Horned Muskox',fr:'Bœuf Musqué aux Cornes-Fléaux'}, qty:12,
+      desc:{en:'Moves in herds of d12, dragging horns on keratin chains. Your best bet is going for the oldest and slowest in the back of the chain gang — but that means you fight the biggest horned one.',fr:'Se déplace en troupeaux de d12, traînant des cornes sur des chaînes de kératine. Mieux vaut viser le plus vieux et le plus lent à l\'arrière — mais ça signifie affronter le plus grand.'},
+      hp:18, morale:9, armor:{en:'Fur -d2',fr:'Fourrure -d2'}, atk:{en:'Flail-horns special',fr:'Cornes-fléaux spécial'},
+      special:{en:'Makes four attacks in a flurry of whirling chains and horns at randomly chosen targets: DR16→d4 / DR14→d6 / DR12→d8 / DR10→d10.',fr:'Effectue quatre attaques en un tourbillon de chaînes et de cornes sur des cibles aléatoires : DR16→d4 / DR14→d6 / DR12→d8 / DR10→d10.'}},
+    { num:2, name:{en:'Tar-Pelted Goats',fr:'Chèvres au Pelage de Goudron'}, qty:8,
+      desc:{en:'Have thick, warm charcoal-colored fur and smell of freshly tar-coated wooden ships. It\'s a shame the meat tastes like sulfur and vomit.',fr:'Ont une fourrure épaisse et chaude couleur charbon et sentent les navires en bois fraîchement goudronnés. Dommage que la viande ait un goût de soufre et de vomi.'},
+      hp:6, morale:7, armor:{en:'Fur -d2',fr:'Fourrure -d2'}, atk:{en:'Horns d6',fr:'Cornes d6'}, special:null},
+    { num:3, name:{en:'Molar Bear',fr:'Ours Molaire'}, qty:null,
+      desc:{en:'Being eaten by a Molar Bear is allegedly among the most grueling ways to go. Their teeth may not be made for biting but sure are made for chewing.',fr:'Se faire manger par un Ours Molaire est réputé être parmi les façons les plus éprouvantes de mourir. Ses dents ne sont pas faites pour mordre mais certainement pour mâcher.'},
+      hp:16, morale:null, armor:{en:'Thick fur -d4',fr:'Fourrure épaisse -d4'}, atk:{en:'Claws d8',fr:'Griffes d8'}, special:null},
+    { num:4, name:{en:'Megasloths',fr:'Méga-Paresseux'}, qty:null,
+      desc:{en:'A rare sight on the ice fields, sometimes confused for snow-mounds. You\'re not liable to make that mistake facing one in combat — they can run when they choose to.',fr:'Une vue rare sur les champs de glace, parfois confondus avec des monticules de neige. On ne fait pas cette erreur face à l\'un d\'eux au combat — ils peuvent courir quand ils le décident.'},
+      hp:30, morale:9, armor:{en:'Thick fur -d2',fr:'Fourrure épaisse -d2'}, atk:{en:'Scythe-claws d10',fr:'Griffes-faux d10'}, special:null},
+    { num:5, name:{en:'Blubber Gulls',fr:'Goélands Graisseux'}, qty:8,
+      desc:{en:'Look like flying balls of fat but make good soup and you can use the gas-filled corpses as buoys.',fr:'Ressemblent à des boules de graisse volantes mais font une bonne soupe et on peut utiliser les cadavres remplis de gaz comme bouées.'},
+      hp:2, morale:null, armor:{en:'Blubber -d2',fr:'Graisse -d2'}, atk:{en:'Beak/Dive Bomb d2/special',fr:'Bec/Bombe Piquée d2/spécial'},
+      special:{en:'When threatened either flees or dives (50%) towards its attacker, blowing itself up, dealing d8 damage to anyone within 5\'.',fr:'Quand il est menacé, il fuit ou pique (50%) vers son attaquant, se faisant exploser et infligeant d8 dégâts à quiconque se trouve dans 1,5 m.'}},
+    { num:6, name:{en:'False Seal',fr:'Fausse Otarie'}, qty:null,
+      desc:{en:'Looks almost like a regular seal because it is one\'s corpse housing a puppeteering seal-proportioned spider. Attacking the False Seal angers this very dangerous arachnid.',fr:'Ressemble presque à une otarie normale car c\'est le cadavre d\'une otarie abritant une araignée aux proportions d\'otarie. Attaquer la Fausse Otarie énerve cet arachnide très dangereux.'},
+      hp:22, morale:null, armor:{en:'Exoskeleton -d4',fr:'Exosquelette -d4'}, atk:{en:'Bite d6 + special',fr:'Morsure d6 + spécial'},
+      special:{en:'Pass a DR16 Toughness test or your body rejects any food until you imbibe the spider\'s venom-gland as antidote.',fr:'Réussis un test d\'Endurance DR16 ou ton corps rejette toute nourriture jusqu\'à ce que tu ingères la glande à venin de l\'araignée comme antidote.'}},
+  ]},
+  { id:'wastland', label:{en:'Wästland',fr:'Wästland'}, creatures:[
+    { num:1, name:{en:'Liar-Bird',fr:'Oiseau-Menteur'}, qty:null,
+      desc:{en:'When it hears a lie it latches onto every word, repeating them when it pleases. Sought-after by inquisitors and others tasked with uprooting falsehood. Sometimes it repeats a truth instead. For fun.',fr:'Quand il entend un mensonge, il s\'accroche à chaque mot et les répète quand il lui plaît. Très recherché par les inquisiteurs. Parfois il répète une vérité à la place. Pour le plaisir.'},
+      hp:2, morale:null, armor:null, atk:{en:'Beak d4',fr:'Bec d4'}, special:null},
+    { num:2, name:{en:'Three-Thirds-Pheasant',fr:'Faisan-Trois-Tiers'}, qty:null,
+      desc:{en:'Completely and utterly a pheasant, it\'s just not necessarily the same pheasant. Be it a third head or a third knee, it always has a third of something.',fr:'Complètement et totalement un faisan, juste pas nécessairement le même faisan. Qu\'il s\'agisse d\'une troisième tête ou d\'un troisième genou, il a toujours un tiers de quelque chose.'},
+      hp:3, morale:null, armor:null, atk:{en:'Beak d4',fr:'Bec d4'}, special:null},
+    { num:3, name:{en:'Feather Fox',fr:'Renard-Plume'}, qty:null,
+      desc:{en:'Notorious for its ability to move silent like a shadow, leaving no trail or tracks. Its hollow bones are perfect for bone pipes. Break one, drink the magical mercury inside, and you\'ll be as light as a feather for an hour. Your head will be, too.',fr:'Célèbre pour sa capacité à se déplacer silencieusement comme une ombre, sans laisser de trace. Ses os creux sont parfaits pour fabriquer des flûtes en os. Casses-en un, bois le mercure magique, et tu seras léger comme une plume pendant une heure. Ta tête aussi.'},
+      hp:3, morale:null, armor:null, atk:{en:'Bite d6',fr:'Morsure d6'}, special:null},
+    { num:4, name:{en:'Bautaboar',fr:'Bautaboar'}, qty:null,
+      desc:{en:'Said to be only thirteen left in Wästland. A mouthful of its meat expands, weighing like a feast in the belly — known to burst babies and those with small appetites.',fr:'On dit qu\'il n\'en reste que treize dans le Wästland. Une bouchée de sa viande se dilate, pesant comme un festin dans le ventre — connue pour faire éclater les bébés et ceux qui ont petit appétit.'},
+      hp:16, morale:null, armor:{en:'Thick hide -d4',fr:'Peau épaisse -d4'}, atk:{en:'Gore d8',fr:'Encornage d8'},
+      special:{en:'Eating a day\'s ration of Bautaboar meat leaves you full for a week and makes you feel quite heavy (Defence is DR+2 for the duration).',fr:'Manger une ration journalière de viande de Bautaboar te rassasie pour une semaine et te fait te sentir très lourd (la Défense est DR+2 pendant ce temps).'}},
+    { num:5, name:{en:'Schleswig Bogfeeder',fr:'Cochon des Marais de Schleswig'}, qty:6,
+      desc:{en:'A particularly omnivorous pig breed, completely domesticated — the ones you\'ve tracked down belong to someone. Better do this quickly before anyone notices.',fr:'Une race de porc particulièrement omnivore, complètement domestiquée — ceux que tu as traqués appartiennent à quelqu\'un. Fais ça vite avant que quelqu\'un le remarque.'},
+      hp:5, morale:8, armor:null, atk:{en:'Bite d4',fr:'Morsure d4'},
+      special:{en:'Must be killed in one round before squealing. Otherwise fight d4 farmers: HP 4, Morale 6, 50% chance they carry a tool or knife (d4).',fr:'Doit être tué en un round avant de couiner. Sinon combats d4 paysans : PV 4, Moral 6, 50% de chance qu\'ils portent un outil ou un couteau (d4).'}},
+    { num:6, name:{en:'Gold-Crested Filth-Crow',fr:'Corneille Crasseuse à Crête Dorée'}, qty:null,
+      desc:{en:'Carries a feathery ring of shining gold around its collar. Nests in latrine muck seeking chamber pot treasures.',fr:'Porte un anneau de plumes en or brillant autour du col. Niche dans la boue des latrines à la recherche de trésors de pot de chambre.'},
+      hp:2, morale:null, armor:null, atk:{en:'Beak d4 + special',fr:'Bec d4 + spécial'},
+      special:{en:'Pass a DR10 Toughness test or become infected.',fr:'Réussis un test d\'Endurance DR10 ou tu es infecté.'}},
+  ]},
+  { id:'lakeonda', label:{en:'Lake Onda',fr:'Lac Onda'}, creatures:[
+    { num:1, name:{en:'Cursed Trout',fr:'Truite Maudite'}, qty:null,
+      desc:{en:'Live among the lake\'s regular trout — not apparent you\'ve caught one until you gut it and find there are none. A hollow fish, seen as a terrible omen: whomever guts such a fish cannot sleep for d6 days.',fr:'Vivent parmi les truites ordinaires du lac — tu ne sais pas que tu en as attrapé une jusqu\'à ce que tu l\'éventre et trouves le vide. Un poisson creux, considéré comme un terrible présage : quiconque éviscère un tel poisson ne peut pas dormir pendant d6 jours.'},
+      hp:null, morale:null, armor:null, atk:null, special:null},
+    { num:2, name:{en:'Rusty Bass',fr:'Bar Rouillé'}, qty:null,
+      desc:{en:'The meat of the Rusty Bass tastes like rusted metal because it eats metal.',fr:'La viande du Bar Rouillé a un goût de métal rouillé parce qu\'il mange du métal.'},
+      hp:2, morale:null, armor:null, atk:null,
+      special:{en:'DR12 Toughness test or get deathetanus, a craving for feeling metal inside you (DR+2 on Defence against metal weapons).',fr:'Test d\'Endurance DR12 ou attraper le tétanos-mortel, une envie irrépressible de sentir du métal en soi (DR+2 en Défense contre les armes en métal).'}},
+    { num:3, name:{en:'The Groan',fr:'Le Gémissement'}, qty:null,
+      desc:{en:'Sounds like a weary tree slowly waving in the wind. However, wind stops when the Groan is near.',fr:'Sonne comme un arbre fatigué se balançant lentement dans le vent. Cependant, le vent s\'arrête quand le Gémissement est proche.'},
+      hp:18, morale:null, armor:{en:'Something\'s not right -d6',fr:'Quelque chose ne va pas -d6'}, atk:{en:'Anti-Presence d4 + special',fr:'Anti-Présence d4 + spécial'},
+      special:{en:'Everyone nearby Defends using Presence. Armor will not save you. When the Groan dies there is no body. Was it even here? DR14 Presence test or forget. It will be back.',fr:'Chaque personne proche se Défend avec la Présence. L\'armure ne te sauvera pas. Quand le Gémissement meurt, il n\'y a pas de corps. Était-il même là ? Test de Présence DR14 ou tu oublies. Il reviendra.'}},
+    { num:4, name:{en:'Carcasswan',fr:'Carcasswan'}, qty:2,
+      desc:{en:'Mates for life, a decade-long story ending in the surviving half eating its dead lover and gaining a taste for flesh. When you see a lone Carcasswan, you run before it sees you. Lone: HP 15, Bite/Claws d8. Pair: HP 5 each, Bite d6.',fr:'S\'accouple pour la vie — une histoire de dix ans se terminant par le survivant mangeant son amant mort et acquérant un goût pour la chair. Lone : PV 15, Morsure/Griffes d8. Paire : PV 5 chacun, Morsure d6.'},
+      hp:15, morale:null, armor:null, atk:{en:'Bite/Claws d8 (lone) / Bite d6 (pair)',fr:'Morsure/Griffes d8 (seul) / Morsure d6 (paire)'}, special:null},
+    { num:5, name:{en:'Unresting Duck',fr:'Canard Agité'}, qty:8,
+      desc:{en:'Lives and dies in the air making them very skilled at flying and really hard to hit (DR16).',fr:'Vit et meurt dans les airs, ce qui le rend très habile en vol et vraiment difficile à toucher (DR16).'},
+      hp:2, morale:7, armor:null, atk:{en:'Beak d4',fr:'Bec d4'}, special:null},
+    { num:6, name:{en:'Sursturgeon',fr:'Sursturgeon'}, qty:null,
+      desc:{en:'Tastes and smells terrible, ferments while alive. Eventually it dies, improving nothing.',fr:'A un goût et une odeur terribles, fermente vivant. Finalement il meurt, sans rien améliorer.'},
+      hp:4, morale:null, armor:null, atk:null, special:null},
+  ]},
+  { id:'valley', label:{en:'Valley of the Unfortunate Undead',fr:'Vallée des Morts-Vivants Malheureux'}, creatures:[
+    { num:1, name:{en:'Phantom Rats',fr:'Rats Fantômes'}, qty:10,
+      desc:{en:'Sickly blue glowing, always flickering — half-way between here and somewhere else. Keep one in a bottle for a makeshift lantern. They\'re a nightmare to catch (DR16 to attack).',fr:'D\'un bleu maladif lumineux, toujours vacillants — à mi-chemin entre ici et ailleurs. Garde-en un dans une bouteille pour une lanterne de fortune. Ils sont un cauchemar à attraper (DR16 pour attaquer).'},
+      hp:2, morale:null, armor:null, atk:{en:'Bite d4',fr:'Morsure d4'}, special:null},
+    { num:2, name:{en:'Grubstopper',fr:'Grubstopper'}, qty:10,
+      desc:{en:'Common word for any bug large enough to calm a man\'s hunger.',fr:'Terme commun pour tout insecte assez grand pour calmer la faim d\'un homme.'},
+      hp:1, morale:null, armor:{en:'Exoskeleton -d2 (50%)',fr:'Exosquelette -d2 (50%)'}, atk:{en:'Bite 1 dmg + special',fr:'Morsure 1 dég + spécial'},
+      special:{en:'Some bugs have a bad bite (Toughness DR12). Roll d4 for effect: 1-2 Nothing. 3 d6 damage. 4 Infected.',fr:'Certains insectes ont une mauvaise morsure (Endurance DR12). Lance d4 pour l\'effet : 1-2 Rien. 3 d6 dégâts. 4 Infecté.'}},
+    { num:3, name:{en:'Tomb Ape',fr:'Singe des Tombes'}, qty:null,
+      desc:{en:'The valley\'s suckling soil cannot hold it — webbed feet like a frog and a snake\'s slippery scales. Long tangled hair, sharp teeth. Longs for silver and keeps its nest in an old tomb — likely with d66 coins.',fr:'Le sol du vallon ne peut le retenir — pieds palmés comme une grenouille et écailles glissantes de serpent. Longs cheveux emmêlés, dents acérées. Convoite l\'argent et garde son nid dans une vieille tombe — probablement avec d66 pièces.'},
+      hp:14, morale:11, armor:{en:'Scales -d2',fr:'Écailles -d2'}, atk:{en:'Bite/Claws d6',fr:'Morsure/Griffes d6'}, special:null},
+    { num:4, name:{en:'Gravelings',fr:'Terrasseux'}, qty:6,
+      desc:{en:'A bit like skinless, hunch-backed dogs with opposable thumbs. They taste about the same, too.',fr:'Un peu comme des chiens sans peau et bossus avec des pouces opposables. Ils ont à peu près le même goût, aussi.'},
+      hp:6, morale:9, armor:null, atk:{en:'Bite/Claws d6',fr:'Morsure/Griffes d6'}, special:null},
+    { num:5, name:{en:'Marrow Sparrow',fr:'Moineau à Moelle'}, qty:null,
+      desc:{en:'Tiny (DR14 to hit), has a syringe-like beak for feeding on sleeping victims. One makes a very good soup stock that fills the stomachs of four.',fr:'Minuscule (DR14 pour toucher), possède un bec en forme de seringue pour se nourrir de victimes endormies. Un seul fait un très bon bouillon qui remplit les estomacs de quatre personnes.'},
+      hp:1, morale:null, armor:null, atk:{en:'Beak 1 dmg',fr:'Bec 1 dég'}, special:null},
+    { num:6, name:{en:'Bonemare',fr:'Cauchemar Osseux'}, qty:null,
+      desc:{en:'While it has no flesh to speak of, the Bonemare keeps a very tasty brain somewhere in its necromanced equestrian being.',fr:'Bien qu\'il n\'ait pas vraiment de chair, le Cauchemar Osseux garde un cerveau très savoureux quelque part dans son être équestre nécromancé.'},
+      hp:12, morale:null, armor:{en:'Bones -d4',fr:'Os -d4'}, atk:{en:'Bite/Kick d6',fr:'Morsure/Coup d6'},
+      special:{en:'On its first turn the mare unleashes a random unclean scroll\'s Power.',fr:'À son premier tour, la jument déclenche le Pouvoir d\'un parchemin impur aléatoire.'}},
+  ]},
+  { id:'bergen', label:{en:'Bergen Chrypt',fr:'Bergen Chrypt'}, creatures:[
+    { num:1, name:{en:'Tunnel Sneak',fr:'Rampeur des Tunnels'}, qty:null,
+      desc:{en:'Moves silently through catacombs\' cracks and crevices seeking its next meal. The size of a grown man, its malleable form fits through the most unlikely openings.',fr:'Se déplace silencieusement à travers les fissures et crevasses des catacombes à la recherche de son prochain repas. De la taille d\'un homme adulte, sa forme malléable passe par les ouvertures les plus improbables.'},
+      hp:12, morale:null, armor:{en:'Malleable form -d2',fr:'Forme malléable -d2'}, atk:{en:'Claws d6',fr:'Griffes d6'},
+      special:{en:'The PC with the highest Presence makes a DR14 test after tracking down a Tunnel Sneak. Failure means it found you first and a random party member is hit with a sneaky claw strike for d6+3 damage.',fr:'Le PJ avec la plus haute Présence fait un test DR14 après avoir traqué un Rampeur des Tunnels. L\'échec signifie qu\'il t\'a trouvé en premier et qu\'un membre aléatoire du groupe est frappé d\'un coup de griffe sournois pour d6+3 dégâts.'}},
+    { num:2, name:{en:'Nephalix Monkeys',fr:'Singes Néphaliix'}, qty:4,
+      desc:{en:'Lived in the abyss so long, the abyss grew tired of them and spat them out. Now they leap from peak to peak with their bony wings, tossing unfortunates down the cliffs to spite the rocks below, laughing all the while.',fr:'Ont vécu si longtemps dans l\'abîme que l\'abîme s\'est lassé d\'eux et les a recrachés. Maintenant ils bondissent de sommet en sommet avec leurs ailes osseuses, jetant les malheureux du haut des falaises pour défier les rochers en dessous, riant tout le temps.'},
+      hp:7, morale:null, armor:{en:'Scales -d2',fr:'Écailles -d2'}, atk:{en:'Bite/Claws d6 + special',fr:'Morsure/Griffes d6 + spécial'},
+      special:{en:'DR8 Strength test or be lifted up and flung through the air, landing 10\' away or somewhere far below.',fr:'Test de Force DR8 ou être soulevé et projeté dans les airs, atterrissant à 3m ou quelque part bien plus bas.'}},
+    { num:3, name:{en:'Weakwill\'d Whisperbird',fr:'Oiseau-Murmure Velléitaire'}, qty:null,
+      desc:{en:'Follows any master provided you kill the current one. Until then it fights tooth and beak to stop you. It looks so utterly pathetic that you must pass a DR12 Presence test to fight back. When encountering it, roll its accompanying master (d4): 1-2 Roll again on hunting table / 3 A flesh-starved berserker / 4 A Lich looking for peace and quiet.',fr:'Suit n\'importe quel maître du moment que tu tues le précédent. Jusque-là il se bat bec et ongles pour t\'en empêcher. Il est si pathétique que tu dois réussir un test de Présence DR12 pour riposter. À sa rencontre, lance pour son maître actuel (d4) : 1-2 Relance sur la table de chasse / 3 Un berserker affamé de chair / 4 Un Liche cherchant la paix et la tranquillité.'},
+      hp:2, morale:6, armor:null, atk:{en:'Beak d4',fr:'Bec d4'},
+      special:{en:'So pathetic you must pass DR12 Presence test to fight back. Roll d4 for its current master: 1-2 reroll on hunting table, 3 flesh-starved berserker, 4 a Lich.',fr:'Si pathétique que tu dois réussir DR12 Présence pour riposter. Lance d4 pour son maître actuel : 1-2 relance sur la table, 3 berserker affamé, 4 un Liche.'}},
+    { num:4, name:{en:'Vierwinged Falchon',fr:'Faucon Quadri-Ailé'}, qty:null,
+      desc:{en:'With four wings and a mean demeanor, the Vierwinged Falchon is the mountain skies\' undisputed despot. Arrogance brought them close to extinction as it eats only its own brood. Still kills other creatures to assert dominance.',fr:'Avec quatre ailes et une allure méchante, le Faucon Quadri-Ailé est le despote incontesté des cieux montagneux. L\'arrogance les a conduits près de l\'extinction car il ne mange que sa propre couvée. Il tue quand même d\'autres créatures pour affirmer sa domination.'},
+      hp:16, morale:null, armor:null, atk:{en:'Bite/Claws d10',fr:'Morsure/Griffes d10'}, special:null},
+    { num:5, name:{en:'Überwolf',fr:'Überlo\u200bup'}, qty:null,
+      desc:{en:'Born during a full blood moon, three times the size of a normal wolf. There are usually d6 or more following close behind.',fr:'Né pendant une pleine lune de sang, trois fois la taille d\'un loup normal. Il y a généralement d6 ou plus qui suivent de près.'},
+      hp:18, morale:null, armor:{en:'Thick fur -d2',fr:'Fourrure épaisse -d2'}, atk:{en:'Bite/Claws d8',fr:'Morsure/Griffes d8'},
+      special:{en:'Regular wolves nearby: HP 6, Morale 8, Bite d6.',fr:'Loups ordinaires à proximité : PV 6, Moral 8, Morsure d6.'}},
+    { num:6, name:{en:'Ragpie',fr:'Pie-Haillon'}, qty:null,
+      desc:{en:'While resting resembles a scrunched up bundle of cloth with a sprinkling of old bones. When bringing down its prey it looks more like a dark cloak, enveloping the target in a deathly choke-embrace.',fr:'Au repos ressemble à un tas de tissu froissé parsemé de vieux os. En fondant sur sa proie, il ressemble davantage à une cape sombre, enveloppant la cible dans une étreinte d\'étranglement mortelle.'},
+      hp:8, morale:null, armor:{en:'Thick skin -d2',fr:'Peau épaisse -d2'}, atk:{en:'Smother-cloak special',fr:'Cape-étouffante spécial'},
+      special:{en:'If defence fails you are embraced by the Ragpie, slowly choking and unable to act, taking d4 damage/round until the Ragpie (½ of damage dealt to it is dealt to the embraced) or a DR18 Strength test frees you.',fr:'Si la défense échoue, tu es enlacé par la Pie-Haillon, étouffant lentement et incapable d\'agir, subissant d4 dégâts/round jusqu\'à ce que la Pie-Haillon meure (½ des dégâts qu\'elle subit te sont infligés) ou qu\'un test de Force DR18 te libère.'}},
+  ]},
+];
+
+function huntLoad(){ try{ return JSON.parse(localStorage.getItem('mbHunt')||'null'); }catch(e){ return null; } }
+function huntSave(s){ try{ localStorage.setItem('mbHunt', JSON.stringify(s)); }catch(e){} }
+function huntDefault(){ return { region:'tveland', roll:null, mishap:null, belly:null }; }
+function huntState(){ let s=huntLoad(); if(!s) s=huntDefault(); return s; }
+
+/* ── Road travel locations & distances ── */
+const ROAD_LOCS = [
+  {id:'galgenbeck', label:{en:'Galgenbeck',fr:'Galgenbeck'}},
+  {id:'allians',    label:{en:'Alliáns',fr:'Alliáns'}},
+  {id:'schleswig',  label:{en:'Schleswig',fr:'Schleswig'}},
+  {id:'grift',      label:{en:'Grift',fr:'Grift'}},
+  {id:'bergen',     label:{en:'Bergen Chrypt',fr:'Bergen Chrypt'}},
+  {id:'graven',     label:{en:'Graven-Tosk',fr:'Graven-Tosk'}},
+  {id:'mur',        label:{en:'Múr',fr:'Múr'}},
+  {id:'valley',     label:{en:'Valley of the Unfortunate Undead',fr:'Vallée des Morts-Vivants Malheureux'}},
+  {id:'other',      label:{en:'Other / Custom',fr:'Autre / Personnalisé'}},
+];
+// Distances as {die, mod} = roll die + mod days. Keyed "A:B" (alphabetical id order).
+const ROAD_DIST = {
+  'allians:galgenbeck':   {die:10, mod:10},
+  'allians:graven':       {die:8,  mod:6},
+  'galgenbeck:graven':    {die:6,  mod:6},
+  'galgenbeck:mur':       {die:6,  mod:6},
+  'galgenbeck:schleswig': {die:6,  mod:4},
+  'galgenbeck:valley':    {die:6,  mod:5},
+  'allians:bergen':       {die:12, mod:12},
+  'bergen:galgenbeck':    {die:8,  mod:2},
+  'bergen:schleswig':     {die:10, mod:8},
+  'galgenbeck:grift':     {die:12, mod:12}, // via Múr
+  'grift:mur':            {die:6,  mod:4},
+};
+function roadDistKey(a,b){ return [a,b].sort().join(':'); }
+function roadDistFor(a,b){
+  if(a===b||a==='other'||b==='other') return null;
+  return ROAD_DIST[roadDistKey(a,b)]||null;
+}
+function roadDistLabel(d){
+  if(!d) return null;
+  return 'd'+d.die+(d.mod>0?'+'+d.mod:'');
+}
+
+function roadLoad(){ try{ return JSON.parse(localStorage.getItem('mbRoad')||'null'); }catch(e){ return null; } }
+function roadSave(s){ try{ localStorage.setItem('mbRoad', JSON.stringify(s)); }catch(e){} }
+function roadDefault(){
+  return { from:'galgenbeck', to:'allians', totalDays:0, currentDay:0, useRoute:true,
+           journal:[], collapsed:{} };
+}
+function roadState(){ let s=roadLoad(); if(!s) s=roadDefault(); return s; }
+
 function newChar(){
   return { v:1, meta:{id:null,name:''}, lang:LANG, classId:'', play:false, edit:false, custom:{}, log:[], boost:{}, collapsed:{},
            modules:{terribleTraits:false,brokenBodies:false,badHabits:false,troublingTales:false,starSigns:false}, sps:{}, f:{} };
@@ -4676,11 +5117,595 @@ function oracleDieHTML(tid,key,sides,val){
     + '<input class="die-in" type="number" min="1" max="'+sides+'" value="'+(val==null?'':val)+'" data-act="oracle-set" data-table="'+tid+'" data-key="'+key+'">'
     + '</span>';
 }
+/* ===== MONSTER GENERATOR TAB ===== */
+let monsterState = {};
+function monsterRollAll(){
+  monsterState = {
+    a:    rollDie(12),
+    b:    rollDie(12),
+    c:    rollDie(12),
+    wants: rollDie(20),
+    trait: rollDie(20),
+  };
+}
+function monsterLookup(tbl, val){
+  if(val==null) return null;
+  const row = tbl.rows.find(r=>val>=r[0]&&val<=r[1]);
+  return row ? t(row[2]) : null;
+}
+function monsterDieHTML(key, sides, val){
+  const label = val!=null ? val : '?';
+  return '<button class="die mon-die" data-act="mon-roll" data-key="'+key+'" data-sides="'+sides+'" title="d'+sides+'"><span class="die-val">'+label+'</span></button>';
+}
+function monsterManualHTML(key, sides, val){
+  return '<input class="mon-manual" type="number" min="1" max="'+sides+'" placeholder="1-'+sides+'" data-act="mon-set" data-key="'+key+'" data-sides="'+sides+'" value="'+(val!=null?val:'')+'">';
+}
+function renderMonsterTab(){
+  const s = monsterState;
+  const hasAll = s.a!=null && s.b!=null && s.c!=null;
+  const hasW   = s.wants!=null;
+  const hasTr  = s.trait!=null;
+  // Damage die from lowest of a/b/c
+  let dmgDie='—', armor='—';
+  if(hasAll){
+    const lo=Math.min(s.a,s.b,s.c);
+    const hi=Math.max(s.a,s.b,s.c);
+    if(lo<=3) dmgDie='d4'; else if(lo<=5) dmgDie='d6'; else if(lo<=7) dmgDie='d8'; else if(lo<=10) dmgDie='d10'; else dmgDie='d12';
+    const hiIdx = s.a===hi ? 'A' : s.b===hi ? 'B' : 'C';
+    if(hiIdx==='A') armor=t({en:'No armor',fr:'Sans armure'});
+    else if(hiIdx==='B') armor='-d2 '+t({en:'armor',fr:'armure'});
+    else { armor = (s.c%2===0) ? '-d6 '+t({en:'armor',fr:'armure'}) : '-d4 '+t({en:'armor',fr:'armure'}); }
+  }
+  const morale = hasAll ? Math.max(s.a,s.b,s.c) : '—';
+  const rowA  = monsterLookup(T.monsterTableA, s.a);
+  const rowB  = monsterLookup(T.monsterTableB, s.b);
+  const rowC  = monsterLookup(T.monsterTableC, s.c);
+  const rowW  = monsterLookup(T.monsterWantsTo, s.wants);
+  const rowTr = monsterLookup(T.monsterTraits, s.trait);
+
+  // Summary block (shown when at least something is rolled)
+  const anyRolled = hasAll || hasW || hasTr;
+  const summaryBlock = anyRolled ? `<div style="background:var(--paper2,#111);border:1px solid var(--line);border-radius:6px;padding:14px 16px;margin-bottom:16px;">
+    ${hasAll ? `<div class="cvltpara" style="margin:0 0 10px;">${
+      LANG==='fr'
+      ? `La créature approche, <b>${rowA||'…'}</b>, avec <b>${rowB||'…'}</b>, en <b>${rowC||'…'}</b>.`
+      : `The monster approaches, <b>${rowA||'…'}</b>, with <b>${rowB||'…'}</b>, it's <b>${rowC||'…'}</b>.`
+    }</div>` : ''}
+    ${hasW ? `<div style="font-size:14px;line-height:1.5;margin-bottom:8px;color:var(--ink);"><span style="color:var(--yellow);font-weight:700;font-size:11px;letter-spacing:.06em;text-transform:uppercase;">${t({en:'Wants to',fr:'Veut'})}</span> — ${fmt(rowW||'…')}</div>` : ''}
+    ${hasTr ? `<div style="font-size:14px;line-height:1.5;margin-bottom:10px;color:var(--ink);"><span style="color:var(--yellow);font-weight:700;font-size:11px;letter-spacing:.06em;text-transform:uppercase;">${t({en:'Trait',fr:'Trait'})}</span> — ${fmt(rowTr||'…')}</div>` : ''}
+    ${hasAll ? `<div style="display:flex;gap:16px;flex-wrap:wrap;padding-top:10px;border-top:1px solid var(--line);">
+      <div style="flex:1;min-width:110px;">
+        <div class="cvltlabel" style="margin-bottom:3px;">${t({en:'MORALE',fr:'MORAL'})}</div>
+        <div style="font-size:22px;font-weight:800;color:var(--yellow);">${morale}</div>
+        <div style="font-size:10px;color:var(--muted);">${t({en:'highest d12',fr:'d12 le plus haut'})}</div>
+      </div>
+      <div style="flex:1;min-width:110px;">
+        <div class="cvltlabel" style="margin-bottom:3px;">${t({en:'DAMAGE',fr:'DÉGÂTS'})}</div>
+        <div style="font-size:22px;font-weight:800;color:var(--yellow);">${dmgDie}</div>
+        <div style="font-size:10px;color:var(--muted);">${t({en:'lowest d12 · HP = 2× roll',fr:'d12 le plus bas · PV = 2× jet'})}</div>
+      </div>
+      <div style="flex:1;min-width:110px;">
+        <div class="cvltlabel" style="margin-bottom:3px;">${t({en:'ARMOR',fr:'ARMURE'})}</div>
+        <div style="font-size:18px;font-weight:800;color:var(--yellow);">${armor}</div>
+        <div style="font-size:10px;color:var(--muted);">${t({en:'highest table wins',fr:'table dominante'})}</div>
+      </div>
+    </div>` : ''}
+  </div>` : '';
+
+  return `<div class="tablescol" style="max-width:720px;margin:0 auto;width:100%;">
+  <section class="card cvltcard">
+    <h2 style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
+      <span>${t({en:'THE MONSTER APPROACHES,',fr:'LE MONSTRE APPROCHE,'})}</span>
+      <button class="cvltrollall" data-act="mon-roll-all">${t({en:'Roll all',fr:'Tout lancer'})}</button>
+    </h2>
+    <div class="cardbody">
+      <p style="font-size:12px;color:var(--muted);margin:0 0 12px;">${t({en:'Roll 3d12. Read these tables from A to C. Save the dice.',fr:'Lance 3d12. Lis ces tables de A à C. Garde les dés.'})}</p>
+
+      ${summaryBlock}
+
+      <!-- Table A -->
+      <div class="cvltpart">
+        <div class="cvlthead">
+          <span class="cvltlabel">TABLE A — d12</span>
+          <div class="cvltdice">
+            ${monsterDieHTML('a',12,s.a)}
+            ${monsterManualHTML('a',12,s.a)}
+          </div>
+        </div>
+        <div class="cvltres">${rowA ? fmt(rowA) : '<span class="sub">…</span>'}</div>
+      </div>
+
+      <!-- Table B -->
+      <div class="cvltpart">
+        <div class="cvlthead">
+          <span class="cvltlabel">TABLE B — d12 <span style="font-weight:400;font-style:italic;">${t({en:'with',fr:'avec'})}</span></span>
+          <div class="cvltdice">
+            ${monsterDieHTML('b',12,s.b)}
+            ${monsterManualHTML('b',12,s.b)}
+          </div>
+        </div>
+        <div class="cvltres">${rowB ? fmt(rowB) : '<span class="sub">…</span>'}</div>
+      </div>
+
+      <!-- Table C -->
+      <div class="cvltpart">
+        <div class="cvlthead">
+          <span class="cvltlabel">TABLE C — d12 <span style="font-weight:400;font-style:italic;">${t({en:"it's",fr:"il"})}</span></span>
+          <div class="cvltdice">
+            ${monsterDieHTML('c',12,s.c)}
+            ${monsterManualHTML('c',12,s.c)}
+          </div>
+        </div>
+        <div class="cvltres">${rowC ? fmt(rowC) : '<span class="sub">…</span>'}</div>
+      </div>
+
+      <!-- Wants To -->
+      <div class="cvltpart">
+        <div class="cvlthead">
+          <span class="cvltlabel">${t({en:'More than anything, it wants to… (d20)',fr:'Plus que tout, il veut… (d20)'})}</span>
+          <div class="cvltdice">
+            ${monsterDieHTML('wants',20,s.wants)}
+            ${monsterManualHTML('wants',20,s.wants)}
+          </div>
+        </div>
+        <div class="cvltres">${rowW ? fmt(rowW) : '<span class="sub">…</span>'}</div>
+      </div>
+
+      <!-- Terrible Traits -->
+      <div class="cvltpart">
+        <div class="cvlthead">
+          <span class="cvltlabel">${t({en:'Terrible Traits (d20)',fr:'Traits Terribles (d20)'})}</span>
+          <div class="cvltdice">
+            ${monsterDieHTML('trait',20,s.trait)}
+            ${monsterManualHTML('trait',20,s.trait)}
+          </div>
+        </div>
+        <div class="cvltres">${rowTr ? fmt(rowTr) : '<span class="sub">…</span>'}</div>
+      </div>
+
+    </div>
+  </section>
+</div>`;
+}
+/* ===== END MONSTER GENERATOR TAB ===== */
+
+/* ===== ROADS / TRAVEL COMPANION TAB ===== */
+function roadLookup(tbl, val){
+  if(val==null) return null;
+  const row = tbl.rows.find(r=>val>=r[0]&&val<=r[1]);
+  return row ? t(row[2]) : null;
+}
+function roadDieBtn(key, sides, val, extra){
+  const lbl = val!=null ? val : '?';
+  return `<button class="die mon-die" data-act="road-roll" data-key="${key}" data-sides="${sides}"${extra?' '+extra:''}><span class="die-val">${lbl}</span></button>`;
+}
+function roadManIn(key, sides, val, extra){
+  return `<input class="mon-manual" type="number" min="1" max="${sides}" placeholder="1-${sides}" data-act="road-set" data-key="${key}" data-sides="${sides}"${extra?' '+extra:''}  value="${val!=null?val:''}">`;
+}
+
+function renderRoadDay(day, idx, collapsed){
+  // day = {weather, road, event, eventSub, forage, forageVillage, offroad, camp, campDream, notes, dayNum}
+  const isCollapsed = !!collapsed['d'+idx];
+  const wRes  = roadLookup(T.weather, day.weather);
+  const rRes  = roadLookup(T.roadCondition, day.road);
+  const eRes  = roadLookup(T.roadEvents, day.event);
+  const eSubRes = (day.event===5||day.event===6) ? roadLookup(T.weather, day.eventSub) : null;
+  const fRes  = day.forage!=null ? roadLookup(T.roadForaging, day.forage) : null;
+  const fVRes = (day.forage>=5&&day.forage<=6&&day.forageVillage!=null) ? roadLookup(T.roadVillage, day.forageVillage) : null;
+  const oRes  = day.offroad!=null ? roadLookup(T.roadOffRoad, day.offroad) : null;
+  const cRes  = roadLookup(T.roadCampsite, day.camp);
+  const cDrRes= day.camp===10 && day.campDream!=null ? roadLookup(T.roadDreams, day.campDream) : null;
+  const di=`d${idx}`;
+
+  // Collapsed card: just the header
+  const weatherPeek = wRes ? wRes.slice(0,40)+(wRes.length>40?'…':'') : '';
+  const header = `<h2 style="display:flex;align-items:center;gap:10px;cursor:pointer;margin:0;" data-act="road-collapse" data-di="${di}">
+    <span style="font-size:17px;color:var(--red);">${t({en:`Day ${day.dayNum}`,fr:`Jour ${day.dayNum}`})}</span>
+    ${isCollapsed&&weatherPeek?`<span style="font-size:14px;font-weight:400;color:var(--muted);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${esc(weatherPeek)}</span>`:''}
+    <span style="margin-left:auto;color:var(--muted);font-size:16px;flex-shrink:0;">${isCollapsed?'▸':'▾'}</span>
+  </h2>`;
+
+  if(isCollapsed) return `<section class="card cvltcard" data-di="${di}" style="margin-top:10px;">${header}</section>`;
+
+  function rowHtml(labelEn, labelFr, key, sides, resHtml, subHtml){
+    return `<div class="cvltpart">
+      <div class="cvlthead">
+        <span class="cvltlabel">${t({en:labelEn,fr:labelFr})}</span>
+        <div class="cvltdice" style="margin-left:auto;">
+          ${roadDieBtn(key,sides,day[key],`data-di="${di}"`)}
+          ${roadManIn(key,sides,day[key],`data-di="${di}"`)}
+        </div>
+      </div>
+      <div class="cvltres" style="margin-top:5px;">${resHtml||'<span style="color:var(--muted);font-size:14px;">—</span>'}</div>
+      ${subHtml||''}
+    </div>`;
+  }
+
+  function subRow(labelEn, labelFr, key, sides, val, resHtml){
+    return `<div style="margin-top:8px;padding-left:14px;border-left:2px solid var(--yellow);">
+      <div class="cvlthead">
+        <span class="cvltlabel" style="font-size:14px;">${t({en:labelEn,fr:labelFr})}</span>
+        <div class="cvltdice" style="margin-left:auto;">
+          ${roadDieBtn(key,sides,val,`data-di="${di}"`)}
+          ${roadManIn(key,sides,val,`data-di="${di}"`)}
+        </div>
+      </div>
+      <div class="cvltres" style="margin-top:5px;">${resHtml||'<span style="color:var(--muted);font-size:14px;">—</span>'}</div>
+    </div>`;
+  }
+
+  const optLabel = `<span style="color:var(--muted);font-style:italic;font-size:14px;">`;
+
+  let html = `<section class="card cvltcard" data-di="${di}" style="margin-top:10px;">${header}<div class="cardbody">`;
+
+  html += rowHtml('Weather — d12','Météo — d12','weather',12, wRes?fmt(wRes):null);
+  html += rowHtml('Road condition — d8','État de la route — d8','road',8, rRes?fmt(rRes):null);
+  html += rowHtml('Road event — d20','Événement de route — d20','event',20, eRes?fmt(eRes):null,
+    (day.event===5||day.event===6) ? subRow('Weather reroll — d12','Relance météo — d12','eventSub',12,day.eventSub,eSubRes?fmt(eSubRes):null) : ''
+  );
+  html += rowHtml('Off-road encounter — d12','Rencontre hors-route — d12','offroad',12,
+    oRes ? fmt(oRes) : `${optLabel}${t({en:'Optional — only if leaving the road',fr:'Optionnel — seulement si vous quittez la route'})}</span>`
+  );
+  html += rowHtml('Foraging — d6','Maraude — d6','forage',6,
+    fRes ? fmt(fRes) : `${optLabel}${t({en:'Optional — only if foraging',fr:'Optionnel — seulement si on maraude'})}</span>`,
+    (day.forage>=5&&day.forage<=6) ? subRow('Village — d6','Village — d6','forageVillage',6,day.forageVillage,fVRes?fmt(fVRes):null) : ''
+  );
+  html += rowHtml('Campsite — d12','Campement — d12','camp',12, cRes?fmt(cRes):null,
+    day.camp===10 ? subRow('Dream — d6','Rêve — d6','campDream',6,day.campDream,cDrRes?fmt(cDrRes):null) : ''
+  );
+
+  html += `</div></section>`;
+  return html;
+}
+
+function renderRoadsTab(){
+  const s = roadState();
+  const dist = roadDistFor(s.from, s.to);
+  const distLabel = roadDistLabel(dist);
+  const totalDays = s.totalDays || 0;
+  const currentDay = Math.min(s.currentDay||0, totalDays);
+  const journal = s.journal||[];
+
+  const locOpts = (sel) => ROAD_LOCS.map(l=>`<option value="${l.id}"${sel===l.id?' selected':''}>${esc(t(l.label))}</option>`).join('');
+
+  const routePanel = `<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end;margin-bottom:10px;">
+    <div>
+      <div class="cvltlabel" style="margin-bottom:4px;">${t({en:'From',fr:'De'})}</div>
+      <select class="road-sel" data-act="road-from" style="background:var(--paper2,#111);color:var(--ink);border:1px solid var(--line);border-radius:4px;padding:5px 8px;font:600 14px/1 inherit;">${locOpts(s.from)}</select>
+    </div>
+    <div style="padding-bottom:6px;color:var(--yellow);font-weight:800;font-size:18px;">→</div>
+    <div>
+      <div class="cvltlabel" style="margin-bottom:4px;">${t({en:'To',fr:'Vers'})}</div>
+      <select class="road-sel" data-act="road-to" style="background:var(--paper2,#111);color:var(--ink);border:1px solid var(--line);border-radius:4px;padding:5px 8px;font:600 14px/1 inherit;">${locOpts(s.to)}</select>
+    </div>
+    ${dist?`<div>
+      <div class="cvltlabel" style="margin-bottom:4px;">${t({en:'Distance',fr:'Distance'})}</div>
+      <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+        <button class="cvltdie" data-act="road-roll-dist" style="min-width:54px;height:28px;font-size:14px;padding:0 8px;white-space:nowrap;">${distLabel}</button>
+        ${s.distResult!=null?`<span style="font-size:18px;font-weight:800;color:var(--yellow);">${t({en:s.distResult+' days',fr:s.distResult+' jours'})}</span>
+        <button class="btn" data-act="road-use-dist" style="font-size:14px;padding:4px 10px;">${t({en:'Use',fr:'Utiliser'})}</button>`:''}
+      </div>
+    </div>`:''}
+  </div>`;
+
+  const daysPanel = `<div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:12px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:14px;">
+    <div>
+      <div class="cvltlabel" style="margin-bottom:4px;">${t({en:'Total days',fr:'Jours totaux'})}</div>
+      <div style="display:flex;gap:5px;align-items:center;">
+        <button class="cvltdie" data-act="road-days-dec" style="min-width:24px;height:24px;font-size:16px;">-</button>
+        <span style="font-size:22px;font-weight:800;color:var(--yellow);min-width:30px;text-align:center;">${totalDays||'?'}</span>
+        <button class="cvltdie" data-act="road-days-inc" style="min-width:24px;height:24px;font-size:16px;">+</button>
+        <input class="mon-manual" type="number" min="1" max="99" placeholder="N" data-act="road-days-set" value="${totalDays||''}">
+      </div>
+    </div>
+    ${totalDays>0?`<div style="flex:1;min-width:140px;">
+      <div class="cvltlabel" style="margin-bottom:4px;">${t({en:`Progress — day ${currentDay} of ${totalDays}`,fr:`Progression — jour ${currentDay} sur ${totalDays}`})}</div>
+      <div style="height:8px;background:var(--line);border-radius:4px;overflow:hidden;">
+        <div style="height:100%;width:${Math.round(currentDay/totalDays*100)}%;background:var(--yellow);border-radius:4px;transition:width .3s;"></div>
+      </div>
+    </div>`:''}
+    ${totalDays>0&&currentDay<totalDays?`<button class="btn gold" data-act="road-next-day" style="align-self:flex-end;font-size:14px;padding:6px 14px;">⚔ ${t({en:'Next day',fr:'Jour suivant'})}</button>`:''}
+    ${totalDays>0&&currentDay>=totalDays?`<div style="align-self:flex-end;color:var(--red);font-weight:700;font-size:16px;">✓ ${t({en:'Arrived!',fr:'Arrivé !'})}</div>`:''}
+  </div>`;
+
+  let journalHtml = '';
+  if(journal.length){
+    const rev = [...journal].reverse();
+    journalHtml = rev.map((day,ri)=>{
+      const idx = journal.length-1-ri;
+      return renderRoadDay(day, idx, s.collapsed||{});
+    }).join('');
+  } else if(totalDays>0){
+    journalHtml = `<div style="color:var(--muted);font-size:14px;padding:10px 0;">${t({en:'No days logged yet. Click "Next day" to start.',fr:'Aucun jour enregistré. Clique sur "Jour suivant" pour commencer.'})}</div>`;
+  }
+
+  return `<div class="tablescol" style="max-width:760px;margin:0 auto;width:100%;">
+  <section class="card cvltcard">
+    <h2 style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;">
+      <span>${t({en:'Traveling the Dying Lands',fr:'Voyager dans les Terres Mourantes'})}</span>
+      <div style="display:flex;gap:6px;">
+        <button class="cvltrollall" data-act="road-export">${t({en:'Export',fr:'Exporter'})}</button>
+        <button class="cvltrollall" style="background:var(--red);color:#fff;" data-act="road-reset">${t({en:'Reset',fr:'Réinit.'})}</button>
+      </div>
+    </h2>
+    <div class="cardbody">
+      <p style="font-size:14px;color:var(--muted);margin:0 0 12px;">${t({en:'Travel companion — distances in days. Roll daily for events, weather, and campsite.',fr:'Compagnon de voyage — distances en jours. Lance chaque jour pour les événements, la météo et le campement.'})}</p>
+      ${routePanel}
+      ${daysPanel}
+      ${journalHtml}
+    </div>
+  </section>
+</div>`;
+}
+
+function initRoadsDelegation(){
+  const grid = document.getElementById('tablesgrid');
+  if(!grid) return;
+  grid.addEventListener('click', function(e){
+    if(tablesTab!=='roads') return;
+    const el = e.target.closest('[data-act]');
+    if(!el) return;
+    const act = el.dataset.act;
+    const s = roadState();
+
+    if(act==='road-roll-dist'){
+      const dist = roadDistFor(s.from, s.to);
+      if(!dist) return;
+      s.distResult = rollDie(dist.die) + dist.mod;
+      roadSave(s); renderTables();
+    }
+    else if(act==='road-use-dist'){
+      if(s.distResult!=null){ s.totalDays=s.distResult; s.currentDay=Math.min(s.currentDay||0,s.totalDays); roadSave(s); renderTables(); }
+    }
+    else if(act==='road-days-dec'){
+      s.totalDays=Math.max(0,(s.totalDays||0)-1); s.currentDay=Math.min(s.currentDay||0,s.totalDays);
+      roadSave(s); renderTables();
+    }
+    else if(act==='road-days-inc'){
+      s.totalDays=(s.totalDays||0)+1; roadSave(s); renderTables();
+    }
+    else if(act==='road-next-day'){
+      const dayNum = (s.currentDay||0)+1;
+      const newDay = {dayNum,
+        weather: rollDie(12), road: rollDie(8), event: rollDie(20),
+        camp: rollDie(12),
+        offroad:null, forage:null, forageVillage:null, eventSub:null, campDream:null
+      };
+      if(newDay.event===5||newDay.event===6) newDay.eventSub=rollDie(12);
+      if(newDay.camp===10) newDay.campDream=rollDie(6);
+      s.journal=s.journal||[];
+      s.journal.push(newDay);
+      s.currentDay=dayNum;
+      roadSave(s); renderTables();
+    }
+    else if(act==='road-collapse'){
+      const di=el.dataset.di; s.collapsed=s.collapsed||{}; s.collapsed[di]=!s.collapsed[di];
+      roadSave(s); renderTables();
+    }
+    else if(act==='road-roll'){
+      const key=el.dataset.key, sides=+el.dataset.sides, di=el.dataset.di;
+      const idx=roadJournalIdx(s,di);
+      if(idx==null){ s[key]=rollDie(sides); }
+      else { s.journal[idx][key]=rollDie(sides); cascadeRoadDay(s.journal[idx]); }
+      roadSave(s); renderTables();
+    }
+    else if(act==='road-export'){
+      const s2=roadState();
+      const lines=[t({en:'=== TRAVEL JOURNAL ===',fr:'=== JOURNAL DE VOYAGE ==='}),
+        t({en:`Route: ${locLabel(s2.from)} → ${locLabel(s2.to)}`,fr:`Route : ${locLabel(s2.from)} → ${locLabel(s2.to)}`}),
+        t({en:`Progress: day ${s2.currentDay}/${s2.totalDays}`,fr:`Progression : jour ${s2.currentDay}/${s2.totalDays}`}),''
+      ];
+      (s2.journal||[]).forEach(d=>{
+        lines.push(t({en:`--- Day ${d.dayNum} ---`,fr:`--- Jour ${d.dayNum} ---`}));
+        if(d.weather!=null) lines.push(t({en:'Weather',fr:'Météo'})+': '+(roadLookup(T.weather,d.weather)||''));
+        if(d.road!=null)    lines.push(t({en:'Road',fr:'Route'})+': '+(roadLookup(T.roadCondition,d.road)||''));
+        if(d.event!=null)   lines.push(t({en:'Event',fr:'Événement'})+': '+(roadLookup(T.roadEvents,d.event)||''));
+        if(d.offroad!=null) lines.push(t({en:'Off-road',fr:'Hors-route'})+': '+(roadLookup(T.roadOffRoad,d.offroad)||''));
+        if(d.forage!=null)  lines.push(t({en:'Forage',fr:'Maraude'})+': '+(roadLookup(T.roadForaging,d.forage)||''));
+        if(d.camp!=null)    lines.push(t({en:'Camp',fr:'Camp'})+': '+(roadLookup(T.roadCampsite,d.camp)||''));
+        if(d.campDream!=null) lines.push(t({en:'Dream',fr:'Rêve'})+': '+(roadLookup(T.roadDreams,d.campDream)||''));
+        lines.push('');
+      });
+      const blob=new Blob([lines.join('\n')],{type:'text/plain'});
+      const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+      a.download='travel-journal.txt'; a.click();
+    }
+    else if(act==='road-reset'){
+      if(confirm(t({en:'Reset the travel journal? This cannot be undone.',fr:'Réinitialiser le journal de voyage ? Cette action est irréversible.'}))){
+        localStorage.removeItem('mbRoad'); renderTables();
+      }
+    }
+  });
+  grid.addEventListener('change', function(e){
+    if(tablesTab!=='roads') return;
+    const el=e.target;
+    const act=el.dataset&&el.dataset.act;
+    if(!act) return;
+    const s=roadState();
+    if(act==='road-from'){ s.from=el.value; s.distResult=null; roadSave(s); renderTables(); }
+    else if(act==='road-to'){ s.to=el.value; s.distResult=null; roadSave(s); renderTables(); }
+    else if(act==='road-days-set'){
+      const v=Math.max(1,Math.min(99,parseInt(el.value)||1));
+      s.totalDays=v; s.currentDay=Math.min(s.currentDay||0,v); roadSave(s); renderTables();
+    }
+    else if(act==='road-set'){
+      const key=el.dataset.key, sides=+el.dataset.sides, di=el.dataset.di;
+      const v=parseInt(el.value,10);
+      if(!isNaN(v)&&v>=1&&v<=sides){
+        const idx=roadJournalIdx(s,di);
+        if(idx==null){ s[key]=v; }
+        else { s.journal[idx][key]=v; cascadeRoadDay(s.journal[idx]); }
+        roadSave(s); renderTables();
+      }
+    }
+  });
+}
+function roadJournalIdx(s,di){
+  if(!di) return null;
+  const idx=parseInt(di.replace('d',''));
+  if(isNaN(idx)||!s.journal||idx<0||idx>=s.journal.length) return null;
+  return idx;
+}
+function cascadeRoadDay(day){
+  if(day.event===5||day.event===6){ if(day.eventSub==null) day.eventSub=rollDie(12); }
+  else day.eventSub=null;
+  if(day.camp===10){ if(day.campDream==null) day.campDream=rollDie(6); }
+  else day.campDream=null;
+  if(day.forage==null||day.forage<5||day.forage>6) day.forageVillage=null;
+}
+function locLabel(id){ const l=ROAD_LOCS.find(x=>x.id===id); return l?t(l.label):id; }
+/* ===== END ROADS TAB ===== */
+
+/* ===== HUNTING TAB ===== */
+function renderHuntingTab(){
+  const s = huntState();
+  const region = HUNT_REGIONS.find(r=>r.id===s.region) || HUNT_REGIONS[0];
+  const creature = s.roll!=null ? region.creatures.find(c=>c.num===s.roll) : null;
+
+  // Region picker buttons (like mis-diebtn)
+  const regionPicker = HUNT_REGIONS.map(r=>
+    `<button class="mis-diebtn${r.id===s.region?' on':''}" data-act="hunt-region" data-region="${r.id}">${esc(t(r.label))}</button>`
+  ).join('');
+
+  // Stat card for creature
+  function statCard(c){
+    const morale = c.morale!=null ? c.morale : '—';
+    const armor  = c.armor  ? t(c.armor)  : t({en:'None',fr:'Aucune'});
+    const atk    = c.atk    ? t(c.atk)    : '—';
+    return `<div style="background:var(--paper2,#111);border:2px solid var(--yellow);border-radius:6px;padding:12px 14px;margin:12px 0;">
+      <div style="font-size:18px;font-weight:800;color:var(--yellow);margin-bottom:6px;">${esc(t(c.name))}${c.qty?` <span style="font-size:14px;font-weight:400;color:var(--muted);">(d${c.qty})</span>`:''}</div>
+      <div style="font-size:14px;color:var(--muted);font-style:italic;margin-bottom:10px;line-height:1.4;">${esc(t(c.desc))}</div>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:10px;">
+        <div><div class="cvltlabel" style="margin-bottom:2px;">HP</div><div style="font-size:20px;font-weight:800;color:var(--yellow);">${c.hp}</div></div>
+        <div><div class="cvltlabel" style="margin-bottom:2px;">${t({en:'Morale',fr:'Moral'})}</div><div style="font-size:20px;font-weight:800;color:var(--yellow);">${morale}</div></div>
+        <div style="flex:1;min-width:120px;"><div class="cvltlabel" style="margin-bottom:2px;">${t({en:'Armor',fr:'Armure'})}</div><div style="font-size:15px;font-weight:700;">${esc(armor)}</div></div>
+        <div style="flex:1;min-width:120px;"><div class="cvltlabel" style="margin-bottom:2px;">${t({en:'Attack',fr:'Attaque'})}</div><div style="font-size:15px;font-weight:700;">${esc(atk)}</div></div>
+      </div>
+      ${c.special?`<div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--line);font-size:14px;line-height:1.5;color:var(--ink);"><span style="color:var(--yellow);font-weight:700;text-transform:uppercase;letter-spacing:.06em;">${t({en:'Special',fr:'Spécial'})} — </span>${esc(t(c.special))}</div>`:''}
+      ${c.qty?`<div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--line);">
+        <div class="cvlthead">
+          <span class="cvltlabel">${t({en:`How many? (d${c.qty})`,fr:`Combien ? (d${c.qty})`})}</span>
+          <div class="cvltdice" style="margin-left:auto;">
+            <button class="die mon-die" data-act="hunt-qty-roll" data-sides="${c.qty}"><span class="die-val">${s.qty!=null?s.qty:'?'}</span></button>
+            <input class="mon-manual" type="number" min="1" max="${c.qty}" placeholder="1-${c.qty}" data-act="hunt-qty-set" data-sides="${c.qty}" value="${s.qty!=null?s.qty:''}">
+          </div>
+        </div>
+        ${s.qty!=null?`<div class="cvltres" style="margin-top:6px;">${s.qty} × ${esc(t(c.name))}</div>`:''}
+      </div>`:''}
+    </div>`;
+  }
+
+  // Mishap result
+  const mishapRes = s.mishap!=null ? t(HUNT_MISHAPS[s.mishap-1]) : null;
+  // Belly result
+  const bellyRes  = s.belly!=null  ? t(HUNT_BELLY[s.belly-1])   : null;
+
+  return `<div class="tablescol" style="max-width:720px;margin:0 auto;width:100%;">
+  <section class="card cvltcard">
+    <h2 style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
+      <span>${t({en:'Hunting',fr:'Chasse'})}</span>
+      <button class="btn gold" data-act="hunt-reset" style="font:700 11px/1 Impact,'Arial Narrow',sans-serif;text-transform:uppercase;letter-spacing:.08em;padding:7px 14px;">✦ ${t({en:'New hunt',fr:'Nouvelle chasse'})}</button>
+    </h2>
+    <div class="cardbody">
+      <p style="font-size:14px;color:var(--muted);margin:0 0 14px;">${t({en:'When stomachs growl and there\'s no inn in sight, roll a d6 on a region table. Now kill and be merry.',fr:'Quand les estomacs grondent et qu\'aucune auberge n\'est en vue, lance un d6 sur la table de région. Maintenant tue et réjouis-toi.'})}</p>
+
+      <!-- Region picker -->
+      <div style="margin-bottom:14px;">
+        <div class="cvltlabel" style="margin-bottom:6px;">${t({en:'Region',fr:'Région'})}</div>
+        <div class="mis-diepicker">${regionPicker}</div>
+      </div>
+
+      <!-- Roll for prey -->
+      <div class="cvltpart">
+        <div class="cvlthead">
+          <span class="cvltlabel">${t({en:'Roll for prey — d6',fr:'Lance pour la proie — d6'})}</span>
+          <div class="cvltdice" style="margin-left:auto;">
+            <button class="die mon-die" data-act="hunt-roll"><span class="die-val">${s.roll!=null?s.roll:'?'}</span></button>
+            <input class="mon-manual" type="number" min="1" max="6" placeholder="1-6" data-act="hunt-roll-set" value="${s.roll!=null?s.roll:''}">
+          </div>
+        </div>
+      </div>
+
+      ${creature ? statCard(creature) : ''}
+    </div>
+  </section>
+
+  ${creature ? `
+  <!-- Hunting mishap -->
+  <section class="card cvltcard" style="margin-top:10px;">
+    <h2>${t({en:'Hunting Mishap — d10',fr:'Mésaventure de Chasse — d10'})}</h2>
+    <div class="cardbody">
+      <p style="font-size:14px;color:var(--muted);margin:0 0 10px;">${t({en:'If the hunt goes wrong…',fr:'Si la chasse tourne mal…'})}</p>
+      <div class="cvltpart">
+        <div class="cvlthead">
+          <span class="cvltlabel">${t({en:'Mishap — d10',fr:'Mésaventure — d10'})}</span>
+          <div class="cvltdice" style="margin-left:auto;">
+            <button class="die mon-die" data-act="hunt-mishap-roll"><span class="die-val">${s.mishap!=null?s.mishap:'?'}</span></button>
+            <input class="mon-manual" type="number" min="1" max="10" placeholder="1-10" data-act="hunt-mishap-set" value="${s.mishap!=null?s.mishap:''}">
+          </div>
+        </div>
+        ${mishapRes?`<div class="cvltres" style="margin-top:6px;">${fmt(mishapRes)}</div>`:''}
+      </div>
+    </div>
+  </section>
+
+  <!-- Belly of the beast -->
+  <section class="card cvltcard" style="margin-top:10px;">
+    <h2>${t({en:'In the Belly of the Beast… — d10',fr:'Dans le Ventre de la Bête… — d10'})}</h2>
+    <div class="cardbody">
+      <p style="font-size:14px;color:var(--muted);margin:0 0 10px;">${t({en:'A creature provides rations equal to their HP. Roll to see what else you find inside.',fr:'Une créature fournit des rations égales à ses PV. Lance pour voir ce que tu trouves d\'autre à l\'intérieur.'})}</p>
+      <div class="cvltpart">
+        <div class="cvlthead">
+          <span class="cvltlabel">${t({en:'Belly find — d10',fr:'Trouvaille — d10'})}</span>
+          <div class="cvltdice" style="margin-left:auto;">
+            <button class="die mon-die" data-act="hunt-belly-roll"><span class="die-val">${s.belly!=null?s.belly:'?'}</span></button>
+            <input class="mon-manual" type="number" min="1" max="10" placeholder="1-10" data-act="hunt-belly-set" value="${s.belly!=null?s.belly:''}">
+          </div>
+        </div>
+        ${bellyRes?`<div class="cvltres" style="margin-top:6px;">${fmt(bellyRes)}</div>`:''}
+      </div>
+    </div>
+  </section>` : ''}
+</div>`;
+}
+
+function initHuntingDelegation(){
+  const grid = document.getElementById('tablesgrid');
+  if(!grid) return;
+  grid.addEventListener('click', function(e){
+    if(tablesTab!=='hunting') return;
+    const el = e.target.closest('[data-act]'); if(!el) return;
+    const act = el.dataset.act;
+    const s = huntState();
+    if(act==='hunt-roll'){       s.roll=rollDie(6); s.qty=null; huntSave(s); renderTables(); }
+    else if(act==='hunt-region'){ s.region=el.dataset.region; s.roll=null; s.qty=null; s.mishap=null; s.belly=null; huntSave(s); renderTables(); }
+    else if(act==='hunt-mishap-roll'){ s.mishap=rollDie(10); huntSave(s); renderTables(); }
+    else if(act==='hunt-belly-roll'){ s.belly=rollDie(10); huntSave(s); renderTables(); }
+    else if(act==='hunt-qty-roll'){  s.qty=rollDie(+el.dataset.sides); huntSave(s); renderTables(); }
+    else if(act==='hunt-reset'){
+      localStorage.removeItem('mbHunt'); renderTables();
+    }
+  });
+  grid.addEventListener('change', function(e){
+    if(tablesTab!=='hunting') return;
+    const el=e.target; const act=el.dataset&&el.dataset.act; if(!act) return;
+    const s=huntState();
+    if(act==='hunt-roll-set'){    const v=parseInt(el.value); if(v>=1&&v<=6){ s.roll=v; s.qty=null; huntSave(s); renderTables(); } }
+    else if(act==='hunt-mishap-set'){  const v=parseInt(el.value); if(v>=1&&v<=10){ s.mishap=v; huntSave(s); renderTables(); } }
+    else if(act==='hunt-belly-set'){   const v=parseInt(el.value); if(v>=1&&v<=10){ s.belly=v; huntSave(s); renderTables(); } }
+    else if(act==='hunt-qty-set'){     const sides=+el.dataset.sides, v=parseInt(el.value); if(v>=1&&v<=sides){ s.qty=v; huntSave(s); renderTables(); } }
+  });
+}
+/* ===== END HUNTING TAB ===== */
+
 function renderTables(){
   const grid=document.getElementById('tablesgrid'); if(!grid) return;
   const tabsEl=document.getElementById('tablestabs');
-  if(tabsEl){ const tabLabels={oracle:{en:'Oracle',fr:'Oracle'},loot:{en:'Loot',fr:'Butin'},cvlt:{en:'Cvlt',fr:'Cvlte'},cvrse:{en:'Cvrse',fr:'Malédiction'},dvngeon:{en:'Dvngeon',fr:'Cachot'},misery:{en:'Miseries',fr:'Misères'}}; tabsEl.innerHTML=['oracle','loot','cvlt','cvrse','dvngeon','misery'].map(tb=>'<button class="tab'+(tablesTab===tb?' on':'')+'"'+(tb==='misery'?' style="color:var(--red);border-color:var(--red);"':'')+' data-act="tables-tab" data-tab="'+tb+'">'+t(tabLabels[tb])+'</button>').join(''); }
+  if(tabsEl){ const tabLabels={oracle:{en:'Oracle',fr:'Oracle'},loot:{en:'Loot',fr:'Butin'},cvlt:{en:'Cvlt',fr:'Cvlte'},cvrse:{en:'Cvrse',fr:'Malédiction'},dvngeon:{en:'Dvngeon',fr:'Cachot'},roads:{en:'Roads',fr:'Routes'},hunting:{en:'Hunting',fr:'Chasse'},monster:{en:'Monster',fr:'Monstre'},misery:{en:'Miseries',fr:'Misères'}}; tabsEl.innerHTML=['oracle','loot','cvlt','cvrse','dvngeon','roads','hunting','monster','misery'].map(tb=>'<button class="tab'+(tablesTab===tb?' on':'')+'"'+(tb==='misery'?' style="color:var(--red);border-color:var(--red);"':'')+' data-act="tables-tab" data-tab="'+tb+'">'+t(tabLabels[tb])+'</button>').join(''); }
   if(tablesTab==='misery'){ grid.innerHTML=renderMiseryCalendar(); return; }
+  if(tablesTab==='monster'){ if(!monsterState.a) monsterRollAll(); grid.innerHTML=renderMonsterTab(); return; }
+  if(tablesTab==='roads'){   grid.innerHTML=renderRoadsTab();   return; }
+  if(tablesTab==='hunting'){ grid.innerHTML=renderHuntingTab(); return; }
   if(GENERATORS[tablesTab]){ if(!genRolls[tablesTab]) genRollAll(tablesTab); grid.innerHTML='<div class="tablescol">'+genSeedsHTML(tablesTab)+'</div><div class="tablescol">'+genComposedHTML(tablesTab)+'</div>'; return; }
   const cats=oracleCats().filter(cat=>(cat.tab||'oracle')===tablesTab);
   const nCols=Math.max(1, Math.min(3, Math.floor(Math.min(1232, window.innerWidth-48)/360)));
@@ -4810,6 +5835,8 @@ function onClick(e){
   }
   else if(act==='oracle-roll'){ const tid=actEl.dataset.table, m=ORACLE_BY_ID[tid]; if(!m||!m.table) return; oracle[tid]=oracle[tid]||{}; oracle[tid][key]= m.tens ? (rollDie(m.tens)*10+rollDie(m.units)) : rollDie(m.sides); animQ.push(['oracle:'+tid,key]); renderTables(); flushAnim(); }
   else if(act==='oracle-toggle'){ const tid=actEl.dataset.table, m=ORACLE_BY_ID[tid]; oracleOpen[tid]=!oracleOpen[tid]; if(oracleOpen[tid] && m && m.table && !(oracle[tid]&&oracle[tid].main!=null)){ oracle[tid]=oracle[tid]||{}; oracle[tid].main= m.tens ? (rollDie(m.tens)*10+rollDie(m.units)) : rollDie(m.sides); animQ.push(['oracle:'+tid,'main']); } renderTables(); flushAnim(); }
+  else if(act==='mon-roll-all'){ monsterRollAll(); renderTables(); }
+  else if(act==='mon-roll'){ const k=actEl.dataset.key, sides=+actEl.dataset.sides; monsterState[k]=rollDie(sides); renderTables(); }
   else if(act==='toggle-sps'){ const gid=actEl.dataset.grp; state.sps=state.sps||{}; state.sps[gid]=!state.sps[gid]; render(); }
   else if(act==='load-scvm'){ loadById(actEl.dataset.id, 'compact'); }
   else if(act==='del-scvm'){ delById(actEl.dataset.id); renderScvms(); }
@@ -4866,6 +5893,7 @@ function onChange(e){
   }
   if(el.dataset && el.dataset.act==='setdie'){ setDie(fieldFor(el.dataset.field), el.dataset.key, el.value); render(); return; }
   if(el.dataset && el.dataset.act==='oracle-set'){ const tid=el.dataset.table, k=el.dataset.key, m=ORACLE_BY_ID[tid], v=parseInt(el.value,10); if(!isNaN(v)){ oracle[tid]=oracle[tid]||{}; oracle[tid][k]=clamp(v,1,m.sides); renderTables(); } return; }
+  if(el.dataset && el.dataset.act==='mon-set'){ const k=el.dataset.key, sides=+el.dataset.sides, v=parseInt(el.value,10); if(!isNaN(v)&&v>=1&&v<=sides){ monsterState[k]=v; renderTables(); } return; }
   if(el.dataset && el.dataset.edit==='num'){ const id=el.dataset.field; state.f[id]=state.f[id]||{}; const v=el.value.trim(); state.f[id].manual=(v===''||isNaN(+v))?null:+v; redraw(); return; }
   if(el.dataset && el.dataset.edit==='tablepick'){ const id=el.dataset.field, v=el.value, fd=state.f[id]=state.f[id]||{}, f=fieldFor(id); if(v==='__custom__'){ fd.manual=cmpPlainText(f); } else if(v===''){ fd.manual=null; } else { fd.main=+v; fd.manual=null; const r=f.table&&lookup(f.table,fd.main); if(r&&r[3]&&fd.scroll==null) fd.scroll=rollDie(10); } redraw(); return; }
 }
@@ -4902,6 +5930,8 @@ function boot(){
   render();          // do NOT auto-roll: fields start as "?" until the player rolls or types
   showView('home');
   initMiseryDelegation();
+  initRoadsDelegation();
+  initHuntingDelegation();
 }
 
 // theme toggle
