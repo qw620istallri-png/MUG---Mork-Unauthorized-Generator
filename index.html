@@ -111,6 +111,7 @@ h2:hover{color:#fff;}
 .result.big{font-size:20px;font-weight:800;color:var(--yellow);}
 .result.noroll{cursor:default;}
 .result.noroll:hover{color:var(--ink);}
+.result.big.noroll:hover{color:var(--yellow);}
 .warn{color:var(--red);font-weight:700;}
 .sub,.note{font-size:11px;color:var(--muted);margin-top:5px;}
 .fixedtext{font-size:13px;color:var(--ink);line-height:1.55;white-space:pre-line;}
@@ -388,8 +389,10 @@ body.light .navlink{color:#4a4535;}
 .classcard::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,8,8,.05) 0%,rgba(8,8,8,.55) 52%,rgba(8,8,8,.96) 100%);}
 .cc-body{position:absolute;left:0;right:0;bottom:0;z-index:1;padding:14px 16px;}
 .cc-title{display:block;font:400 23px/0.95 Impact,'Arial Narrow',sans-serif;text-transform:uppercase;color:#fff;letter-spacing:.02em;}
-.cc-src{display:inline-block;margin-left:6px;font:700 11px/1 'Inter',sans-serif;color:var(--yellow2);text-decoration:none;vertical-align:middle;opacity:.8;transition:opacity .12s;white-space:nowrap;}
+.cc-src{display:block;margin-top:4px;font:700 11px/1 'Inter',sans-serif;color:var(--yellow2);text-decoration:none;opacity:.8;transition:opacity .12s;white-space:nowrap;}
 .cc-src:hover{opacity:1;text-decoration:underline;}
+.cc-tagline{position:absolute;top:30px;left:0;right:0;z-index:2;padding:8px 14px;background:color-mix(in srgb,var(--accent,#caa24a) 35%,#000);font:italic 14px/1.4 'Inter',sans-serif;color:#ddd8c8;text-align:center;opacity:0;pointer-events:none;transition:opacity .2s;}
+.classcard.selected .cc-tagline{opacity:1;}
 .cc-underline{display:block;width:52px;height:3px;background:var(--yellow);margin:9px 0 11px;}
 .cc-tags{display:flex;flex-wrap:wrap;gap:6px;min-height:44px;align-content:flex-start;}
 .cc-tag{font:700 9.5px/1 'Inter',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);background:rgba(0,0,0,.5);padding:4px 6px;border-radius:3px;}
@@ -2929,26 +2932,26 @@ const CLASSES = {
 
 /* ---------- class card meta (theme tag · emblem · accent) + emblems ---------- */
 const CLASS_META = {
-  'fanged-deserter':{theme:'BEAST',glyph:'teeth',hue:'#c79a4a'},
-  'gutterborn-scum':{theme:'STEALTHY',glyph:'blade',hue:'#8a9a6a'},
-  'esoteric-hermit':{theme:'MAGIC',glyph:'eye',hue:'#9a6ad6'},
-  'wretched-royalty':{theme:'FALLEN',glyph:'crown',hue:'#e0772a'},
-  'heretical-priest':{theme:'UNHOLY',glyph:'cross',hue:'#d0524a'},
-  'occult-herbmaster':{theme:'POISON',glyph:'mushroom',hue:'#5aa86a'},
-  'cursed-skinwalker':{theme:'MUTANT',glyph:'paw',hue:'#a06a3a'},
-  'pale-one':{theme:'ALIEN',glyph:'stars',hue:'#5ad6c0'},
-  'fugitive-knight':{theme:'CURSED',glyph:'helm',hue:'#7a86a0'},
-  'voodoo-witch':{theme:'HEX',glyph:'snake',hue:'#7a8a4a'},
-  'dead-gods-prophet':{theme:'BLASPHEMOUS',glyph:'prophet',hue:'#84a83e'},
-  'forlorn-philosopher':{theme:'GLOOM',glyph:'owl',hue:'#6a86b8'},
-  'war-pig':{theme:{en:'WARBRED',fr:'ENGENDRÉ POUR LA GUERRE'},glyph:'pig',hue:'#c77f86'},
-  'goblin-wild-mage':{theme:{en:'WILD',fr:'SAUVAGE'},glyph:'goblin',hue:'#a85ec8'},
-  'the-blind':{theme:{en:'SPELLSWORD',fr:'LAME-ARCANE'},glyph:'bolt',hue:'#3ab0d8'},
-  'the-crow':{theme:{en:'BLOODLESS',fr:'EXSANGUE'},glyph:'crow',hue:'#b23a5a'},
-  'the-wall':{theme:{en:'IMMOVABLE',fr:'INAMOVIBLE'},glyph:'shield',hue:'#8c8c84'},
-  'the-hunter':{theme:{en:'BASTARD',fr:'BÂTARD'},glyph:'bow',hue:'#5f8f4a'},
-  'sacrilegious-songbird':{theme:{en:'BARD',fr:'BARDE'},glyph:'music',hue:'#c25aa0'},
-  'shedding-vicar':{theme:{en:'FLAYING',fr:'DÉPOUILLANT'},glyph:'drop',hue:'#c75b6a'},
+  'fanged-deserter':{theme:'BEAST',glyph:'teeth',hue:'#c79a4a',tagline:{en:'Ran from war. Grew teeth.',fr:'A fui la guerre. A gardé les crocs.'}},
+  'gutterborn-scum':{theme:'STEALTHY',glyph:'blade',hue:'#8a9a6a',tagline:{en:'Born in filth. Thrives in worse.',fr:'Né dans la fange. Épanoui dans le pire.'}},
+  'esoteric-hermit':{theme:'MAGIC',glyph:'eye',hue:'#9a6ad6',tagline:{en:'Too many scrolls. Too little sense.',fr:'Trop de parchemins. Plus assez de raison.'}},
+  'wretched-royalty':{theme:'FALLEN',glyph:'crown',hue:'#e0772a',tagline:{en:'Crown lost. Grudge intact.',fr:'Couronne perdue. Rancune intacte.'}},
+  'heretical-priest':{theme:'UNHOLY',glyph:'cross',hue:'#d0524a',tagline:{en:"God's word. Wrong god.",fr:'La parole de Dieu. Mauvais dieu.'}},
+  'occult-herbmaster':{theme:'POISON',glyph:'mushroom',hue:'#5aa86a',tagline:{en:'Roots, rot, and ritual.',fr:'Racines, pourriture et rituel.'}},
+  'cursed-skinwalker':{theme:'MUTANT',glyph:'paw',hue:'#a06a3a',tagline:{en:'Wears the skins of others.',fr:'Porte la peau des autres.'}},
+  'pale-one':{theme:'ALIEN',glyph:'stars',hue:'#5ad6c0',tagline:{en:'Halfway between worlds.',fr:'À mi-chemin entre deux mondes.'}},
+  'fugitive-knight':{theme:'CURSED',glyph:'helm',hue:'#7a86a0',tagline:{en:'Honor stripped. Sword kept.',fr:'Honneur arraché. Épée conservée.'}},
+  'voodoo-witch':{theme:'HEX',glyph:'snake',hue:'#7a8a4a',tagline:{en:'Pins and prayers and pain.',fr:'Aiguilles, prières et douleur.'}},
+  'dead-gods-prophet':{theme:'BLASPHEMOUS',glyph:'prophet',hue:'#84a83e',tagline:{en:'Speaks for a god that no longer answers.',fr:'Parle pour un dieu qui ne répond plus.'}},
+  'forlorn-philosopher':{theme:'GLOOM',glyph:'owl',hue:'#6a86b8',tagline:{en:'Too smart to hope.',fr:'Trop lucide pour espérer.'}},
+  'war-pig':{theme:{en:'WARBRED',fr:'ENGENDRÉ POUR LA GUERRE'},glyph:'pig',hue:'#c77f86',tagline:{en:'Bred for war. Nothing else.',fr:'Élevé pour la guerre. Rien d\'autre.'}},
+  'goblin-wild-mage':{theme:{en:'WILD',fr:'SAUVAGE'},glyph:'goblin',hue:'#a85ec8',tagline:{en:'You were someone else before.',fr:'Tu étais quelqu\'un d\'autre avant.'}},
+  'the-blind':{theme:{en:'SPELLSWORD',fr:'LAME-ARCANE'},glyph:'bolt',hue:'#3ab0d8',tagline:{en:'Sees more than you.',fr:'Voit plus que toi.'}},
+  'the-crow':{theme:{en:'BLOODLESS',fr:'EXSANGUE'},glyph:'crow',hue:'#b23a5a',tagline:{en:'Feeds on what remains.',fr:'Se nourrit de ce qui reste.'}},
+  'the-wall':{theme:{en:'IMMOVABLE',fr:'INAMOVIBLE'},glyph:'shield',hue:'#8c8c84',tagline:{en:"Doesn't move. Doesn't fall.",fr:'Ne bouge pas. Ne tombe pas.'}},
+  'the-hunter':{theme:{en:'BASTARD',fr:'BÂTARD'},glyph:'bow',hue:'#5f8f4a',tagline:{en:'Follows. Waits. Strikes.',fr:'Traque. Attend. Frappe.'}},
+  'sacrilegious-songbird':{theme:{en:'BARD',fr:'BARDE'},glyph:'music',hue:'#c25aa0',tagline:{en:"Songs that shouldn't be sung.",fr:'Des chants qui ne devraient pas exister.'}},
+  'shedding-vicar':{theme:{en:'FLAYING',fr:'DÉPOUILLANT'},glyph:'drop',hue:'#c75b6a',tagline:{en:'Molting faith. Molting flesh.',fr:'Foi en mue. Chair en mue.'}},
 };
 
 /* ---------- shared name pool (any class). d4 decides how many parts: name [+surname] [+epithet] [+origin] ---------- */
@@ -3151,7 +3154,7 @@ function renderCompact(){
           return [];
         });
         if(tvals.length && !state.edit){
-          b+='<div class="cmp-fix">'+tvals.join(' ')+'</div>';
+          b+='<div class="cmp-fix">'+tvals.join(' · ')+'</div>';
         } else if(state.edit){
           const tp=[];
           twistedFields.forEach(f=>renderField(tp,f,stacked));
@@ -4538,7 +4541,7 @@ function randomizeField(s,f){
   const fd = s.f[f.id] = s.f[f.id] || {};
   switch(f.kind){
     case 'ability': { const n=s.boost[f.id]?4:3; const d=[]; for(let i=0;i<n;i++)d.push(rollDie(6)); fd.dice=d; break; }
-    case 'hp':     { const c=f.count||1; let h=0; for(let i=0;i<c;i++) h+=rollDie(f.die||8); fd.hp=h; const tg=abScore('toughness'); fd.cur=(tg!=null)?Math.max(1,tg+h):null; break; }   // reset current HP to the new max
+    case 'hp':     { const c=f.count||1; const _d=[]; for(let i=0;i<c;i++) _d.push(rollDie(f.die||8)); fd.hp=_d.reduce((a,b)=>a+b,0); if(c>1) fd.hpDice=_d; const tg=abScore('toughness'); fd.cur=(tg!=null)?Math.max(1,tg+fd.hp):null; break; }   // reset current HP to the new max
     case 'omens':  fd.main = rollDie(sidesOf(f,s)); fd.cur = fd.main + omensMod(s); break;
     case 'powers': { fd.main = rollDie(sidesOf(f,s)); const pre=abScore('presence'); fd.cur = Math.max(0, fd.main + (pre||0) + powersMod(s)); break; }
     case 'silver': { const n=f.count||2, dd=f.die||6; fd.sv=[]; for(let i=0;i<n;i++)fd.sv.push(rollDie(dd)); break; }
@@ -4555,7 +4558,7 @@ function rerollDie(s,f,key){
   if(f.kind==='ability'){ const i=+key.slice(1); fd.dice=fd.dice||[]; fd.dice[i]=rollDie(6); return; }
   if(f.kind==='silver'){ const i=+key.slice(1); fd.sv=fd.sv||[]; fd.sv[i]=rollDie(f.die||6); return; }
   if(f.kind==='twice'){ fd[key]=rollDie(sidesOf(f,s)); return; }
-  if(f.kind==='hp'){ const c=f.count||1; let h=0; for(let i=0;i<c;i++) h+=rollDie(f.die||8); fd.hp=h; const tg=abScore('toughness'); fd.cur=(tg!=null)?Math.max(1,tg+h):null; return; }
+  if(f.kind==='hp'){ const c=f.count||1; if(c>1&&key!=='hp'){ const i=+key.slice(2); fd.hpDice=fd.hpDice||Array(c).fill(null); fd.hpDice[i]=rollDie(f.die||8); fd.hp=fd.hpDice.reduce((a,b)=>a+(b||0),0); const tg=abScore('toughness'); fd.cur=(tg!=null)?Math.max(1,tg+fd.hp):null; return; } const _d=[]; for(let i=0;i<c;i++) _d.push(rollDie(f.die||8)); fd.hp=_d.reduce((a,b)=>a+b,0); if(c>1) fd.hpDice=_d; const tg=abScore('toughness'); fd.cur=(tg!=null)?Math.max(1,tg+fd.hp):null; return; }
   if(f.kind==='omens'){ fd.main=rollDie(sidesOf(f,s)); fd.cur=fd.main+omensMod(s); return; }
   if(f.kind==='powers'){ fd.main=rollDie(sidesOf(f,s)); const pre=abScore('presence'); fd.cur=Math.max(0, fd.main+(pre||0)+powersMod(s)); return; }
   if(f.kind==='scroll'){ fd.n=rollDie(10); return; }
@@ -4572,7 +4575,7 @@ function setDie(f,key,val){
   if(f.kind==='ability'){ const i=+key.slice(1); fd.dice=fd.dice||[]; fd.dice[i]=clamp(val,1,6); return; }
   if(f.kind==='silver'){ const i=+key.slice(1); fd.sv=fd.sv||[]; fd.sv[i]=clamp(val,1,f.die||6); return; }
   if(f.kind==='twice'){ fd[key]=clamp(val,1,sidesOf(f,state)); return; }
-  if(f.kind==='hp'){ fd.hp=clamp(val,1,(f.count||1)*(f.die||8)); return; }
+  if(f.kind==='hp'){ const c=f.count||1; if(c>1&&key!=='hp'){ const i=+key.slice(2); fd.hpDice=fd.hpDice||Array(c).fill(null); fd.hpDice[i]=clamp(val,1,f.die||8); fd.hp=fd.hpDice.reduce((a,b)=>a+(b||0),0); return; } fd.hp=clamp(val,1,c*(f.die||8)); return; }
   if(f.kind==='omens'){ fd.main=clamp(val,1,sidesOf(f,state)); if(fd.cur==null) fd.cur=fd.main+omensMod(state); return; }
   if(f.kind==='scroll'){ fd.n=clamp(val,1,10); return; }
   if(f.kind==='name3'){ const i=+key.slice(1); fd.r=fd.r||[]; fd.r[i]=clamp(val,1,(f.cols&&f.cols[i]&&f.cols[i].length)||20); return; }
@@ -4663,7 +4666,9 @@ function fieldBody(f){
         return L + `<div class="abrow"><button class="adj" data-act="hp-dec" data-field="${id}" title="Damage −1">−</button><div class="score scorehp">${frac}</div><button class="adj" data-act="hp-inc" data-field="${id}" title="Heal +1">+</button></div><div class="sub">${esc(t(UI.hpCurMax))}</div>`;
       }
       const frac = (max==null) ? '?' : (max+'<span class="den">/'+max+'</span>');   // build: full, shows the max as "x/x"
-      return L + `<div class="abrow"><div class="score scorehp" data-act="rollfield" data-field="${id}" title="${esc(t(UI.reroll1))}">${frac}</div><div class="dice">${dieHTML(id,'hp',die,dv)}</div></div><div class="sub">${esc(t(UI.hpSub).replace('{n}',(f.count||1)>1?f.count:'').replace('{d}',die))}</div>`;
+      const count=f.count||1;
+      const diceHtml=count>1?Array.from({length:count},(_,i)=>dieHTML(id,'hp'+i,die,fd.hpDice&&fd.hpDice[i])).join(''):dieHTML(id,'hp',die,dv);
+      return L + `<div class="abrow"><div class="score scorehp" data-act="rollfield" data-field="${id}" title="${esc(t(UI.reroll1))}">${frac}</div><div class="dice">${diceHtml}</div></div><div class="sub">${esc(t(UI.hpSub).replace('{n}',count>1?count:'').replace('{d}',die))}</div>`;
     }
     case 'omens': {
       const die = sidesOf(f,s), mod = omensMod(s);
@@ -4892,6 +4897,7 @@ function doApp(a){
   else if(a==='print') window.print();
   else if(a==='pdf') showView('compact');
   else if(a==='import'){ const f=document.getElementById('importf'); if(f) f.click(); }
+  else if(a==='import-to-list'){ const f=document.getElementById('importlistf'); if(f) f.click(); }
   else if(a==='random-class'){ pickSel='__random__'; doApp('confirm-fate'); }
   else if(a==='random-name'){ state.f.name=state.f.name||{}; state.f.name.text=genName(); render(); }
   else if(a==='legals'){ const m=document.getElementById('legal'); if(m) m.classList.add('show'); }
@@ -5098,8 +5104,9 @@ function renderClasspick(){
     const srcLink = src ? '<a href="'+esc(src.url)+'" target="_blank" rel="noopener" class="cc-src" onclick="event.stopPropagation()">↗ '+esc(classSourceLabel(src))+'</a>' : '';
     html+='<button class="classcard'+(pickSel===cid?' selected':'')+'" data-pick="'+cid+'" style="--accent:'+(m.hue||'#caa24a')+'">'
       +'<span class="cc-art">'+(EMBLEMS[m.glyph]||EMBLEMS.dice)+'</span>'
-      +'<span class="cc-body"><span class="cc-title">'+esc(t(c.name))+srcLink+'</span><span class="cc-underline"></span><span class="cc-tags">'+tags.join('')+'</span></span>'
+      +'<span class="cc-body"><span class="cc-title">'+esc(t(c.name))+'</span>'+srcLink+'<span class="cc-underline"></span><span class="cc-tags">'+tags.join('')+'</span></span>'
       +'<span class="cc-confirm" data-i18n="confirmFate">Confirm fate</span>'
+      +(m.tagline?'<span class="cc-tagline">'+esc(t(m.tagline))+'</span>':'')
       +'</button>';
   });
   html+='<button class="classcard random'+(pickSel==='__classless__'?' selected':'')+'" data-pick="__classless__">'
