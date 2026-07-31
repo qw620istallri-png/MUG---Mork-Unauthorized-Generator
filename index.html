@@ -453,6 +453,19 @@ body.light .cvltrollall{background:var(--paper2);border-color:var(--yellow2);}
 .inn-sign .inn-name{font:400 46px/0.92 Impact,'Arial Narrow',sans-serif;letter-spacing:.02em;text-transform:uppercase;color:var(--yellow);text-shadow:3px 3px 0 #000;}
 .inn-sign .inn-foot{font:700 12px/1 'Inter',sans-serif;letter-spacing:.5em;text-transform:uppercase;color:var(--ink);margin-top:8px;padding-top:8px;border-top:1px solid var(--line);}
 .inn-soul{font:400 30px/1 Impact,'Arial Narrow',sans-serif;letter-spacing:.03em;color:var(--yellow);text-align:center;padding:6px 0;}
+/* Daemon tab — occult header (no signboard) */
+.dae-occult{position:relative;text-align:center;margin:2px auto 30px;padding:6px 10px 22px;max-width:600px;}
+.dae-occult::after{content:"";position:absolute;left:12%;right:12%;bottom:6px;height:1px;background:linear-gradient(90deg,transparent,#8a1818 30%,#e23a3a 50%,#8a1818 70%,transparent);opacity:.7;}
+.dae-sigil{display:flex;justify-content:center;color:#e23a3a;filter:drop-shadow(0 0 14px rgba(226,58,58,.55));opacity:.92;margin-bottom:2px;}
+.dae-sigil svg{width:66px;height:66px;}
+.dae-kick{font:700 10px/1 'Inter',sans-serif;letter-spacing:.4em;text-transform:uppercase;color:#a05a5a;margin-bottom:6px;}
+.dae-title{font-family:'UnifrakturCook',serif;font-weight:700;font-size:clamp(46px,8.5vw,74px);line-height:.92;color:#e23a3a;text-shadow:2px 3px 0 #000,0 0 30px rgba(226,58,58,.65),0 0 8px rgba(226,58,58,.9);margin:0;}
+.dae-sub{font:italic 12px/1.4 'Inter',sans-serif;color:#a05a5a;margin-top:10px;letter-spacing:.06em;text-transform:uppercase;}
+.dae-name{font-family:'UnifrakturCook',serif;font-size:24px;line-height:1.15;letter-spacing:.02em;color:#e23a3a;text-align:center;padding:5px 0;text-shadow:0 0 14px rgba(226,58,58,.4);}
+.dae-rankrow{display:flex;gap:8px;flex-wrap:wrap;}
+.dae-rankbtn{flex:1;min-width:96px;background:#141414;border:1px solid var(--line);color:var(--muted);font:700 11px/1.2 'Inter',sans-serif;letter-spacing:.06em;text-transform:uppercase;padding:9px 8px;border-radius:5px;cursor:pointer;transition:.12s;}
+.dae-rankbtn:hover{border-color:var(--red);color:var(--ink);}
+.dae-rankbtn.on{background:color-mix(in srgb,var(--red) 24%,#0a0a0a);border-color:var(--red);color:#fff;}
 .tds-dicerow{display:flex;gap:12px;justify-content:center;margin:14px 0;}
 .tds-die{width:62px;height:62px;border-radius:10px;background:var(--yellow);color:#0a0a0a;border:0;font:800 30px/1 'Arial Black',Impact,sans-serif;cursor:pointer;display:grid;place-items:center;box-shadow:0 4px 0 #8a7100;transition:transform .1s;}
 .tds-die:hover{transform:translateY(-2px);} .tds-die:active{transform:translateY(2px);box-shadow:0 1px 0 #8a7100;}
@@ -2153,6 +2166,172 @@ Les gens te suivent jusqu'à la mort.`}],
     [1,1,{en:`Best to accept it`,fr:`Mieux vaut l'accepter`}],[2,2,{en:`Someone will fix it`,fr:`Quelqu'un arrangera ça`}],[3,3,{en:`About damn time`,fr:`Il était grand temps`}],[4,4,{en:`We're doomed!`,fr:`Nous sommes fichus !`}],
   ]},
 
+  /* ==== THE EXILED GOD — Daemon generator (Le Dieu Exilé) ==== */
+  /* Where to find it — Vermillion Paths to a Daemon (3d6, 3-18) */
+  daemonLocation:{rows:[
+    [3,3,{en:`"It crawls in the prints of your steps." — The daemon lurks in your shadow. It attacks without warning.`,fr:`« Il rampe dans les empreintes de tes pas. » — Le démon est tapi dans ton ombre. Il t'attaque sans avertissement.`}],
+    [4,4,{en:`"Where innocents sing the praises of the traitor Basilisk." — A secluded convent where the sisters pray each evening.`,fr:`« Là où les innocents chantent les louanges du traître Basilic. » — Un couvent isolé où les sœurs prient chaque soir.`}],
+    [5,5,{en:`"Where its brood sleeps, where a man burns with a black fire." — A family man. A thing has lived in him since the last moon.`,fr:`« Là où dort sa descendance, où un homme brûle d'un feu noir. » — Un père de famille. Une chose vit en lui depuis la dernière lune.`}],
+    [6,6,{en:`"Where the hopeless are nursed to death." — A hospice of moaning wretches; something feeds on the agony.`,fr:`« Là où l'on soigne à mort les sans espoir. » — Un hospice de gémissants ; quelque chose se nourrit de l'agonie.`}],
+    [7,7,{en:`"In the low pit where the just are cast." — A prisoner has rotted there for years. He should not have survived.`,fr:`« Dans la basse fosse où l'on jette les justes. » — Un prisonnier y pourrit depuis des années. Il n'aurait pas dû survivre.`}],
+    [8,8,{en:`"Where children play, unaware of what watches them." — A well in a school whispers to the children to come and play.`,fr:`« Là où les enfants jouent, ignorant ce qui les observe. » — Un puits dans une école murmure aux enfants de venir y jouer.`}],
+    [9,9,{en:`"Beneath the market, where beggars count their bones." — The sewers of Galgenbeck. Its eyes shine in the dark.`,fr:`« Sous le marché, où les mendiants comptent leurs os. » — Les égouts de Galgenbeck. Ses yeux brillent dans le noir.`}],
+    [10,10,{en:`"Where the pure are wed before the two-headed Basilisk." — A wedding chapel in Alliáns. The bride smiles too widely.`,fr:`« Là où l'on marie les purs devant la Basilic à deux têtes. » — Une chapelle nuptiale d'Alliáns. La mariée sourit trop largement.`}],
+    [11,11,{en:`"In the house where the widow weeps." — A bourgeois dwelling in Grift. An old woman talks to her husband every night.`,fr:`« Dans la maison où pleure la veuve. » — Une demeure bourgeoise à Grift. Une vieille femme parle à son mari tous les soirs.`}],
+    [12,12,{en:`"Where mothers conceive a horrible life in pain and blood." — A midwife's house. A woman has been in labour for three days.`,fr:`« Là où les mères conçoivent une horrible vie dans la douleur et le sang. » — Une maison de sage-femme. Une parturiente y est en travail depuis trois jours.`}],
+    [13,13,{en:`"Under the rotten earth, where headstones grow like the fangs of a fleshless jaw." — A nameless grave in Graven-Tosk.`,fr:`« Sous la terre pourrie, où les stèles poussent comme les crocs d'une mâchoire décharnée. » — Une tombe sans nom à Graven-Tosk.`}],
+    [14,14,{en:`"Where the farmer feeds the village with his own hands." — A remote farm. A peasant toils without rest, even at night.`,fr:`« Là où le fermier de ses mains nourrit le village. » — Une ferme isolée. Un paysan travaille sans relâche, même la nuit.`}],
+    [15,15,{en:`"In the tower where the watchman scans the horizon, alone with the wind and the stars." — Deep in Sarkash forest. The keeper hasn't been seen in a week.`,fr:`« Dans la tour où le guetteur surveille l'horizon, seul avec le vent et les étoiles. » — Dans la forêt de Sarkash. Le gardien n'a pas donné signe de vie depuis une semaine.`}],
+    [16,16,{en:`"Where the red iron is hammered and the fire never dies." — A forge whose creations grow ever more twisted.`,fr:`« Là où martèle le fer rouge et le feu ne s'éteint jamais. » — Une forge aux créations de plus en plus tordues.`}],
+    [17,17,{en:`"In the bowels of the earth, swallowed cries sob in the damp dark." — An ancient dungeon beneath ruins near Schleswig. The cells are empty but something still scratches at the walls.`,fr:`« Dans les entrailles de la terre, des cris ravalés sanglotent dans le noir humide. » — Un donjon ancien sous des ruines proche de Schleswig. Les cellules sont vides mais quelque chose gratte encore contre les murs.`}],
+    [18,18,{en:`"Where the old kings sleep in their shrouds of stone, beyond the black salt wind." — A century-old crypt in the Valley of the Unfortunate Undead. Sarcophagi lined up like a ribcage.`,fr:`« Là où dorment les anciens rois dans leurs linceuls de pierre, par-delà le vent de sel noir. » — Une crypte séculaire dans la vallée des Pauvres Non-morts. Des sarcophages alignés comme une cage thoracique.`}],
+  ]},
+  /* Its true form is… (d6) */
+  daemonForm:{rows:[
+    [1,1,{en:`A quadruped with disjointed limbs, its maw split to the ears.`,fr:`Quadrupède aux membres désarticulés, gueule fendue jusqu'aux oreilles.`}],
+    [2,2,{en:`A mass of writhing flesh carried on dozens of twisted arms.`,fr:`Masse de chair grouillante portée par des dizaines de bras tordus.`}],
+    [3,3,{en:`A chitinous insectoid form with clacking mandibles.`,fr:`Forme insectoïde chitineuse aux mandibules claquantes.`}],
+    [4,4,{en:`A skeletal silhouette draped in shreds of rotten skin.`,fr:`Silhouette squelettique drapée de lambeaux de peau pourrie.`}],
+    [5,5,{en:`A gigantic Eye covered in shifting writing.`,fr:`Un Œil gigantesque recouvert d'écritures mouvantes.`}],
+    [6,6,{en:`A wholly inverted body: skin inside, organs out.`,fr:`Un corps entièrement inversé : peau dedans, organes dehors.`}],
+  ]},
+  /* It attacks you with… (d6) */
+  daemonAttack:{rows:[
+    [1,1,{en:`sharp Claws of obsidian (d6).`,fr:`des Griffes d'obsidienne tranchantes (d6).`}],
+    [2,2,{en:`the Cry of a thousand dying children (d4 + Presence test or flee).`,fr:`le Cri de mille enfants mourants (d4 + Test Présence pour ne pas fuir).`}],
+    [3,3,{en:`whipping Tentacles bristling with hooks (d6, d4 targets).`,fr:`des Tentacules fouettant, hérissés de crochets (d6, d4 cibles).`}],
+    [4,4,{en:`a venom-dripping tail Stinger (d4 + Black Poison).`,fr:`un Dard caudal dégoulinant de venin (d4 + Poison Noir).`}],
+    [5,5,{en:`twelve Bones that pierce its own flesh (6d2, DR10 to defend).`,fr:`douze Os qui transpercent sa chair (6d2, DD10 à défendre).`}],
+    [6,6,{en:`a Spit of burning bile (d6, lowers armor quality).`,fr:`un Crachat de bile brûlante (d6, baisse la qualité de l'armure).`}],
+  ]},
+  /* [Major] With its growing power it… (d6) */
+  daemonMajorPower:{rows:[
+    [1,1,{en:`forgets pain — Ignores 2 points of damage.`,fr:`En oublie la douleur — Ignore 2 points de dommages.`}],
+    [2,2,{en:`mutates its flesh — Regains d4 HP per round.`,fr:`Fait muter sa chair — Récupère d4 PV par round.`}],
+    [3,3,{en:`slips between planes — d4-in-6 chance to dodge a blow and change target.`,fr:`Glisse entre les plans — d4 chances d'éviter un coup et de changer de cible.`}],
+    [4,4,{en:`burns with unholy fire — Melts weapons that strike it: -1 to a weapon's damage stat for each successful hit.`,fr:`Brûle d'un feu impie — Fait fondre les armes qui le touchent : -1 sur la stat de dommage pour chaque attaque réussie d'une arme.`}],
+    [5,5,{en:`shrieks to burst your eardrums — Presence tests are DR+4 harder.`,fr:`Hurle à vous en briser les tympans — Les tests de Présence sont plus durs de DD4.`}],
+    [6,6,{en:`Aura of Putrefaction — Anyone in melee contact loses 1 HP per round.`,fr:`Aura de Putréfaction — Quiconque au contact corps-à-corps perd 1 PV par round.`}],
+  ]},
+  /* [Major] Its mere presence… (d6) */
+  daemonPresence:{rows:[
+    [1,1,{en:`makes it rain blood — The daemon can teleport from pool to pool.`,fr:`Fait pleuvoir du sang — Le Démon peut se téléporter de flaque en flaque.`}],
+    [2,2,{en:`multiplies greed — PCs must test Toughness or attack the wealthiest PC.`,fr:`Décuple l'avarice — Les PJ doivent tester leur Endurance ou s'attaquer au PJ le plus fortuné.`}],
+    [3,3,{en:`plunges the world into darkness — Strong light sources blind you.`,fr:`Plonge le monde dans l'obscurité — Les sources de lumière forte vous aveuglent.`}],
+    [4,4,{en:`draws other daemons — Calls d3 minor daemons.`,fr:`Attire d'autres démons — Appelle d3 démons mineurs.`}],
+    [5,5,{en:`terrifies you — Ordinary NPCs flee. PCs suffer -1 to all stats.`,fr:`Vous terrorise — Les PNJ normaux fuient. Les PJ subissent -1 à toutes leurs stats.`}],
+    [6,6,{en:`corrupts flesh — Each wound it inflicts adds +1 corruption to the victim at the end of combat.`,fr:`Corrompt les chairs — Chaque blessure infligée ajoute +1 corruption à la victime à la fin du combat.`}],
+  ]},
+  /* [Leviathan] Too late to flee, because… (d6) */
+  daemonLeviathan:{rows:[
+    [1,1,{en:`The heavens open, and faceless angels scream. All living must test Toughness DR14 or lose d6 HP.`,fr:`Les cieux s'ouvrent, et des anges sans visages hurlent. Tous les vivants doivent tester Robustesse DR14 ou perdre d6 PV.`}],
+    [2,2,{en:`The ground splits, and a thousand hands burst forth — grasping, praying, strangling. Each turn a PC cannot move.`,fr:`Le sol se fend, et mille mains en jaillissent. Elles saisissent, prient, étranglent. Chaque tour un PJ ne peut se déplacer.`}],
+    [3,3,{en:`Time has stopped and the future consumes itself. Each round the PCs age d10 years.`,fr:`Le temps s'est arrêté et le futur se consume. Chaque round les PJ vieillissent de d10 ans.`}],
+    [4,4,{en:`Verhu's name is chanted backwards. PCs may cast any scroll of their choice, no test — but an arcane catastrophe every time.`,fr:`Le Nom de Verhu est scandé à l'envers. Les PJ peuvent lancer n'importe quel parchemin de leur choix, aucun test mais une catastrophe arcanique à chaque fois.`}],
+    [5,5,{en:`The Seven Gates are struck by the Seven Seals. Roll a d66 and add a Misery to the Calendar of Nechrubel. The end of the world nears.`,fr:`Les Sept Portes sont frappées des Sept Sceaux. Lancez un d66 et ajoutez un malheur sur le calendrier de Nechrubel. La fin du monde approche.`}],
+    [6,6,{en:`From Bergen Chrypt, HE breathes upon you. The air becomes rage and black salt. Everyone attacks twice and does not defend.`,fr:`Depuis Bergen Chrypt, IL souffle sur vous. L'air devient rage et sel noir. Tout le monde attaque deux fois et ne se défend pas.`}],
+  ]},
+
+  /* Search its still-smoking corpse (d66) */
+  daemonLoot:{rows:[
+    [11,11,{en:`d10 silver coins melted together, still warm to the touch.`,fr:`d10 pièces d'argent fondues ensemble, encore chaudes au toucher.`}],
+    [12,12,{en:`Loaded dice made of human molars.`,fr:`Dés pipés faits de molaires humaines.`}],
+    [13,13,{en:`Leather flask holding a black bile. Drinking heals d4 HP.`,fr:`Flasque en cuir contenant une bile noire. Boire guérit d4 PV.`}],
+    [14,14,{en:`A rusted iron arrow. Always hits its target; destroyed on max damage.`,fr:`Une flèche en fer rouillé. Touche toujours sa cible, détruite lors des dommages max.`}],
+    [15,15,{en:`Nothing but an unbearable stench and greasy ashes.`,fr:`Rien qu'une puanteur insupportable et des cendres grasses.`}],
+    [16,16,{en:`**Necklace of the Crawling Feast** — Grants +2 Omens per day, whispered in your ear by something tiny. In return, every mouthful of food crawls with ants. Remove it: -1 Omen for two days.`,fr:`**Collier du Festin Rampant** — Accorde +2 Présage par jour, murmuré à l'oreille par quelque chose de minuscule. Mais en retour, chaque bouchée de nourriture grouille de fourmis. Retire le collier : -1 Présage pendant deux jours.`}],
+    [21,21,{en:`A scroll written in a tongue you cannot read, but which gives you a headache. Wipe the bile running down your lips.`,fr:`Parchemin écrit dans une langue que tu ne comprends pas, mais qui te donne mal à la tête. Essuie la bile qui coule le long de tes lèvres.`}],
+    [22,22,{en:`A small box of milk teeth. There are always 23, no matter how many you remove.`,fr:`Petite boîte contenant des dents de lait. Il y en a toujours 23, peu importe combien tu en enlèves.`}],
+    [23,23,{en:`2d6 silver coins coated in a sticky substance and two mummified fingers.`,fr:`2d6 pièces d'argent couvertes d'une substance collante et deux doigts momifiés.`}],
+    [24,24,{en:`A glass eye that watches you. Set in an empty socket, you can see through walls.`,fr:`Œil de verre qui te regarde. Si placé dans une orbite vide, tu vois à travers les murs.`}],
+    [25,25,{en:`A 10-foot rope braided from human hair. Impossible to cut.`,fr:`Corde de 10 pieds tressée avec des cheveux humains. Impossible à couper.`}],
+    [26,26,{en:`**Mask of the Perfect Lie** — Worn, you can take the appearance of anyone seen in the last 24h. Perfect, undetectable. But each time you remove it, test Presence DR14 or keep it one more day.`,fr:`**Masque du Mensonge Parfait** — Porté, tu peux prendre l'apparence de n'importe qui vu durant les dernières 24h. Parfait, indétectable. Mais chaque fois que tu l'enlèves, teste DD14 Présence ou garde-le un jour de plus.`}],
+    [31,31,{en:`A handleless key, engraved "Crypt of Graven-Tosk."`,fr:`Clé sans poignée, gravée « Crypte de Graven-Tosk. »`}],
+    [32,32,{en:`A shard of broken mirror. Shows your reflection aged by 20 years.`,fr:`Morceau de miroir brisé. Montre ton reflet vieilli de 20 ans.`}],
+    [33,33,{en:`3d6 silver coins and a mummified human finger.`,fr:`3d6 pièces d'argent et un doigt humain momifié.`}],
+    [34,34,{en:`A bone amulet that creaks before any ambush.`,fr:`Amulette d'os qui grince avant toute embuscade.`}],
+    [35,35,{en:`A dull knife (d4). The blade refuses to cut living human flesh but goes through everything else like melted butter.`,fr:`Couteau émoussé (d4). La lame refuse de couper la chair humaine vivante mais traverse le reste comme du beurre fondu.`}],
+    [36,36,{en:`**Rib of Eternal Hunger** — Freshly broken (d8). Every blow you land heals you 2 HP. But you must eat a double ration each day or lose d4 HP.`,fr:`**Côte de la Faim Éternelle** — Fraîchement brisée (d8). Chaque coup infligé te soigne de 2 PV. Mais tu dois manger double ration par jour ou perdre d4 PV.`}],
+    [41,41,{en:`An empty purse — it's yours. (Lose all your silver.)`,fr:`Bourse vide, c'est la tienne. (Perds tout ton argent.)`}],
+    [42,42,{en:`A rat skull with tiny horns. Lucky charm? (No effect.)`,fr:`Crâne de rat avec des cornes minuscules. Porte-bonheur ? (Aucun effet.)`}],
+    [43,43,{en:`A black candle that never melts but smells of burnt flesh.`,fr:`Bougie noire qui ne fond jamais mais sent la chair brûlée.`}],
+    [44,44,{en:`4d10 silver coins and an unpaid invoice for "services rendered."`,fr:`4d10 pièces d'argent et une facture impayée pour « services rendus. »`}],
+    [45,45,{en:`A vial of blood that bubbles when a lie is spoken nearby.`,fr:`Fiole de sang qui bouillonne quand un mensonge est prononcé à proximité.`}],
+    [46,46,{en:`**Ring of the Silent Step** — Your movements make no sound. Ever. Your steps, voice, breath — utter silence. But for one day, others cannot hear you either.`,fr:`**Anneau du Pas Silencieux** — Tes mouvements ne font aucun bruit. Jamais. Tes pas, ta voix, ton souffle — silence absolu. Mais pour une journée les autres ne peuvent plus t'entendre non plus.`}],
+    [51,51,{en:`THE VOID. It is too soon. Forget what you were not meant to see.`,fr:`LE VIDE. Il est trop tôt. Oublie ce que tu ne devais voir.`}],
+    [52,52,{en:`A ring set with a human eye. It blinks sometimes and weeps a lot.`,fr:`Bague avec un œil humain enchâssé. Il cligne parfois et pleure beaucoup.`}],
+    [53,53,{en:`A bag of glass marbles holding tiny screaming silhouettes.`,fr:`Sac de billes en verre contenant de minuscules silhouettes hurlantes.`}],
+    [54,54,{en:`A bone flute. Playing it draws d4 rats within 10 minutes.`,fr:`Flûte en os. En jouer attire d4 rats en 10 minutes.`}],
+    [55,55,{en:`5d10 silver coins and three mummified fingers.`,fr:`5d10 pièces d'argent et trois doigts momifiés.`}],
+    [56,56,{en:`**Lantern of Voracious Shadows** — A perfect bubble of light, 20m radius, that shields from adverse effects. After d10 uses, your shadow tears away from you never to return, and halves your Omen die.`,fr:`**Lanterne des Ombres Voraces** — Une bulle de lumière parfaite d'un rayon de 20m qui protège des effets adverses. Après d10 utilisations, ton ombre s'arrache de toi pour ne plus jamais revenir et divise ton dé de présage par deux.`}],
+    [61,61,{en:`A locket holding a stranger's portrait. Each night, the face changes.`,fr:`Médaillon contenant le portrait d'un étranger. Chaque nuit, le visage change.`}],
+    [62,62,{en:`6d10 silver coins and a mummified hand with no fingers.`,fr:`6d10 pièces d'argent et une main momifiée sans doigts.`}],
+    [63,63,{en:`An unclean scroll: The Nine Sins of Exile — tear off a creature's fingers one by one until it obeys or answers a demand.`,fr:`Un parchemin impur : Les neuf péchés de l'exil — arrache un par un les doigts d'une créature jusqu'à ce qu'elle obéisse ou réponde à une demande.`}],
+    [64,64,{en:`A stained priest's robe; people look away as you approach. Hidden in plain sight.`,fr:`Une robe de prêtre tachée ; les gens détournent le regard à votre approche. Dissimulé en pleine lumière.`}],
+    [65,65,{en:`A child's skull. Blowing into it produces a piercing cry that alerts all within earshot.`,fr:`Crâne d'enfant. Souffler dedans produit un cri déchirant qui alerte tous ceux à portée.`}],
+    [66,66,{en:`**Heart of the Daemon** — A black heart still beating, oozing ichor. Eating it makes you immune to fear, poison and disease. Gain 4 max HP and heal your wounds at once. Gain two corruption points.`,fr:`**Cœur du Démon** — Un cœur noir encore pulsant, suintant d'ichor. Le manger te rend immunisé à la peur, aux poisons et aux maladies. Gagne 4 PV max et soigne tes blessures immédiatement. Gagne deux points de corruption.`}],
+  ]},
+  /* Corruption table (d20) */
+  daemonCorruption:{rows:[
+    [1,1,{en:`Stigmata open on your palms and bleed endlessly.`,fr:`Des stigmates s'ouvrent sur tes paumes et saignent sans cesse.`}],
+    [2,2,{en:`Your left hand withers and blackens like a corpse's. | +d6 necrotic damage on touch, but this hand can no longer hold a weapon.`,fr:`Ta main gauche se flétrit et noircit comme celle d'un cadavre. | +d6 dégâts nécrotiques au toucher, mais cette main ne peut plus tenir d'arme.`}],
+    [3,3,{en:`Your tongue splits in three. | You can speak the daemonic tongues, but your voice makes innocents' ears bleed.`,fr:`Ta langue se fend en trois. | Tu peux parler les langues démoniaques, mais ta voix fait saigner les oreilles des innocents.`}],
+    [4,4,{en:`Plates of chitin grow over your torso. | +1 Armor, but you sink like a stone in water.`,fr:`Des plaques de chitine poussent sur ton torse. | +1 en Armure, mais tu coules comme une pierre dans l'eau.`}],
+    [5,5,{en:`Your teeth fall out, replaced by obsidian fangs. | Raw or rotten flesh is now a delight; refined dishes revolt you.`,fr:`Tes dents tombent, remplacées par des crocs d'obsidienne. | La chair crue ou pourrie est désormais un délice pour toi, tandis que les mets raffinés te révulsent.`}],
+    [6,6,{en:`A bone horn pierces your brow. | Animals flee from you in utter terror.`,fr:`Une corne d'os perce ton front. | Les animaux te fuient dans un apeurement total.`}],
+    [7,7,{en:`A black mass crawls out of your mouth each night. | It obeys you, but demands a finger or toe as tribute each moon.`,fr:`Un amas noir rampe hors de ta bouche chaque nuit. | Il t'obéit, mais exige un doigt ou un orteil comme tribut chaque lune.`}],
+    [8,8,{en:`Your tears are blood. | Plants die where your tears fall.`,fr:`Tes larmes sont du sang. | Les plantes meurent où tombent tes larmes.`}],
+    [9,9,{en:`Your skin turns translucent. | You can see others' veins and organs — Advantage to heal others and yourself.`,fr:`Ta peau devient translucide. | Tu peux voir les veines et les organes des autres — Avantage pour soigner les autres et toi-même.`}],
+    [10,10,{en:`Daemonic whispers offer you occult knowledge if you choose to stay awake and listen.`,fr:`Des murmures démoniaques t'offrent une connaissance occulte si tu choisis de veiller pour les écouter.`}],
+    [11,11,{en:`Your bones crack and realign constantly. | You can dislocate to slip through tight spaces, taking 1 damage.`,fr:`Tes os craquent et se réalignent constamment. | Tu peux te disloquer pour passer dans des espaces étroits, en subissant 1 point de dégâts.`}],
+    [12,12,{en:`An extra mouth opens in your palm. | It can safely detect poisons, but sometimes bites your allies (1-in-6).`,fr:`Une bouche supplémentaire s'ouvre dans ta paume. | Elle peut détecter les poisons sans danger, mais elle mord parfois tes alliés (1 chance sur 6).`}],
+    [13,13,{en:`Your blood turns black and thick as tar. | Wounds stop bleeding after 1 round, but you are vulnerable to fire (+d4 damage).`,fr:`Ton sang devient noir et épais comme du goudron. | Les blessures arrêtent de saigner après 1 round, mais tu es vulnérable au feu (+d4 dégâts).`}],
+    [14,14,{en:`Charred feathers grow on your shoulders. | You can glide short distances, but give off an unbearable stench of sulfur.`,fr:`Des plumes calcinées poussent sur tes épaules. | Tu peux planer sur de courtes distances, mais tu dégages une odeur de soufre insupportable.`}],
+    [15,15,{en:`Your pupils become vertical slits. | Perfect darkvision, but daylight gives you -2 Agility.`,fr:`Tes pupilles deviennent des fentes verticales. | Vision dans le noir parfaite, mais la lumière du jour te fait subir -2 en Agilité.`}],
+    [16,16,{en:`Black veins run under your skin like roots. | +1 Strength, but you must drink blood once a week or lose d4 HP per day.`,fr:`Des veines noires courent sous ta peau comme des racines. | +1 en Force, mais tu dois boire du sang une fois par semaine ou perdre d4 PV par jour.`}],
+    [17,17,{en:`Your voice resonates with a cavernous echo. | Advantage on Morale rolls, but you can no longer whisper — everyone always hears you.`,fr:`Ta voix résonne avec un écho caverneux. | Avantage sur les jets de Moral, mais tu ne peux plus chuchoter — tout le monde t'entend toujours.`}],
+    [18,18,{en:`Your nails become curved black claws. | Unarmed attacks 2d6 DR14, but you can no longer handle delicate objects.`,fr:`Tes ongles deviennent des griffes noires recourbées. | Attaques à mains nues 2d6 DD14, mais tu ne peux plus manipuler d'objets délicats.`}],
+    [19,19,{en:`A bloody symbol carves itself on your brow. | Daemons recognize you as one of their own; the church hunts you.`,fr:`Un symbole sanglant se grave sur ton front. | Les démons te reconnaissent comme l'un des leurs, l'église te pourchasse.`}],
+    [20,20,{en:`You have a daemon's heart. | You can no longer be detected indirectly, but the beat echoes in your head — Disadvantage on Presence rolls.`,fr:`Tu as un cœur de démon. | Tu ne peux plus être détecté indirectement mais le battement fait écho dans ta tête — Désavantage sur les jets de Présence.`}],
+  ]},
+  /* Death & rebirth — What suffering for your Death? (d10) */
+  daemonRebirth:{rows:[
+    [1,1,{en:`You crawl out of a mound of earth, worms still clinging to you.`,fr:`Tu rampes hors d'un monticule de terre, les vers encore accrochés à toi.`}],
+    [2,2,{en:`You wake inside a stranger's corpse.`,fr:`Tu t'éveilles à l'intérieur du cadavre d'un étranger.`}],
+    [3,3,{en:`Your remains burst from a tree of bone and bark.`,fr:`Tes restes éclatent d'un arbre d'os et d'écorce.`}],
+    [4,4,{en:`You are found weeping in a lake of tar, vomiting black ichor.`,fr:`On te retrouve pleurant dans un lac de goudron, vomissant l'ichor noir.`}],
+    [5,5,{en:`A murder of crows gathers, and from their bodies yours re-forms.`,fr:`Une nuée de corbeaux se rassemble, et de leurs corps, le tien se reforme.`}],
+    [6,6,{en:`You wake mid-prayer in a forgotten chapel, candles melting onto your skin.`,fr:`Tu t'éveilles en pleine prière dans une chapelle oubliée, des bougies fondant sur ta peau.`}],
+    [7,7,{en:`Your ashes swirl and take shape during a storm of teeth.`,fr:`Tes cendres tourbillonnent et prennent forme durant une tempête de dents.`}],
+    [8,8,{en:`A daemon's corpse splits open and you crawl out, smoking, covered in viscera.`,fr:`Le cadavre d'un démon se fend et tu en sors en rampant, fumant, couvert de viscères.`}],
+    [9,9,{en:`You rise from under your own gravestone, fingernails torn off.`,fr:`Tu te relèves de sous ta propre pierre tombale, les ongles arrachés.`}],
+    [10,10,{en:`The Tome itself vomits your new body onto the earth.`,fr:`Le Tome lui-même vomit ton nouveau corps sur la terre.`}],
+  ]},
+  /* Daemon name — name (d20) + epithet noun·adj (d12·d12) + title noun·complement (d12·d12) */
+  daemonName:{
+    first:[`Varthul`,`En'Raoth`,`Siel'Ath`,`Mokthun`,`Xyrel`,`Korrun`,`Vor'Gath`,`Nel'Ruum`,`Skarveth`,`Om'Thul`,`Gryssäl`,`Vael'Kor`,`Zhak'Un`,`Mor'Deth`,`Ul'Vareth`,`Théngal`,`Qorbeth`,`Sša'Rok`,`Draguul`,`Yss'Mor`],
+    epNoun:[
+      {en:`the Maw`,fr:`la Gueule`},{en:`the Desert`,fr:`le Désert`},{en:`the Lake`,fr:`le Lac`},{en:`the Choir`,fr:`le Chœur`},
+      {en:`the Matrix`,fr:`la Matrice`},{en:`the Sky`,fr:`le Ciel`},{en:`the Worm`,fr:`le Ver`},{en:`the Smile`,fr:`le Sourire`},
+      {en:`the Wound`,fr:`la Plaie`},{en:`the King`,fr:`le Roi`},{en:`the Hunger`,fr:`la Faim`},{en:`the Breath`,fr:`le Souffle`},
+    ],
+    epAdj:[
+      {en:`Scarlet`,fr:`Écarlate`},{en:`Vile`,fr:`Immonde`},{en:`Funereal`,fr:`Funèbre`},{en:`Wan`,fr:`Blême`},
+      {en:`Livid`,fr:`Livide`},{en:`Dark`,fr:`Sombre`},{en:`Empty`,fr:`Vide`},{en:`Rancid`,fr:`Rance`},
+      {en:`Acrid`,fr:`Âcre`},{en:`Bleak`,fr:`Morne`},{en:`Murky`,fr:`Glauque`},{en:`Dull`,fr:`Terne`},
+    ],
+    titleNoun:[
+      {en:`Devourer`,fr:`Dévoreur`},{en:`Gravedigger`,fr:`Fossoyeur`},{en:`Bearer`,fr:`Porteur`},{en:`Master`,fr:`Maître`},
+      {en:`Sepulchre`,fr:`Sépulcre`},{en:`Mouth`,fr:`Bouche`},{en:`Throne`,fr:`Trône`},{en:`Scourge`,fr:`Fléau`},
+      {en:`Warden`,fr:`Gardien`},{en:`Sower`,fr:`Semeur`},{en:`Chasm`,fr:`Gouffre`},{en:`Shroud`,fr:`Linceul`},
+    ],
+    titleComp:[
+      {en:`of Worlds`,fr:`des Mondes`},{en:`of Stars`,fr:`des Étoiles`},{en:`of Silence`,fr:`du Silence`},{en:`of Ashes`,fr:`de Cendres`},
+      {en:`of the Abyss`,fr:`de l'Abîme`},{en:`of the End`,fr:`de la Fin`},{en:`of Bones`,fr:`des Ossements`},{en:`of the Last Day`,fr:`du Dernier Jour`},
+      {en:`of the Seven Gates`,fr:`des Sept Portes`},{en:`of the Void`,fr:`du Vide`},{en:`of Black Salt`,fr:`de Sel Noir`},{en:`of Flies`,fr:`des Mouches`},
+    ],
+  },
+
   /* ---- CVLT generator ---- */
   cvltName:{
     cols:[
@@ -3389,6 +3568,11 @@ function renderCompact(){
     const rawLbl = t(f.label).replace(/\s*\(d\d+\)\s*$/i,'').trim();
     const hideLabel = !state.edit && f.kind==='fixed' && ABILITY_LABELS.includes(rawLbl.toLowerCase());
     const lbl=esc(rawLbl), val=state.edit?editControl(f):plainValue(f);
+    if((f.kind==='scroll'||f.kind==='scrollset') && !state.edit){
+      if(!val||val==='—') return;                  // no empty scroll rows on the sheet
+      b.push('<div class="cmp-fix">'+val+'</div>'); // value already carries its Unclean/Sacred tag — skip the repeated label
+      return;
+    }
     if(f.kind==='fixed'){
       if(hideLabel) b.push('<div class="cmp-fix">'+val+'</div>');
       else b.push('<div class="cmp-fix"><b class="cmp-fl">'+lbl+'</b> '+val+'</div>');
@@ -3406,7 +3590,7 @@ function renderCompact(){
     // Separate twisted-fate fields from other background fields
     const twistedFields = secId==='background' ? fields.filter(f=>TWISTED_IDS.includes(f.id)) : [];
     const normalFields  = secId==='background' ? fields.filter(f=>!TWISTED_IDS.includes(f.id)) : fields;
-    let b='<div class="cmp-block"><h4>'+esc(t(sec.title))+'</h4>';
+    let b='';   // inner content; the header is prepended only if there's something to show
     const parts=[];
     normalFields.forEach(f=>renderField(parts,f,stacked));
     b+=parts.join('');
@@ -3442,7 +3626,8 @@ function renderCompact(){
       }
     });
     if(state.edit) b+='<button class="cc-add" data-act="add-custom" data-section="'+secId+'">+ '+esc(t(UI.addcustom))+'</button>';
-    return b+'</div>';
+    if(!b && !state.edit) return '';   // nothing to show (e.g. a scroll-less magic section) → drop the category title too
+    return '<div class="cmp-block"><h4>'+esc(t(sec.title))+'</h4>'+b+'</div>';
   };
   let logHtml='';
   if(state.log && state.log.length){
@@ -4865,6 +5050,7 @@ function rerollDie(s,f,key){
   if(f.kind==='powers'){ fd.main=rollDie(sidesOf(f,s)); const pre=abScore('presence'); fd.cur=Math.max(0, fd.main+(pre||0)+powersMod(s)); return; }
   if(f.kind==='scroll'){ fd.n=rollDie(10); return; }
   if(f.kind==='name3'){ const i=+key.slice(1); fd.r=fd.r||[]; fd.r[i]=rollDie((f.cols&&f.cols[i]&&f.cols[i].length)||20); return; }
+  if(f.kind==='dcount'){ fd.main=rollDie(f.die||4); return; }   // dcount uses f.die, not f.sides
   if(key==='scroll'){ fd.scroll=rollDie(10); return; }
   let sd=sidesOf(f,s), roll=()=>f.tens?(rollDie(f.tens)*10+rollDie(f.units)):rollDie(sd), v=roll(), g=0;
   if(f.kind==='table'){ while(needsReroll(f,s,v) && g++<50) v=roll(); }
@@ -4881,6 +5067,7 @@ function setDie(f,key,val){
   if(f.kind==='omens'){ fd.main=clamp(val,1,sidesOf(f,state)); if(fd.cur==null) fd.cur=fd.main+omensMod(state); return; }
   if(f.kind==='scroll'){ fd.n=clamp(val,1,10); return; }
   if(f.kind==='name3'){ const i=+key.slice(1); fd.r=fd.r||[]; fd.r[i]=clamp(val,1,(f.cols&&f.cols[i]&&f.cols[i].length)||20); return; }
+  if(f.kind==='dcount'){ fd.main=clamp(val,1,f.die||4); return; }   // dcount uses f.die, not f.sides
   if(key==='scroll'){ fd.scroll=clamp(val,1,10); return; }
   const sd=sidesOf(f,state); fd.main=clamp(val,1,(f.tens?tableMax(f.table):sd));
   if(f.kind==='table'){ const r=lookup(f.table,fd.main); if(r&&r[3]&&fd.scroll==null) fd.scroll=rollDie(10); }
@@ -5730,6 +5917,67 @@ function renderInnTab(){
 }
 /* ===== END INN TAB ===== */
 
+/* ===== THE EXILED GOD — DAEMON TAB ===== */
+let daemonState = { rank:'mineur' };
+const DAEMON_RANK_DICE = { mineur:2, majeur:4, leviathan:7 };
+function daeDie(key,sides,val){ return '<button class="cvltdie" data-act="dae-roll" data-key="'+key+'" data-sides="'+sides+'" title="d'+sides+'">'+(val!=null?val:'?')+'</button>'; }
+function daeMan(key,sides,val){ return '<input class="mon-manual" type="number" min="1" max="'+sides+'" placeholder="1-'+sides+'" data-act="dae-set" data-key="'+key+'" data-sides="'+sides+'" value="'+(val!=null?val:'')+'">'; }
+function daePart(label,key,sides,table,val){
+  const res = val!=null ? fmt(monsterLookup(table,val)||'…') : '<span class="sub">…</span>';
+  return '<div class="cvltpart"><div class="cvlthead"><span class="cvltlabel">'+label+'</span><div class="cvltdice">'+daeDie(key,sides,val)+daeMan(key,sides,val)+'</div></div><div class="cvltres">'+res+'</div></div>';
+}
+function renderDaemonTab(){
+  const s=daemonState, T_=T;
+  const nDice=DAEMON_RANK_DICE[s.rank]||2;
+  const hp=(s.hp&&s.hp.length)?s.hp.reduce((a,b)=>a+b,0):null;
+  const locSum=(s.locA!=null&&s.locB!=null&&s.locC!=null)?(s.locA+s.locB+s.locC):null;
+  const locRes=locSum!=null?fmt(monsterLookup(T_.daemonLocation,locSum)||'…'):'<span class="sub">…</span>';
+  const lootVal=(s.lootT!=null&&s.lootU!=null)?(s.lootT*10+s.lootU):null;
+  const lootRes=lootVal!=null?fmt(monsterLookup(T_.daemonLoot,lootVal)||'…'):'<span class="sub">…</span>';
+  const isMajor=(s.rank==='majeur'||s.rank==='leviathan');
+  const isLevi=(s.rank==='leviathan');
+  let daeName=null;
+  if(s.dnA!=null){
+    daeName=T_.daemonName.first[s.dnA-1];
+    if(isMajor && s.epN!=null && s.epA!=null) daeName+=', '+t(T_.daemonName.epNoun[s.epN-1])+' '+t(T_.daemonName.epAdj[s.epA-1]);
+    if(isLevi   && s.tiN!=null && s.tiC!=null) daeName+=', '+t(T_.daemonName.titleNoun[s.tiN-1])+' '+t(T_.daemonName.titleComp[s.tiC-1]);
+  }
+  const nameLabel = isLevi ? t({en:'True name & title (d20 · d12·d12 · d12·d12)',fr:'Vrai nom & titre (d20 · d12·d12 · d12·d12)'}) : (isMajor ? t({en:'True name (d20 · d12·d12)',fr:'Vrai nom (d20 · d12·d12)'}) : t({en:'True name (d20)',fr:'Vrai nom (d20)'}));
+  const nameDice = daeDie('dnA',20,s.dnA) + (isMajor?(daeDie('epN',12,s.epN)+daeDie('epA',12,s.epA)):'') + (isLevi?(daeDie('tiN',12,s.tiN)+daeDie('tiC',12,s.tiC)):'');
+  const rankBtn=(r,lbl)=>'<button class="dae-rankbtn'+(s.rank===r?' on':'')+'" data-act="dae-rank" data-rank="'+r+'">'+esc(lbl)+'</button>';
+  return '<div class="tablescol" style="max-width:760px;margin:0 auto;width:100%;">'
+  + '<div class="dae-occult">'
+    + '<div class="dae-sigil"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><circle cx="50" cy="50" r="47"/><path d="M50 90 L26 18 L88 62 L12 62 L74 18 Z"/></svg></div>'
+    + '<div class="dae-kick">'+esc(t({en:'The Exiled God demands',fr:'Le Dieu Exilé réclame'}))+'</div>'
+    + '<h1 class="dae-title">'+esc(t({en:'A Daemon',fr:'Un Démon'}))+'</h1>'
+    + '<div class="dae-sub">'+esc(t({en:'Summon it — then hunt it',fr:'Invoque-le — puis traque-le'}))+'</div>'
+  + '</div>'
+  + '<section class="card cvltcard"><h2><span>'+esc(t({en:'THE DAEMON',fr:'LE DÉMON'}))+'</span><button class="cvltrollall" data-act="dae-gen">'+t({en:'Summon',fr:'Invoquer'})+'</button></h2><div class="cardbody">'
+    + '<div class="dae-rankrow">'+rankBtn('mineur',t({en:'Minor · 2d6',fr:'Mineur · 2d6'}))+rankBtn('majeur',t({en:'Major · 4d6',fr:'Majeur · 4d6'}))+rankBtn('leviathan',t({en:'Leviathan · 7d6',fr:'Léviathan · 7d6'}))+'</div>'
+    + '<p style="font-size:12px;color:var(--muted);margin:8px 0 12px;">'+esc(t({en:'Each rank adds the previous ranks\' tables and HP.',fr:'Chaque rang ajoute les tables et PV des rangs précédents.'}))+'</p>'
+    + '<div class="cvltpart"><div class="cvlthead"><span class="cvltlabel">'+esc(nameLabel)+'</span><div class="cvltdice">'+nameDice+'</div></div>'
+      + '<div class="dae-name">'+(daeName?esc(daeName):'<span class="sub" style="font-size:14px;">…</span>')+'</div></div>'
+    + '<div class="cvltpart"><div class="cvlthead"><span class="cvltlabel">'+esc(t({en:'HP',fr:'PV'}))+' ('+nDice+'d6)</span><div class="cvltdice"><button class="cvltdie" data-act="dae-hp" title="'+esc(t({en:'roll HP',fr:'lancer les PV'}))+'">'+(hp!=null?hp:'?')+'</button></div></div>'
+      + '<div class="cvltres" style="font-size:22px;font-weight:800;color:var(--yellow);">'+(hp!=null?(hp+' '+esc(t({en:'HP',fr:'PV'}))):'<span class="sub" style="font-size:14px;">…</span>')+'</div></div>'
+    + '<div class="cvltpart"><div class="cvlthead"><span class="cvltlabel">'+esc(t({en:'Where to find it (3d6)',fr:'Où le trouver (3d6)'}))+'</span><div class="cvltdice">'+daeDie('locA',6,s.locA)+daeDie('locB',6,s.locB)+daeDie('locC',6,s.locC)+'</div></div><div class="cvltres">'+locRes+'</div></div>'
+    + daePart(t({en:'Its true form (d6)',fr:'Sa vraie forme (d6)'}),'form',6,T_.daemonForm,s.form)
+    + daePart(t({en:'It attacks with (d6)',fr:'Il attaque avec (d6)'}),'atk',6,T_.daemonAttack,s.atk)
+    + (isMajor ? daePart(t({en:'Growing power (d6)',fr:'Pouvoir grandissant (d6)'}),'mpow',6,T_.daemonMajorPower,s.mpow) : '')
+    + (isMajor ? daePart(t({en:'Its mere presence (d6)',fr:'Sa présence seule (d6)'}),'pres',6,T_.daemonPresence,s.pres) : '')
+    + (s.rank==='leviathan' ? daePart(t({en:'Too late to flee (d6)',fr:'Trop tard pour fuir (d6)'}),'levi',6,T_.daemonLeviathan,s.levi) : '')
+  + '</div></section>'
+  + '<section class="card cvltcard"><h2><span>'+esc(t({en:'SEARCH ITS SMOKING CORPSE',fr:'FOUILLE SON CADAVRE FUMANT'}))+'</span><button class="cvltrollall" data-act="dae-loot">'+t({en:'Roll d66',fr:'Lancer d66'})+'</button></h2><div class="cardbody">'
+    + '<div class="cvltpart"><div class="cvlthead"><span class="cvltlabel">'+esc(t({en:'Loot (d66)',fr:'Butin (d66)'}))+'</span><div class="cvltdice">'+daeDie('lootT',6,s.lootT)+daeDie('lootU',6,s.lootU)+'</div></div><div class="cvltres">'+lootRes+'</div></div>'
+  + '</div></section>'
+  + '<section class="card cvltcard"><h2><span>'+esc(t({en:'CORRUPTION & REBIRTH',fr:'CORRUPTION & RENAISSANCE'}))+'</span><button class="cvltrollall" data-act="dae-cr-roll">'+t({en:'Roll both',fr:'Tout lancer'})+'</button></h2><div class="cardbody">'
+    + '<p style="font-size:12px;color:var(--muted);margin:0 0 8px;">'+esc(t({en:'Bound to the Tome, you cannot truly die. On the VIIth corruption point your soul withers and a minor daemon takes your flesh — generate it above and start its hunt.',fr:'Lié au Tome, tu ne peux vraiment mourir. Au VIIe point de corruption ton âme s\'étiole et un démon mineur prend ta chair — génère-le ci-dessus et commence sa traque.'}))+'</p>'
+    + daePart(t({en:'Death & rebirth (d10)',fr:'Mort & renaissance (d10)'}),'rebirth',10,T_.daemonRebirth,s.rebirth)
+    + daePart(t({en:'Corruption — roll per point gained (d20)',fr:'Corruption — lance par point gagné (d20)'}),'corr',20,T_.daemonCorruption,s.corr)
+  + '</div></section>'
+  + '</div>';
+}
+/* ===== END DAEMON TAB ===== */
+
 /* ===== ROADS / TRAVEL COMPANION TAB ===== */
 function roadLookup(tbl, val){
   if(val==null) return null;
@@ -6162,10 +6410,11 @@ function initHuntingDelegation(){
 function renderTables(){
   const grid=document.getElementById('tablesgrid'); if(!grid) return;
   const tabsEl=document.getElementById('tablestabs');
-  if(tabsEl){ const tabLabels={oracle:{en:'Oracle',fr:'Oracle'},loot:{en:'Loot',fr:'Butin'},cvlt:{en:'Cvlt',fr:'Cvlte'},cvrse:{en:'Cvrse',fr:'Malédiction'},dvngeon:{en:'Dvngeon',fr:'Cachot'},roads:{en:'Roads',fr:'Routes'},hunting:{en:'Hunting',fr:'Chasse'},inn:{en:'Inn',fr:'Auberge'},monster:{en:'Monster',fr:'Monstre'},misery:{en:'Miseries',fr:'Misères'}}; tabsEl.innerHTML=['oracle','loot','cvlt','cvrse','dvngeon','roads','hunting','inn','monster','misery'].map(tb=>'<button class="tab'+(tablesTab===tb?' on':'')+'"'+(tb==='misery'?' style="color:var(--red);border-color:var(--red);"':'')+' data-act="tables-tab" data-tab="'+tb+'">'+t(tabLabels[tb])+'</button>').join(''); }
+  if(tabsEl){ const tabLabels={oracle:{en:'Oracle',fr:'Oracle'},loot:{en:'Loot',fr:'Butin'},cvlt:{en:'Cvlt',fr:'Cvlte'},cvrse:{en:'Cvrse',fr:'Malédiction'},dvngeon:{en:'Dvngeon',fr:'Cachot'},roads:{en:'Roads',fr:'Routes'},hunting:{en:'Hunting',fr:'Chasse'},inn:{en:'Inn',fr:'Auberge'},daemon:{en:'Daemon',fr:'Démon'},monster:{en:'Monster',fr:'Monstre'},misery:{en:'Miseries',fr:'Misères'}}; tabsEl.innerHTML=['oracle','loot','cvlt','cvrse','dvngeon','roads','hunting','inn','daemon','monster','misery'].map(tb=>'<button class="tab'+(tablesTab===tb?' on':'')+'"'+(tb==='misery'?' style="color:var(--red);border-color:var(--red);"':'')+' data-act="tables-tab" data-tab="'+tb+'">'+t(tabLabels[tb])+'</button>').join(''); }
   grid.classList.toggle('loot-grouped', tablesTab==='loot');
   if(tablesTab==='misery'){ grid.innerHTML=renderMiseryCalendar(); return; }
   if(tablesTab==='inn'){ grid.innerHTML=renderInnTab(); return; }
+  if(tablesTab==='daemon'){ grid.innerHTML=renderDaemonTab(); return; }
   if(tablesTab==='monster'){ if(!monsterState.a) monsterRollAll(); grid.innerHTML=renderMonsterTab(); return; }
   if(tablesTab==='roads'){   grid.innerHTML=renderRoadsTab();   return; }
   if(tablesTab==='hunting'){ grid.innerHTML=renderHuntingTab(); return; }
@@ -6318,6 +6567,12 @@ function onClick(e){
   else if(act==='mon-roll'){ const k=actEl.dataset.key, sides=+actEl.dataset.sides; monsterState[k]=rollDie(sides); renderTables(); }
   else if(act==='inn-roll-all'){ innRollAll(); renderTables(); }
   else if(act==='npc-roll-all'){ innState.npcNA=rollDie(6); innState.npcNB=rollDie(6); innState.npcTA=rollDie(6); innState.npcTB=rollDie(6); innState.npcDA=rollDie(6); innState.npcDB=rollDie(6); innState.npcConcern=rollDie(12); innState.npcWants=rollDie(12); innState.npcReally=rollDie(20); innState.npcApoc=rollDie(4); renderTables(); }
+  else if(act==='dae-rank'){ daemonState.rank=actEl.dataset.rank; daemonState.hp=null; renderTables(); }
+  else if(act==='dae-roll'){ const k=actEl.dataset.key, sides=+actEl.dataset.sides; daemonState[k]=rollDie(sides); renderTables(); }
+  else if(act==='dae-loot'){ daemonState.lootT=rollDie(6); daemonState.lootU=rollDie(6); renderTables(); }
+  else if(act==='dae-hp'){ const n=DAEMON_RANK_DICE[daemonState.rank]||2; daemonState.hp=Array.from({length:n},()=>rollDie(6)); renderTables(); }
+  else if(act==='dae-cr-roll'){ daemonState.rebirth=rollDie(10); daemonState.corr=rollDie(20); renderTables(); }
+  else if(act==='dae-gen'){ const n=DAEMON_RANK_DICE[daemonState.rank]||2; const S=daemonState; const maj=(S.rank==='majeur'||S.rank==='leviathan'), lev=(S.rank==='leviathan'); S.dnA=rollDie(20); S.epN=maj?rollDie(12):null; S.epA=maj?rollDie(12):null; S.tiN=lev?rollDie(12):null; S.tiC=lev?rollDie(12):null; S.hp=Array.from({length:n},()=>rollDie(6)); S.locA=rollDie(6); S.locB=rollDie(6); S.locC=rollDie(6); S.form=rollDie(6); S.atk=rollDie(6); if(maj){ S.mpow=rollDie(6); S.pres=rollDie(6); } if(lev){ S.levi=rollDie(6); } S.lootT=rollDie(6); S.lootU=rollDie(6); renderTables(); }
   else if(act==='inn-roll'){ const k=actEl.dataset.key, sides=+actEl.dataset.sides; innState[k]=rollDie(sides); renderTables(); }
   else if(act==='tds-roll'){ innState.tds.dice=[rollDie(6),rollDie(6),rollDie(6)]; innState.tds.stab=null; renderTables(); }
   else if(act==='tds-die'){ if(innState.tds.dice){ const i=+actEl.dataset.i; innState.tds.dice[i]=rollDie(6); innState.tds.stab=null; renderTables(); } }
@@ -6383,6 +6638,7 @@ function onChange(e){
   if(el.dataset && el.dataset.act==='inn-set'){ const k=el.dataset.key, sides=+el.dataset.sides, v=parseInt(el.value,10); if(!isNaN(v)&&v>=1&&v<=sides){ innState[k]=v; renderTables(); } return; }
   if(el.dataset && el.dataset.act==='tds-bet'){ const v=parseInt(el.value,10); innState.tds.bet=(isNaN(v)||v<0)?'':v; renderTables(); return; }
   if(el.dataset && el.dataset.act==='tds-die-set'){ const i=+el.dataset.i, v=parseInt(el.value,10); if(!isNaN(v)&&v>=1&&v<=6){ innState.tds.dice=innState.tds.dice||[null,null,null]; innState.tds.dice[i]=v; innState.tds.stab=null; renderTables(); } return; }
+  if(el.dataset && el.dataset.act==='dae-set'){ const k=el.dataset.key, sides=+el.dataset.sides, v=parseInt(el.value,10); if(!isNaN(v)&&v>=1&&v<=sides){ daemonState[k]=v; renderTables(); } return; }
   if(el.dataset && el.dataset.edit==='num'){ const id=el.dataset.field; state.f[id]=state.f[id]||{}; const v=el.value.trim(); state.f[id].manual=(v===''||isNaN(+v))?null:+v; redraw(); return; }
   if(el.dataset && el.dataset.edit==='tablepick'){ const id=el.dataset.field, v=el.value, fd=state.f[id]=state.f[id]||{}, f=fieldFor(id); if(v==='__custom__'){ fd.manual=cmpPlainText(f); } else if(v===''){ fd.manual=null; } else { fd.main=+v; fd.manual=null; const r=f.table&&lookup(f.table,fd.main); if(r&&r[3]&&fd.scroll==null) fd.scroll=rollDie(10); } redraw(); return; }
 }
