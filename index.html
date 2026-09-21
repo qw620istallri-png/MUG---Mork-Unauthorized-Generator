@@ -288,6 +288,7 @@ body.light .navlink{color:#4a4535;}
 .navlink.primary:disabled{opacity:.3;cursor:not-allowed;transform:none;}
 .navlink.back{color:var(--yellow);}
 .navlink.back:hover{color:#fff200;}
+@media(max-width:760px){#topnav{flex-wrap:wrap;padding:8px 12px;}.navright{width:100%;flex-wrap:wrap;gap:4px;justify-content:space-between;}#navlinks{display:flex;flex-wrap:wrap;}.navlink{font-size:10px;padding:7px 8px;}}
 
 /* ===== home ===== */
 .hero{max-width:1000px;margin:0 auto;padding:9vh 24px 12vh;text-align:center;}
@@ -416,6 +417,7 @@ body.light .navlink{color:#4a4535;}
 .loot-group:first-child .loot-group-h{margin-top:4px;}
 .loot-group-h .loot-group-sub{font:400 12px/1.2 'Inter',sans-serif;letter-spacing:.02em;text-transform:none;color:var(--muted);}
 .loot-group-inner{display:flex;gap:16px;align-items:flex-start;}
+@media (max-width:760px){.tablesgrid:not(.loot-grouped),.loot-group-inner{flex-direction:column;}.tablesgrid:not(.loot-grouped)>.tablescol,.loot-group-inner>.tablescol{width:100%;}}
 /* Itemized shop refs (Mikhael regions, firearms…): row label & item names in yellow, items spaced out */
 .spsrow.itemized>.spsname{color:var(--yellow);}
 .spsrow.itemized .reflist b:not(.term):not(.dice-term){color:var(--yellow);}
@@ -444,6 +446,13 @@ body.light .cvltrollall{background:var(--paper2);border-color:var(--yellow2);}
 .spssub{font:700 10px/1 inherit;letter-spacing:.12em;text-transform:uppercase;color:var(--yellow2);margin:14px 0 4px;padding-top:8px;border-top:1px solid var(--line);}
 .spssub:first-child{border-top:0;padding-top:0;margin-top:2px;}
 /* ---- Inn tab ---- */
+.inn-venues{display:flex;justify-content:center;align-items:stretch;gap:22px;flex-wrap:wrap;width:100%;margin:0 auto 22px;}
+.inn-venues .inn-sign{flex:1 1 270px;margin:0;cursor:pointer;transition:transform .15s,border-color .15s,opacity .15s;}
+.inn-venues .inn-sign:hover{transform:translateY(-3px);}
+.inn-venues .inn-sign:not(.on){opacity:.55;border-color:var(--line);}
+.inn-venues .inn-sign:not(.on) .inn-rings span{border-color:var(--line);}
+.inn-venues .inn-sign:not(.on) .inn-name{color:var(--muted);}
+.inn-venues .inn-sign:focus-visible{outline:3px solid var(--red);outline-offset:4px;}
 .inn-sign{position:relative;margin:0 auto 22px;max-width:440px;background:#0a0a0a;border:3px solid var(--yellow);border-radius:10px;padding:26px 20px 22px;text-align:center;box-shadow:0 10px 30px -10px rgba(0,0,0,.8),inset 0 0 0 1px #000;}
 .inn-sign::before,.inn-sign::after{content:"";position:absolute;top:-14px;width:2px;height:14px;background:var(--yellow);opacity:.6;}
 .inn-sign::before{left:46px;} .inn-sign::after{right:46px;}
@@ -483,12 +492,39 @@ body.light .cvltrollall{background:var(--paper2);border-color:var(--yellow2);}
 .inn-combos{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:6px;}
 .inn-combos td{border-bottom:1px solid var(--line);padding:5px 6px;color:var(--ink);vertical-align:top;}
 .inn-combos td:first-child{white-space:nowrap;font-weight:800;color:var(--yellow);font-family:'Inter',sans-serif;}
+.bloody-menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;}
+.bloody-menu h3{font:400 24px/1 Impact,'Arial Narrow',sans-serif;color:var(--yellow);letter-spacing:.08em;margin:4px 0 8px;}
+.bloody-item{border-top:1px solid var(--line);padding:9px 0;}
+.bloody-item b{color:var(--yellow);}
+.bloody-item strong{float:right;color:var(--ink);}
+.bloody-item p{font-size:12px;color:var(--muted);line-height:1.5;margin:5px 0 0;}
+.slant-score{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:12px 0;}
+.slant-score>div{background:var(--paper2);border:1px solid var(--line);border-radius:6px;padding:10px;min-width:120px;text-align:center;}
+.slant-score b{display:block;color:var(--yellow);font-size:22px;}
+.slant-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:12px 0;}
+.slant-actions button{background:var(--paper2);border:1px solid var(--yellow2);border-radius:5px;color:var(--yellow);padding:8px 10px;cursor:pointer;}
+.slant-actions button:disabled{opacity:.4;cursor:default;}
+.slant-result{text-align:center;font-size:15px;line-height:1.5;color:var(--ink);padding:10px;}
 .spsrow{border-bottom:1px dashed var(--line);}
 .spsrow:last-child{border-bottom:0;}
 .spsname{display:block;width:100%;text-align:left;background:none;border:0;color:var(--ink);font:700 12px/1.4 inherit;letter-spacing:.03em;text-transform:uppercase;cursor:pointer;padding:9px 2px;}
 .spsname:hover{color:var(--yellow);}
 .modchip.match{border-color:var(--yellow);}
 /* ===== Misery Calendar ===== */
+.ruler-wrap{width:100%;max-width:1080px;margin:0 auto;padding:0 10px 50px;}
+.ruler-head{text-align:center;margin:8px 0 18px;}
+.ruler-head h1{font:400 clamp(38px,7vw,62px)/1 Impact,'Arial Narrow',sans-serif;color:var(--yellow);text-transform:uppercase;letter-spacing:.05em;}
+.ruler-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;}
+@media(max-width:760px){.ruler-grid{grid-template-columns:1fr;}}
+.ruler-row{display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--line);padding:8px 0;}
+.ruler-row b{color:var(--yellow);}
+.ruler-row .ruler-actions{margin-left:auto;display:flex;align-items:center;gap:5px;}
+.ruler-actions button,.ruler-small{background:var(--paper2);border:1px solid var(--yellow2);color:var(--yellow);border-radius:4px;padding:4px 8px;cursor:pointer;}
+.ruler-actions strong{min-width:28px;text-align:center;font-size:18px;}
+.ruler-event{background:var(--paper2);border-left:3px solid var(--yellow);padding:12px;margin-top:12px;line-height:1.55;}
+.ruler-track-list{list-style:none;padding:0;margin:8px 0 0;}
+.ruler-track-list li{padding:6px 0;border-bottom:1px solid var(--line);font-size:12px;line-height:1.45;}
+.ruler-track-list li.active{color:var(--yellow);font-weight:700;}
 .mis-wrap{max-width:820px;margin:0 auto;padding:0 20px 64px;}
 .mis-header{text-align:center;padding:24px 0 20px;}
 .mis-title{font:900 30px/1.1 Impact,'Arial Narrow',sans-serif;text-transform:uppercase;letter-spacing:.06em;color:var(--red);margin-bottom:10px;}
@@ -2079,6 +2115,22 @@ Les gens te suivent jusqu'à la mort.`}],
     [66,66,{en:`**Bowels of a Baby Killer.** Take the bowl and drape the entrails over you, gaining a monster's scent. Evil creatures must make a DR14 check when attempting to discern your location. Should they fail, you pass by unnoticed.`,fr:`**Entrailles d'un Tueur d'Enfants.** Prends le bol et drape les entrailles sur toi, acquérant l'odeur d'un monstre. Les créatures maléfiques doivent réussir un test DR14 pour discerner ta position. En cas d'échec, tu passes inaperçu.`}],
   ]},
 
+  /* ---- THE BOX OF SHADOWS: THE EAST TOWER ---- */
+  eastVessels:{rows:[
+    [1,1,{en:`**Chalice of Foe.** Once a day, see past one creature's intentions. The target then attacks you without provocation.`,fr:`**Calice de l'Ennemi.** Une fois par jour, perce les intentions d'une créature. Elle t'attaque alors sans provocation.`}],
+    [2,2,{en:`**Macrosmatic Cup.** Once a day, name an object and sniff it out. Once found, it reeks of death: everyone nearby vomits and takes d4 damage once a day.`,fr:`**Coupe Macrosmatique.** Une fois par jour, nomme un objet et retrouve-le à l'odorat. Une fois trouvé, il empeste la mort : chacun à proximité vomit et subit d4 dégâts une fois par jour.`}],
+    [3,3,{en:`**Goblet of Lamprophony.** Once a day, speak with a terrifyingly loud voice. Everyone within one mile takes d4 damage and is deaf for d20 minutes.`,fr:`**Gobelet de Lamprophonie.** Une fois par jour, parle d'une voix terrifiante. Tous à moins d'un mile subissent d4 dégâts et deviennent sourds pendant d20 minutes.`}],
+    [4,4,{en:`**Leiotrichous Draught.** Your hair becomes stronger and bleached. At will, grow all your hair by up to one foot per day.`,fr:`**Breuvage Leiotriche.** Tes cheveux blanchissent et se renforcent. À volonté, fais pousser tous tes cheveux jusqu'à un pied par jour.`}],
+    [5,5,{en:`**Goblet of Bloviation.** Once a day, your speech lulls nonviolent creatures to sleep. Listeners test Presence DR16 or sleep for d20 minutes.`,fr:`**Gobelet de Bloviation.** Une fois par jour, tes paroles endorment les créatures non violentes. Elles testent Présence DR16 ou dorment d20 minutes.`}],
+    [6,6,{en:`**Hapax Legomenon.** Everyone knows your name, though nobody knows why.`,fr:`**Hapax Legomenon.** Tout le monde connaît ton nom, sans savoir pourquoi.`}],
+    [7,7,{en:`**Zoanthropy Chalice.** Once a day, think and know instinctively like a nonhuman creature you choose. You believe you are that creature and cannot communicate with humans until you sleep.`,fr:`**Calice de Zoanthropie.** Une fois par jour, pense comme une créature non humaine choisie. Tu crois être cette créature et ne peux plus communiquer avec les humains avant de dormir.`}],
+    [8,8,{en:`**Axinomancy Vessel.** Once a day, name a target while throwing an axe. It flies to that object or creature within 20 feet, regardless of throw direction.`,fr:`**Vase d'Axinomancie.** Une fois par jour, nomme une cible en lançant une hache. Elle frappe cet objet ou cette créature à 20 pieds au plus, quelle que soit la direction du lancer.`}],
+    [9,9,{en:`**Dissilient Chalice.** Eating part of an object or person makes the remainder explode for d8 damage. You need three times as much food to be sated.`,fr:`**Calice Dissilient.** Manger une partie d'un objet ou d'une personne fait exploser le reste pour d8 dégâts. Il te faut trois fois plus de nourriture pour te rassasier.`}],
+    [10,10,{en:`**Balatron's Goblet.** Once a day, make one non-PC creature harmless, foolish and babbling nonsense for d5 minutes.`,fr:`**Gobelet de Balatron.** Une fois par jour, rends une créature non PJ inoffensive, ridicule et bavarde de non-sens pendant d5 minutes.`}],
+    [11,11,{en:`**Abiogenesis Grail.** Take d10 damage on drinking. Once a day, bring one object to life for three minutes; it has your stats.`,fr:`**Graal d'Abiogenèse.** Subis d10 dégâts en buvant. Une fois par jour, donne vie à un objet pendant trois minutes ; il a tes caractéristiques.`}],
+    [12,12,{en:`**Catarolysis Cup.** Three times a day, a sentient creature you touch rails against the divine until you release it. Each use heals you d4 HP.`,fr:`**Coupe de Catarolyse.** Trois fois par jour, un être conscient que tu touches maudit le divin jusqu'à ce que tu le lâches. Chaque usage te soigne de d4 PV.`}],
+    [13,13,{en:`**Vessel of Exuviating.** Your tongue splits. Each day you shed your skin and take d2 damage; it regrows by morning. You are immune to poison, intoxication and infection.`,fr:`**Vase de Mue.** Ta langue se fend. Chaque jour, ta peau mue et tu subis d2 dégâts ; elle repousse le matin. Tu es immunisé au poison, à l'ivresse et à l'infection.`}],
+  ]},
   /* ---- THE GREY GALTH INN ---- */
   innMenuSelect:{rows:[
     [1,1,{en:`Braised chicken with dangerously alcoholic wine-drenched apples.`,fr:`Poulet braisé aux pommes noyées dans un vin dangereusement alcoolisé.`}],
@@ -3978,6 +4030,132 @@ const LOOT_BEAST = {en:`**Dog (trained)** — 25s
 **Cheval** — 80a
 **Mulet** — 10a
 **Rat (apprivoisé)** — 8a`};
+const BOX_JUNK={
+  material:['Golden','Silver','Bone','Amber','Diamond','Jade','Obsidian','Ruby','Sapphire','Steel','Glass','Onyx','Bronze','Copper','Meteorite','Cobalt','Brass','Ceramic','Osmium','Iridium'],
+  title:['Guardian','Jackal',"Mother’s",'Pentagram','Crescent','Fire','Sand','Edge','Silk','Feather','Harmony','War','Circle','Cross','Stem','Orb','Winged','Eyed','Footed','Star'],
+  object:['Crest','Bangle','Coronet','Necklace','Pendant','Torch','Armlet','Ring','Breastplate','Brooch','Anklet','Amulet','Signet Ring','Emblem','Locket','Medallion','Pendant','Vase','Belt','Mask'],
+  lore:['of Light','of Banding','of Ježek','of Frailty','of the Loyal','of Kingship','of Law','of Yearning','of Król','of Gallus','of Beran','of Lebedev',"of Fiala’s",'of Hasek','of Golob','of Kaczka','of Voice','of Power','of Love','of Guilt']
+};
+const BOX_TRAPS={
+  first:['Bait','Hidden','Motion','Fixed','Peg','Push','Treadle','Camouflage','Broken','Greasy','String','Pitch Cup','Toggle','Paddled','Poisoned','Steel-jaw','Tripwire','Glue','False','Weakened'],
+  second:['Offset','Trigger','Lever','Spring','Stone','Keyhole','Doorknob','Support','Button','Pressure','Swing','Noose','Restraint','Tension','Handle','Door','Frame','Floor','Block','Bolt'],
+  third:['Snare','Deadfall','Spring','Lure','Pit','Crusher','Leg-hold','Foot-hold','Body-grip','Spikes','Blades','Trap','Plate','Rope','Slicer','Slide','Furnace','Fall','Guillotine','Pendulum'],
+};
+const boxJunkState={material:null,title:null,object:null,lore:null};
+const boxTrapState={first:null,second:null,third:null,disarm:null,deadly:null};
+function boxJunkValue(n){return n<=8?20:n<=12?30:n<=15?50:n<=17?70:n===18?90:n===19?140:200;}
+function boxTrapDamage(n){return n<=5?'d2':n<=10?'d4':n<=15?'d6':n<=18?'2d4':'d12';}
+function boxTrapDisarm(s){
+  if(s.disarm==null) return null;
+  if(s.disarm===6) return 'Already sprung. Something dead is in it.';
+  if(s.first==null||s.second==null||s.third==null) return null;
+  const part=(BOX_TRAPS.first[s.first-1]+' '+BOX_TRAPS.second[s.second-1]).toLowerCase();
+  const mechanism=BOX_TRAPS.third[s.third-1].toLowerCase();
+  return [
+    `Gently lift the ${part} before removing the ${mechanism}.`,
+    `Find the ${part}; unlatch the ${mechanism} before tying off the cap.`,
+    `Release the ${part}, then lift to disengage the ${mechanism}.`,
+    `Place a weight on the ${part} and wait for the ${mechanism} to be disabled.`,
+    `Push the ${part} so the ${mechanism} is revealed enough to be cleared.`
+  ][s.disarm-1];
+}
+function boxRollJunk(){Object.keys(boxJunkState).forEach(k=>boxJunkState[k]=rollDie(20));}
+function boxRollTrap(){['first','second','third','deadly'].forEach(k=>boxTrapState[k]=rollDie(20));boxTrapState.disarm=rollDie(6);}
+function boxDie(act,key,sides,val){return '<button class="cvltdie" data-act="'+act+'" data-key="'+key+'" title="d'+sides+'">'+(val==null?'?':val)+'</button><input class="mon-manual" type="number" min="1" max="'+sides+'" placeholder="1-'+sides+'" data-act="'+act+'-set" data-key="'+key+'" value="'+(val==null?'':val)+'">';}
+function renderBoxJunk(){
+  const s=boxJunkState,ready=Object.values(s).every(v=>v!=null);
+  const name=ready?BOX_JUNK.material[s.material-1]+' '+BOX_JUNK.title[s.title-1]+' '+BOX_JUNK.object[s.object-1]+' '+BOX_JUNK.lore[s.lore-1]:null;
+  const part=(key,label)=>'<div class="cvltpart"><div class="cvlthead"><span class="cvltlabel">'+label+'</span><div class="cvltdice">'+boxDie('box-junk-die',key,20,s[key])+'</div></div><div class="cvltres">'+(s[key]!=null?esc(BOX_JUNK[key][s[key]-1]):'…')+'</div></div>';
+  return '<div class="tablescol"><section class="card cvltcard"><h2><span>'+t({en:'d20 Valuable but Useless Junk',fr:'d20 Butin précieux mais inutile'})+'</span><button class="cvltrollall" data-act="box-junk-all">'+t({en:'Roll all',fr:'Tout lancer'})+'</button></h2><div class="cardbody">'
+    +(ready?'<div class="cvltpara"><b>'+esc(name)+'</b> — '+boxJunkValue(s.material)+' s</div>':'')
+    +part('material',t({en:'Material',fr:'Matériau'}))+part('title',t({en:'Title',fr:'Titre'}))+part('object',t({en:'Object',fr:'Objet'}))+part('lore',t({en:'Lore',fr:'Légende'}))
+    +'<div class="note">'+t({en:'Value depends on the material roll: 1–8: 20s; 9–12: 30s; 13–15: 50s; 16–17: 70s; 18: 90s; 19: 140s; 20: 200s.',fr:'Valeur selon le jet de matériau : 1–8 : 20a ; 9–12 : 30a ; 13–15 : 50a ; 16–17 : 70a ; 18 : 90a ; 19 : 140a ; 20 : 200a.'})+'</div></div></section></div>';
+}
+function renderBoxTraps(){
+  const s=boxTrapState,ready=s.first!=null&&s.second!=null&&s.third!=null;
+  const part=(key,label,arr)=>'<div class="cvltpart"><div class="cvlthead"><span class="cvltlabel">'+label+'</span><div class="cvltdice">'+boxDie('box-trap-die',key,20,s[key])+'</div></div><div class="cvltres">'+(s[key]!=null?esc(arr[s[key]-1]):'…')+'</div></div>';
+  return '<div class="tablescol"><section class="card cvltcard"><h2><span>'+t({en:"Hunters’ Obvious Traps",fr:'Pièges évidents des chasseurs'})+'</span><button class="cvltrollall" data-act="box-trap-all">'+t({en:'Roll all',fr:'Tout lancer'})+'</button></h2><div class="cardbody">'
+    +(ready?'<div class="cvltpara"><b>'+esc(BOX_TRAPS.first[s.first-1]+' '+BOX_TRAPS.second[s.second-1]+' '+BOX_TRAPS.third[s.third-1])+'</b></div>':'')
+    +part('first',t({en:'First part · d20',fr:'Première partie · d20'}),BOX_TRAPS.first)+part('second',t({en:'Second part · d20',fr:'Deuxième partie · d20'}),BOX_TRAPS.second)+part('third',t({en:'Mechanism · d20',fr:'Mécanisme · d20'}),BOX_TRAPS.third)
+    +'<div class="cvltpart"><div class="cvlthead"><span class="cvltlabel">'+t({en:'Disarm · d6',fr:'Désamorcer · d6'})+'</span><div class="cvltdice">'+boxDie('box-trap-die','disarm',6,s.disarm)+'</div></div><div class="cvltres">'+(boxTrapDisarm(s)!=null?esc(boxTrapDisarm(s)):'…')+'</div></div>'
+    +'<div class="cvltpart"><div class="cvlthead"><span class="cvltlabel">'+t({en:'Deadly? · d20',fr:'Dégâts ? · d20'})+'</span><div class="cvltdice">'+boxDie('box-trap-die','deadly',20,s.deadly)+'</div></div><div class="cvltres">'+(s.deadly!=null?boxTrapDamage(s.deadly):'…')+'</div></div>'
+    +'<div class="note">'+t({en:'Test Presence, Agility, or both.',fr:'Tester Présence, Agilité, ou les deux.'})+'</div></div></section></div>';
+}
+// The shop copy is transcribed from The Box of Shadows, pp. 21–29.
+// Keep the source English in both UI languages so item rules are not paraphrased.
+const BOX_SHOPS={
+  ingimarr:{en:`**Ingimárr Voll**
+HP 3 | Morale 2 | Leather d4 | Spear d6
+Well known for his fine armor and inventive contraptions, Ingimárr has one of the largest workshops in Grift. He has accumulated a stockpile of work due to the market being abandoned.
+**Gathromil Armor — 500s**
+-d4 Damage | Tier 2
+Mined from the cliffs of Múr, Gathromil is not a rare resource but few know how to work with the material. It is a dry clay-like substance when extracted and only after a refinement process becomes suitable for use as armor. The arduous process of preparing the material and smelting it into armor plate is known only to the Volls family. The resulting armor is light, extremely dense, and hard. Its most unique element, however, is its reaction to piercing blows. When struck with a sharp object the armor resonates with a tone capable of shattering metal objects within a 2-foot radius. (Test DR8 to shatter weapons and armor when struck.)
+**Gathromil Bomb — 200s**
+Not actually a bomb, but a timer. Simply rotating the halves sets the time for the Gathromil to be struck by hundreds of small sharp points. The sound emitted encompasses a 4-foot radius and is capable of shattering d4 metal objects within a 2-foot radius. Neutralize multiple enemies at once. (Test DR13 to shatter metal weapons and armor.)
+**Fanged Helm — 275s**
+-d6 Damage | Tier 3
+This thick forged steel helm is equipped with a spring-loaded faceplate allowing its user to expose their face and teeth at a moment's notice. This prevents any opportunity attacks or blows to the head when its user is going for the jugular. If using bite, attacking enemies do not get a free attack.
+**Lothar Blood Bark Shield — 300s**
+DR12 to see if blocks are successful
+Carved from the Lothar Trees’ bark, this 6” thick shield will never break. It is constantly growing and must be trimmed d4 times per day or it will grow to an unmanageable size. If not cared for, it will take root in its owner where it deals d4 damage before combat and cannot be unequipped.
+**BASIC SHIT — In Stock**
+20s | -d2 Damage | Tier 1: Fur Armor; Padded Cloth Armor; Leather Armor
+100s | -d4 Damage | Tier 2: Scale Mail
+200s | -d6 Damage | Tier 3: Splint Plate
+**MORE BASIC SHIT**
+Blanket 4s — Itchy
+Heavy Chain 10s — 15 feet
+Metal File 10s
+Sharp Needle 3s
+Whip 5s — d2`},
+  eklund:{en:`**Úlfr Eklund**
+HP 1 | Morale 4 | No Armor
+More of a merchant than a craftsman, Úlfr refurbishes magical items and useless relics without much knowledge of how they work or why. They do look fancy though.
+**Thrush Grain Poppet — 10s**
+This demon-possessed soul prison has been enchanted with imitative magicks. (Use one of your daily powers to whisper the name of someone you see.) After d4 days of this ritual, you will be able to control them for 1 hour. When finished doing your bidding they will kill themselves.
+**Inquisitors Saturno — 40s**
+Only worn by Inquisitors of the Two-headed Basilisk. This hat could come into use as a disguise. Human NPCs must (Test DR5) or be afraid of you.
+**Spit Till Divination Bowl — 100s**
+Bite one’s tongue and spit into this bowl to take 2 damage and gain communion with the dead. The user may ask 1 yes or no question about the area they are in. It can also be used as a standard shield.
+**Oil Lamp Timer — 50s**
+The unique bronze lamp has a trick. Its user can twist the top to set the timer. Twisting right will set the timer to turn off. Twisting left will set the timer to turn on. New oil is required after every use.
+**BASIC SHIT — In Stock**
+Back Pack 6s — Holds 7 normal-sized items
+Bear Trap 20s — Presence DR14 to spot, d8 damage
+Chalk 1s
+Chewing Tobacco 1s
+Crucifix, Silver 60s
+Crucifix, Wood 8s
+Exquisite Perfume 25s
+Lantern Oil 5s — Presence + 6 hours
+Mirror 15s
+Medicine Box 15s — Stops bleeding/infection and +d6 HP; Presence + 4 uses`},
+  agnar:{en:`**Agnar Agnarsson**
+HP 5 | Morale 2 | No Armor | Sword d4
+Agnar is at odds with just about everyone in Grift. Abrasive and cruel, he has killed many simply for a dirty look. His powerful weapons cannot be denied though. Conscripted as the supplier of the guards’ weaponry, he holds a powerful position and flaunts it.
+**Blood-Drenched Steel Dagger D6 — 30s**
+**Blood-Drenched ShortSword D6 — 40s**
+**Bronze Hilt Steel Shortsword D8 — 50s**
+**Fine Grade Steel Fighting Hammer D8 — 50s**
+**Crippleblade Zweihander D12 — 200s**
+(Test Strength DR10) Target damaged enemy loses a limb`},
+  thorn:{en:`**Valdís Thorn**
+HP 4 | Morale 4 | Scale d4 | Sword d6
+Despite the district being called “The Craftsman's District,” Valis defies the death threats and slander to maintain her shop. Agnar may have fine steel but Valdis dabbles in magick to embue her wears with unique abilities.
+Male PCs who enter Valdis’ shop and do not purchase anything or are rude are cursed by her and gain an infection.
+**Crepuscular blade of Withering D4 — 70s**
+(Test DR8) If successful, and it is night. The crepuscular blade of withering does double damage for d6 hours or until it is day time. The blade has been marked with a powerful spell as if it is a scroll.
+**Cyst-Lord Dadao of the Profane D6 — 200s**
+Use this blade as normal until it has been soaked in blood. (Any blood will do). Once coated, the blade can be cast as a scroll expending a daily power. (Target tests DR10) or becomes enraged and fights you no matter their disposition. If the target is using a weapon they throw it down and fight bare-fisted for d4 minutes.
+**Maarif Helmet of Berserk — 100s**
+d4 | Tier 2
+Deal d6 damage when unarmed if wearing.
+**Grimalkin Tongue Gauntlet — 300s**
+D8 | -d6 | Tier 3
+When equipped you are able to speak to felines. Sadly they don’t often have much useful to say. Take d4 damage each turn if in water.
+**Skull Pulp Talisman of Transfer — 500s**
+Use this talisman as a scroll expending 2 daily powers to use. When activated this talisman allows its owner to store or remove up to 30 items of any weight within its memory. The skull is, however, forgetful and will only allow you access to your items if it remembers them. (Test Presence DR12)`}
+};
 function oracleCats(){
   const cats=[];
   cats.push({tab:'oracle', label:{en:'Optional',fr:'Optionnel'}, rows: MODULES.map(m=>({id:m.id, label:t(m.label), sides:m.sides, table:m.table, tens:m.tens, units:m.units, note:m.note})) });
@@ -4013,12 +4191,25 @@ function oracleCats(){
   cats.push({tab:'loot', lootGroup:'base', label:{en:'Books',fr:'Livres'}, rows:[{id:'or_books', label:{en:'Books to find in libraries & vaults (d86)',fr:'Livres à trouver en bibliothèques & coffres (d86)'}, sides:86, tens:8, units:6, table:T.lootBooks, note:{en:`These filthy scriptures are worth, in silver, their dice ×10.`, fr:`Ces Écritures immondes valent, en argent, leur dé ×10.`}}]});
   cats.push({tab:'loot', lootGroup:'magic', label:{en:'Occult Treasures',fr:'Trésors Occultes'}, rows:[{id:'or_occult', label:{en:'Occult treasures (d10)',fr:'Trésors occultes (d10)'}, sides:10, table:T.occultTreasures}]});
   cats.push({tab:'loot', lootGroup:'magic', label:{en:'The Tenebrous Reliquary',fr:'Le Reliquaire Ténébreux'}, rows:[{id:'or_reliquary', label:{en:'The Tenebrous Reliquary (d66)',fr:'Le Reliquaire Ténébreux (d66)'}, sides:66, tens:6, units:6, table:T.tenebrousReliquary}]});
+  cats.push({tab:'loot', lootGroup:'magic', label:{en:'13 Vessels of the East Tower',fr:'13 Vases de la Tour Est'}, rows:[{id:'or_east_vessels', label:{en:'The 13 vessels (d13)',fr:'Les 13 vases (d13)'}, sides:13, table:T.eastVessels, note:{en:'One vessel per palace guest room. A vessel cannot leave its room. A visitor may drink from only one; combining fluids requires Toughness DR16 or death.',fr:'Un vase par chambre du palais. Il ne peut quitter sa chambre. Un visiteur ne peut boire que dans un seul ; mélanger les fluides exige Endurance DR16, sinon c’est la mort.'}}]});
   cats.push({tab:'loot', lootGroup:'magic', label:{en:'Scrolls',fr:'Parchemins'}, rows:scrolls});
   cats.push({tab:'loot', lootGroup:'shop', label:{en:'Shop & Prices',fr:'Boutique & Prix'}, rows:[
     {id:'or_equip_ref', label:{en:'Equipment',fr:'Équipement'}, ref:LOOT_EQUIP},
     {id:'or_weap_ref',  label:{en:'Weapons & ammo',fr:'Armes & munitions'}, ref:LOOT_WEAP},
     {id:'or_serv_ref',  label:{en:'Services',fr:'Services'}, ref:LOOT_SERV},
     {id:'or_beast_ref', label:{en:'Beasts',fr:'Bêtes'}, ref:LOOT_BEAST},
+  ]});
+  cats.push({tab:'loot', lootGroup:'shop', label:{en:"Ingimárr Voll’s Armory & Accessories",fr:"Armurerie et accessoires d’Ingimárr Voll"}, rows:[
+    {id:'box_ingimarr', itemized:true, label:{en:'Owner & wares',fr:'Propriétaire et marchandises'}, ref:BOX_SHOPS.ingimarr},
+  ]});
+  cats.push({tab:'loot', lootGroup:'shop', label:{en:"Eklund’s Refurbished Wears",fr:'Objets rénovés d’Eklund'}, rows:[
+    {id:'box_eklund', itemized:true, label:{en:'Owner & wares',fr:'Propriétaire et marchandises'}, ref:BOX_SHOPS.eklund},
+  ]});
+  cats.push({tab:'loot', lootGroup:'shop', label:{en:"Agnar’s Fine Steel",fr:"Acier fin d’Agnar"}, rows:[
+    {id:'box_agnar', itemized:true, label:{en:'Owner & wares',fr:'Propriétaire et marchandises'}, ref:BOX_SHOPS.agnar},
+  ]});
+  cats.push({tab:'loot', lootGroup:'shop', label:{en:"Thorn’s Weapons & More",fr:'Armes et plus de Thorn'}, rows:[
+    {id:'box_thorn', itemized:true, label:{en:'Owner & wares',fr:'Propriétaire et marchandises'}, ref:BOX_SHOPS.thorn},
   ]});
   cats.push({tab:'loot', lootGroup:'shop', label:{en:'The Forbidden Vault',fr:'La Chambre Forte Interdite'}, rows:[
     {id:'or_vault', label:{en:`Safaril's wares (d12)`,fr:`Marchandises de Safaril (d12)`}, sides:12, table:T.vaultItems, note:{en:`Safaril the Disturbingly Gifted sells the most rotten desires — he only accepts BLOOD SILVER (silver ill-gotten by thievery, blackmail, robbery, confidence tricks or foul murder). For protection he keeps half a dozen goblins on a leash.`, fr:`Safaril le Disturbingly Gifted vend les désirs les plus corrompus — il n'accepte que l'ARGENT DE SANG (argent mal acquis par vol, chantage, brigandage, escroquerie ou meurtre sordide). Pour sa protection, il tient une demi-douzaine de gobelins en laisse.`}},
@@ -5766,7 +5957,8 @@ function renderMonsterTab(){
 /* ===== END MONSTER GENERATOR TAB ===== */
 
 /* ===== THE GREY GALTH INN TAB ===== */
-let innState = { menuSel:null, menuPoor:null, twitch:null, patron:null, soulD4:null, soulD8:null, tds:{ bet:'', dice:null, stab:null } };
+let innState = { venue:'grey', menuSel:null, menuPoor:null, twitch:null, patron:null, soulD4:null, soulD8:null, tds:{ bet:'', dice:null, stab:null }, bloodyRumor:null,
+  slant:{phase:'coin',coin:null,first:null,dice:null,second:null,score:[1,1],drinks:[0,0],round:0,message:''} };
 function innRollAll(){
   innState.menuSel=rollDie(6); innState.menuPoor=rollDie(6); innState.twitch=rollDie(10);
   innState.patron=rollDie(20); innState.soulD4=rollDie(4); innState.soulD8=rollDie(8);
@@ -5809,6 +6001,51 @@ function tdsDieCell(i,val){
     + tdsDieBtn(i,val)
     + '<input class="mon-manual" type="number" min="1" max="6" placeholder="?" data-act="tds-die-set" data-i="'+i+'" value="'+(val!=null?val:'')+'">'
     + '</div>';
+}
+const BLOODY_RUMORS={rows:[
+  [1,1,{en:'The palace is empty. Perhaps something terrible happened to King Sigfúm.',fr:'Le palais est vide. Il est peut-être arrivé quelque chose d’horrible au roi Sigfúm.'}],
+  [2,2,{en:'Commoners outnumber nobles thirty to one. The nobles seem to be leaving, unseen.',fr:'Les gens du peuple surpassent les nobles trente contre un. Les nobles semblent partir sans qu’on les voie.'}],
+  [3,3,{en:'Something strange in the soup. It tastes surprisingly good.',fr:'Il y a quelque chose d’étrange dans la soupe. Le goût est étonnamment bon.'}],
+  [4,4,{en:'Guards dumped a huge crate of torches down the dry well. Why?',fr:'Les gardes ont jeté une énorme caisse de torches dans le puits sec. Pourquoi ?'}],
+]};
+function bloodyInnCards(){
+  const g=innState.slant, v=g.dice, sum=v?v[0]+v[1]:null;
+  const item=(name,price,desc)=>'<div class="bloody-item"><b>'+esc(name)+'</b><strong>'+price+' s</strong><p>'+esc(desc)+'</p></div>';
+  const menu='<section class="card cvltcard"><h2>'+t({en:'THE BLOODY CLIFF MENU',fr:'MENU DE THE BLOODY CLIFF'})+'</h2><div class="cardbody"><div class="bloody-menu">'
+    +'<div><h3>'+t({en:'Eat',fr:'Manger'})+'</h3>'
+    +item(t({en:'Flesh Soup',fr:'Soupe de chair'}),'1',t({en:'Brown, oily chunks that quiver when touched.',fr:'Morceaux bruns et huileux qui frémissent au toucher.'}))
+    +item(t({en:'Soft Beak Grub',fr:'Bouillie de bec mou'}),'2',t({en:'White strips of bone boiled in marrow, topped with black, eye-like objects.',fr:'Lamelles d’os blanc bouillies dans la moelle, garnies d’objets noirs semblables à des yeux.'}))
+    +item(t({en:"The King’s Pie",fr:'Tourte du roi'}),'3',t({en:'Casserole-like goo in bright red liquid; bubbles scream as they burst.',fr:'Boue de tourte dans un liquide rouge vif ; les bulles hurlent en éclatant.'}))+'</div>'
+    +'<div><h3>'+t({en:'Drink',fr:'Boire'})+'</h3>'
+    +item(t({en:'Fermented Swill',fr:'Picrate fermentée'}),'½',t({en:'Cheap and strong; used for Slanted Dice.',fr:'Bon marché et forte ; servie pour jouer à Slanted Dice.'}))
+    +item(t({en:'Golden Mead',fr:'Hydromel doré'}),'1',t({en:'Fine mead brewed by Viljami Bonde.',fr:'Hydromel raffiné brassé par Viljami Bonde.'}))
+    +'<h3>'+t({en:'Sleep',fr:'Dormir'})+'</h3>'
+    +item(t({en:'Room 1',fr:'Chambre 1'}),'5',t({en:'Windowless, moldy blankets, bugs.',fr:'Sans fenêtre, couvertures moisies, insectes.'}))
+    +item(t({en:'Room 2',fr:'Chambre 2'}),'10',t({en:'One bed and a balcony over the shit pit.',fr:'Un lit et un balcon donnant sur la fosse à merde.'}))
+    +item(t({en:'Room 3',fr:'Chambre 3'}),'20',t({en:'A night with Kajsa Sjögren in the finest room.',fr:'Une nuit avec Kajsa Sjögren dans la meilleure chambre.'}))+'</div></div>'
+    +'<div class="note">'+t({en:'Eating, drinking or sleeping here has a 50% chance of causing an infection.',fr:'Manger, boire ou dormir ici donne 50 % de chances de contracter une infection.'})+'</div></div></section>';
+  const score='<div class="slant-score"><div>'+t({en:'Player 1 · slant',fr:'Joueur 1 · biais'})+'<b>'+g.score[0]+'</b>'+t({en:'Drinks',fr:'Verres'})+': '+g.drinks[0]+'</div><div>'+t({en:'Player 2 · slant',fr:'Joueur 2 · biais'})+'<b>'+g.score[1]+'</b>'+t({en:'Drinks',fr:'Verres'})+': '+g.drinks[1]+'</div></div>';
+  const btn=(act,label,disabled,extra='')=>'<button data-act="'+act+'" '+(disabled?'disabled ':'')+extra+'>'+label+'</button>';
+  const actions=g.phase==='coin'
+    ?btn('slant-coin',t({en:'Player 2 calls heads',fr:'Joueur 2 annonce face'}),false,'data-call="heads"')+btn('slant-coin',t({en:'Player 2 calls tails',fr:'Joueur 2 annonce pile'}),false,'data-call="tails"')
+    :g.phase==='first'
+    ?btn('slant-first',t({en:'First player · roll 2d6',fr:'Premier joueur · lancer 2d6'}),false)
+    :g.phase==='firstRolled'
+    ?btn('slant-reroll',t({en:'First player rerolls die 1',fr:'Premier joueur relance le dé 1'}),g.score[g.first]<=1,'data-i="0" data-who="first"')
+      +btn('slant-reroll',t({en:'First player rerolls die 2',fr:'Premier joueur relance le dé 2'}),g.score[g.first]<=1,'data-i="1" data-who="first"')
+      +btn('slant-reroll',t({en:'Second player forces die 1',fr:'Second joueur impose la relance du dé 1'}),sum>6||g.score[1-g.first]<=1,'data-i="0" data-who="second"')
+      +btn('slant-reroll',t({en:'Second player forces die 2',fr:'Second joueur impose la relance du dé 2'}),sum>6||g.score[1-g.first]<=1,'data-i="1" data-who="second"')
+      +(sum>6?btn('slant-end',t({en:'Conclude · first player drinks',fr:'Terminer · premier joueur boit'}),false):btn('slant-second',t({en:'Second player · roll d6',fr:'Second joueur · lancer d6'}),false))
+    :btn('slant-next',t({en:'Next round',fr:'Tour suivant'}),false);
+  const game='<section class="card cvltcard"><h2>'+t({en:'SLANTED DICE',fr:'SLANTED DICE'})+'</h2><div class="cardbody">'
+    +'<p class="cvltres">'+t({en:'Two d6 and a coin. The coin winner acts first and gains 1 slant (maximum 6). First player rolls 2d6 and needs 6 or less. Otherwise they drink. If they succeed, second player rolls d6 and needs to match or beat the total. On a tie both drink. Spend slant (minimum 1) to reroll your own die, or force the first player to reroll a good die.',fr:'Deux d6 et une pièce. Le gagnant du lancer agit en premier et gagne 1 biais (maximum 6). Il lance 2d6 et doit faire 6 ou moins ; sinon il boit. S’il réussit, le second lance d6 et doit égaler ou dépasser le total. En cas d’égalité, les deux boivent. Dépense du biais (minimum 1) pour relancer ton dé ou forcer le premier joueur à relancer un bon dé.'})+'</p>'
+    +score+'<div class="slant-result">'+(g.coin?'<div>'+t({en:'Coin:',fr:'Pièce :'})+' '+esc(g.coin)+' · '+t({en:'First:',fr:'Premier :'})+' '+(g.first+1)+'</div>':'')
+    +(v?'<div>2d6: '+v.join(' + ')+' = <b>'+sum+'</b>'+(g.second!=null?' · d6: <b>'+g.second+'</b>':'')+'</div>':'')
+    +(g.message?'<div>'+esc(g.message)+'</div>':'')+'</div><div class="slant-actions">'+actions+'</div>'
+    +'<div class="note">'+t({en:'After more than two drinks: Strength DR16 or intoxicated for one hour per extra drink, with -d4 Agility and Presence.',fr:'Après plus de deux verres : Force DR16 ou ivresse pendant une heure par verre supplémentaire, avec -d4 en Agilité et Présence.'})+'</div>'
+    +innPart(t({en:'Tavern rumor (d4)',fr:'Rumeur de taverne (d4)'}),'bloodyRumor',4,BLOODY_RUMORS,innState.bloodyRumor)
+    +'</div></section>';
+  return menu+game;
 }
 function renderInnTab(){
   const s = innState, T_=T;
@@ -5855,18 +6092,22 @@ function renderInnTab(){
   const combosHtml = '<table class="inn-combos"><tbody>'+combos.map(c=>'<tr><td>'+esc(c[0])+'</td><td>'+esc(c[1])+'</td></tr>').join('')+'</tbody></table>';
 
   return '<div class="tablescol" style="max-width:760px;margin:0 auto;width:100%;">'
-  + '<div class="inn-sign"><span class="inn-rings"><span></span><span></span></span>'
+  + '<div class="inn-venues"><button type="button" class="inn-sign'+(s.venue==='grey'?' on':'')+'" data-act="inn-venue" data-venue="grey" aria-pressed="'+(s.venue==='grey')+'"><span class="inn-rings"><span></span><span></span></span>'
     + '<div class="inn-kick">'+esc(t({en:'Welcome, wretch, to',fr:'Bienvenue, misérable, au'}))+'</div>'
     + '<div class="inn-name">The Grey<br>Galth</div>'
-    + '<div class="inn-foot">'+esc(t({en:'Inn',fr:'Auberge'}))+'</div></div>'
+    + '<div class="inn-foot">'+esc(t({en:'Inn',fr:'Auberge'}))+'</div></button>'
+    + '<button type="button" class="inn-sign'+(s.venue==='bloody'?' on':'')+'" data-act="inn-venue" data-venue="bloody" aria-pressed="'+(s.venue==='bloody')+'"><span class="inn-rings"><span></span><span></span></span>'
+    + '<div class="inn-kick">'+esc(t({en:'Tavern & Inn of Grift',fr:'Taverne & auberge de Grift'}))+'</div>'
+    + '<div class="inn-name">The Bloody<br>Cliff</div>'
+    + '<div class="inn-foot">'+esc(t({en:'Tavern',fr:'Taverne'}))+'</div></button></div>'
 
   // The Menu
-  + '<section class="card cvltcard"><h2><span>'+esc(t({en:'THE MENU',fr:'LE MENU'}))+'</span><button class="cvltrollall" data-act="inn-roll-all">'+t({en:'Roll all',fr:'Tout lancer'})+'</button></h2><div class="cardbody">'
+  + (s.venue==='bloody' ? bloodyInnCards() : '<section class="card cvltcard"><h2><span>'+esc(t({en:'THE MENU',fr:'LE MENU'}))+'</span><button class="cvltrollall" data-act="inn-roll-all">'+t({en:'Roll all',fr:'Tout lancer'})+'</button></h2><div class="cardbody">'
     + '<div class="spssub">'+esc(t({en:'Would you prefer the select menu? (4s) — d6',fr:'Préférez-vous le menu de choix ? (4p) — d6'}))+'</div>'
     + innPart(t({en:'Select dish',fr:'Plat de choix'}),'menuSel',6,T_.innMenuSelect,s.menuSel)
     + '<div class="spssub">'+esc(t({en:'Ah, I see, you lack funds. (2s) — d6',fr:'Ah, je vois, vous manquez de fonds. (2p) — d6'}))+'</div>'
     + innPart(t({en:'Pauper dish',fr:'Plat de gueux'}),'menuPoor',6,T_.innMenuPoor,s.menuPoor)
-  + '</div></section>'
+  + '</div></section>')
 
   // The Inn (twitch, patrons, souls)
   + '<section class="card cvltcard"><h2><span>'+esc(t({en:'THE HOUSE & ITS WRETCHES',fr:'LA MAISON & SES MISÉRABLES'}))+'</span></h2><div class="cardbody">'
@@ -5890,7 +6131,7 @@ function renderInnTab(){
   + '</div></section>'
 
   // Three Dead Skulls
-  + '<section class="card cvltcard"><h2><span>'+esc(t({en:'THREE DEAD SKULLS',fr:'TROIS CRÂNES MORTS'}))+'</span><button class="cvltrollall" data-act="tds-roll">'+t({en:'Roll 3 skulls',fr:'Lancer 3 crânes'})+'</button></h2><div class="cardbody">'
+  + (s.venue==='grey' ? '<section class="card cvltcard"><h2><span>'+esc(t({en:'THREE DEAD SKULLS',fr:'TROIS CRÂNES MORTS'}))+'</span><button class="cvltrollall" data-act="tds-roll">'+t({en:'Roll 3 skulls',fr:'Lancer 3 crânes'})+'</button></h2><div class="cardbody">'
     + '<p style="font-size:12px;color:var(--muted);margin:0 0 10px;">'+esc(t({en:'d4 gambling dregs want to play. Bet a minimum of d6×10 silver, roll 3d6 and score a winning combination — or lose your bet.',fr:'d4 gueux parieurs veulent jouer. Mise au minimum d6×10 en argent, lance 3d6 et réalise une combinaison gagnante — ou perds ta mise.'}))+'</p>'
     + '<div class="tds-betrow"><span class="cvltlabel">'+esc(t({en:'Bet',fr:'Mise'}))+'</span>'
       + '<input type="number" min="0" data-act="tds-bet" placeholder="0" value="'+(tds.bet!==''&&tds.bet!=null?tds.bet:'')+'">'
@@ -5912,7 +6153,7 @@ function renderInnTab(){
     + '<div class="cvltpart"><div class="cvltlabel">'+esc(t({en:'Gambling Dreg',fr:'Gueux Parieur'}))+'</div><div class="inn-statline"><b>HP</b> 5 · <b>'+esc(t({en:'Morale',fr:'Moral'}))+'</b> 7 · '+esc(t({en:'Layers of rags',fr:'Couches de haillons'}))+' −d2 · '+esc(t({en:'Dull knife',fr:'Couteau émoussé'}))+' d2 ('+esc(t({en:'one has a Sword d6',fr:'l\'un a une Épée d6'}))+')</div></div>'
     + '<div class="cvltpart"><div class="cvltlabel">'+esc(t({en:'Hardy Tame Rat',fr:'Rat Apprivoisé Coriace'}))+'</div><div class="inn-statline"><b>HP</b> 3 · <b>'+esc(t({en:'Morale',fr:'Moral'}))+'</b> −* · '+esc(t({en:'Shaggy fur',fr:'Pelage hirsute'}))+' −d2 · '+esc(t({en:'Bite',fr:'Morsure'}))+' d4 ('+esc(t({en:'1-in-6 chance of biting the carotid, instantly fatal',fr:'1 chance sur 6 de mordre la carotide, instantanément fatal'}))+')</div>'
       + '<div class="note">'+esc(t({en:'*Unreliable animal that only obeys if fed ½ a day\'s food daily. Each feeding, 1-in-6 chance it leaves — it feels it could do better elsewhere.',fr:'*Animal peu fiable qui n\'obéit que nourri d\'une ½ ration par jour. À chaque repas, 1 chance sur 6 qu\'il parte — il sent qu\'il pourrait faire mieux ailleurs.'}))+'</div></div>'
-  + '</div></section>'
+  + '</div></section>' : '')
   + '</div>';
 }
 /* ===== END INN TAB ===== */
@@ -6407,12 +6648,130 @@ function initHuntingDelegation(){
 }
 /* ===== END HUNTING TAB ===== */
 
+/* ===== RULERS OF GRIFT ===== */
+const RULER_RISE=[
+  {en:'Bloody and violent',fr:'Sanglante et violente',stat:'judgment',mod:1},
+  {en:'Via scheming and whispers',fr:'Par complots et chuchotements',stat:'authority',mod:2},
+  {en:'An accident',fr:'Un accident',stat:'luck',mod:2},
+  {en:'“Divine” ordination',fr:'Ordination « divine »',stat:'luck',mod:1},
+  {en:'Purchased with bribes',fr:'Achetée par des pots-de-vin',stat:'wealth',mod:2},
+  {en:'Demanded by the people',fr:'Demandée par le peuple',stat:'wealth',mod:1},
+  {en:'After a grand speech',fr:'Après un grand discours',stat:'authority',mod:1},
+  {en:'You took control and nobody argued',fr:'Tu as pris le pouvoir sans opposition',stat:'judgment',mod:2}
+];
+const RULER_DELEGATION=[
+  {en:'Sycophants',fr:'Flagorneurs',stat:'authority',mod:-2},
+  {en:'Power-hungry denigrates',fr:'Calomniateurs avides de pouvoir',stat:'luck',mod:-1},
+  {en:'Bloodthirsty killers',fr:'Tueurs sanguinaires',stat:'judgment',mod:-1},
+  {en:'Idiots',fr:'Idiots',stat:'judgment',mod:-2},
+  {en:'Self-righteous extremists',fr:'Extrémistes moralisateurs',stat:'luck',mod:-2},
+  {en:'Timid followers',fr:'Partisans timorés',stat:'authority',mod:-1},
+  {en:'Confused commoners',fr:'Roturiers désorientés',stat:'wealth',mod:-1},
+  {en:'Thieves',fr:'Voleurs',stat:'wealth',mod:-2}
+];
+const RULER_EVENTS=[
+  [
+    {en:'Plague! Test Judgment or Luck DR6. Success: population +1 tier. Failure: the city is lost.',fr:'Peste ! Teste Jugement ou Chance DR6. Réussite : population +1 niveau. Échec : cité perdue.'},
+    {en:'Something is eating people. Test Authority or Judgment DR8, or Uprising +1.',fr:'Quelque chose dévore les gens. Teste Autorité ou Jugement DR8, sinon Révolte +1.'},
+    {en:'Good news! Roll on the Luck track.',fr:'Bonne nouvelle ! Lance sur la piste de Chance.'},
+    {en:'A nearby village asks for aid. Test Wealth DR8 and roll on Wealth, or Usurper +1.',fr:'Un village voisin demande de l’aide. Teste Richesse DR8 puis lance sur Richesse, sinon Usurpateur +1.'}
+  ],[
+    {en:'Galgenbeck sends an armed force. Test Wealth or Luck DR12, then roll on that track.',fr:'Galgenbeck envoie une force armée. Teste Richesse ou Chance DR12, puis lance sur cette piste.'},
+    {en:'The people are starving. Test Authority or Luck DR12, or population -1 tier and Uprising +1.',fr:'Le peuple a faim. Teste Autorité ou Chance DR12, sinon population -1 niveau et Révolte +1.'},
+    {en:'A rumored curse grips the city. Test Luck or Authority DR12, or Uprising +1.',fr:'Une prétendue malédiction effraie la cité. Teste Chance ou Autorité DR12, sinon Révolte +1.'},
+    {en:'Good news! Roll on Luck and Wealth; population +2 tiers.',fr:'Bonne nouvelle ! Lance sur Chance et Richesse ; population +2 niveaux.'}
+  ],[
+    {en:'Prowlers try to take the city. Test Judgment or Wealth DR12, or population -1 tier.',fr:'Des rôdeurs veulent prendre la cité. Teste Jugement ou Richesse DR12, sinon population -1 niveau.'},
+    {en:'You have been poisoned. Test Judgment DR14. Success: Authority +2. Failure: Usurper +2.',fr:'Tu as été empoisonné. Teste Jugement DR14. Réussite : Autorité +2. Échec : Usurpateur +2.'},
+    {en:'Wickheads attack merchants. Test Authority DR14, or Wealth track -3.',fr:'Des têtes-de-mèche attaquent les marchands. Teste Autorité DR14, sinon piste de Richesse -3.'},
+    {en:'A prophet preaches your downfall. Test Authority or Luck DR12, or Uprising +2 and Usurper +2.',fr:'Un prophète annonce ta chute. Teste Autorité ou Chance DR12, sinon Révolte +2 et Usurpateur +2.'}
+  ],[
+    {en:'An assassin lurks in your circle. Test Judgment DR12, or Usurper +2.',fr:'Un assassin est dans ton entourage. Teste Jugement DR12, sinon Usurpateur +2.'},
+    {en:'The people question your rule. Test Luck DR12, or Uprising +3.',fr:'Le peuple conteste ton règne. Teste Chance DR12, sinon Révolte +3.'},
+    {en:'Acid rain destroys part of the city. Test Wealth DR12, or population -1 tier.',fr:'Une pluie acide détruit la cité. Teste Richesse DR12, sinon population -1 niveau.'},
+    {en:'King Fathmu IX threatens war. Test Authority DR12, or population -2 tiers.',fr:'Le roi Fathmu IX menace de guerre. Teste Autorité DR12, sinon population -2 niveaux.'}
+  ],[
+    {en:'Good news! Roll on the Luck track.',fr:'Bonne nouvelle ! Lance sur la piste de Chance.'},
+    {en:'The city thrives! Roll on the Wealth track.',fr:'La cité prospère ! Lance sur la piste de Richesse.'},
+    {en:'The dead rise and feast. Test Judgment DR18, or population -4 tiers.',fr:'Les morts se relèvent et dévorent les vivants. Teste Jugement DR18, sinon population -4 niveaux.'},
+    {en:'A rival royal army claims the city. Test Authority DR18, or max out the Usurper track.',fr:'Une armée royale rivale revendique la cité. Teste Autorité DR18, sinon Usurpateur au maximum.'}
+  ]
+];
+const RULER_TRACKS={
+  luck:[
+    {en:'Each PC gains 1 additional Omen.',fr:'Chaque PJ gagne 1 Présage supplémentaire.'},
+    {en:'Perform one fewer event this session (minimum 0).',fr:'Un événement de moins cette session (minimum 0).'},
+    {en:'Each PC gains 2 additional Omens.',fr:'Chaque PJ gagne 2 Présages supplémentaires.'},
+    {en:'Your delegation praises you: Judgment +2.',fr:'La délégation te félicite : Jugement +2.'},
+    {en:'The people are happier: Uprising -4.',fr:'Le peuple est plus heureux : Révolte -4.'},
+    {en:'The opposition dies: Usurper -4.',fr:'L’opposition meurt : Usurpateur -4.'},
+    {en:'You find an ancient sceptre: Authority +2.',fr:'Tu trouves un sceptre ancien : Autorité +2.'},
+    {en:'Each PC gains 4 additional Omens.',fr:'Chaque PJ gagne 4 Présages supplémentaires.'}
+  ],wealth:[
+    {en:'Each PC gains 1 serving of dried food each session.',fr:'Chaque PJ gagne 1 ration séchée par session.'},
+    {en:'Each PC gains 10s at the start of each session.',fr:'Chaque PJ gagne 10a au début de chaque session.'},
+    {en:'Each PC gains any one equipment item from MÖRK BORG p.25.',fr:'Chaque PJ gagne un objet d’équipement de MÖRK BORG p.25.'},
+    {en:'Each PC gains any one weapon from MÖRK BORG p.25.',fr:'Chaque PJ gagne une arme de MÖRK BORG p.25.'},
+    {en:'Each PC gains 30s at the start of each session.',fr:'Chaque PJ gagne 30a au début de chaque session.'},
+    {en:'Services from MÖRK BORG p.25 are free.',fr:'Les services de MÖRK BORG p.25 sont gratuits.'},
+    {en:'Each PC gains 50s at the start of each session.',fr:'Chaque PJ gagne 50a au début de chaque session.'},
+    {en:'Each PC gains 100s at the start of each session.',fr:'Chaque PJ gagne 100a au début de chaque session.'}
+  ],usurper:[
+    {en:'No real threats to your rule.',fr:'Aucune menace réelle pour ton règne.'},
+    {en:'The delegation speaks of new rule: Judgment -1.',fr:'La délégation parle d’un nouveau règne : Jugement -1.'},
+    {en:'Prowlers pillage: Wealth track -3.',fr:'Les rôdeurs pillent : piste de Richesse -3.'},
+    {en:'Your royal guards are murdered: Authority -1.',fr:'Tes gardes royaux sont assassinés : Autorité -1.'},
+    {en:'An army camps nearby: Authority -2.',fr:'Une armée campe à proximité : Autorité -2.'},
+    {en:'Your statue is destroyed: Uprising +2.',fr:'Ta statue est détruite : Révolte +2.'},
+    {en:'A powerful leader challenges your right to rule.',fr:'Un chef puissant conteste ton droit de régner.'}
+  ],uprising:[
+    {en:'People are content. Perform 1 event per session.',fr:'Le peuple est satisfait. 1 événement par session.'},
+    {en:'People demand action. Perform 1 extra event per session.',fr:'Le peuple exige des actes. 1 événement de plus par session.'},
+    {en:'Unrest: Wealth track -1.',fr:'Agitation : piste de Richesse -1.'},
+    {en:'Open protest: Authority -1.',fr:'Protestation ouverte : Autorité -1.'},
+    {en:'Assassination attempt: all PCs gain an infection.',fr:'Tentative d’assassinat : tous les PJ gagnent une infection.'},
+    {en:'A mob forms: Luck -3.',fr:'Une foule se forme : Chance -3.'},
+    {en:'Starved, weak people rise up. Death.',fr:'Le peuple affamé se soulève. Mort.'}
+  ]
+};
+function rulersDefault(){return {rise:[],delegation:[],attrs:{authority:0,judgment:0,luck:0,wealth:0},tracks:{luck:0,wealth:0,usurper:0,uprising:0},population:1,event:null,trackRoll:{luck:null,wealth:null}};}
+function rulersLoad(){try{return Object.assign(rulersDefault(),JSON.parse(localStorage.getItem('mbRulers'))||{});}catch(e){return rulersDefault();}}
+let rulersState=rulersLoad();
+function rulersSave(){localStorage.setItem('mbRulers',JSON.stringify(rulersState));}
+function rulersGenerate(){
+  const s=rulersState=rulersDefault();
+  s.rise=Array.from({length:4},()=>rollDie(8));s.delegation=Array.from({length:2},()=>rollDie(8));
+  s.rise.forEach(v=>{const x=RULER_RISE[v-1];s.attrs[x.stat]+=x.mod;});
+  s.delegation.forEach(v=>{const x=RULER_DELEGATION[v-1];s.attrs[x.stat]+=x.mod;});
+  s.tracks.luck=clamp(s.attrs.luck,0,8);s.tracks.wealth=clamp(s.attrs.wealth,0,8);rulersSave();
+}
+function renderRulersTab(){
+  const s=rulersState, names={authority:{en:'Authority',fr:'Autorité'},judgment:{en:'Judgment',fr:'Jugement'},luck:{en:'Luck',fr:'Chance'},wealth:{en:'Wealth',fr:'Richesse'},usurper:{en:'Usurper',fr:'Usurpateur'},uprising:{en:'Uprising',fr:'Révolte'}};
+  const item=(v,arr)=>'<li>'+v+'. '+esc(t(arr[v-1]))+'</li>';
+  const adjust=(kind,key,val,min,max)=>'<div class="ruler-actions"><button data-act="ruler-adjust" data-kind="'+kind+'" data-key="'+key+'" data-delta="-1" '+(val<=min?'disabled':'')+'>−</button><strong>'+val+'</strong><button data-act="ruler-adjust" data-kind="'+kind+'" data-key="'+key+'" data-delta="1" '+(val>=max?'disabled':'')+'>+</button></div>';
+  const attrRows=Object.keys(s.attrs).map(k=>'<div class="ruler-row"><b>'+t(names[k])+'</b>'+adjust('attrs',k,s.attrs[k],-6,8)+'</div>').join('');
+  const trackRows=Object.keys(s.tracks).map(k=>'<div class="ruler-row"><b>'+t(names[k])+'</b>'+adjust('tracks',k,s.tracks[k],0,k==='luck'||k==='wealth'?8:6)+'</div>').join('');
+  const pop=[0,30,60,80,100,130][s.population];
+  const genesis=(list,arr)=>list.length?'<ol class="ruler-track-list">'+list.map(v=>'<li>'+v+'. '+esc(t(arr[v-1]))+' — '+t(names[arr[v-1].stat])+' '+(arr[v-1].mod>0?'+':'')+arr[v-1].mod+'</li>').join('')+'</ol>':'<span class="sub">…</span>';
+  const track=(key)=>{const a=RULER_TRACKS[key],val=s.tracks[key],roll=s.trackRoll[key];return '<section class="card cvltcard"><h2><span>'+t(names[key])+' · d8</span><button class="cvltrollall" data-act="ruler-track-roll" data-key="'+key+'">'+t({en:'Roll',fr:'Lancer'})+'</button></h2><div class="cardbody">'
+    +(roll!=null?'<div class="ruler-event">d8: '+roll+' — '+(roll<=val?esc(t(a[roll-1])):t({en:'Above track position: no effect.',fr:'Au-dessus de la piste : aucun effet.'}))+'</div>':'')
+    +'<ol class="ruler-track-list">'+a.map((x,i)=>'<li class="'+(i+1===roll?'active':'')+'">'+(i+1)+'. '+esc(t(x))+'</li>').join('')+'</ol></div></section>';};
+  const progress=(key)=>'<section class="card cvltcard"><h2>'+t(names[key])+'</h2><div class="cardbody"><ol class="ruler-track-list">'+RULER_TRACKS[key].map((x,i)=>'<li class="'+(i===s.tracks[key]?'active':'')+'">'+i+'. '+esc(t(x))+'</li>').join('')+'</ol></div></section>';
+  return '<div class="ruler-wrap"><div class="ruler-head"><h1>Rulers of Grift</h1><p class="sub">'+t({en:'Rule the dying city between sessions.',fr:'Gouverne la cité mourante entre les sessions.'})+'</p></div><div class="ruler-grid">'
+    +'<section class="card cvltcard"><h2><span>'+t({en:'Rise & Delegation',fr:'Ascension et délégation'})+'</span><button class="cvltrollall" data-act="ruler-generate">'+t({en:'Roll 4d8 + 2d8',fr:'Lancer 4d8 + 2d8'})+'</button></h2><div class="cardbody"><div class="cvltlabel">'+t({en:'Rise to power · 4d8',fr:'Ascension · 4d8'})+'</div>'+genesis(s.rise,RULER_RISE)+'<div class="cvltlabel" style="margin-top:12px;">'+t({en:'Delegation · 2d8',fr:'Délégation · 2d8'})+'</div>'+genesis(s.delegation,RULER_DELEGATION)+'</div></section>'
+    +'<section class="card cvltcard"><h2>'+t({en:'The City',fr:'La cité'})+'</h2><div class="cardbody">'+attrRows+'<div class="note">'+t({en:'Use these as modifiers on d20 tests. Omens may reroll, shift a die by one face, or shift a track by one position.',fr:'Utilise ces modificateurs aux tests d20. Un Présage permet une relance, un décalage d’une face ou le déplacement d’une piste d’une case.'})+'</div>'+trackRows+'</div></section>'
+    +'<section class="card cvltcard"><h2><span>'+t({en:'Population & Events',fr:'Population et événements'})+'</span><button class="cvltrollall" data-act="ruler-event-roll">'+t({en:'Roll d4',fr:'Lancer d4'})+'</button></h2><div class="cardbody"><div class="ruler-row"><b>'+t({en:'Population per sq. mile',fr:'Population par mille²'})+': '+pop+'</b>'+adjust('population','population',s.population,0,5)+'</div>'
+    +'<div class="note">'+t({en:'One event per session; Uprising 1+ adds another. At population 0 or if overthrown, the city is lost.',fr:'Un événement par session ; Révolte à 1 ou plus en ajoute un. À population 0 ou en cas de renversement, la cité est perdue.'})+'</div>'
+    +(s.event!=null&&s.population>0?'<div class="ruler-event"><b>d4: '+s.event+'</b> — '+esc(t(RULER_EVENTS[s.population-1][s.event-1]))+'</div>':'')+'</div></section>'
+    +progress('usurper')+progress('uprising')+track('luck')+track('wealth')+'</div></div>';
+}
 function renderTables(){
   const grid=document.getElementById('tablesgrid'); if(!grid) return;
   const tabsEl=document.getElementById('tablestabs');
-  if(tabsEl){ const tabLabels={oracle:{en:'Oracle',fr:'Oracle'},loot:{en:'Loot',fr:'Butin'},cvlt:{en:'Cvlt',fr:'Cvlte'},cvrse:{en:'Cvrse',fr:'Malédiction'},dvngeon:{en:'Dvngeon',fr:'Cachot'},roads:{en:'Roads',fr:'Routes'},hunting:{en:'Hunting',fr:'Chasse'},inn:{en:'Inn',fr:'Auberge'},daemon:{en:'Daemon',fr:'Démon'},monster:{en:'Monster',fr:'Monstre'},misery:{en:'Miseries',fr:'Misères'}}; tabsEl.innerHTML=['oracle','loot','cvlt','cvrse','dvngeon','roads','hunting','inn','daemon','monster','misery'].map(tb=>'<button class="tab'+(tablesTab===tb?' on':'')+'"'+(tb==='misery'?' style="color:var(--red);border-color:var(--red);"':'')+' data-act="tables-tab" data-tab="'+tb+'">'+t(tabLabels[tb])+'</button>').join(''); }
+  if(tabsEl){ const tabLabels={oracle:{en:'Oracle',fr:'Oracle'},loot:{en:'Loot',fr:'Butin'},cvlt:{en:'Cvlt',fr:'Cvlte'},cvrse:{en:'Cvrse',fr:'Malédiction'},dvngeon:{en:'Dvngeon',fr:'Cachot'},roads:{en:'Roads',fr:'Routes'},hunting:{en:'Hunting',fr:'Chasse'},inn:{en:'Inn',fr:'Auberge'},daemon:{en:'Daemon',fr:'Démon'},monster:{en:'Monster',fr:'Monstre'},rulers:{en:'Rulers',fr:'Souverains'},misery:{en:'Miseries',fr:'Misères'}}; tabsEl.innerHTML=['oracle','loot','cvlt','cvrse','dvngeon','roads','hunting','inn','daemon','monster','rulers','misery'].map(tb=>'<button class="tab'+(tablesTab===tb?' on':'')+'"'+(tb==='misery'?' style="color:var(--red);border-color:var(--red);"':'')+' data-act="tables-tab" data-tab="'+tb+'">'+t(tabLabels[tb])+'</button>').join(''); }
   grid.classList.toggle('loot-grouped', tablesTab==='loot');
   if(tablesTab==='misery'){ grid.innerHTML=renderMiseryCalendar(); return; }
+  if(tablesTab==='rulers'){ grid.innerHTML=renderRulersTab(); return; }
   if(tablesTab==='inn'){ grid.innerHTML=renderInnTab(); return; }
   if(tablesTab==='daemon'){ grid.innerHTML=renderDaemonTab(); return; }
   if(tablesTab==='monster'){ if(!monsterState.a) monsterRollAll(); grid.innerHTML=renderMonsterTab(); return; }
@@ -6429,11 +6788,11 @@ function renderTables(){
     grid.innerHTML=groups.map(g=>{
       const gcats=allLoot.filter(c=>c.lootGroup===g.key);
       if(!gcats.length) return '';
-      return '<div class="loot-group"><h3 class="loot-group-h">'+esc(t(g.label))+'<span class="loot-group-sub">'+esc(t(g.sub))+'</span></h3><div class="loot-group-inner">'+buildCatCols(gcats, gcats.length)+'</div></div>';
+      return '<div class="loot-group"><h3 class="loot-group-h">'+esc(t(g.label))+'<span class="loot-group-sub">'+esc(t(g.sub))+'</span></h3><div class="loot-group-inner">'+buildCatCols(gcats, gcats.length)+(g.key==='base'?renderBoxJunk():'')+'</div></div>';
     }).join('');
     return;
   }
-  grid.innerHTML=buildCatCols(oracleCats().filter(cat=>(cat.tab||'oracle')===tablesTab));
+  grid.innerHTML=buildCatCols(oracleCats().filter(cat=>(cat.tab||'oracle')===tablesTab))+(tablesTab==='oracle'?renderBoxTraps():'');
 }
 function buildCatCols(cats, maxCols){
   const nCols=Math.max(1, Math.min(maxCols||3, Math.floor(Math.min(1232, window.innerWidth-48)/360)));
@@ -6562,10 +6921,51 @@ function onClick(e){
     d.dvnRooms=d.dvnRooms||[]; d.dvnRooms[ri]=genOneRoom(); renderTables();
   }
   else if(act==='oracle-roll'){ const tid=actEl.dataset.table, m=ORACLE_BY_ID[tid]; if(!m||!m.table) return; oracle[tid]=oracle[tid]||{}; oracle[tid][key]= m.tens ? (rollDie(m.tens)*10+rollDie(m.units)) : rollDie(m.sides); animQ.push(['oracle:'+tid,key]); renderTables(); flushAnim(); }
+  else if(act==='box-junk-all'){ boxRollJunk(); renderTables(); }
+  else if(act==='box-junk-die'){ const k=actEl.dataset.key; if(k in boxJunkState){boxJunkState[k]=rollDie(20);renderTables();} }
+  else if(act==='box-trap-all'){ boxRollTrap(); renderTables(); }
+  else if(act==='box-trap-die'){ const k=actEl.dataset.key; if(k in boxTrapState){boxTrapState[k]=rollDie(k==='disarm'?6:20);renderTables();} }
+  else if(act==='ruler-generate'){ rulersGenerate(); renderTables(); }
+  else if(act==='ruler-adjust'){
+    const kind=actEl.dataset.kind,key=actEl.dataset.key,delta=+actEl.dataset.delta,s=rulersState;
+    if(kind==='population'){ s.population=clamp(s.population+delta,0,5); s.event=null; }
+    else if((kind==='attrs'||kind==='tracks')&&key in s[kind]) s[kind][key]=clamp(s[kind][key]+delta,kind==='attrs'?-6:0,kind==='attrs'?8:(key==='luck'||key==='wealth'?8:6));
+    rulersSave();renderTables();
+  }
+  else if(act==='ruler-event-roll'){ if(rulersState.population>0){rulersState.event=rollDie(4);rulersSave();renderTables();} }
+  else if(act==='ruler-track-roll'){ const k=actEl.dataset.key;if(k==='luck'||k==='wealth'){rulersState.trackRoll[k]=rollDie(8);rulersSave();renderTables();} }
   else if(act==='oracle-toggle'){ const tid=actEl.dataset.table, m=ORACLE_BY_ID[tid]; oracleOpen[tid]=!oracleOpen[tid]; if(oracleOpen[tid] && m && m.table && !(oracle[tid]&&oracle[tid].main!=null)){ oracle[tid]=oracle[tid]||{}; oracle[tid].main= m.tens ? (rollDie(m.tens)*10+rollDie(m.units)) : rollDie(m.sides); animQ.push(['oracle:'+tid,'main']); } renderTables(); flushAnim(); }
   else if(act==='mon-roll-all'){ monsterRollAll(); renderTables(); }
   else if(act==='mon-roll'){ const k=actEl.dataset.key, sides=+actEl.dataset.sides; monsterState[k]=rollDie(sides); renderTables(); }
+  else if(act==='inn-venue'){ innState.venue=actEl.dataset.venue==='bloody'?'bloody':'grey'; renderTables(); }
   else if(act==='inn-roll-all'){ innRollAll(); renderTables(); }
+  else if(act==='slant-coin'){
+    const g=innState.slant; if(g.phase!=='coin') return;
+    g.coin=rollDie(2)===1?'heads':'tails'; g.first=g.coin===actEl.dataset.call?1:0; g.score[g.first]=Math.min(6,g.score[g.first]+1);
+    g.phase='first'; g.round++; g.message=t({en:'Coin winner: player ',fr:'Gagnant de la pièce : joueur '})+(g.first+1); renderTables();
+  }
+  else if(act==='slant-first'){
+    const g=innState.slant; if(g.phase!=='first') return;
+    g.dice=[rollDie(6),rollDie(6)]; g.second=null; g.phase='firstRolled'; g.message=''; renderTables();
+  }
+  else if(act==='slant-reroll'){
+    const g=innState.slant; if(g.phase!=='firstRolled'||!g.dice) return;
+    const who=actEl.dataset.who==='first'?g.first:1-g.first, i=+actEl.dataset.i;
+    if(g.score[who]<=1||i<0||i>1||(who!==g.first&&g.dice[0]+g.dice[1]>6)) return;
+    g.score[who]--; g.dice[i]=rollDie(6); renderTables();
+  }
+  else if(act==='slant-end'){
+    const g=innState.slant; if(g.phase!=='firstRolled'||!g.dice||g.dice[0]+g.dice[1]<=6) return;
+    g.drinks[g.first]++; g.message=t({en:'Player ',fr:'Le joueur '})+(g.first+1)+t({en:' drinks.',fr:' boit.'}); g.phase='end'; renderTables();
+  }
+  else if(act==='slant-second'){
+    const g=innState.slant; if(g.phase!=='firstRolled'||!g.dice||g.dice[0]+g.dice[1]>6) return;
+    g.second=rollDie(6); const total=g.dice[0]+g.dice[1];
+    if(g.second===total){g.drinks[0]++;g.drinks[1]++;g.message=t({en:'Tie: both drink.',fr:'Égalité : les deux boivent.'});}
+    else {const loser=g.second>total?g.first:1-g.first;g.drinks[loser]++;g.message=t({en:'Player ',fr:'Le joueur '})+(loser+1)+t({en:' drinks.',fr:' boit.'});}
+    g.phase='end'; renderTables();
+  }
+  else if(act==='slant-next'){ const g=innState.slant; if(g.phase!=='end') return; g.phase='coin';g.coin=null;g.first=null;g.dice=null;g.second=null;g.message='';renderTables(); }
   else if(act==='npc-roll-all'){ innState.npcNA=rollDie(6); innState.npcNB=rollDie(6); innState.npcTA=rollDie(6); innState.npcTB=rollDie(6); innState.npcDA=rollDie(6); innState.npcDB=rollDie(6); innState.npcConcern=rollDie(12); innState.npcWants=rollDie(12); innState.npcReally=rollDie(20); innState.npcApoc=rollDie(4); renderTables(); }
   else if(act==='dae-rank'){ daemonState.rank=actEl.dataset.rank; daemonState.hp=null; renderTables(); }
   else if(act==='dae-roll'){ const k=actEl.dataset.key, sides=+actEl.dataset.sides; daemonState[k]=rollDie(sides); renderTables(); }
@@ -6634,6 +7034,8 @@ function onChange(e){
   }
   if(el.dataset && el.dataset.act==='setdie'){ setDie(fieldFor(el.dataset.field), el.dataset.key, el.value); render(); return; }
   if(el.dataset && el.dataset.act==='oracle-set'){ const tid=el.dataset.table, k=el.dataset.key, m=ORACLE_BY_ID[tid], v=parseInt(el.value,10); if(!isNaN(v)){ oracle[tid]=oracle[tid]||{}; oracle[tid][k]=clamp(v,1,m.sides); renderTables(); } return; }
+  if(el.dataset && el.dataset.act==='box-junk-die-set'){ const k=el.dataset.key,v=parseInt(el.value,10);if(k in boxJunkState&&v>=1&&v<=20){boxJunkState[k]=v;renderTables();}return; }
+  if(el.dataset && el.dataset.act==='box-trap-die-set'){ const k=el.dataset.key,v=parseInt(el.value,10),max=k==='disarm'?6:20;if(k in boxTrapState&&v>=1&&v<=max){boxTrapState[k]=v;renderTables();}return; }
   if(el.dataset && el.dataset.act==='mon-set'){ const k=el.dataset.key, sides=+el.dataset.sides, v=parseInt(el.value,10); if(!isNaN(v)&&v>=1&&v<=sides){ monsterState[k]=v; renderTables(); } return; }
   if(el.dataset && el.dataset.act==='inn-set'){ const k=el.dataset.key, sides=+el.dataset.sides, v=parseInt(el.value,10); if(!isNaN(v)&&v>=1&&v<=sides){ innState[k]=v; renderTables(); } return; }
   if(el.dataset && el.dataset.act==='tds-bet'){ const v=parseInt(el.value,10); innState.tds.bet=(isNaN(v)||v<0)?'':v; renderTables(); return; }
